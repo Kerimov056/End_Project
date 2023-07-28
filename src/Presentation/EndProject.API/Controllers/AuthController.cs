@@ -13,7 +13,7 @@ namespace EndProject.API.Controllersş
         public AuthController(IAuthService authService) => _authService = authService;
 
 
-        [HttpPost("Register")]
+        [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDTO registerDTO)
         {
             await _authService.Register(registerDTO);
