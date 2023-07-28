@@ -11,8 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Abstraction\Repositories\IEntityRepository\" />
     <Folder Include="Abstraction\Services\" />
-    <Folder Include="Abstraction\Repositories\" />
     <Folder Include="DTOs\" />
     <Folder Include="Validators\" />
   </ItemGroup>
