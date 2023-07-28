@@ -75,13 +75,37 @@ public class StorageFile : IStorageFile
         return uploadFiles;
     }
 
-    public Task<string> UploadFileAsync(string pathOrContainerName, byte[] fileData, string fileName)
+    public async Task<string> UploadFileAsync(string pathOrContainerName, byte[] fileData, string fileName)
     {
-        throw new NotImplementedException();
+        string filePath = Path.Combine(pathOrContainerName, fileName);
+
+        using (var fileStream = new FileStream(filePath, FileMode.Create))
+        {
+            await fileStream.WriteAsync(fileData, 0, fileData.Length);
+        }
+
+        return filePath;
     }
 
-    public Task<string> WriteFile(string pathOrContainerName, IFormFile file)
+    public async Task<string> WriteFile(string pathOrContainerName, IFormFile file)
     {
-        throw new NotImplementedException();
+        string filename = "";
+        var extension = "." + file.FileName.Split(".")[file.FileName.Split('.').Length - 1];
+        filename = DateTime.Now.Ticks.ToString() + extension;
+
+        var filepath = Path.Combine(Directory.GetCurrentDirectory(), pathOrContainerName);
+
+        if (!Directory.Exists(filepath))
+        {
+            Directory.CreateDirectory(filepath);
+        }
+
+        var exactpath = Path.Combine(Directory.GetCurrentDirectory(), pathOrContainerName, filename);
+        using (var stream = new FileStream(exactpath, FileMode.Create))
+        {
+            await file.CopyToAsync(stream);
+        }
+
+        return filename;
     }
 }
