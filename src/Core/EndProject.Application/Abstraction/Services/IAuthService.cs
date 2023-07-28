@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using EndProject.Application.DTOs;
 
-namespace EndProject.Application.Abstraction.Services
+namespace EndProject.Application.Abstraction.Services;
+
+public interface IAuthService
 {
-    internal class IAuthService
-    {
-    }
+    Task Register(RegisterDTO registerDTO);
+    Task<TokenResponseDTO> Login(LoginDTO loginDTO);
+    Task<TokenResponseDTO> ValidRefleshToken(string refreshToken);
 }
