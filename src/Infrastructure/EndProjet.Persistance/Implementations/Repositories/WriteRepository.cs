@@ -3,7 +3,7 @@ using EndProject.Domain.Entitys.Common;
 using EndProjet.Persistance.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace EndProjet.Persistance.Implementations;
+namespace EndProjet.Persistance.Implementations.Repositories;
 
 public class WriteRepository<T> : IWriteRepository<T> where T : BaseEntity, new()
 {
@@ -21,5 +21,4 @@ public class WriteRepository<T> : IWriteRepository<T> where T : BaseEntity, new(
     public void Update(T entity) => Table.Update(entity);
 
     public async Task SavaChangeAsync() => await _context.SaveChangesAsync();
-
 }

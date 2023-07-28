@@ -4,7 +4,7 @@ using EndProjet.Persistance.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace EndProjet.Persistance.Implementations;
+namespace EndProjet.Persistance.Implementations.Repositories;
 
 public class ReadRepository<T> : IReadRepository<T> where T : BaseEntity, new()
 {
@@ -24,7 +24,7 @@ public class ReadRepository<T> : IReadRepository<T> where T : BaseEntity, new()
 
     public IQueryable<T> GetAllExpression(Expression<Func<T, bool>> expression, int Skip, int Take, bool IsTracking = true, params string[] inculdes)
     {
-       var query = Table.Where(expression).Skip(Skip).Take(Take).AsQueryable();
+        var query = Table.Where(expression).Skip(Skip).Take(Take).AsQueryable();
         foreach (var inculde in inculdes)
         {
             query = query.Include(inculde);
