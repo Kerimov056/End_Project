@@ -96,16 +96,26 @@ public class AuthService : IAuthService
         }
     }
 
-    //public async Task<TokenResponseDTO> ValidRefleshToken(string refreshToken)
-    //{
-    //    if (refreshToken is null)
-    //    {
-    //        throw new ArgumentNullException();
-    //    }
-    //    var ByUser = await _appDbContext.Users.Where(a => a.RefreshToken == refreshToken).FirstOrDefaultAsync();
-    //    if (ByUser is null)
-    //    {
-    //        throw new 
-    //    }
-    //}
+    public async Task<TokenResponseDTO> ValidRefleshToken(string refreshToken)
+    {
+        if (refreshToken is null)
+        {
+            throw new ArgumentNullException("Refresh token does not exist");
+        }
+        var ByUser = await _appDbContext.Users.Where(a => a.RefreshToken == refreshToken).FirstOrDefaultAsync();
+        if (ByUser is null)
+        {
+            throw new NotFoundException("User does Not Exist");
+        }
+        if (ByUser.RefreshTokenExpration < DateTime.UtcNow)
+        {
+            throw new ArgumentNullException("Refresh token does not exist");
+        }
+
+        var tokenResponse = await _tokenHandler.CreateAccessToken(2, 3, ByUser);
+        ByUser.RefreshToken = tokenResponse.refreshToken;
+        ByUser.RefreshTokenExpration = tokenResponse.refreshTokenExpration;
+        await _userManager.UpdateAsync(ByUser);
+        return tokenResponse;
+    }
 }
