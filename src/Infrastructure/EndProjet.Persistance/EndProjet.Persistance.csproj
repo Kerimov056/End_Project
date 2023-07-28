@@ -14,9 +14,8 @@
   <ItemGroup>
     <Folder Include="Configurations\" />
     <Folder Include="Exceptions\" />
-    <Folder Include="Implementations\EntityRepository\" />
-    <Folder Include="Interceptors\Services\" />
-    <Folder Include="Interceptors\Repositories\" />
+    <Folder Include="Implementations\Services\" />
+    <Folder Include="Implementations\Repositories\EntityRepository\" />
     <Folder Include="MapperProfiles\" />
     <Folder Include="Services\" />
   </ItemGroup>

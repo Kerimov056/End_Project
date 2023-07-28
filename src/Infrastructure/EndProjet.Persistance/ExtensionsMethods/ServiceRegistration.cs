@@ -1,4 +1,6 @@
-﻿using EndProjet.Persistance.Context;
+﻿using EndProject.Application.Abstraction.Repositories;
+using EndProjet.Persistance.Context;
+using EndProjet.Persistance.Implementations.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,5 +15,7 @@ public static class ServiceRegistration
         {
             options.UseSqlServer(services.BuildServiceProvider().GetService<IConfiguration>().GetConnectionString("Default"));
         });
+
+        //Repository
     }
 }
