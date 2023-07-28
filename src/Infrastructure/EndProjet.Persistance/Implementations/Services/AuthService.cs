@@ -3,6 +3,7 @@ using EndProject.Application.DTOs;
 using EndProject.Domain.Entitys.Identity;
 using EndProject.Domain.Enums.Role;
 using EndProjet.Persistance.Context;
+using EndProjet.Persistance.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using System.Text;
@@ -55,7 +56,7 @@ public class AuthService : IAuthService
             {
                 errorMessage.AppendLine(error.Description);
             }
-            throw new Exception(errorMessage.ToString());
+            throw new RegistrationException(errorMessage.ToString());
         }
 
         var result = await _userManager.AddToRoleAsync(appUser, Role.Member.ToString());
@@ -66,7 +67,7 @@ public class AuthService : IAuthService
             {
                 errorMessage.AppendLine(error.Description);
             }
-            throw new Exception(errorMessage.ToString());
+            throw new RegistrationException(errorMessage.ToString());
         }
     }
 
