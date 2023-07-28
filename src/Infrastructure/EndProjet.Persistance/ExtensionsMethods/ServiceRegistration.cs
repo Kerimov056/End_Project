@@ -1,6 +1,8 @@
-﻿using EndProject.Application.Abstraction.Repositories;
+﻿using EndProject.Application.Abstraction.Services;
+using EndProject.Domain.Entitys.Identity;
 using EndProjet.Persistance.Context;
-using EndProjet.Persistance.Implementations.Repositories;
+using EndProjet.Persistance.Implementations.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,5 +19,25 @@ public static class ServiceRegistration
         });
 
         //Repository
+
+        //Service
+        services.AddScoped<IAuthService, AuthService>();
+
+
+
+        //User
+        services.AddIdentity<AppUser, IdentityRole>(Options =>
+        {
+            Options.User.RequireUniqueEmail = true;
+            Options.Password.RequireNonAlphanumeric = true;
+            Options.Password.RequiredLength = 8;
+            Options.Password.RequireDigit = true;
+            Options.Password.RequireUppercase = true;
+            Options.Password.RequireLowercase = true;
+
+            Options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(3);
+            Options.Lockout.MaxFailedAccessAttempts = 3;
+            Options.Lockout.AllowedForNewUsers = true;
+        }).AddDefaultTokenProviders().AddEntityFrameworkStores<AppDbContext>();
     }
 }
