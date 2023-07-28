@@ -1,0 +1,10 @@
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace EndProject.Domain.Entitys.Identity;
+
+public class AppUser:IdentityUser
+{
+    public bool IsActive { get; set; }
+    public string? FullName { get; set; }
+
+}

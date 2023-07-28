@@ -15,3 +15,5 @@ D:\work2\Asp.Net API\EndProject\src\Infrastructure\EndProject.Infrastructure\obj
 D:\work2\Asp.Net API\EndProject\src\Infrastructure\EndProject.Infrastructure\obj\Debug\net6.0\refint\EndProject.Infrastructure.dll
 D:\work2\Asp.Net API\EndProject\src\Infrastructure\EndProject.Infrastructure\obj\Debug\net6.0\EndProject.Infrastructure.pdb
 D:\work2\Asp.Net API\EndProject\src\Infrastructure\EndProject.Infrastructure\obj\Debug\net6.0\ref\EndProject.Infrastructure.dll
+D:\work2\Asp.Net API\EndProject\src\Infrastructure\EndProject.Infrastructure\bin\Debug\net6.0\EndProject.Infrastructure.runtimeconfig.json
+D:\work2\Asp.Net API\EndProject\src\Infrastructure\EndProject.Infrastructure\obj\Debug\net6.0\EndProject.Infrastructure.genruntimeconfig.cache

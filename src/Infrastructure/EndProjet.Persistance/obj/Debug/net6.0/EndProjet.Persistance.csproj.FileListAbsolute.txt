@@ -17,3 +17,5 @@ D:\work2\Asp.Net API\EndProject\src\Infrastructure\EndProjet.Persistance\obj\Deb
 D:\work2\Asp.Net API\EndProject\src\Infrastructure\EndProjet.Persistance\obj\Debug\net6.0\refint\EndProjet.Persistance.dll
 D:\work2\Asp.Net API\EndProject\src\Infrastructure\EndProjet.Persistance\obj\Debug\net6.0\EndProjet.Persistance.pdb
 D:\work2\Asp.Net API\EndProject\src\Infrastructure\EndProjet.Persistance\obj\Debug\net6.0\ref\EndProjet.Persistance.dll
+D:\work2\Asp.Net API\EndProject\src\Infrastructure\EndProjet.Persistance\bin\Debug\net6.0\EndProjet.Persistance.runtimeconfig.json
+D:\work2\Asp.Net API\EndProject\src\Infrastructure\EndProjet.Persistance\obj\Debug\net6.0\EndProjet.Persistance.genruntimeconfig.cache
