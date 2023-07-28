@@ -1,5 +1,6 @@
 ﻿using EndProject.Application.Abstraction.Repositories;
 using EndProject.Domain.Entitys.Common;
+using EndProjet.Persistance.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -7,30 +8,50 @@ namespace EndProjet.Persistance.Implementations;
 
 public class ReadRepository<T> : IReadRepository<T> where T : BaseEntity, new()
 {
-    public DbSet<T> Table => throw new NotImplementedException();
+    private readonly AppDbContext _context;
+    public ReadRepository(AppDbContext context) => _context = context;
+    public DbSet<T> Table => _context.Set<T>();
 
     public IQueryable<T> GetAll(bool IsTracking = true, params string[] inculdes)
     {
-        throw new NotImplementedException();
+        var query = Table.AsQueryable();
+        foreach (var inculde in inculdes)
+        {
+            query = query.Include(inculde);
+        }
+        return IsTracking ? query : query.AsNoTracking();
     }
 
     public IQueryable<T> GetAllExpression(Expression<Func<T, bool>> expression, int Skip, int Take, bool IsTracking = true, params string[] inculdes)
     {
-        throw new NotImplementedException();
+       var query = Table.Where(expression).Skip(Skip).Take(Take).AsQueryable();
+        foreach (var inculde in inculdes)
+        {
+            query = query.Include(inculde);
+        }
+        return IsTracking ? query : query.AsNoTracking();
     }
 
     public IQueryable<T> GetAllExpressionOrderBy(Expression<Func<T, bool>> expression, int Skip, int Take, Expression<Func<T, object>> expressionOrder, bool IsOrder = true, bool IsTracking = true, params string[] inculdes)
     {
-        throw new NotImplementedException();
+        var query = Table.Where(expression).AsQueryable();
+        query = IsOrder ? query.OrderBy(expressionOrder) : query.OrderByDescending(expression);
+        foreach (var inculude in inculdes)
+        {
+            query = query.Include(inculude);
+        }
+        return IsTracking ? query : query.AsNoTracking();
     }
 
-    public Task<T> GetByIdAsync(Guid id)
+    public async Task<T> GetByIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var query = await Table.FindAsync(id);
+        return query;
     }
 
-    public Task<T?> GetByIdAsyncExpression(Expression<Func<T, bool>> expression, bool isTracking = true)
+    public async Task<T?> GetByIdAsyncExpression(Expression<Func<T, bool>> expression, bool isTracking = true)
     {
-        throw new NotImplementedException();
+        var query = isTracking ? Table.AsQueryable() : Table.AsNoTracking();
+        return await query.FirstOrDefaultAsync(expression);
     }
 }
