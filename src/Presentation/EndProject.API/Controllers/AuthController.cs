@@ -24,7 +24,7 @@ namespace EndProject.API.Controllersş
         public async Task<IActionResult> Login([FromBody] LoginDTO loginDTO)
         {
             var responseToken = await _authService.Login(loginDTO);
-            return Ok();
+            return Ok(responseToken);
         }
 
         [HttpPost("[action]")]
