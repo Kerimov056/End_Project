@@ -50,9 +50,29 @@ public class StorageFile : IStorageFile
         }
     }
 
-    public Task<List<(string fileName, string pathOrContainerName)>> UploadAsync(string pathOrContainerName, IFormFileCollection files)
+    public async Task<List<(string fileName, string pathOrContainerName)>> UploadAsync(string pathOrContainerName, IFormFileCollection files)
     {
-        throw new NotImplementedException();
+        List<(string fileName, string pathOrContainerName)> uploadFiles = new List<(string fileName, string pathOrContainerName)>();
+
+        foreach (var file in files)
+        {
+            if (file.Length > 0)
+            {
+                byte[] fileData;
+                using (var stream = new MemoryStream())
+                {
+                    file.CopyTo(stream);
+                    fileData = stream.ToArray();
+                }
+
+                string uploadedFileName = file.FileName;
+                string uploadedFilePath = await UploadFileAsync(pathOrContainerName, fileData, uploadedFileName);
+
+                uploadFiles.Add((uploadedFileName, uploadedFilePath));
+
+            }
+        }
+        return uploadFiles;
     }
 
     public Task<string> UploadFileAsync(string pathOrContainerName, byte[] fileData, string fileName)
