@@ -5,6 +5,7 @@ using EndProject.Domain.Enums.Role;
 using EndProjet.Persistance.Context;
 using EndProjet.Persistance.Exceptions;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Text;
 
@@ -33,9 +34,33 @@ public class AuthService : IAuthService
         _configuration = configuration;
         _tokenHandler = tokenHandler;
     }
-    public Task<TokenResponseDTO> Login(LoginDTO loginDTO)
+    public async Task<TokenResponseDTO> Login(LoginDTO loginDTO)
     {
-        throw new Exception();   
+        AppUser appUser = await _userManager.FindByEmailAsync(loginDTO.UsernameOrEmail);
+        if (appUser is null)
+        {
+            appUser = await _userManager.FindByNameAsync(loginDTO.UsernameOrEmail);
+            if (appUser is null)
+            {
+                throw new LogInFailerException("Invalid Login!");
+            }
+        }
+
+        SignInResult signResult = await _siginManager.CheckPasswordSignInAsync(appUser, loginDTO.password, true);
+        if (!signResult.Succeeded)
+        {
+            throw new LogInFailerException("Invalid Login!");
+        }
+        //if (!appUser.IsActive)
+        //{
+        //    throw new UserBlockedException("User Blocked");
+        //}
+
+        var tokenResponse = await _tokenHandler.CreateAccessToken(2,3,appUser);
+        appUser.RefreshToken = tokenResponse.refreshToken;
+        appUser.RefreshTokenExpration = tokenResponse.refreshTokenExpration;
+        await _userManager.UpdateAsync(appUser);
+        return tokenResponse;
     }
 
     public async Task Register(RegisterDTO registerDTO)
@@ -71,8 +96,16 @@ public class AuthService : IAuthService
         }
     }
 
-    public Task<TokenResponseDTO> ValidRefleshToken(string refreshToken)
-    {
-        throw new NotImplementedException();
-    }
+    //public async Task<TokenResponseDTO> ValidRefleshToken(string refreshToken)
+    //{
+    //    if (refreshToken is null)
+    //    {
+    //        throw new ArgumentNullException();
+    //    }
+    //    var ByUser = await _appDbContext.Users.Where(a => a.RefreshToken == refreshToken).FirstOrDefaultAsync();
+    //    if (ByUser is null)
+    //    {
+    //        throw new 
+    //    }
+    //}
 }
