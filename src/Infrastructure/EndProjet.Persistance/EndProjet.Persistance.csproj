@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\EndProject.Application\EndProject.Application.csproj" />
+    <ProjectReference Include="..\EndProject.Infrastructure\EndProject.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Context\" />
+    <Folder Include="Configurations\" />
+    <Folder Include="Exceptions\" />
+    <Folder Include="ExtensionsMethods\" />
+    <Folder Include="Interceptors\Services\" />
+    <Folder Include="Interceptors\Repositories\" />
+    <Folder Include="MapperProfiles\" />
+    <Folder Include="Implementations\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
+</Project>

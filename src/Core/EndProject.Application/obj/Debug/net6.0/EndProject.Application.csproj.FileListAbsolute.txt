@@ -1,0 +1,15 @@
+D:\work2\Asp.Net API\EndProject\src\Core\EndProject.Application\bin\Debug\net6.0\EndProject.Application.deps.json
+D:\work2\Asp.Net API\EndProject\src\Core\EndProject.Application\bin\Debug\net6.0\EndProject.Application.dll
+D:\work2\Asp.Net API\EndProject\src\Core\EndProject.Application\bin\Debug\net6.0\EndProject.Application.pdb
+D:\work2\Asp.Net API\EndProject\src\Core\EndProject.Application\bin\Debug\net6.0\EndProject.Domain.dll
+D:\work2\Asp.Net API\EndProject\src\Core\EndProject.Application\bin\Debug\net6.0\EndProject.Domain.pdb
+D:\work2\Asp.Net API\EndProject\src\Core\EndProject.Application\obj\Debug\net6.0\EndProject.Application.csproj.AssemblyReference.cache
+D:\work2\Asp.Net API\EndProject\src\Core\EndProject.Application\obj\Debug\net6.0\EndProject.Application.GeneratedMSBuildEditorConfig.editorconfig
+D:\work2\Asp.Net API\EndProject\src\Core\EndProject.Application\obj\Debug\net6.0\EndProject.Application.AssemblyInfoInputs.cache
+D:\work2\Asp.Net API\EndProject\src\Core\EndProject.Application\obj\Debug\net6.0\EndProject.Application.AssemblyInfo.cs
+D:\work2\Asp.Net API\EndProject\src\Core\EndProject.Application\obj\Debug\net6.0\EndProject.Application.csproj.CoreCompileInputs.cache
+D:\work2\Asp.Net API\EndProject\src\Core\EndProject.Application\obj\Debug\net6.0\EndProject.Application.csproj.CopyComplete
+D:\work2\Asp.Net API\EndProject\src\Core\EndProject.Application\obj\Debug\net6.0\EndProject.Application.dll
+D:\work2\Asp.Net API\EndProject\src\Core\EndProject.Application\obj\Debug\net6.0\refint\EndProject.Application.dll
+D:\work2\Asp.Net API\EndProject\src\Core\EndProject.Application\obj\Debug\net6.0\EndProject.Application.pdb
+D:\work2\Asp.Net API\EndProject\src\Core\EndProject.Application\obj\Debug\net6.0\ref\EndProject.Application.dll

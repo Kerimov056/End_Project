@@ -1,0 +1,17 @@
+D:\work2\Asp.Net API\EndProject\src\Infrastructure\EndProject.Infrastructure\bin\Debug\net6.0\EndProject.Infrastructure.deps.json
+D:\work2\Asp.Net API\EndProject\src\Infrastructure\EndProject.Infrastructure\bin\Debug\net6.0\EndProject.Infrastructure.dll
+D:\work2\Asp.Net API\EndProject\src\Infrastructure\EndProject.Infrastructure\bin\Debug\net6.0\EndProject.Infrastructure.pdb
+D:\work2\Asp.Net API\EndProject\src\Infrastructure\EndProject.Infrastructure\bin\Debug\net6.0\EndProject.Application.dll
+D:\work2\Asp.Net API\EndProject\src\Infrastructure\EndProject.Infrastructure\bin\Debug\net6.0\EndProject.Domain.dll
+D:\work2\Asp.Net API\EndProject\src\Infrastructure\EndProject.Infrastructure\bin\Debug\net6.0\EndProject.Application.pdb
+D:\work2\Asp.Net API\EndProject\src\Infrastructure\EndProject.Infrastructure\bin\Debug\net6.0\EndProject.Domain.pdb
+D:\work2\Asp.Net API\EndProject\src\Infrastructure\EndProject.Infrastructure\obj\Debug\net6.0\EndProject.Infrastructure.csproj.AssemblyReference.cache
+D:\work2\Asp.Net API\EndProject\src\Infrastructure\EndProject.Infrastructure\obj\Debug\net6.0\EndProject.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\work2\Asp.Net API\EndProject\src\Infrastructure\EndProject.Infrastructure\obj\Debug\net6.0\EndProject.Infrastructure.AssemblyInfoInputs.cache
+D:\work2\Asp.Net API\EndProject\src\Infrastructure\EndProject.Infrastructure\obj\Debug\net6.0\EndProject.Infrastructure.AssemblyInfo.cs
+D:\work2\Asp.Net API\EndProject\src\Infrastructure\EndProject.Infrastructure\obj\Debug\net6.0\EndProject.Infrastructure.csproj.CoreCompileInputs.cache
+D:\work2\Asp.Net API\EndProject\src\Infrastructure\EndProject.Infrastructure\obj\Debug\net6.0\EndProject.Infrastructure.csproj.CopyComplete
+D:\work2\Asp.Net API\EndProject\src\Infrastructure\EndProject.Infrastructure\obj\Debug\net6.0\EndProject.Infrastructure.dll
+D:\work2\Asp.Net API\EndProject\src\Infrastructure\EndProject.Infrastructure\obj\Debug\net6.0\refint\EndProject.Infrastructure.dll
+D:\work2\Asp.Net API\EndProject\src\Infrastructure\EndProject.Infrastructure\obj\Debug\net6.0\EndProject.Infrastructure.pdb
+D:\work2\Asp.Net API\EndProject\src\Infrastructure\EndProject.Infrastructure\obj\Debug\net6.0\ref\EndProject.Infrastructure.dll

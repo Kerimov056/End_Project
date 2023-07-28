@@ -1,0 +1,131 @@
+{
+  "version": 3,
+  "targets": {
+    "net6.0": {
+      "EndProject.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "EndProject.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/EndProject.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/EndProject.Application.dll": {}
+        }
+      },
+      "EndProject.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/EndProject.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/EndProject.Domain.dll": {}
+        }
+      },
+      "EndProject.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "EndProject.Application": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/EndProject.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/EndProject.Infrastructure.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "EndProject.Application/1.0.0": {
+      "type": "project",
+      "path": "../../Core/EndProject.Application/EndProject.Application.csproj",
+      "msbuildProject": "../../Core/EndProject.Application/EndProject.Application.csproj"
+    },
+    "EndProject.Domain/1.0.0": {
+      "type": "project",
+      "path": "../../Core/EndProject.Domain/EndProject.Domain.csproj",
+      "msbuildProject": "../../Core/EndProject.Domain/EndProject.Domain.csproj"
+    },
+    "EndProject.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../EndProject.Infrastructure/EndProject.Infrastructure.csproj",
+      "msbuildProject": "../EndProject.Infrastructure/EndProject.Infrastructure.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net6.0": [
+      "EndProject.Application >= 1.0.0",
+      "EndProject.Infrastructure >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\Legion\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "D:\\work2\\Asp.Net API\\EndProject\\src\\Infrastructure\\EndProjet.Persistance\\EndProjet.Persistance.csproj",
+      "projectName": "EndProjet.Persistance",
+      "projectPath": "D:\\work2\\Asp.Net API\\EndProject\\src\\Infrastructure\\EndProjet.Persistance\\EndProjet.Persistance.csproj",
+      "packagesPath": "C:\\Users\\Legion\\.nuget\\packages\\",
+      "outputPath": "D:\\work2\\Asp.Net API\\EndProject\\src\\Infrastructure\\EndProjet.Persistance\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\Legion\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net6.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "projectReferences": {
+            "D:\\work2\\Asp.Net API\\EndProject\\src\\Core\\EndProject.Application\\EndProject.Application.csproj": {
+              "projectPath": "D:\\work2\\Asp.Net API\\EndProject\\src\\Core\\EndProject.Application\\EndProject.Application.csproj"
+            },
+            "D:\\work2\\Asp.Net API\\EndProject\\src\\Infrastructure\\EndProject.Infrastructure\\EndProject.Infrastructure.csproj": {
+              "projectPath": "D:\\work2\\Asp.Net API\\EndProject\\src\\Infrastructure\\EndProject.Infrastructure\\EndProject.Infrastructure.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net6.0": {
+        "targetAlias": "net6.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.103\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
