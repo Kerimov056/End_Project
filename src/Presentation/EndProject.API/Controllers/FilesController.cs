@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using EndProject.Application.Abstraction.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EndProject.API.Controllers;
@@ -7,4 +8,7 @@ namespace EndProject.API.Controllers;
 [ApiController]
 public class FilesController : ControllerBase
 {
+    private readonly IStorgeService _service;
+
+    //Devam Ele burdan Sabah
 }
