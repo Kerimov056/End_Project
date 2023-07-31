@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.4.33403.182
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{48DA7095-0413-4B35-B951-55EC3963558E}"
+	ProjectSection(SolutionItems) = preProject
+		Dockerfile.txt = Dockerfile.txt
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{F875D6E4-8D3D-4D9E-8C06-8EB7A30F4816}"
 EndProject
@@ -11,15 +14,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{95C75129-2B4E-413B-8479-4C575F056860}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndProject.API", "src\Presentation\EndProject.API\EndProject.API.csproj", "{331B1600-7E0D-4757-A356-4E42B42EFB88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndProject.API", "src\Presentation\EndProject.API\EndProject.API.csproj", "{331B1600-7E0D-4757-A356-4E42B42EFB88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndProject.Infrastructure", "src\Infrastructure\EndProject.Infrastructure\EndProject.Infrastructure.csproj", "{54DF4EBB-AAE1-4315-B7BD-67981B51BEE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndProject.Infrastructure", "src\Infrastructure\EndProject.Infrastructure\EndProject.Infrastructure.csproj", "{54DF4EBB-AAE1-4315-B7BD-67981B51BEE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndProjet.Persistance", "src\Infrastructure\EndProjet.Persistance\EndProjet.Persistance.csproj", "{80204447-5375-4C4D-95FE-ED5CC8D1C7A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndProjet.Persistance", "src\Infrastructure\EndProjet.Persistance\EndProjet.Persistance.csproj", "{80204447-5375-4C4D-95FE-ED5CC8D1C7A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndProject.Domain", "src\Core\EndProject.Domain\EndProject.Domain.csproj", "{0070B507-F6F4-4E98-8DEC-B21F83586D01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndProject.Domain", "src\Core\EndProject.Domain\EndProject.Domain.csproj", "{0070B507-F6F4-4E98-8DEC-B21F83586D01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndProject.Application", "src\Core\EndProject.Application\EndProject.Application.csproj", "{A2984C06-B49D-4D0D-A5FC-9EF47830C333}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndProject.Application", "src\Core\EndProject.Application\EndProject.Application.csproj", "{A2984C06-B49D-4D0D-A5FC-9EF47830C333}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
