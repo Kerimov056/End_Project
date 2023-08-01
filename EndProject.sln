@@ -4,9 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.4.33403.182
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{48DA7095-0413-4B35-B951-55EC3963558E}"
-	ProjectSection(SolutionItems) = preProject
-		Dockerfile.txt = Dockerfile.txt
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{F875D6E4-8D3D-4D9E-8C06-8EB7A30F4816}"
 EndProject
@@ -23,6 +20,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndProject.Domain", "src\Core\EndProject.Domain\EndProject.Domain.csproj", "{0070B507-F6F4-4E98-8DEC-B21F83586D01}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndProject.Application", "src\Core\EndProject.Application\EndProject.Application.csproj", "{A2984C06-B49D-4D0D-A5FC-9EF47830C333}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{FD5F18AD-45C4-4B4F-953D-02F534BE6D9A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,6 +49,10 @@ Global
 		{A2984C06-B49D-4D0D-A5FC-9EF47830C333}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2984C06-B49D-4D0D-A5FC-9EF47830C333}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2984C06-B49D-4D0D-A5FC-9EF47830C333}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD5F18AD-45C4-4B4F-953D-02F534BE6D9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD5F18AD-45C4-4B4F-953D-02F534BE6D9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD5F18AD-45C4-4B4F-953D-02F534BE6D9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD5F18AD-45C4-4B4F-953D-02F534BE6D9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

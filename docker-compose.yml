@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  endproject.api:
+    image: ${DOCKER_REGISTRY-}endprojectapi
+    build:
+      context: .
+      dockerfile: src\Presentation\EndProject.API\Dockerfile

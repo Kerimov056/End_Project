@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "OorD1rA2RHHcCcE/BRhAVwh+aNZ5ByvrdKDG563diLtqwv3dA/Q9rdv0ZBX8/2c+MPJAmGP2FJPHoJYTbTYC8w==",
+  "dgSpecHash": "5HdoWzWQa2ZZNQejI5C7vxxAzAo9F+YS/RZPl1B93uYEHBhEssbViDOINY7CAVLmP0iSn+NQazKv1KVYBfy70g==",
   "success": true,
   "projectFilePath": "D:\\work2\\Asp.Net API\\EndProject\\src\\Infrastructure\\EndProjet.Persistance\\EndProjet.Persistance.csproj",
   "expectedPackageFiles": [
@@ -59,6 +59,7 @@
     "C:\\Users\\Legion\\.nuget\\packages\\microsoft.identitymodel.tokens\\6.20.0\\microsoft.identitymodel.tokens.6.20.0.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\microsoft.net.http.headers\\2.2.0\\microsoft.net.http.headers.2.2.0.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
+    "C:\\Users\\Legion\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.18.1\\microsoft.visualstudio.azure.containers.tools.targets.1.18.1.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\system.buffers\\4.5.0\\system.buffers.4.5.0.nupkg.sha512",

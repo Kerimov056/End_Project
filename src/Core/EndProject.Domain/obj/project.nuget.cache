@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "z29AgQwlZCR35SPmeEUuOPmwIgc6lW452ASbnBCjFJ9KrsjGgGmaHVB+MdKLvjvWQ6o2BWxctwyRNUxPh7zr3A==",
+  "dgSpecHash": "aYTIw2SMfZpu24Ff2fpg8hECUHxyTExGKEZGgWMQtXg9ZgiGF5uBkAxGId6PvyHeEn1ByvXbu7hszP+1QdKjIA==",
   "success": true,
   "projectFilePath": "D:\\work2\\Asp.Net API\\EndProject\\src\\Core\\EndProject.Domain\\EndProject.Domain.csproj",
   "expectedPackageFiles": [
@@ -26,6 +26,7 @@
     "C:\\Users\\Legion\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\6.0.0\\microsoft.extensions.logging.abstractions.6.0.0.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\microsoft.extensions.options\\6.0.0\\microsoft.extensions.options.6.0.0.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\microsoft.extensions.primitives\\6.0.0\\microsoft.extensions.primitives.6.0.0.nupkg.sha512",
+    "C:\\Users\\Legion\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.18.1\\microsoft.visualstudio.azure.containers.tools.targets.1.18.1.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\system.collections.immutable\\6.0.0\\system.collections.immutable.6.0.0.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\system.diagnostics.diagnosticsource\\6.0.1\\system.diagnostics.diagnosticsource.6.0.1.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\system.io.pipelines\\6.0.0-preview.4.21253.7\\system.io.pipelines.6.0.0-preview.4.21253.7.nupkg.sha512",

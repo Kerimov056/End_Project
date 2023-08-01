@@ -16,7 +16,8 @@
           "Microsoft.AspNetCore.Identity": "2.2.0",
           "Microsoft.EntityFrameworkCore": "6.0.20",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.20",
-          "Microsoft.EntityFrameworkCore.Tools": "6.0.20"
+          "Microsoft.EntityFrameworkCore.Tools": "6.0.20",
+          "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": "1.18.1"
         },
         "runtime": {
           "EndProjet.Persistance.dll": {}
@@ -666,6 +667,7 @@
         }
       },
       "Microsoft.NETCore.Platforms/3.1.0": {},
+      "Microsoft.VisualStudio.Azure.Containers.Tools.Targets/1.18.1": {},
       "Microsoft.Win32.Registry/4.7.0": {
         "dependencies": {
           "System.Security.AccessControl": "6.0.0",
@@ -932,7 +934,8 @@
       "EndProject.Application/1.0.0": {
         "dependencies": {
           "EndProject.Domain": "1.0.0",
-          "FluentValidation": "11.6.0"
+          "FluentValidation": "11.6.0",
+          "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": "1.18.1"
         },
         "runtime": {
           "EndProject.Application.dll": {}
@@ -942,7 +945,8 @@
         "dependencies": {
           "Microsoft.AspNetCore.Http.Features": "6.0.0-preview.4.21253.5",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.20",
-          "Microsoft.EntityFrameworkCore": "6.0.20"
+          "Microsoft.EntityFrameworkCore": "6.0.20",
+          "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": "1.18.1"
         },
         "runtime": {
           "EndProject.Domain.dll": {}
@@ -952,6 +956,7 @@
         "dependencies": {
           "EndProject.Application": "1.0.0",
           "Microsoft.IdentityModel.Tokens": "6.20.0",
+          "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": "1.18.1",
           "System.IdentityModel.Tokens.Jwt": "6.20.0",
           "System.ServiceModel.Primitives": "6.0.0"
         },
@@ -1351,6 +1356,13 @@
       "sha512": "sha512-z7aeg8oHln2CuNulfhiLYxCVMPEwBl3rzicjvIX+4sUuCwvXw5oXQEtbiU2c0z4qYL5L3Kmx0mMA/+t/SbY67w==",
       "path": "microsoft.netcore.platforms/3.1.0",
       "hashPath": "microsoft.netcore.platforms.3.1.0.nupkg.sha512"
+    },
+    "Microsoft.VisualStudio.Azure.Containers.Tools.Targets/1.18.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-RtNQEQQ/bgaxzrsZEkPB+/DFaUgNiq8GtZz/R4lt+mKXPcEvEuawlbl0PB1s7ND9kvkUVZtMphPxE9Ma1VGiFg==",
+      "path": "microsoft.visualstudio.azure.containers.tools.targets/1.18.1",
+      "hashPath": "microsoft.visualstudio.azure.containers.tools.targets.1.18.1.nupkg.sha512"
     },
     "Microsoft.Win32.Registry/4.7.0": {
       "type": "package",

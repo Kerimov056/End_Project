@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "CMG8tR8IIZTDCaMonn4aB61gIGvGaLZ1g6zVqcGy9QNm5pKA8uK7z4lMeOvbNmjYc1anuqpTkl0Sq2H+Q5o88w==",
+  "dgSpecHash": "53euyy7OlU4m8DfeaWoCLYoCXcc1V+TPbJStEtUGs96piIbNFG0oTogHiLAgq4R+wUaUiWy6/vVlQ/7tYtSu0w==",
   "success": true,
   "projectFilePath": "D:\\work2\\Asp.Net API\\EndProject\\src\\Infrastructure\\EndProject.Infrastructure\\EndProject.Infrastructure.csproj",
   "expectedPackageFiles": [
@@ -33,6 +33,7 @@
     "C:\\Users\\Legion\\.nuget\\packages\\microsoft.identitymodel.jsonwebtokens\\6.20.0\\microsoft.identitymodel.jsonwebtokens.6.20.0.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\microsoft.identitymodel.logging\\6.20.0\\microsoft.identitymodel.logging.6.20.0.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\microsoft.identitymodel.tokens\\6.20.0\\microsoft.identitymodel.tokens.6.20.0.nupkg.sha512",
+    "C:\\Users\\Legion\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.18.1\\microsoft.visualstudio.azure.containers.tools.targets.1.18.1.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\system.collections.immutable\\6.0.0\\system.collections.immutable.6.0.0.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\system.diagnostics.diagnosticsource\\6.0.1\\system.diagnostics.diagnosticsource.6.0.1.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\system.formats.asn1\\6.0.0\\system.formats.asn1.6.0.0.nupkg.sha512",
