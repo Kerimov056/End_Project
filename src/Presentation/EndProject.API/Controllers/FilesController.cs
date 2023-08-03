@@ -10,5 +10,5 @@ public class FilesController : ControllerBase
 {
     private readonly IStorgeService _service;
 
-    //Devam Ele burdan Sabah
+    
 }
