@@ -1,4 +1,5 @@
 ﻿using EndProject.Application.Abstraction.Services;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
@@ -7,6 +8,7 @@ namespace EndProject.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[EnableCors("AllowOrigin")]
 public class FilesController : ControllerBase
 {
     private readonly IStorgeService _service;

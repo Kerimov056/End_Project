@@ -1,5 +1,6 @@
 ﻿using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,6 +8,7 @@ namespace EndProject.API.Controllersş
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("AllowOrigin")]
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
