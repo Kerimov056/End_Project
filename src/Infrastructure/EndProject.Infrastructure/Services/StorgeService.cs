@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace EndProject.Infrastructure.Services;
 
-public class StorgeService : IStorageFile
+public class StorgeService : IStorgeService
 {
     private readonly IStorageFile _storageFile;
     public StorgeService(IStorageFile storageFile) => _storageFile = storageFile;

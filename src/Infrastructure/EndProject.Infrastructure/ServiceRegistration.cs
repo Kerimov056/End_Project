@@ -11,7 +11,7 @@ public static class ServiceRegistration
     {
         services.AddScoped<ITokenHandler, TokenHandler>();
         services.AddScoped<IStorageFile, StorageFile>();
-        //services.AddScoped<IStorgeService, StorgeService>();
+        services.AddScoped<IStorgeService, StorgeService>();
     }
                                                                                       //LocalStorage
     public static void AddStorageFile<T>(this IServiceCollection services) where T : Services.Storage, IStorageFile
