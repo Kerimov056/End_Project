@@ -1,7 +1,5 @@
 ﻿using EndProject.Application.Abstraction.Services;
-using EndProject.Application.Abstraction.Services.Loccal;
 using EndProject.Infrastructure.Services;
-using EndProject.Infrastructure.Services.Local;
 using EndProject.Infrastructure.Services.Token;
 using Microsoft.Extensions.DependencyInjection;
 
