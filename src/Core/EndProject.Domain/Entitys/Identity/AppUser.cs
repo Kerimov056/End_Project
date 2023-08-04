@@ -11,5 +11,5 @@ public class AppUser:IdentityUser
     public List<Group_User> group_Users { get; set; }
     public List<GroupMessage> groupMessages { get; set; }
 
-
+    public List<Posts> posts { get; set; }
 }
