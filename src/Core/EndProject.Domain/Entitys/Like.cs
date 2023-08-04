@@ -3,13 +3,11 @@ using EndProject.Domain.Entitys.Identity;
 
 namespace EndProject.Domain.Entitys;
 
-public class Comments:BaseEntity
+public class Like:BaseEntity
 {
-    public string message { get; set; }
-    public Guid? PostsId { get; set; }
-    public Posts? Posts { get; set; }
+    public int likeSum { get; set; }
+    public Guid CommentsId { get; set; }
+    public Comments Comments { get; set; }
     public string AppUserId { get; set; }
     public AppUser AppUser { get; set; }
-    public List<Like> Likes { get; set; }
-
 }

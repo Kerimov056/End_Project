@@ -10,6 +10,7 @@ public class AppUser:IdentityUser
     public string? RefreshToken { get; set; }
     public List<Group_User> group_Users { get; set; }
     public List<GroupMessage> groupMessages { get; set; }
-
     public List<Posts> posts { get; set; }
+    public List<Comments> comments { get; set; }
+    public List<PostLike> postsLikes { get; set; }
 }

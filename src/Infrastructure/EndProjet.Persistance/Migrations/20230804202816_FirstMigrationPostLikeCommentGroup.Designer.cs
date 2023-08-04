@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EndProjet.Persistance.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230804164626_PostPostImage")]
-    partial class PostPostImage
+    [Migration("20230804202816_FirstMigrationPostLikeCommentGroup")]
+    partial class FirstMigrationPostLikeCommentGroup
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,41 @@ namespace EndProjet.Persistance.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("EndProject.Domain.Entitys.Comments", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("PostsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("PostsId");
+
+                    b.ToTable("Comments");
+                });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.Group", b =>
                 {
@@ -45,23 +80,21 @@ namespace EndProjet.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Group");
+                    b.ToTable("Groups");
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.Group_User", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<Guid>("GroupId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("AppUserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("GroupId")
+                    b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsDeleted")
@@ -70,13 +103,11 @@ namespace EndProjet.Persistance.Migrations
                     b.Property<DateTime>("ModifiedDate")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.HasKey("GroupId", "AppUserId");
 
                     b.HasIndex("AppUserId");
 
-                    b.HasIndex("GroupId");
-
-                    b.ToTable("Group_User");
+                    b.ToTable("Group_Users");
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.GroupMessage", b =>
@@ -113,7 +144,7 @@ namespace EndProjet.Persistance.Migrations
 
                     b.HasIndex("GroupId");
 
-                    b.ToTable("GroupMessage");
+                    b.ToTable("GroupMessages");
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.Identity.AppUser", b =>
@@ -193,6 +224,40 @@ namespace EndProjet.Persistance.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("EndProject.Domain.Entitys.Like", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid>("CommentsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("likeSum")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("CommentsId");
+
+                    b.ToTable("Likes");
+                });
+
             modelBuilder.Entity("EndProject.Domain.Entitys.PostImage", b =>
                 {
                     b.Property<Guid>("Id")
@@ -220,6 +285,40 @@ namespace EndProjet.Persistance.Migrations
                     b.HasIndex("PostsId");
 
                     b.ToTable("PostImage");
+                });
+
+            modelBuilder.Entity("EndProject.Domain.Entitys.PostLike", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("PostsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("likeSum")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("PostsId");
+
+                    b.ToTable("PostsLikes");
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.Posts", b =>
@@ -384,6 +483,23 @@ namespace EndProjet.Persistance.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("EndProject.Domain.Entitys.Comments", b =>
+                {
+                    b.HasOne("EndProject.Domain.Entitys.Identity.AppUser", "AppUser")
+                        .WithMany("comments")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EndProject.Domain.Entitys.Posts", "Posts")
+                        .WithMany("comments")
+                        .HasForeignKey("PostsId");
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Posts");
+                });
+
             modelBuilder.Entity("EndProject.Domain.Entitys.Group_User", b =>
                 {
                     b.HasOne("EndProject.Domain.Entitys.Identity.AppUser", "AppUser")
@@ -422,6 +538,25 @@ namespace EndProjet.Persistance.Migrations
                     b.Navigation("Group");
                 });
 
+            modelBuilder.Entity("EndProject.Domain.Entitys.Like", b =>
+                {
+                    b.HasOne("EndProject.Domain.Entitys.Identity.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("EndProject.Domain.Entitys.Comments", "Comments")
+                        .WithMany("Likes")
+                        .HasForeignKey("CommentsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Comments");
+                });
+
             modelBuilder.Entity("EndProject.Domain.Entitys.PostImage", b =>
                 {
                     b.HasOne("EndProject.Domain.Entitys.Posts", "Posts")
@@ -429,6 +564,25 @@ namespace EndProjet.Persistance.Migrations
                         .HasForeignKey("PostsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Posts");
+                });
+
+            modelBuilder.Entity("EndProject.Domain.Entitys.PostLike", b =>
+                {
+                    b.HasOne("EndProject.Domain.Entitys.Identity.AppUser", "AppUser")
+                        .WithMany("postsLikes")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EndProject.Domain.Entitys.Posts", "Posts")
+                        .WithMany("postLikes")
+                        .HasForeignKey("PostsId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
 
                     b.Navigation("Posts");
                 });
@@ -495,6 +649,11 @@ namespace EndProjet.Persistance.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("EndProject.Domain.Entitys.Comments", b =>
+                {
+                    b.Navigation("Likes");
+                });
+
             modelBuilder.Entity("EndProject.Domain.Entitys.Group", b =>
                 {
                     b.Navigation("groupMessages");
@@ -504,16 +663,24 @@ namespace EndProjet.Persistance.Migrations
 
             modelBuilder.Entity("EndProject.Domain.Entitys.Identity.AppUser", b =>
                 {
+                    b.Navigation("comments");
+
                     b.Navigation("groupMessages");
 
                     b.Navigation("group_Users");
 
                     b.Navigation("posts");
+
+                    b.Navigation("postsLikes");
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.Posts", b =>
                 {
+                    b.Navigation("comments");
+
                     b.Navigation("postImage");
+
+                    b.Navigation("postLikes");
                 });
 #pragma warning restore 612, 618
         }

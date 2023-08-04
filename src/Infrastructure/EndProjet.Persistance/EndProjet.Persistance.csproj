@@ -15,6 +15,7 @@
     <Folder Include="Configurations\" />
     <Folder Include="Implementations\Repositories\EntityRepository\" />
     <Folder Include="MapperProfiles\" />
+    <Folder Include="Migrations\" />
     <Folder Include="Services\" />
   </ItemGroup>
 
