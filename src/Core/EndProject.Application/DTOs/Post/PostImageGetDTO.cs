@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace EndProject.Application.DTOs.Post;
 
-namespace EndProject.Application.DTOs.Post
+public class PostImageGetDTO
 {
-    internal class PostImageGetDTO
-    {
-    }
+    public Guid Id { get; set; }
+    public string ImagePath { get; set; }
+    public Guid PostsId { get; set; }
 }

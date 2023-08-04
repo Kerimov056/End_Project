@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using EndProject.Application.DTOs.Like;
 
-namespace EndProject.Application.DTOs.Comments
+namespace EndProject.Application.DTOs.Comments;
+
+public class CommentGetDTO
 {
-    internal class CommentGetDTO
-    {
-    }
+    public Guid Id { get; set; }
+    public string Comment { get; set; }
+    public Guid PostId { get; set; }
+    public string AppUserId { get; set; }
+    public List<LikeGetDTO> LikeGetDto { get; set; }
 }
