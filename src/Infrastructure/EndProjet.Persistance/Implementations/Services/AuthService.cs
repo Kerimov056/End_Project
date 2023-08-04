@@ -63,6 +63,7 @@ public class AuthService : IAuthService
         return tokenResponse;
     }
 
+
     public async Task Register(RegisterDTO registerDTO)
     {
         AppUser appUser = new AppUser()
