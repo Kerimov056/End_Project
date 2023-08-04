@@ -1,5 +1,5 @@
 ﻿using EndProject.Application.Abstraction.Services;
-using EndProject.Application.DTOs;
+using EndProject.Application.DTOs.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;

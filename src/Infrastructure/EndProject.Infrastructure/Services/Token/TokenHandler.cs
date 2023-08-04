@@ -1,5 +1,5 @@
 ﻿using EndProject.Application.Abstraction.Services;
-using EndProject.Application.DTOs;
+using EndProject.Application.DTOs.Auth;
 using EndProject.Domain.Entitys.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;

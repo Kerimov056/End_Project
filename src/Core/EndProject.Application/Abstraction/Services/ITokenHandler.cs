@@ -1,4 +1,4 @@
-﻿using EndProject.Application.DTOs;
+﻿using EndProject.Application.DTOs.Auth;
 using EndProject.Domain.Entitys.Identity;
 
 namespace EndProject.Application.Abstraction.Services;

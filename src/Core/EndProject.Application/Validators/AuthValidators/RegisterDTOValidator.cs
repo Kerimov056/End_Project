@@ -1,4 +1,4 @@
-﻿using EndProject.Application.DTOs;
+﻿using EndProject.Application.DTOs.Auth;
 using FluentValidation;
 
 namespace EndProject.Application.Validators.AuthValidators;

@@ -1,3 +1,3 @@
-﻿namespace EndProject.Application.DTOs;
+﻿namespace EndProject.Application.DTOs.Auth;
 
 public record RegisterDTO(string? Fullname, string Username, string Email, string password);
