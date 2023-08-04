@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using EndProject.Application.DTOs.Post;
+using FluentValidation;
 
-namespace EndProject.Application.Validators.PostValidator
+namespace EndProject.Application.Validators.PostValidator;
+
+public class PostImageGetDtoValidator:AbstractValidator<PostImageGetDTO>
 {
-    internal class PostImageGetDtoValidator
-    {
-    }
+	public PostImageGetDtoValidator()
+	{
+		RuleFor(x => x.ImagePath).NotNull().NotEmpty().MaximumLength(756);
+	}
 }
