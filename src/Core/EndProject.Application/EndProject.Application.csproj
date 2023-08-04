@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Abstraction\Repositories\IEntityRepository\" />
+    <Folder Include="Validators\LikeValidator\" />
   </ItemGroup>
 
   <ItemGroup>

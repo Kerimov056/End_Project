@@ -8,6 +8,6 @@ public class PostsConficurations : IEntityTypeConfiguration<Posts>
 {
     public void Configure(EntityTypeBuilder<Posts> builder)
     {
-        builder.Property(x => x.message).HasMaxLength(300);
+        builder.Property(x => x.message).HasMaxLength(500);
     }
 }

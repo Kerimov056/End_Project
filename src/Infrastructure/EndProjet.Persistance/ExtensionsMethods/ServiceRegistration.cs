@@ -1,6 +1,8 @@
-﻿using EndProject.Application.Abstraction.Services;
+﻿using EndProject.Application.Abstraction.Repositories.IEntityRepository;
+using EndProject.Application.Abstraction.Services;
 using EndProject.Domain.Entitys.Identity;
 using EndProjet.Persistance.Context;
+using EndProjet.Persistance.Implementations.Repositories.EntityRepository;
 using EndProjet.Persistance.Implementations.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -18,7 +20,12 @@ public static class ServiceRegistration
             options.UseSqlServer(services.BuildServiceProvider().GetService<IConfiguration>().GetConnectionString("Default"));
         });
 
+
         //Repository
+        services.AddScoped<IPostReadRepository, PostReadRepository>();
+        services.AddScoped<IPostWriteRepository, PostWriteRepository>();
+
+
 
         //Service
         services.AddScoped<IAuthService, AuthService>();
