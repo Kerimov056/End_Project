@@ -8,6 +8,5 @@ public class CommentGetDtoValidator:AbstractValidator<CommentGetDTO>
 	public CommentGetDtoValidator()
 	{
 		RuleFor(x => x.Comment).NotNull().NotEmpty().MaximumLength(800);
-		RuleFor(x => x.Comment).NotNull().NotEmpty().MaximumLength(800);
 	}
 }
