@@ -10,6 +10,7 @@ public class PostProfile:Profile
 	{
 		CreateMap<Posts, PostGetDTO>().ReverseMap();
 		CreateMap<PostLike, PostLikeGetDTO>().ReverseMap();
+		CreateMap<PostLike, PostLikeCreateDTO>().ReverseMap();
 		CreateMap<PostImage, PostImageGetDTO>().ReverseMap();
 		CreateMap<PostImage, PostImageCreateDTO>().ReverseMap();
 		CreateMap<PostImage, PostImageUpdateDTO>().ReverseMap();
