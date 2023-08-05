@@ -50,4 +50,5 @@ public class AppDbContext:IdentityDbContext<AppUser>
     public DbSet<Posts> Posts { get; set; }
     public DbSet<Tags> Tags { get; set; }
     public DbSet<Post_Tag> Post_Tags { get; set; }
+    public DbSet<NewTag> NewTags { get; set; }
 }

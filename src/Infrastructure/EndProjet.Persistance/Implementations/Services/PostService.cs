@@ -4,6 +4,7 @@ using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Post;
 using EndProject.Domain.Entitys;
 using EndProject.Domain.Entitys.Identity;
+using EndProjet.Persistance.Context;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 
@@ -16,12 +17,16 @@ public class PostService : IPostService
     private readonly IHttpContextAccessor _contextAccessor;
     private readonly UserManager<AppUser> _userManager;
     private readonly IPostImageService _postImageService;
+    private readonly AppDbContext _appDbContext;
+    private readonly ITagService _tagService;
     private readonly IMapper _mapper;
 
     public PostService(IPostReadRepository postReadRepository,
                        IPostWriteRepository postWriteRepository,
                        IHttpContextAccessor httpContextAccessor,
                        IPostImageService postImageService,
+                       ITagService tagService,
+                       AppDbContext appDbContext,
                        UserManager<AppUser> userManager,
                        IMapper mapper)
     {
@@ -29,6 +34,8 @@ public class PostService : IPostService
         _postWriteRepository = postWriteRepository;
         _contextAccessor = httpContextAccessor;
         _postImageService = postImageService;
+        _tagService = tagService;
+        _appDbContext = appDbContext;
         _userManager = userManager;
         _mapper = mapper;
     }
@@ -45,8 +52,17 @@ public class PostService : IPostService
         var NewPostImage = _mapper.Map<PostImageCreateDTO>(NewPost.postImage);
         await _postImageService.AddAsync(NewPostImage);
 
-
-        // indi biz Burda Tag Service yazacyiq evvelce Tag servicesi Qurmaliyiq.
+        
+        foreach (var item in await _tagService.GettAllAsync())
+        {
+            var Post_Tag = new Post_Tag
+            {
+                PostId = NewPost.Id,
+                TagsId = item.Id
+            };
+            await _appDbContext.Post_Tags.AddAsync(Post_Tag);
+        }
+        await _postWriteRepository.SavaChangeAsync();
     }
 
     public Task<PostGetDTO> GetByIdAsync(Guid Id)
