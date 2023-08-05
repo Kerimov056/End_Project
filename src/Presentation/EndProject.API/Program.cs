@@ -8,7 +8,7 @@ using SymmetricSecurityKey = Microsoft.IdentityModel.Tokens.SymmetricSecurityKey
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+
 
 builder.Services.AddControllers();
 builder.Services.AddPersistenceServices();

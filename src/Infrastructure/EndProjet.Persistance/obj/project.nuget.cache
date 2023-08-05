@@ -1,12 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "5HdoWzWQa2ZZNQejI5C7vxxAzAo9F+YS/RZPl1B93uYEHBhEssbViDOINY7CAVLmP0iSn+NQazKv1KVYBfy70g==",
+  "dgSpecHash": "70Wp77UAqyl1UusgVVsZBxf2bCQOJJ2AJ+PYKmdP97D7oASkE0RU5GDIzJVgJ7h3MyG9Deyol1QKtfbDWKbArg==",
   "success": true,
   "projectFilePath": "D:\\work2\\Asp.Net API\\EndProject\\src\\Infrastructure\\EndProjet.Persistance\\EndProjet.Persistance.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Legion\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\fluentvalidation\\11.6.0\\fluentvalidation.11.6.0.nupkg.sha512",
+    "C:\\Users\\Legion\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.3.0\\fluentvalidation.aspnetcore.11.3.0.nupkg.sha512",
+    "C:\\Users\\Legion\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.5.1\\fluentvalidation.dependencyinjectionextensions.11.5.1.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\microsoft.aspnetcore.authentication\\2.2.0\\microsoft.aspnetcore.authentication.2.2.0.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",

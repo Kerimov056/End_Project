@@ -1,13 +1,19 @@
 ﻿using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
+using EndProject.Application.Validators.PostValidator;
 using EndProject.Domain.Entitys.Identity;
 using EndProjet.Persistance.Context;
 using EndProjet.Persistance.Implementations.Repositories.EntityRepository;
 using EndProjet.Persistance.Implementations.Services;
+using EndProjet.Persistance.MapperProfiles;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
+
 
 namespace EndProjet.Persistance.ExtensionsMethods;
 
@@ -49,5 +55,14 @@ public static class ServiceRegistration
             Options.Lockout.MaxFailedAccessAttempts = 3;
             Options.Lockout.AllowedForNewUsers = true;
         }).AddDefaultTokenProviders().AddEntityFrameworkStores<AppDbContext>();
+
+
+        //Mapper
+        services.AddAutoMapper(typeof(PostProfile).Assembly);
+
+        //Validator
+        services.AddFluentValidationAutoValidation();
+        services.AddFluentValidationClientsideAdapters();
+        services.AddValidatorsFromAssemblyContaining<PostImageGetDtoValidator>();
     }
 }

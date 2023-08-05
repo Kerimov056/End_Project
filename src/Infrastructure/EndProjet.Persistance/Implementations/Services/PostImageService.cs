@@ -10,9 +10,7 @@ namespace EndProjet.Persistance.Implementations.Services;
 public class PostImageService : IPostImageService
 {
     private readonly IPostImageWriteRepository _postImageWriteRepository;
-    private readonly IPostImageReadRepository _postImageReadRepository;
     private readonly IPostReadRepository _postReadRepository;
-    private readonly IStorageFile _storageFile;
     private readonly IMapper _mapper;
 
     public PostImageService(IPostImageWriteRepository postImageWriteRepository,
@@ -22,9 +20,7 @@ public class PostImageService : IPostImageService
                             IMapper mapper)
     {
         _postImageWriteRepository = postImageWriteRepository;
-        _postImageReadRepository = postImageReadRepository;
         _postReadRepository = postReadRepository;
-        _storageFile = storageFile;
         _mapper = mapper;
     }
 
