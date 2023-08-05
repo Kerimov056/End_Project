@@ -48,4 +48,6 @@ public class AppDbContext:IdentityDbContext<AppUser>
     public DbSet<Like> Likes { get; set; }
     public DbSet<PostLike> PostsLikes { get; set; }
     public DbSet<Posts> Posts { get; set; }
+    public DbSet<Tags> Tags { get; set; }
+    public DbSet<Post_Tag> Post_Tags { get; set; }
 }

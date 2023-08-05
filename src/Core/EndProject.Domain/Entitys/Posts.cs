@@ -1,6 +1,5 @@
 ﻿using EndProject.Domain.Entitys.Common;
 using EndProject.Domain.Entitys.Identity;
-using Microsoft.AspNetCore.Identity;
 
 namespace EndProject.Domain.Entitys;
 
@@ -12,6 +11,7 @@ public class Posts:BaseEntity
     public AppUser AppUser { get; set; }
     public List<Comments> comments { get; set; }
     public List<PostLike> postLikes { get; set; }
+    public List<Post_Tag> Post_Tags { get; set; }
 }
 
 
