@@ -23,7 +23,9 @@ public static class ServiceRegistration
 
         //Repository
         services.AddScoped<IPostReadRepository, PostReadRepository>();
-        services.AddScoped<IPostWriteRepository, PostWriteRepository>();
+        services.AddScoped<IPostWriteRepository, PostWriteRepository>(); 
+        services.AddScoped<IPostImageReadRepository, PostImageReadRepository>();
+        services.AddScoped<IPostImageWriteRepository, PostImageWriteRepository>();
 
 
 
