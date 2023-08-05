@@ -15,27 +15,32 @@ public class PostService : IPostService
     private readonly IPostWriteRepository _postWriteRepository;
     private readonly IHttpContextAccessor _contextAccessor;
     private readonly UserManager<AppUser> _userManager;
-
+    private readonly IPostImageService _postImageService;
     private readonly IMapper _mapper;
 
     public PostService(IPostReadRepository postReadRepository,
                        IPostWriteRepository postWriteRepository,
                        IHttpContextAccessor httpContextAccessor,
+                       IPostImageService postImageService,
                        UserManager<AppUser> userManager,
                        IMapper mapper)
     {
         _postReadRepository = postReadRepository;
         _postWriteRepository = postWriteRepository;
         _contextAccessor = httpContextAccessor;
+        _postImageService = postImageService;
         _userManager = userManager;
         _mapper = mapper;
     }
 
-    public Task AddAsync(PostCreateDTO postCreateDTO)
+    public async Task AddAsync(PostCreateDTO postCreateDTO)
     {
         var ByUser = GetUserId();
-
         var NewPost = _mapper.Map<Posts>(postCreateDTO);
+        NewPost.AppUserId = ByUser;
+
+        await _postWriteRepository.AddAsync(NewPost);
+        await _postWriteRepository.SavaChangeAsync();
 
     }
 
