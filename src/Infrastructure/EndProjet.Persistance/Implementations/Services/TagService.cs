@@ -25,6 +25,12 @@ public class TagService : ITagService
 
     public async Task AddAsync(TagCreateDTO tagsCreateDTO)
     {
+        Tags? tags = await _tagReadRepository
+            .GetByIdAsyncExpression(x => x.Tag.ToLower().Equals(tagsCreateDTO.Tag));
+
+
+        if (tags is not null) throw new DublicatedException("Dubilcated Tag Name!");
+
         var NewTag = _mapper.Map<Tags>(tagsCreateDTO);
         await _tagWriteRepository.AddAsync(NewTag);
         await _tagWriteRepository.SavaChangeAsync();
