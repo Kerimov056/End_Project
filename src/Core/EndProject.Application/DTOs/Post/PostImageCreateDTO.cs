@@ -1,7 +1,9 @@
-﻿namespace EndProject.Application.DTOs.Post;
+﻿using Microsoft.AspNetCore.Http;
+
+namespace EndProject.Application.DTOs.Post;
 
 public class PostImageCreateDTO
 {
-    public string ImagePath { get; set; }
+    public IFormFile ImagePath { get; set; }
     public Guid PostsId { get; set; }
 }

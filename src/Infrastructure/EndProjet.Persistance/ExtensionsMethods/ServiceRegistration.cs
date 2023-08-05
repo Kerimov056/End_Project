@@ -38,6 +38,7 @@ public static class ServiceRegistration
         //Service
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IPostImageService, PostImageService>();
+        services.AddScoped<IPostService, PostService>();
 
 
 

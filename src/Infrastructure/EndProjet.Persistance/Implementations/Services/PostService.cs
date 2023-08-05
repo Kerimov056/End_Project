@@ -41,7 +41,12 @@ public class PostService : IPostService
 
         await _postWriteRepository.AddAsync(NewPost);
         await _postWriteRepository.SavaChangeAsync();
+        // demeli bura kimi message ve user'i add elemis olduq.
+        var NewPostImage = _mapper.Map<PostImageCreateDTO>(NewPost.postImage);
+        await _postImageService.AddAsync(NewPostImage);
 
+
+        // indi biz Burda Tag Service yazacyiq evvelce Tag servicesi Qurmaliyiq.
     }
 
     public Task<PostGetDTO> GetByIdAsync(Guid Id)

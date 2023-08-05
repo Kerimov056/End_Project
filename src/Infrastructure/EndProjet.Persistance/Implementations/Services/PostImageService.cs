@@ -11,6 +11,7 @@ public class PostImageService : IPostImageService
 {
     private readonly IPostImageWriteRepository _postImageWriteRepository;
     private readonly IPostReadRepository _postReadRepository;
+    private readonly IStorageFile _storgeFile;
     private readonly IMapper _mapper;
 
     public PostImageService(IPostImageWriteRepository postImageWriteRepository,
@@ -21,12 +22,18 @@ public class PostImageService : IPostImageService
     {
         _postImageWriteRepository = postImageWriteRepository;
         _postReadRepository = postReadRepository;
+        _storgeFile = storageFile;
         _mapper = mapper;
     }
 
     public async Task AddAsync(PostImageCreateDTO postImageCreateDTO)
     {
         var PostImage = _mapper.Map<PostImage>(postImageCreateDTO);
+        if (PostImage.imagePath != null && postImageCreateDTO.ImagePath.Length > 0)
+        {
+            var ImagePath = await _storgeFile.WriteFile("Upload\\Files", postImageCreateDTO.ImagePath);
+            PostImage.imagePath = ImagePath;
+        }
         await _postImageWriteRepository.AddAsync(PostImage);
         await _postImageWriteRepository.SavaChangeAsync();
     }
