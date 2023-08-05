@@ -42,8 +42,4 @@ public class NewTagService : INewTagService
         await _newTagWriteRepository.SavaChangeAsync();
     }
 
-    public Task Update(Guid PostId, NewTagUpdateDTO newTagUpdateDTO)
-    {
-        throw new NotImplementedException();
-    }
 }
