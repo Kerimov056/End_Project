@@ -30,7 +30,7 @@ public class TagService : ITagService
         if (tags is not null) throw new DublicatedException("Dubilcated Tag Name!");
 
         var NewTag = _mapper.Map<Tags>(tagsCreateDTO);
-        await _tagWriteRepository.AddAsync(NewTag);
+        await _tagWriteRepository.AddAsync(NewTag);  //tagWrtireRepositoryde problem var exception verir
         await _tagWriteRepository.SavaChangeAsync();
     }
 
