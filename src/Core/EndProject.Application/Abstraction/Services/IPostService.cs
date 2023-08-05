@@ -10,3 +10,11 @@ public interface IPostService
     //Task UpdateAsync(Guid Id, PostUpdateDTO postUpdateDTO);
     //Task RemoveAsync(Guid Id);
 }
+
+
+//TagGetDTO
+//TagCreateDTO
+//TagUpdateDTO
+//Post_TagGetDTO
+//Post_TagCreateDTO
+//Post_TagUpdateDTO
