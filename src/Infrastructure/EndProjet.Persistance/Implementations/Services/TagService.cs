@@ -4,6 +4,7 @@ using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Tag;
 using EndProject.Domain.Entitys;
 using EndProjet.Persistance.Exceptions;
+using Microsoft.EntityFrameworkCore;
 
 namespace EndProjet.Persistance.Implementations.Services;
 
@@ -37,18 +38,27 @@ public class TagService : ITagService
         return MapByTag;
     }
 
-    public Task<List<TagGetDTO>> GettAllAsync()
+    public async Task<List<TagGetDTO>> GettAllAsync()
     {
-        throw new NotImplementedException();
+        var Tags = await _tagReadRepository.GetAll().ToListAsync();
+        var MapTags = _mapper.Map<List<TagGetDTO>>(Tags);
+        return MapTags;
     }
 
-    public Task RemoveAsync(Guid Id)
+    public async Task RemoveAsync(Guid Id)
     {
-        throw new NotImplementedException();
+        var ByTag = await _tagReadRepository.GetByIdAsync(Id);
+        if (ByTag is null) throw new NotFoundException("Tag is Null");
+        _tagWriteRepository.Remove(ByTag);
+        await _tagWriteRepository.SavaChangeAsync();
     }
 
-    public Task UpdateAsync(Guid Id, TagUpdateDTO tagsUpdateDTO)
+    public async Task UpdateAsync(Guid Id, TagUpdateDTO tagsUpdateDTO)
     {
-        throw new NotImplementedException();
+        var ByTag = await _tagReadRepository.GetByIdAsync(Id);
+        if (ByTag is null) throw new NotFoundException("Tag is Null");
+        _mapper.Map(tagsUpdateDTO,ByTag);
+        _tagWriteRepository.Update(ByTag);
+        await _tagWriteRepository.SavaChangeAsync();
     }
 }
