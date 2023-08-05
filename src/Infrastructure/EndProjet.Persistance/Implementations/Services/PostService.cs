@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
+using EndProject.Application.DTOs.NewTag;
 using EndProject.Application.DTOs.Post;
 using EndProject.Domain.Entitys;
 using EndProject.Domain.Entitys.Identity;
@@ -16,6 +17,7 @@ public class PostService : IPostService
     private readonly IPostWriteRepository _postWriteRepository;
     private readonly IHttpContextAccessor _contextAccessor;
     private readonly UserManager<AppUser> _userManager;
+    private readonly INewTagService _newTagService;
     private readonly IPostImageService _postImageService;
     private readonly AppDbContext _appDbContext;
     private readonly ITagService _tagService;
@@ -26,6 +28,7 @@ public class PostService : IPostService
                        IHttpContextAccessor httpContextAccessor,
                        IPostImageService postImageService,
                        ITagService tagService,
+                       INewTagService newTagService,
                        AppDbContext appDbContext,
                        UserManager<AppUser> userManager,
                        IMapper mapper)
@@ -35,6 +38,7 @@ public class PostService : IPostService
         _contextAccessor = httpContextAccessor;
         _postImageService = postImageService;
         _tagService = tagService;
+        _newTagService= newTagService;
         _appDbContext = appDbContext;
         _userManager = userManager;
         _mapper = mapper;
@@ -48,11 +52,13 @@ public class PostService : IPostService
 
         await _postWriteRepository.AddAsync(NewPost);
         await _postWriteRepository.SavaChangeAsync();
-        // demeli bura kimi message ve user'i add elemis olduq.
+
         var NewPostImage = _mapper.Map<PostImageCreateDTO>(NewPost.postImage);
         await _postImageService.AddAsync(NewPostImage);
 
-        
+
+        var NewPostNewTag = _mapper.Map<NewTagCreateDTO>(NewPost.newTag);
+        await _newTagService.AddAsync(NewPostNewTag);
         
         foreach (var item in await _tagService.GettAllAsync())
         {
