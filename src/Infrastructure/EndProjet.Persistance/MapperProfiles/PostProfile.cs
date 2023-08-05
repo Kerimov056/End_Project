@@ -9,9 +9,11 @@ public class PostProfile:Profile
 	public PostProfile()
 	{
 		CreateMap<Posts, PostGetDTO>().ReverseMap();
+		CreateMap<Posts, PostUpdateDTO>().ReverseMap();
 		CreateMap<Posts, PostCreateDTO>().ReverseMap();
 		CreateMap<PostLike, PostLikeGetDTO>().ReverseMap();
 		CreateMap<PostLike, PostLikeCreateDTO>().ReverseMap();
+		CreateMap<PostLike, PostLikeUpdateDTO>().ReverseMap();
 		CreateMap<PostImage, PostImageGetDTO>().ReverseMap();
 		CreateMap<PostImage, PostImageCreateDTO>().ReverseMap();
 		CreateMap<PostImage, PostImageUpdateDTO>().ReverseMap();

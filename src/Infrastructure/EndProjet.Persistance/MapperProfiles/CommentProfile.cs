@@ -10,5 +10,6 @@ public class CommentProfile:Profile
 	{
 		CreateMap<Comments,CommentGetDTO>().ReverseMap();
 		CreateMap<Comments,CommentCreateDTO>().ReverseMap();
+		CreateMap<Comments,CommentUpdateDTO>().ReverseMap();
 	}
 }

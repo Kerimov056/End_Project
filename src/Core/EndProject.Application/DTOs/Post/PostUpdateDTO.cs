@@ -11,9 +11,3 @@ public class PostUpdateDTO
     public List<PostLikeUpdateDTO> postLikeGetDTOs { get; set; }
 }
 
-
-//PostUpdateDTO
-//PostImageUpdateDTO
-//CommentUpdateDTO
-//LikeUpdateDTO
-//PostLikeUpdateDTO
