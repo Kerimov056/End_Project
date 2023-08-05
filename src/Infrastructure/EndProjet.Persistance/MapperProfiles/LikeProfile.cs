@@ -9,5 +9,6 @@ public class LikeProfile:Profile
 	public LikeProfile()
 	{
 		CreateMap<Like, LikeGetDTO>().ReverseMap();
+		CreateMap<Like, LikeCreateDTO>().ReverseMap();
 	}
 }
