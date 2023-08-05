@@ -34,6 +34,8 @@ public static class ServiceRegistration
         services.AddScoped<IPostImageWriteRepository, PostImageWriteRepository>();
         services.AddScoped<ITagReadRepository, TagReadRepository>();
         services.AddScoped<ITagWriteRepository, TagWriteRepository>();
+        services.AddScoped<INewTagReadRepository, NewTagReadRepository>();
+        services.AddScoped<INewTagWriteRepository, NewTagWriteRepository>();
 
 
 
