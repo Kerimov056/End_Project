@@ -32,6 +32,8 @@ public static class ServiceRegistration
         services.AddScoped<IPostWriteRepository, PostWriteRepository>(); 
         services.AddScoped<IPostImageReadRepository, PostImageReadRepository>();
         services.AddScoped<IPostImageWriteRepository, PostImageWriteRepository>();
+        services.AddScoped<ITagReadRepository, TagReadRepository>();
+        services.AddScoped<ITagWriteRepository, TagWriteRepository>();
 
 
 
@@ -39,6 +41,7 @@ public static class ServiceRegistration
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IPostImageService, PostImageService>();
         services.AddScoped<IPostService, PostService>();
+        services.AddScoped<ITagService, TagService>();
 
 
 

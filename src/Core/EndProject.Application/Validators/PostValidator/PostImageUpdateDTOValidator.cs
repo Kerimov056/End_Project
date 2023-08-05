@@ -7,6 +7,6 @@ public class PostImageUpdateDTOValidator : AbstractValidator<PostImageCreateDTO>
 {
     public PostImageUpdateDTOValidator()
     {
-        RuleFor(x => x.ImagePath).NotNull().NotEmpty().MaximumLength(756);
+        RuleFor(x => x.ImagePath).NotNull().NotEmpty();
     }
 }
