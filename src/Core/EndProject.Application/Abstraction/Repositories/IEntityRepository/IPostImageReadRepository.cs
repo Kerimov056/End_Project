@@ -2,6 +2,6 @@
 
 namespace EndProject.Application.Abstraction.Repositories.IEntityRepository;
 
-public interface IPostImageWriteRepository:IReadRepository<PostImage>
+public interface IPostImageReadRepository:IReadRepository<PostImage>
 {
 }
