@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using EndProject.Application.DTOs.Post;
 
-namespace EndProject.Application.Abstraction.Services
+namespace EndProject.Application.Abstraction.Services;
+
+public interface IPostImageService
 {
-    internal interface IPostImageService
-    {
-    }
+    Task AddAsync(PostImageCreateDTO postImageCreateDTO);
 }
