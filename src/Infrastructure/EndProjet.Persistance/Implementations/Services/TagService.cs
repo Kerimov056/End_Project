@@ -27,8 +27,6 @@ public class TagService : ITagService
     {
         Tags? tags = await _tagReadRepository
             .GetByIdAsyncExpression(x => x.Tag.ToLower().Equals(tagsCreateDTO.Tag));
-
-
         if (tags is not null) throw new DublicatedException("Dubilcated Tag Name!");
 
         var NewTag = _mapper.Map<Tags>(tagsCreateDTO);
