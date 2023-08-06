@@ -39,6 +39,9 @@ public static class ServiceRegistration
         services.AddScoped<ICommentReadRepository, CommentReadRepository>();
         services.AddScoped<ICommentWriteRepository, CommentWriteRepository>();
 
+        services.AddScoped<ILikeReadRepository, LikeReadRepository>();
+        services.AddScoped<ILikeWriteRepository, LikeWriteRepository>();
+
 
 
         //Service
