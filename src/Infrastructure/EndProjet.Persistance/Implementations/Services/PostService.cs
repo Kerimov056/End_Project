@@ -21,11 +21,11 @@ public class PostService : IPostService
     private readonly IPostReadRepository _postReadRepository;
     private readonly IPostWriteRepository _postWriteRepository;
     private readonly IHttpContextAccessor _contextAccessor;
+    private readonly UserManager<AppUser> _userManager;
     private readonly INewTagService _newTagService;
     private readonly IPostImageService _postImageService;
     private readonly ITagService _tagService;
     private readonly AppDbContext _appDbContext;
-    private readonly UserManager<AppUser> _userManager;
     private readonly IMapper _mapper;
 
     public PostService(IPostReadRepository postReadRepository,
@@ -225,7 +225,6 @@ public class PostService : IPostService
         //var user = _contextAccessor.HttpContext.User;
         string userId = "8a244e85-22bd-42a2-aa8e-0d5f93d9bdb4";
         return userId;
-        //dd
     }
 }
 
