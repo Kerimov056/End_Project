@@ -34,7 +34,6 @@ public class CommentService : ICommentService
     {
         var NewCooment = _mapper.Map<Comments>(commentCreateDTO);
         NewCooment.AppUserId = GetUserId();
-
         throw new NotImplementedException();
 
     }
