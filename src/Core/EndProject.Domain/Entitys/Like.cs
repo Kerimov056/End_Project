@@ -5,7 +5,7 @@ namespace EndProject.Domain.Entitys;
 
 public class Like:BaseEntity
 {
-    public int likeSum { get; set; } = 0;
+    public int likeSum { get; set; }
     public Guid CommentsId { get; set; }
     public Comments Comments { get; set; }
     public string AppUserId { get; set; }
