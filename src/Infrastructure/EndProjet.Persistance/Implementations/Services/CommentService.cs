@@ -42,9 +42,13 @@ public class CommentService : ICommentService
         await _commentWriteRepository.SavaChangeAsync();
     }
 
-    public Task<CommentGetDTO> GetByIdAsync(Guid Id)
+    public async Task<CommentGetDTO> GetByIdAsync(Guid Id)
     {
-        throw new NotImplementedException();
+        var ByComment = await _commentReadRepository.GetByIdAsync(Id);
+        var EntityToDto = _mapper.Map<CommentGetDTO>(ByComment);
+        EntityToDto.PostId = (Guid)ByComment.PostsId;
+        EntityToDto.Comment = ByComment.message;
+        return EntityToDto;
     }
 
     public Task<List<CommentGetDTO>> GettAllAsync()
