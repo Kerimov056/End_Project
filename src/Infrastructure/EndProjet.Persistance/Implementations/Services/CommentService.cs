@@ -30,12 +30,16 @@ public class CommentService : ICommentService
         _mapper = mapper;
     }
 
-    public Task AddAsync(CommentCreateDTO commentCreateDTO)
+    public async Task AddAsync(CommentCreateDTO commentCreateDTO)
     {
-        var NewCooment = _mapper.Map<Comments>(commentCreateDTO);
-        NewCooment.AppUserId = GetUserId();
-        throw new NotImplementedException();
-
+        Comments newComments = new()
+        {
+            message = commentCreateDTO.Comment,
+            AppUserId = commentCreateDTO.AppUserId,
+            PostsId = commentCreateDTO.PostId
+        };
+        await _commentWriteRepository.AddAsync(newComments);
+        await _commentWriteRepository.SavaChangeAsync();
     }
 
     public Task<CommentGetDTO> GetByIdAsync(Guid Id)
