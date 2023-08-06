@@ -51,6 +51,7 @@ public static class ServiceRegistration
         services.AddScoped<ITagService, TagService>();
         services.AddScoped<INewTagService, NewTagService>();
         services.AddScoped<ICommentService, CommentService>();
+        services.AddScoped<ILikeService, LikeService>();
 
 
 
