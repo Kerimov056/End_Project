@@ -3,6 +3,7 @@ using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.NewTag;
 using EndProject.Application.DTOs.Post;
+using EndProject.Application.DTOs.Tag;
 using EndProject.Domain.Entitys;
 using EndProject.Domain.Entitys.Identity;
 using EndProjet.Persistance.Context;
@@ -50,22 +51,43 @@ public class PostService : IPostService
         var NewPost = _mapper.Map<Posts>(postCreateDTO);
         NewPost.AppUserId = ByUser;
 
-        await _postWriteRepository.AddAsync(NewPost);
+        await _postWriteRepository.AddAsync(NewPost); 
         await _postWriteRepository.SavaChangeAsync();
 
-        var NewPostImage = _mapper.Map<PostImageCreateDTO>(NewPost.postImage);
-        await _postImageService.AddAsync(NewPostImage);
+        //var NewPostImageList = new List<PostImageCreateDTO>();
+        foreach (var imageDto in postCreateDTO.Images)
+        {
+            var newPostImage = _mapper.Map<PostImageCreateDTO>(imageDto);
+            await _postImageService.AddAsync(NewPost.Id, newPostImage);
+        }
 
 
-        var NewPostNewTag = _mapper.Map<NewTagCreateDTO>(NewPost.newTag);
-        await _newTagService.AddAsync(NewPostNewTag);
+        //foreach (var tag in postCreateDTO.NewTagCreateDTOs)
+        //{
+        //    TagCreateDTO tagCreateDTO = new()
+        //    {
+        //        Tag = tag.Tag
+        //    };
+        //    await _tagService.AddAsync(tagCreateDTO);
+        //}
+
+
+        var tags = new List<NewTagCreateDTO>();
+        foreach (var item in tags)
+        {
+            var tagCreateDto = new TagCreateDTO
+            {
+                Tag = item.Tag
+            };
+            await _tagService.AddAsync(tagCreateDto);
+        }
         
         foreach (var item in await _tagService.GettAllAsync())
         {
             var Post_Tag = new Post_Tag
             {
-                PostId = NewPost.Id,
-                TagsId = item.Id
+                TagsId = item.Id,
+                PostsId = NewPost.Id
             };
             await _appDbContext.Post_Tags.AddAsync(Post_Tag);
         }
@@ -95,8 +117,8 @@ public class PostService : IPostService
 
     private string GetUserId()
     {
-        var user = _contextAccessor.HttpContext.User;
-        string userId = _userManager.GetUserId(user);
+        //var user = _contextAccessor.HttpContext.User;
+        string userId = "8a244e85-22bd-42a2-aa8e-0d5f93d9bdb4";
         return userId;
     }
 }

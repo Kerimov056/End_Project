@@ -26,14 +26,16 @@ public class PostImageService : IPostImageService
         _mapper = mapper;
     }
 
-    public async Task AddAsync(PostImageCreateDTO postImageCreateDTO)
+    public async Task AddAsync(Guid PostId,PostImageCreateDTO postImageCreateDTO)
     {
-        var PostImage = _mapper.Map<PostImage>(postImageCreateDTO);
-        if (PostImage.imagePath != null && postImageCreateDTO.ImagePath.Length > 0)
-        {
-            var ImagePath = await _storgeFile.WriteFile("Upload\\Files", postImageCreateDTO.ImagePath);
-            PostImage.imagePath = ImagePath;
-        }
+        PostImage PostImage = _mapper.Map<PostImage>(postImageCreateDTO);
+        PostImage.PostsId = PostId;
+        //if (PostImage.imagePath != null && postImageCreateDTO.ImagePath.Length > 0)
+        //{
+        //    var ImagePath = await _storgeFile.WriteFile("Upload\\Files", postImageCreateDTO.ImagePath);
+        //    PostImage.imagePath = ImagePath;
+        //}
+
         await _postImageWriteRepository.AddAsync(PostImage);
         await _postImageWriteRepository.SavaChangeAsync();
     }

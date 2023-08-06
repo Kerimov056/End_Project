@@ -8,10 +8,15 @@ public class PostCreateDTO
 {
     public string Message { get; set; }
     public List<PostImageCreateDTO> Images { get; set; }
-    public string AppUserId { get; set; }
     public List<NewTagCreateDTO> NewTagCreateDTOs { get; set; }
-    public List<CommentCreateDTO> commentGetDTOs { get; set; }  
-    public List<PostLikeCreateDTO> postLikeCreateDTOs { get; set; }
-    public List<Post_TagCreateDTO> MyProperty { get; set; }
-
+    public Guid tagId { get; set; }
 }
+
+
+
+//public string AppUserId { get; set; }
+//public List<NewTagCreateDTO> Tags { get; set; }
+
+//public List<CommentCreateDTO> commentGetDTOs { get; set; }  
+//public List<PostLikeCreateDTO> postLikeCreateDTOs { get; set; }
+//public List<Post_TagCreateDTO> MyProperty { get; set; }

@@ -4,6 +4,6 @@ namespace EndProject.Application.Abstraction.Services;
 
 public interface IPostImageService
 {
-    Task AddAsync(PostImageCreateDTO postImageCreateDTO);
+    Task AddAsync(Guid PostId,PostImageCreateDTO postImageCreateDTO);
     Task Update(Guid PostId, PostImageUpdateDTO postImageUpdateDTO);
 }

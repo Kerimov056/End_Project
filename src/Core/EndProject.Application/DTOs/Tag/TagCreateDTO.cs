@@ -1,5 +1,6 @@
-﻿using EndProject.Application.DTOs.Post_Tag;
+﻿namespace EndProject.Application.DTOs.Tag;
 
-namespace EndProject.Application.DTOs.Tag;
-
-public record TagCreateDTO(string Tag);
+public class TagCreateDTO
+{
+    public string Tag { get; set; }
+}

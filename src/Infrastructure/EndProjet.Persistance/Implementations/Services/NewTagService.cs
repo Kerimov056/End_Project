@@ -26,16 +26,16 @@ public class NewTagService : INewTagService
 
     public async Task AddAsync(NewTagCreateDTO newTagCreateDTO)
     {
-        foreach (var item in await _tagService.GettAllAsync())
-        {
-            if (newTagCreateDTO.Tag==item.Tag)
-            {
-                var tag = _mapper.Map<NewTag>(newTagCreateDTO);
-                tag.Tag = item.Tag;
-                await _newTagWriteRepository.AddAsync(tag);
-                await _newTagWriteRepository.SavaChangeAsync();
-            }
-        }
+        //foreach (var item in await _tagService.GettAllAsync())
+        //{
+        //    if (newTagCreateDTO.Tag==item.Tag)
+        //    {
+        //        var tag = _mapper.Map<NewTag>(newTagCreateDTO);
+        //        tag.Tag = item.Tag;
+        //        await _newTagWriteRepository.AddAsync(tag);
+        //        await _newTagWriteRepository.SavaChangeAsync();
+        //    }
+        //}
 
         var newTag = _mapper.Map<NewTag>(newTagCreateDTO);
         await _newTagWriteRepository.AddAsync(newTag);
