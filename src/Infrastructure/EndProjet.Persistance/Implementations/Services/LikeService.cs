@@ -46,10 +46,12 @@ public class LikeService : ILikeService
 
         await _appDbContext.SaveChangesAsync();
     }
-
     public async Task<int> GetLikeCountForComment(Guid commentId)
     {
-        var comment = await _appDbContext.Comments.FirstOrDefaultAsync(c => c.Id == commentId);
+        var comment = await _appDbContext.Comments
+            .Include(c => c.Likes)
+            .FirstOrDefaultAsync(c => c.Id == commentId);
+
         if (comment == null)
         {
             // Comment bulunamadı, hata ver veya işlemi sonlandır.
