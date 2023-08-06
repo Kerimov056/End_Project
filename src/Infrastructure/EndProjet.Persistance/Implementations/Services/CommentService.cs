@@ -4,6 +4,7 @@ using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Comments;
 using EndProject.Domain.Entitys;
 using EndProject.Domain.Entitys.Identity;
+using EndProjet.Persistance.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -69,14 +70,26 @@ public class CommentService : ICommentService
         return allComents;
     }
 
-    public Task RemoveAsync(Guid Id)
+    public async Task RemoveAsync(Guid Id)
     {
-        throw new NotImplementedException();
+        var ByComment = await _commentReadRepository.GetByIdAsync(Id);
+        if (ByComment is null) throw new NotFoundException("Comment is Null");
+
+        _commentWriteRepository.Remove(ByComment);
+        await _commentWriteRepository.SavaChangeAsync();
     }
 
-    public Task UpdateAsync(Guid Id, CommentUpdateDTO commentUpdateDTO)
+    public async Task UpdateAsync(Guid Id, CommentUpdateDTO commentUpdateDTO)
     {
-        throw new NotImplementedException();
+        //var ByComment = await _commentReadRepository.GetByIdAsync(Id);
+        //if (ByComment is null) throw new NotFoundException("Comment is Null");
+
+        //ByComment.message = commentUpdateDTO.Comment;
+        //ByComment.AppUserId = commentUpdateDTO.AppUserId;
+        //ByComment.PostsId = commentUpdateDTO.PostId;
+
+        //_commentWriteRepository.Update(ByComment);
+        await _commentWriteRepository.SavaChangeAsync();
     }
 
     private string GetUserId()
