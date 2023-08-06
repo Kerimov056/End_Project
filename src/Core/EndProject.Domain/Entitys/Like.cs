@@ -11,3 +11,4 @@ public class Like:BaseEntity
     public string AppUserId { get; set; }
     public AppUser AppUser { get; set; }
 }
+

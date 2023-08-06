@@ -8,3 +8,4 @@ public class PostImage:BaseEntity
     public Guid PostsId { get; set; }
     public Posts Posts { get; set; }
 }
+

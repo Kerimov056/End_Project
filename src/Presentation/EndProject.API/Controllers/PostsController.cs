@@ -48,4 +48,11 @@ public class PostsController : ControllerBase
         await _postService.UpdateAsync(Id, postCreateDTO);
         return Ok();
     }
+
+    [HttpGet("detail")]
+    public async Task<IActionResult> GetPostWithDetail()
+    {
+        var Postss = await _postService.GetAllPostsWithDetails();
+        return Ok(Postss);
+    }
 }

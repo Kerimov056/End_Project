@@ -25,6 +25,16 @@ public class AppDbContext:IdentityDbContext<AppUser>
             .WithMany(s => s.group_Users)
             .HasForeignKey(us => us.AppUserId);
 
+        modelBuilder.Entity<Like>()
+            .HasOne(l => l.AppUser)
+            .WithMany(u => u.likes) 
+            .HasForeignKey(l => l.AppUserId);
+
+        // Optionally, configure the relationship between AppUser and Like
+        modelBuilder.Entity<AppUser>()
+            .HasMany(u => u.likes)
+            .WithOne(l => l.AppUser)
+            .HasForeignKey(l => l.AppUserId);
 
         modelBuilder.Entity<PostLike>()
             .HasOne(pl => pl.Posts)

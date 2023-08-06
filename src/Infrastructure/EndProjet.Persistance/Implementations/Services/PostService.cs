@@ -13,6 +13,8 @@ using EndProjet.Persistance.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 namespace EndProjet.Persistance.Implementations.Services;
 
@@ -43,7 +45,7 @@ public class PostService : IPostService
         _contextAccessor = httpContextAccessor;
         _postImageService = postImageService;
         _tagService = tagService;
-        _newTagService= newTagService;
+        _newTagService = newTagService;
         _appDbContext = appDbContext;
         _userManager = userManager;
         _mapper = mapper;
@@ -55,7 +57,7 @@ public class PostService : IPostService
         var NewPost = _mapper.Map<Posts>(postCreateDTO);
         NewPost.AppUserId = ByUser;
 
-        await _postWriteRepository.AddAsync(NewPost); 
+        await _postWriteRepository.AddAsync(NewPost);
         await _postWriteRepository.SavaChangeAsync();
 
         foreach (var imageDto in postCreateDTO.Images)
@@ -83,7 +85,7 @@ public class PostService : IPostService
             };
             await _tagService.AddAsync(tagCreateDto);
         }
-        
+
         foreach (var item in await _tagService.GettAllAsync())
         {
             var Post_Tag = new Post_Tag
@@ -96,6 +98,29 @@ public class PostService : IPostService
         await _postWriteRepository.SavaChangeAsync();
     }
 
+    public async Task<List<Posts>> GetAllPostsWithDetails()
+    {
+        var options = new JsonSerializerOptions
+        {
+            ReferenceHandler = ReferenceHandler.Preserve 
+        };
+
+        var posts = await _appDbContext.Posts
+            .Include(p => p.postImage)
+            .Include(p => p.newTag)
+            .Include(p => p.comments)
+                .ThenInclude(c => c.Likes)
+            .Include(p => p.comments)
+                .ThenInclude(c => c.AppUser)
+            .Include(p => p.postLikes)
+                .ThenInclude(pl => pl.AppUser)
+            .Include(p => p.Post_Tags)
+                .ThenInclude(pt => pt.Tags)
+            .ToListAsync();
+
+        return posts;
+    }
+
     public async Task<PostGetDTO> GetByIdAsync(Guid Id)
     {
         var Posts = await _postReadRepository
@@ -105,14 +130,14 @@ public class PostService : IPostService
           .Include(x => x.postLikes)
           .Include(x => x.Post_Tags)
           .ThenInclude(x => x.Tags)
-          .FirstOrDefaultAsync(x => x.Id==Id);
+          .FirstOrDefaultAsync(x => x.Id == Id);
 
         if (Posts is null) throw new NotFoundException("Post Is Null");
 
         var EntityToDto = _mapper.Map<PostGetDTO>(Posts);
         return EntityToDto;
     }
-
+    //f744eb8a-c22d-4322-3ec8-08db96632ee3
     public async Task<List<PostGetDTO>> GettAllAsync()
     {
         var Posts = await _postReadRepository
@@ -123,63 +148,63 @@ public class PostService : IPostService
            .Include(x => x.Post_Tags)
            .ThenInclude(x => x.Tags)
            .ToListAsync();
-        var EntityToDto = _mapper.Map<List<PostGetDTO>>(Posts);
+        //var EntityToDto = _mapper.Map<List<PostGetDTO>>(Posts);
 
-        //var EntityToDto = new List<PostGetDTO>();
+        var EntityToDto = new List<PostGetDTO>();
 
-        //foreach (var item in Posts)
-        //{
-        //    var psotDto = new PostGetDTO
-        //    {
-        //        Id = item.Id,
-        //        Message = item.message,
-        //        AppUserId = item.AppUserId,
-        //        Images = new List<PostImageGetDTO>(),
-        //        commentGetDTOs = new List<CommentGetDTO>(),
-        //        postLikeGetDTOs= new List<PostLikeGetDTO>(),
-        //        Post_TagGetDTO = new List<Post_TagGetDTO>()
-        //    };
+        foreach (var item in Posts)
+        {
+            var psotDto = new PostGetDTO
+            {
+                Id = item.Id,
+                Message = item.message,
+                AppUserId = item.AppUserId,
+                Images = new List<PostImageGetDTO>(),
+                commentGetDTOs = new List<CommentGetDTO>(),
+                postLikeGetDTOs = new List<PostLikeGetDTO>(),
+                Post_TagGetDTO = new List<Post_TagGetDTO>()
+            };
 
 
-        //    foreach (var image in item.postImage)
-        //    {
-        //        var postImageGetDTO = new PostImageGetDTO
-        //        {
-        //            ImagePath = image.imagePath,
-        //        };
-        //    }
+            foreach (var image in item.postImage)
+            {
+                var postImageGetDTO = new PostImageGetDTO
+                {
+                    ImagePath = image.imagePath,
+                };
+            }
 
-        //    foreach (var coment in item.comments)
-        //    {
-        //        var CommentGetDTO = new CommentGetDTO
-        //        {
-        //            AppUserId= item.AppUserId,
-        //            PostId = item.Id,
-        //            Comment = coment.message,
-        //        };
-        //    }
+            foreach (var coment in item.comments)
+            {
+                var CommentGetDTO = new CommentGetDTO
+                {
+                    AppUserId = item.AppUserId,
+                    PostId = item.Id,
+                    Comment = coment.message,
+                };
+            }
 
-        //    foreach (var postLike in item.postLikes)
-        //    {
-        //        var postLikeGetDTO = new PostLikeGetDTO
-        //        {
-        //            likeSum = postLike.likeSum,
-        //            PostId = postLike.PostsId,
-        //            AppUserId= postLike.AppUserId
-        //        };
-        //    }
+            foreach (var postLike in item.postLikes)
+            {
+                var postLikeGetDTO = new PostLikeGetDTO
+                {
+                    likeSum = postLike.likeSum,
+                    PostId = postLike.PostsId,
+                    AppUserId = postLike.AppUserId
+                };
+            }
 
-        //    foreach (var Postag in item.Post_Tags)
-        //    {
-        //        var postTags = new Post_Tag
-        //        {
-        //            PostsId = Postag.PostsId,
-        //            TagsId = Postag.TagsId
-        //        };
-        //    }
+            foreach (var Postag in item.Post_Tags)
+            {
+                var postTags = new Post_Tag
+                {
+                    PostsId = Postag.PostsId,
+                    TagsId = Postag.TagsId
+                };
+            }
 
-        //    EntityToDto.Add(psotDto);
-        //}
+            EntityToDto.Add(psotDto);
+        }
 
         return EntityToDto;
     }
