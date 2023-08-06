@@ -34,24 +34,11 @@ public class LikesController : ControllerBase
         return Ok(CommentLikeCount);
     }
 
-    //[HttpGet("{Id:Guid}")]
-    //public async Task<IActionResult> GetAll(Guid Id)
-    //{
-    //    var ByPost = await _likeService.GetByIdAsync(Id);
-    //    return Ok(ByPost);
-    //}
+    [HttpDelete]
+    public async Task<IActionResult> LikeRemove(string userId, Guid commentId)
+    {
+        await _likeService.UnlikeCommentAsync(userId, commentId);
+        return StatusCode((int)HttpStatusCode.Created);
+    }
 
-    //[HttpDelete("{Id:Guid}")]
-    //public async Task<IActionResult> Remove(Guid Id)
-    //{
-    //    await _likeService.RemoveAsync(Id);
-    //    return Ok();
-    //}
-
-    //[HttpPut("{Id:Guid}")]
-    //public async Task<IActionResult> Update(Guid Id, [FromBody] PostCreateDTO postCreateDTO)
-    //{
-    //    await _likeService.UpdateAsync(Id, postCreateDTO);
-    //    return Ok();
-    //}
 }
