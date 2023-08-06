@@ -6,6 +6,7 @@ using EndProject.Domain.Entitys;
 using EndProject.Domain.Entitys.Identity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace EndProjet.Persistance.Implementations.Services;
 
@@ -51,9 +52,21 @@ public class CommentService : ICommentService
         return EntityToDto;
     }
 
-    public Task<List<CommentGetDTO>> GettAllAsync()
+    public async Task<List<CommentGetDTO>> GettAllAsync()
     {
-        throw new NotImplementedException();
+        var comments = await _commentReadRepository.GetAll().ToListAsync();
+        var allComents = new List<CommentGetDTO>();
+        foreach (var item in comments)
+        {
+            var comment = new CommentGetDTO
+            {
+                Comment = item.message,
+                AppUserId = item.AppUserId,
+                PostId = (Guid)item.PostsId
+            };
+            allComents.Add(comment);
+        }
+        return allComents;
     }
 
     public Task RemoveAsync(Guid Id)
