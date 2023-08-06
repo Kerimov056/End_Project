@@ -186,8 +186,19 @@ public class PostService : IPostService
 
     public async Task RemoveAsync(Guid Id)
     {
-        throw new NotImplementedException();
-       
+        var Posts = await _postReadRepository
+        .GetAll()
+        .Include(x => x.postImage)
+        .Include(x => x.comments)
+        .Include(x => x.postLikes)
+        .Include(x => x.Post_Tags)
+        .ThenInclude(x => x.Tags)
+        .FirstOrDefaultAsync(x => x.Id == Id);
+
+        if (Posts is null) throw new NotFoundException("Post Is Null");
+
+        _postWriteRepository.Remove(Posts);
+        await _postWriteRepository.SavaChangeAsync();
     }
 
     public Task UpdateAsync(Guid Id, PostUpdateDTO postUpdateDTO)
