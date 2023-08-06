@@ -36,6 +36,8 @@ public static class ServiceRegistration
         services.AddScoped<ITagWriteRepository, TagWriteRepository>();
         services.AddScoped<INewTagReadRepository, NewTagReadRepository>();
         services.AddScoped<INewTagWriteRepository, NewTagWriteRepository>();
+        services.AddScoped<ICommentReadRepository, CommentReadRepository>();
+        services.AddScoped<ICommentWriteRepository, CommentWriteRepository>();
 
 
 
