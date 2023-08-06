@@ -25,6 +25,13 @@ public class LikesController : ControllerBase
     {
         var getUserLikeAll = await _likeService.GetUsersWhoLikedComment(commentId);
         return Ok(getUserLikeAll);
+    } 
+    
+    [HttpGet]
+    public async Task<IActionResult> GetLikeCountForComment(Guid commentId)
+    {
+        var CommentLikeCount = await _likeService.GetLikeCountForComment(commentId);
+        return Ok(CommentLikeCount);
     }
 
     //[HttpGet("{Id:Guid}")]

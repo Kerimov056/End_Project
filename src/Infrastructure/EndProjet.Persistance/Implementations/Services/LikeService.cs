@@ -10,47 +10,11 @@ namespace EndProjet.Persistance.Implementations.Services;
 
 public class LikeService : ILikeService
 {
-    private readonly ILikeReadRepository _likeReadRepository;
-    private readonly ILikeWriteRepository _likeWriteRepository;
     private readonly AppDbContext _appDbContext;
-    private readonly IMapper _mapper;
 
-    public LikeService(ILikeReadRepository likeReadRepository,
-                       ILikeWriteRepository likeWriteRepository,
-                       AppDbContext appDbContext,
-                       IMapper mapper)
+    public LikeService(AppDbContext appDbContext)
     {
-        _likeReadRepository = likeReadRepository;
-        _likeWriteRepository = likeWriteRepository;
         _appDbContext = appDbContext;
-        _mapper = mapper;
-    }
-
-    public async Task<int> GetLikeCountForComment(Guid commentId)
-    {
-        var comment = await _appDbContext.Comments.FirstOrDefaultAsync(c => c.Id == commentId);
-        if (comment == null)
-        {
-            return 0;
-        }
-        // Yorumun beyenı sayı cemi.
-        return comment.Likes.Count;
-    }
-
-    public async Task<List<AppUser>> GetUsersWhoLikedComment(Guid commentId)
-    {
-        var comment = await _appDbContext.Comments
-               .Include(c => c.Likes)
-               .ThenInclude(l => l.AppUser)
-               .FirstOrDefaultAsync(c => c.Id == commentId);
-
-        if (comment == null)
-        {
-            return new List<AppUser>();
-        }
-
-        // Yorumu beğenen userleri listesi
-        return comment.Likes.Select(like => like.AppUser).ToList();
     }
 
     public async Task LikeCommentAsync(string userId, Guid commentId)
@@ -58,12 +22,14 @@ public class LikeService : ILikeService
         var comment = await _appDbContext.Comments.FirstOrDefaultAsync(c => c.Id == commentId);
         if (comment == null)
         {
+            // Comment bulunamadı, hata ver veya işlemi sonlandır.
             return;
         }
 
         var existingLike = await _appDbContext.Likes.FirstOrDefaultAsync(l => l.CommentsId == commentId && l.AppUserId == userId);
         if (existingLike == null)
         {
+            // Daha önce like yapılmamış, yeni bir Like oluştur ve beğeni sayısını 1 olarak ayarla.
             var newLike = new Like
             {
                 CommentsId = commentId,
@@ -81,14 +47,49 @@ public class LikeService : ILikeService
         await _appDbContext.SaveChangesAsync();
     }
 
+    public async Task<int> GetLikeCountForComment(Guid commentId)
+    {
+        var comment = await _appDbContext.Comments.FirstOrDefaultAsync(c => c.Id == commentId);
+        if (comment == null)
+        {
+            // Comment bulunamadı, hata ver veya işlemi sonlandır.
+            return 0;
+        }
+
+        // Yorumun beğeni sayısını döndür.
+        return comment.Likes.Count;
+    }
+
+    public async Task<List<AppUser>> GetUsersWhoLikedComment(Guid commentId)
+    {
+        var comment = await _appDbContext.Comments
+            .Include(c => c.Likes)
+            .ThenInclude(l => l.AppUser)
+            .FirstOrDefaultAsync(c => c.Id == commentId);
+
+        if (comment == null)
+        {
+            // Comment bulunamadı, hata ver veya işlemi sonlandır.
+            return new List<AppUser>();
+        }
+
+        // Yorumu beğenen kullanıcıların listesini döndür.
+        return comment.Likes.Select(like => like.AppUser).ToList();
+    }
+
     public async Task UnlikeCommentAsync(string userId, Guid commentId)
     {
         var comment = await _appDbContext.Comments.FirstOrDefaultAsync(c => c.Id == commentId);
-        if (comment == null) return;
+        if (comment == null)
+        {
+            // Comment bulunamadı, hata ver veya işlemi sonlandır.
+            return;
+        }
 
         var existingLike = await _appDbContext.Likes.FirstOrDefaultAsync(l => l.CommentsId == commentId && l.AppUserId == userId);
         if (existingLike != null)
         {
+            // Beğeni var, beğeni sayısını düşür ve beğeniyi sil.
             if (existingLike.likeSum > 0)
             {
                 existingLike.likeSum--;
