@@ -10,4 +10,5 @@ public class LikeReadRepository : ReadRepository<Like>, ILikeReadRepository
     public LikeReadRepository(AppDbContext context) : base(context)
     {
     }
+
 }
