@@ -201,9 +201,22 @@ public class PostService : IPostService
         await _postWriteRepository.SavaChangeAsync();
     }
 
-    public Task UpdateAsync(Guid Id, PostUpdateDTO postUpdateDTO)
+    public async Task UpdateAsync(Guid Id, PostCreateDTO postCreateDTO)
     {
-        throw new NotImplementedException();
+        var Posts = await _postReadRepository
+        .GetAll()
+        .Include(x => x.postImage)
+        .Include(x => x.comments)
+        .Include(x => x.postLikes)
+        .Include(x => x.Post_Tags)
+        .ThenInclude(x => x.Tags)
+        .FirstOrDefaultAsync(x => x.Id == Id);
+
+        if (Posts is null) throw new NotFoundException("Post Is Null");
+
+        _mapper.Map(postCreateDTO, Posts);
+        _postWriteRepository.Update(Posts);
+        await _postWriteRepository.SavaChangeAsync();
     }
 
 

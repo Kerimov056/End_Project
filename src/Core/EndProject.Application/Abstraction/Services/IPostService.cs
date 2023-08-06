@@ -7,6 +7,6 @@ public interface IPostService
     Task<List<PostGetDTO>> GettAllAsync();
     Task AddAsync(PostCreateDTO postCreateDTO);
     Task<PostGetDTO> GetByIdAsync(Guid Id);
-    Task UpdateAsync(Guid Id, PostUpdateDTO postUpdateDTO);
+    Task UpdateAsync(Guid Id, PostCreateDTO postCreateDTO);
     Task RemoveAsync(Guid Id);
 }

@@ -34,4 +34,18 @@ public class PostsController : ControllerBase
         var ByPost = await _postService.GetByIdAsync(Id);
         return Ok(ByPost);
     }
+
+    [HttpDelete("{Id:Guid}")]
+    public async Task<IActionResult> Remove(Guid Id)
+    {
+        await _postService.RemoveAsync(Id);
+        return Ok();
+    }
+
+    [HttpPut("{Id:Guid}")]
+    public async Task<IActionResult> Update(Guid Id, [FromBody] PostCreateDTO postCreateDTO )
+    {
+        await _postService.UpdateAsync(Id, postCreateDTO);
+        return Ok();
+    }
 }
