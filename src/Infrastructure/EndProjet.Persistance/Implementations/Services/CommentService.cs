@@ -81,14 +81,14 @@ public class CommentService : ICommentService
 
     public async Task UpdateAsync(Guid Id, CommentUpdateDTO commentUpdateDTO)
     {
-        //var ByComment = await _commentReadRepository.GetByIdAsync(Id);
-        //if (ByComment is null) throw new NotFoundException("Comment is Null");
+        var ByComment = await _commentReadRepository.GetByIdAsync(Id);
+        if (ByComment is null) throw new NotFoundException("Comment is Null");
 
-        //ByComment.message = commentUpdateDTO.Comment;
-        //ByComment.AppUserId = commentUpdateDTO.AppUserId;
-        //ByComment.PostsId = commentUpdateDTO.PostId;
+        ByComment.message = commentUpdateDTO.Comment;
+        ByComment.AppUserId = commentUpdateDTO.AppUserId;
+        ByComment.PostsId = commentUpdateDTO.PostId;
 
-        //_commentWriteRepository.Update(ByComment);
+        _commentWriteRepository.Update(ByComment);
         await _commentWriteRepository.SavaChangeAsync();
     }
 
