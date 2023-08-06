@@ -13,6 +13,6 @@ public class PostGetDTO
     public List<NewTagGetDTO> NewTagGetDTOs { get; set; }
     public List<CommentGetDTO> commentGetDTOs { get; set; }
     public List<PostLikeGetDTO> postLikeGetDTOs { get; set; }
-    public List<Post_TagGetDTO> MyProperty { get; set; }
+    public List<Post_TagGetDTO> Post_TagGetDTO { get; set; }
 
 }

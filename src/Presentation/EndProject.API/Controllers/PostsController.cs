@@ -20,4 +20,18 @@ public class PostsController : ControllerBase
         await _postService.AddAsync(postCreateDTO);
         return StatusCode((int)HttpStatusCode.Created);
     }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAll()
+    {
+        var AllPost = await _postService.GettAllAsync();
+        return Ok(AllPost);
+    }
+
+    [HttpGet("{Id:Guid}")]
+    public async Task<IActionResult> GetAll(Guid Id)
+    {
+        var ByPost = await _postService.GetByIdAsync(Id);
+        return Ok(ByPost);
+    }
 }

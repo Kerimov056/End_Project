@@ -1,14 +1,18 @@
 ﻿using AutoMapper;
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
+using EndProject.Application.DTOs.Comments;
 using EndProject.Application.DTOs.NewTag;
 using EndProject.Application.DTOs.Post;
+using EndProject.Application.DTOs.Post_Tag;
 using EndProject.Application.DTOs.Tag;
 using EndProject.Domain.Entitys;
 using EndProject.Domain.Entitys.Identity;
 using EndProjet.Persistance.Context;
+using EndProjet.Persistance.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace EndProjet.Persistance.Implementations.Services;
 
@@ -17,11 +21,11 @@ public class PostService : IPostService
     private readonly IPostReadRepository _postReadRepository;
     private readonly IPostWriteRepository _postWriteRepository;
     private readonly IHttpContextAccessor _contextAccessor;
-    private readonly UserManager<AppUser> _userManager;
     private readonly INewTagService _newTagService;
     private readonly IPostImageService _postImageService;
-    private readonly AppDbContext _appDbContext;
     private readonly ITagService _tagService;
+    private readonly AppDbContext _appDbContext;
+    private readonly UserManager<AppUser> _userManager;
     private readonly IMapper _mapper;
 
     public PostService(IPostReadRepository postReadRepository,
@@ -54,13 +58,11 @@ public class PostService : IPostService
         await _postWriteRepository.AddAsync(NewPost); 
         await _postWriteRepository.SavaChangeAsync();
 
-        //var NewPostImageList = new List<PostImageCreateDTO>();
         foreach (var imageDto in postCreateDTO.Images)
         {
             var newPostImage = _mapper.Map<PostImageCreateDTO>(imageDto);
             await _postImageService.AddAsync(NewPost.Id, newPostImage);
         }
-
 
         //foreach (var tag in postCreateDTO.NewTagCreateDTOs)
         //{
@@ -94,19 +96,98 @@ public class PostService : IPostService
         await _postWriteRepository.SavaChangeAsync();
     }
 
-    public Task<PostGetDTO> GetByIdAsync(Guid Id)
+    public async Task<PostGetDTO> GetByIdAsync(Guid Id)
     {
-        throw new NotImplementedException();
+        var Posts = await _postReadRepository
+          .GetAll()
+          .Include(x => x.postImage)
+          .Include(x => x.comments)
+          .Include(x => x.postLikes)
+          .Include(x => x.Post_Tags)
+          .ThenInclude(x => x.Tags)
+          .FirstOrDefaultAsync(x => x.Id==Id);
+
+        if (Posts is null) throw new NotFoundException("Post Is Null");
+
+        var EntityToDto = _mapper.Map<PostGetDTO>(Posts);
+        return EntityToDto;
     }
 
-    public Task<List<PostGetDTO>> GettAllAsync()
+    public async Task<List<PostGetDTO>> GettAllAsync()
     {
-        throw new NotImplementedException();
+        var Posts = await _postReadRepository
+           .GetAll()
+           .Include(x => x.postImage)
+           .Include(x => x.comments)
+           .Include(x => x.postLikes)
+           .Include(x => x.Post_Tags)
+           .ThenInclude(x => x.Tags)
+           .ToListAsync();
+        var EntityToDto = _mapper.Map<List<PostGetDTO>>(Posts);
+
+        //var EntityToDto = new List<PostGetDTO>();
+
+        //foreach (var item in Posts)
+        //{
+        //    var psotDto = new PostGetDTO
+        //    {
+        //        Id = item.Id,
+        //        Message = item.message,
+        //        AppUserId = item.AppUserId,
+        //        Images = new List<PostImageGetDTO>(),
+        //        commentGetDTOs = new List<CommentGetDTO>(),
+        //        postLikeGetDTOs= new List<PostLikeGetDTO>(),
+        //        Post_TagGetDTO = new List<Post_TagGetDTO>()
+        //    };
+
+
+        //    foreach (var image in item.postImage)
+        //    {
+        //        var postImageGetDTO = new PostImageGetDTO
+        //        {
+        //            ImagePath = image.imagePath,
+        //        };
+        //    }
+
+        //    foreach (var coment in item.comments)
+        //    {
+        //        var CommentGetDTO = new CommentGetDTO
+        //        {
+        //            AppUserId= item.AppUserId,
+        //            PostId = item.Id,
+        //            Comment = coment.message,
+        //        };
+        //    }
+
+        //    foreach (var postLike in item.postLikes)
+        //    {
+        //        var postLikeGetDTO = new PostLikeGetDTO
+        //        {
+        //            likeSum = postLike.likeSum,
+        //            PostId = postLike.PostsId,
+        //            AppUserId= postLike.AppUserId
+        //        };
+        //    }
+
+        //    foreach (var Postag in item.Post_Tags)
+        //    {
+        //        var postTags = new Post_Tag
+        //        {
+        //            PostsId = Postag.PostsId,
+        //            TagsId = Postag.TagsId
+        //        };
+        //    }
+
+        //    EntityToDto.Add(psotDto);
+        //}
+
+        return EntityToDto;
     }
 
-    public Task RemoveAsync(Guid Id)
+    public async Task RemoveAsync(Guid Id)
     {
         throw new NotImplementedException();
+       
     }
 
     public Task UpdateAsync(Guid Id, PostUpdateDTO postUpdateDTO)
