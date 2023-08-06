@@ -98,30 +98,44 @@ public class PostService : IPostService
         await _postWriteRepository.SavaChangeAsync();
     }
 
-    public async Task<List<Posts>> GetAllPostsWithDetails()
+public async Task<List<Posts>> GetAllPostsWithDetails()
+{
+    var options = new JsonSerializerOptions
     {
-        var options = new JsonSerializerOptions
+        ReferenceHandler = ReferenceHandler.IgnoreCycles,
+        // Any other serializer options you need to configure
+    };
+
+    var posts = await _appDbContext.Posts
+        .Include(p => p.postImage)
+        .Include(p => p.newTag)
+        .Include(p => p.comments)
+            .ThenInclude(c => c.Likes)
+                .ThenInclude(l => l.AppUser)
+        .Include(p => p.comments)
+            .ThenInclude(c => c.AppUser)
+        .Include(p => p.postLikes)
+            .ThenInclude(pl => pl.AppUser)
+        .Include(p => p.Post_Tags)
+            .ThenInclude(pt => pt.Tags)
+        .ToListAsync();
+
+    // Optional: Initialize the likes and comments collections to an empty list if they are null.
+    foreach (var post in posts)
+    {
+        post.comments ??= new List<Comments>();
+        foreach (var comment in post.comments)
         {
-            ReferenceHandler = ReferenceHandler.Preserve 
-        };
-
-        var posts = await _appDbContext.Posts
-            .Include(p => p.postImage)
-            .Include(p => p.newTag)
-            .Include(p => p.comments)
-                .ThenInclude(c => c.Likes)
-            .Include(p => p.comments)
-                .ThenInclude(c => c.AppUser)
-            .Include(p => p.postLikes)
-                .ThenInclude(pl => pl.AppUser)
-            .Include(p => p.Post_Tags)
-                .ThenInclude(pt => pt.Tags)
-            .ToListAsync();
-
-        return posts;
+            comment.Likes ??= new List<Like>();
+        }
     }
 
-    public async Task<PostGetDTO> GetByIdAsync(Guid Id)
+    return posts;
+}
+
+
+
+public async Task<PostGetDTO> GetByIdAsync(Guid Id)
     {
         var Posts = await _postReadRepository
           .GetAll()
