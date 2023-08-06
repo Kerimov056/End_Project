@@ -19,13 +19,15 @@ public class LikeService : ILikeService
 
     public async Task LikeCommentAsync(string userId, Guid commentId)
     {
-        var comment = await _appDbContext.Comments.FirstOrDefaultAsync(c => c.Id == commentId);
+        var comment = await _appDbContext.Comments
+            .FirstOrDefaultAsync(c => c.Id == commentId);
         if (comment == null)
         {
             return;
         }
 
-        var existingLike = await _appDbContext.Likes.FirstOrDefaultAsync(l => l.CommentsId == commentId && l.AppUserId == userId);
+        var existingLike = await _appDbContext.Likes
+            .FirstOrDefaultAsync(l => l.CommentsId == commentId && l.AppUserId == userId);
         if (existingLike == null)
         {
             var newLike = new Like
@@ -53,7 +55,6 @@ public class LikeService : ILikeService
         {
             return 0;
         }
-
         return comment.Likes.Count;
     }
 

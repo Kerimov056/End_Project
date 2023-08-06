@@ -19,13 +19,6 @@ public class LikesController : ControllerBase
         await _likeService.LikeCommentAsync(userId,commentId);
         return StatusCode((int)HttpStatusCode.Created);
     }
-
-    [HttpGet]
-    public async Task<IActionResult> GetUserLikeAll(Guid commentId)
-    {
-        var getUserLikeAll = await _likeService.GetUsersWhoLikedComment(commentId);
-        return Ok(getUserLikeAll);
-    } 
     
     [HttpGet("{commentId:Guid}")]
     public async Task<IActionResult> GetLikeCountForCommentt(Guid commentId)
