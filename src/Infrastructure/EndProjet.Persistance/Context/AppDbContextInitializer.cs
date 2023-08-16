@@ -49,6 +49,6 @@ public class AppDbContextInitializer
             Email = _configuration["SuperAdminSettings:email"]
         };
         await _userManager.CreateAsync(appUser, _configuration["SuperAdminSettings:password"]);  //error bu derse baxs
-        await _userManager.AddToRoleAsync(appUser,Role.SuperAdmin.ToString());
+        await _userManager.AddToRoleAsync(appUser, Role.SuperAdmin.ToString());
     }
 }

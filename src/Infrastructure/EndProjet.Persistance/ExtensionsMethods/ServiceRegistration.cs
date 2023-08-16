@@ -1,11 +1,8 @@
-﻿using EndProject.Application.Abstraction.Repositories.IEntityRepository;
-using EndProject.Application.Abstraction.Services;
-using EndProject.Application.Validators.PostValidator;
+﻿using EndProject.Application.Abstraction.Services;
+using EndProject.Application.Validators.SliderValidators;
 using EndProject.Domain.Entitys.Identity;
 using EndProjet.Persistance.Context;
-using EndProjet.Persistance.Implementations.Repositories.EntityRepository;
 using EndProjet.Persistance.Implementations.Services;
-using EndProjet.Persistance.MapperProfiles;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
@@ -28,30 +25,30 @@ public static class ServiceRegistration
 
 
         //Repository
-        services.AddScoped<IPostReadRepository, PostReadRepository>();
-        services.AddScoped<IPostWriteRepository, PostWriteRepository>(); 
-        services.AddScoped<IPostImageReadRepository, PostImageReadRepository>();
-        services.AddScoped<IPostImageWriteRepository, PostImageWriteRepository>();
-        services.AddScoped<ITagReadRepository, TagReadRepository>();
-        services.AddScoped<ITagWriteRepository, TagWriteRepository>();
-        services.AddScoped<INewTagReadRepository, NewTagReadRepository>();
-        services.AddScoped<INewTagWriteRepository, NewTagWriteRepository>();
-        services.AddScoped<ICommentReadRepository, CommentReadRepository>();
-        services.AddScoped<ICommentWriteRepository, CommentWriteRepository>();
+        //services.AddScoped<IPostReadRepository, PostReadRepository>();
+        //services.AddScoped<IPostWriteRepository, PostWriteRepository>();
+        //services.AddScoped<IPostImageReadRepository, PostImageReadRepository>();
+        //services.AddScoped<IPostImageWriteRepository, PostImageWriteRepository>();
+        //services.AddScoped<ITagReadRepository, TagReadRepository>();
+        //services.AddScoped<ITagWriteRepository, TagWriteRepository>();
+        //services.AddScoped<INewTagReadRepository, NewTagReadRepository>();
+        //services.AddScoped<INewTagWriteRepository, NewTagWriteRepository>();
+        //services.AddScoped<ICommentReadRepository, CommentReadRepository>();
+        //services.AddScoped<ICommentWriteRepository, CommentWriteRepository>();
 
-        services.AddScoped<ILikeReadRepository, LikeReadRepository>();
-        services.AddScoped<ILikeWriteRepository, LikeWriteRepository>();
+        //services.AddScoped<ILikeReadRepository, LikeReadRepository>();
+        //services.AddScoped<ILikeWriteRepository, LikeWriteRepository>();
 
 
 
         //Service
         services.AddScoped<IAuthService, AuthService>();
-        services.AddScoped<IPostImageService, PostImageService>();
-        services.AddScoped<IPostService, PostService>();
-        services.AddScoped<ITagService, TagService>();
-        services.AddScoped<INewTagService, NewTagService>();
-        services.AddScoped<ICommentService, CommentService>();
-        services.AddScoped<ILikeService, LikeService>();
+        //services.AddScoped<IPostImageService, PostImageService>();
+        //services.AddScoped<IPostService, PostService>();
+        //services.AddScoped<ITagService, TagService>();
+        //services.AddScoped<INewTagService, NewTagService>();
+        //services.AddScoped<ICommentService, CommentService>();
+        //services.AddScoped<ILikeService, LikeService>();
 
 
 
@@ -72,11 +69,11 @@ public static class ServiceRegistration
 
 
         //Mapper
-        services.AddAutoMapper(typeof(PostProfile).Assembly);
+        //services.AddAutoMapper(typeof(PostProfile).Assembly);
 
         //Validator
         services.AddFluentValidationAutoValidation();
         services.AddFluentValidationClientsideAdapters();
-        services.AddValidatorsFromAssemblyContaining<PostImageGetDtoValidator>();
+        services.AddValidatorsFromAssemblyContaining<SliderGetDtoValidator>();
     }
 }
