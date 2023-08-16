@@ -1141,19 +1141,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Legion\\.nuget\\packages\\": {}
+    "C:\\Users\\Ulvi\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\work2\\Asp.Net API\\EndProject\\src\\Core\\EndProject.Application\\EndProject.Application.csproj",
+      "projectUniqueName": "D:\\work2\\Asp.Net API\\End_Project\\src\\Core\\EndProject.Application\\EndProject.Application.csproj",
       "projectName": "EndProject.Application",
-      "projectPath": "D:\\work2\\Asp.Net API\\EndProject\\src\\Core\\EndProject.Application\\EndProject.Application.csproj",
-      "packagesPath": "C:\\Users\\Legion\\.nuget\\packages\\",
-      "outputPath": "D:\\work2\\Asp.Net API\\EndProject\\src\\Core\\EndProject.Application\\obj\\",
+      "projectPath": "D:\\work2\\Asp.Net API\\End_Project\\src\\Core\\EndProject.Application\\EndProject.Application.csproj",
+      "packagesPath": "C:\\Users\\Ulvi\\.nuget\\packages\\",
+      "outputPath": "D:\\work2\\Asp.Net API\\End_Project\\src\\Core\\EndProject.Application\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Legion\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Ulvi\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1167,8 +1167,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\work2\\Asp.Net API\\EndProject\\src\\Core\\EndProject.Domain\\EndProject.Domain.csproj": {
-              "projectPath": "D:\\work2\\Asp.Net API\\EndProject\\src\\Core\\EndProject.Domain\\EndProject.Domain.csproj"
+            "D:\\work2\\Asp.Net API\\End_Project\\src\\Core\\EndProject.Domain\\EndProject.Domain.csproj": {
+              "projectPath": "D:\\work2\\Asp.Net API\\End_Project\\src\\Core\\EndProject.Domain\\EndProject.Domain.csproj"
             }
           }
         }
@@ -1214,7 +1214,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.103\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }

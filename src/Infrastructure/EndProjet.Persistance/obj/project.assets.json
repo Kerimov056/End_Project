@@ -3552,19 +3552,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Legion\\.nuget\\packages\\": {}
+    "C:\\Users\\Ulvi\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\work2\\Asp.Net API\\EndProject\\src\\Infrastructure\\EndProjet.Persistance\\EndProjet.Persistance.csproj",
+      "projectUniqueName": "D:\\work2\\Asp.Net API\\End_Project\\src\\Infrastructure\\EndProjet.Persistance\\EndProjet.Persistance.csproj",
       "projectName": "EndProjet.Persistance",
-      "projectPath": "D:\\work2\\Asp.Net API\\EndProject\\src\\Infrastructure\\EndProjet.Persistance\\EndProjet.Persistance.csproj",
-      "packagesPath": "C:\\Users\\Legion\\.nuget\\packages\\",
-      "outputPath": "D:\\work2\\Asp.Net API\\EndProject\\src\\Infrastructure\\EndProjet.Persistance\\obj\\",
+      "projectPath": "D:\\work2\\Asp.Net API\\End_Project\\src\\Infrastructure\\EndProjet.Persistance\\EndProjet.Persistance.csproj",
+      "packagesPath": "C:\\Users\\Ulvi\\.nuget\\packages\\",
+      "outputPath": "D:\\work2\\Asp.Net API\\End_Project\\src\\Infrastructure\\EndProjet.Persistance\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Legion\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Ulvi\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3578,11 +3578,11 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\work2\\Asp.Net API\\EndProject\\src\\Core\\EndProject.Application\\EndProject.Application.csproj": {
-              "projectPath": "D:\\work2\\Asp.Net API\\EndProject\\src\\Core\\EndProject.Application\\EndProject.Application.csproj"
+            "D:\\work2\\Asp.Net API\\End_Project\\src\\Core\\EndProject.Application\\EndProject.Application.csproj": {
+              "projectPath": "D:\\work2\\Asp.Net API\\End_Project\\src\\Core\\EndProject.Application\\EndProject.Application.csproj"
             },
-            "D:\\work2\\Asp.Net API\\EndProject\\src\\Infrastructure\\EndProject.Infrastructure\\EndProject.Infrastructure.csproj": {
-              "projectPath": "D:\\work2\\Asp.Net API\\EndProject\\src\\Infrastructure\\EndProject.Infrastructure\\EndProject.Infrastructure.csproj"
+            "D:\\work2\\Asp.Net API\\End_Project\\src\\Infrastructure\\EndProject.Infrastructure\\EndProject.Infrastructure.csproj": {
+              "projectPath": "D:\\work2\\Asp.Net API\\End_Project\\src\\Infrastructure\\EndProject.Infrastructure\\EndProject.Infrastructure.csproj"
             }
           }
         }
@@ -3648,7 +3648,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.103\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }

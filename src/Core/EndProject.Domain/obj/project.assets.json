@@ -1085,19 +1085,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Legion\\.nuget\\packages\\": {}
+    "C:\\Users\\Ulvi\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\work2\\Asp.Net API\\EndProject\\src\\Core\\EndProject.Domain\\EndProject.Domain.csproj",
+      "projectUniqueName": "D:\\work2\\Asp.Net API\\End_Project\\src\\Core\\EndProject.Domain\\EndProject.Domain.csproj",
       "projectName": "EndProject.Domain",
-      "projectPath": "D:\\work2\\Asp.Net API\\EndProject\\src\\Core\\EndProject.Domain\\EndProject.Domain.csproj",
-      "packagesPath": "C:\\Users\\Legion\\.nuget\\packages\\",
-      "outputPath": "D:\\work2\\Asp.Net API\\EndProject\\src\\Core\\EndProject.Domain\\obj\\",
+      "projectPath": "D:\\work2\\Asp.Net API\\End_Project\\src\\Core\\EndProject.Domain\\EndProject.Domain.csproj",
+      "packagesPath": "C:\\Users\\Ulvi\\.nuget\\packages\\",
+      "outputPath": "D:\\work2\\Asp.Net API\\End_Project\\src\\Core\\EndProject.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Legion\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Ulvi\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1162,7 +1162,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.103\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }

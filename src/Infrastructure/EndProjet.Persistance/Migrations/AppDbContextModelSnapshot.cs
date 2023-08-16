@@ -54,7 +54,7 @@ namespace EndProjet.Persistance.Migrations
 
                     b.HasIndex("PostsId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.Group", b =>
@@ -81,7 +81,7 @@ namespace EndProjet.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Groups");
+                    b.ToTable("Groups", (string)null);
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.Group_User", b =>
@@ -108,7 +108,7 @@ namespace EndProjet.Persistance.Migrations
 
                     b.HasIndex("AppUserId");
 
-                    b.ToTable("Group_Users");
+                    b.ToTable("Group_Users", (string)null);
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.GroupMessage", b =>
@@ -145,7 +145,7 @@ namespace EndProjet.Persistance.Migrations
 
                     b.HasIndex("GroupId");
 
-                    b.ToTable("GroupMessages");
+                    b.ToTable("GroupMessages", (string)null);
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.Identity.AppUser", b =>
@@ -264,7 +264,7 @@ namespace EndProjet.Persistance.Migrations
 
                     b.HasIndex("CommentsId");
 
-                    b.ToTable("Likes");
+                    b.ToTable("Likes", (string)null);
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.NewTag", b =>
@@ -293,7 +293,7 @@ namespace EndProjet.Persistance.Migrations
 
                     b.HasIndex("PostsId");
 
-                    b.ToTable("NewTags");
+                    b.ToTable("NewTags", (string)null);
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.Post_Tag", b =>
@@ -323,7 +323,7 @@ namespace EndProjet.Persistance.Migrations
 
                     b.HasIndex("TagsId");
 
-                    b.ToTable("Post_Tags");
+                    b.ToTable("Post_Tags", (string)null);
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.PostImage", b =>
@@ -352,7 +352,7 @@ namespace EndProjet.Persistance.Migrations
 
                     b.HasIndex("PostsId");
 
-                    b.ToTable("PostImage");
+                    b.ToTable("PostImage", (string)null);
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.PostLike", b =>
@@ -386,7 +386,7 @@ namespace EndProjet.Persistance.Migrations
 
                     b.HasIndex("PostsId");
 
-                    b.ToTable("PostsLikes");
+                    b.ToTable("PostsLikes", (string)null);
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.Posts", b =>
@@ -416,7 +416,7 @@ namespace EndProjet.Persistance.Migrations
 
                     b.HasIndex("AppUserId");
 
-                    b.ToTable("Posts");
+                    b.ToTable("Posts", (string)null);
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.Tags", b =>
@@ -440,7 +440,7 @@ namespace EndProjet.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tags");
+                    b.ToTable("Tags", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
