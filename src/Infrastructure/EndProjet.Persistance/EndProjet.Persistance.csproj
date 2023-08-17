@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="MapperProfiles\" />
     <Folder Include="Services\" />
   </ItemGroup>
 

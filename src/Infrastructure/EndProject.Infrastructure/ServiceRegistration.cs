@@ -1,5 +1,7 @@
 ﻿using EndProject.Application.Abstraction.Services;
+using EndProject.Application.Abstraction.Services.Loccal;
 using EndProject.Infrastructure.Services;
+using EndProject.Infrastructure.Services.Local;
 using EndProject.Infrastructure.Services.Token;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,6 +14,7 @@ public static class ServiceRegistration
         services.AddScoped<ITokenHandler, TokenHandler>();
         services.AddScoped<IStorageFile, StorageFile>();
         services.AddScoped<IStorgeService, StorgeService>();
+        //services.AddScoped<ILocalStorage, LocalStorage>();
     }
                                                                                       //LocalStorage
     public static void AddStorageFile<T>(this IServiceCollection services) where T : Services.Storage, IStorageFile

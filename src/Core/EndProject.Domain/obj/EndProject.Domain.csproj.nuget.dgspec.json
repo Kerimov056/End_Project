@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\work2\\Asp.Net API\\End_Project\\src\\Core\\EndProject.Domain\\EndProject.Domain.csproj": {}
+    "D:\\work2\\End_Project\\src\\Core\\EndProject.Domain\\EndProject.Domain.csproj": {}
   },
   "projects": {
-    "D:\\work2\\Asp.Net API\\End_Project\\src\\Core\\EndProject.Domain\\EndProject.Domain.csproj": {
+    "D:\\work2\\End_Project\\src\\Core\\EndProject.Domain\\EndProject.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\work2\\Asp.Net API\\End_Project\\src\\Core\\EndProject.Domain\\EndProject.Domain.csproj",
+        "projectUniqueName": "D:\\work2\\End_Project\\src\\Core\\EndProject.Domain\\EndProject.Domain.csproj",
         "projectName": "EndProject.Domain",
-        "projectPath": "D:\\work2\\Asp.Net API\\End_Project\\src\\Core\\EndProject.Domain\\EndProject.Domain.csproj",
-        "packagesPath": "C:\\Users\\Ulvi\\.nuget\\packages\\",
-        "outputPath": "D:\\work2\\Asp.Net API\\End_Project\\src\\Core\\EndProject.Domain\\obj\\",
+        "projectPath": "D:\\work2\\End_Project\\src\\Core\\EndProject.Domain\\EndProject.Domain.csproj",
+        "packagesPath": "C:\\Users\\Legion\\.nuget\\packages\\",
+        "outputPath": "D:\\work2\\End_Project\\src\\Core\\EndProject.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Ulvi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Legion\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

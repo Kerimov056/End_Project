@@ -1,5 +1,4 @@
 using EndProject.Infrastructure;
-using EndProjet.Persistance.Context;
 using EndProjet.Persistance.ExtensionsMethods;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -48,7 +47,6 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true
     };
 });
-
 
 
 builder.Services.AddEndpointsApiExplorer();

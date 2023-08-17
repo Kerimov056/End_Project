@@ -40,3 +40,24 @@ D:\work2\Asp.Net API\End_Project\src\Infrastructure\EndProjet.Persistance\obj\De
 D:\work2\Asp.Net API\End_Project\src\Infrastructure\EndProjet.Persistance\obj\Debug\net6.0\EndProjet.Persistance.pdb
 D:\work2\Asp.Net API\End_Project\src\Infrastructure\EndProjet.Persistance\obj\Debug\net6.0\EndProjet.Persistance.genruntimeconfig.cache
 D:\work2\Asp.Net API\End_Project\src\Infrastructure\EndProjet.Persistance\obj\Debug\net6.0\ref\EndProjet.Persistance.dll
+D:\work2\End_Project\src\Infrastructure\EndProjet.Persistance\bin\Debug\net6.0\EndProjet.Persistance.deps.json
+D:\work2\End_Project\src\Infrastructure\EndProjet.Persistance\bin\Debug\net6.0\EndProjet.Persistance.runtimeconfig.json
+D:\work2\End_Project\src\Infrastructure\EndProjet.Persistance\bin\Debug\net6.0\EndProjet.Persistance.dll
+D:\work2\End_Project\src\Infrastructure\EndProjet.Persistance\bin\Debug\net6.0\EndProjet.Persistance.pdb
+D:\work2\End_Project\src\Infrastructure\EndProjet.Persistance\bin\Debug\net6.0\EndProject.Application.dll
+D:\work2\End_Project\src\Infrastructure\EndProjet.Persistance\bin\Debug\net6.0\EndProject.Domain.dll
+D:\work2\End_Project\src\Infrastructure\EndProjet.Persistance\bin\Debug\net6.0\EndProject.Infrastructure.dll
+D:\work2\End_Project\src\Infrastructure\EndProjet.Persistance\bin\Debug\net6.0\EndProject.Application.pdb
+D:\work2\End_Project\src\Infrastructure\EndProjet.Persistance\bin\Debug\net6.0\EndProject.Infrastructure.pdb
+D:\work2\End_Project\src\Infrastructure\EndProjet.Persistance\bin\Debug\net6.0\EndProject.Domain.pdb
+D:\work2\End_Project\src\Infrastructure\EndProjet.Persistance\obj\Debug\net6.0\EndProjet.Persistance.csproj.AssemblyReference.cache
+D:\work2\End_Project\src\Infrastructure\EndProjet.Persistance\obj\Debug\net6.0\EndProjet.Persistance.GeneratedMSBuildEditorConfig.editorconfig
+D:\work2\End_Project\src\Infrastructure\EndProjet.Persistance\obj\Debug\net6.0\EndProjet.Persistance.AssemblyInfoInputs.cache
+D:\work2\End_Project\src\Infrastructure\EndProjet.Persistance\obj\Debug\net6.0\EndProjet.Persistance.AssemblyInfo.cs
+D:\work2\End_Project\src\Infrastructure\EndProjet.Persistance\obj\Debug\net6.0\EndProjet.Persistance.csproj.CoreCompileInputs.cache
+D:\work2\End_Project\src\Infrastructure\EndProjet.Persistance\obj\Debug\net6.0\EndProjet.Persistance.csproj.CopyComplete
+D:\work2\End_Project\src\Infrastructure\EndProjet.Persistance\obj\Debug\net6.0\EndProjet.Persistance.dll
+D:\work2\End_Project\src\Infrastructure\EndProjet.Persistance\obj\Debug\net6.0\refint\EndProjet.Persistance.dll
+D:\work2\End_Project\src\Infrastructure\EndProjet.Persistance\obj\Debug\net6.0\EndProjet.Persistance.pdb
+D:\work2\End_Project\src\Infrastructure\EndProjet.Persistance\obj\Debug\net6.0\EndProjet.Persistance.genruntimeconfig.cache
+D:\work2\End_Project\src\Infrastructure\EndProjet.Persistance\obj\Debug\net6.0\ref\EndProjet.Persistance.dll

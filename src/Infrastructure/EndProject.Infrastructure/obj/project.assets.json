@@ -1889,19 +1889,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Ulvi\\.nuget\\packages\\": {}
+    "C:\\Users\\Legion\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\work2\\Asp.Net API\\End_Project\\src\\Infrastructure\\EndProject.Infrastructure\\EndProject.Infrastructure.csproj",
+      "projectUniqueName": "D:\\work2\\End_Project\\src\\Infrastructure\\EndProject.Infrastructure\\EndProject.Infrastructure.csproj",
       "projectName": "EndProject.Infrastructure",
-      "projectPath": "D:\\work2\\Asp.Net API\\End_Project\\src\\Infrastructure\\EndProject.Infrastructure\\EndProject.Infrastructure.csproj",
-      "packagesPath": "C:\\Users\\Ulvi\\.nuget\\packages\\",
-      "outputPath": "D:\\work2\\Asp.Net API\\End_Project\\src\\Infrastructure\\EndProject.Infrastructure\\obj\\",
+      "projectPath": "D:\\work2\\End_Project\\src\\Infrastructure\\EndProject.Infrastructure\\EndProject.Infrastructure.csproj",
+      "packagesPath": "C:\\Users\\Legion\\.nuget\\packages\\",
+      "outputPath": "D:\\work2\\End_Project\\src\\Infrastructure\\EndProject.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Ulvi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Legion\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1915,8 +1915,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\work2\\Asp.Net API\\End_Project\\src\\Core\\EndProject.Application\\EndProject.Application.csproj": {
-              "projectPath": "D:\\work2\\Asp.Net API\\End_Project\\src\\Core\\EndProject.Application\\EndProject.Application.csproj"
+            "D:\\work2\\End_Project\\src\\Core\\EndProject.Application\\EndProject.Application.csproj": {
+              "projectPath": "D:\\work2\\End_Project\\src\\Core\\EndProject.Application\\EndProject.Application.csproj"
             }
           }
         }

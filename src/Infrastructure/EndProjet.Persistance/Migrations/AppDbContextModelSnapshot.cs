@@ -123,6 +123,33 @@ namespace EndProjet.Persistance.Migrations
                     b.ToTable("Slider");
                 });
 
+            modelBuilder.Entity("EndProject.Domain.Entitys.Test", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("nemae")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("test")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("test");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")

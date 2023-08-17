@@ -16,5 +16,6 @@ public class AppDbContext : IdentityDbContext<AppUser>
     }
 
     public DbSet<Slider> Slider { get; set; }
+    public DbSet<Test> Test { get; set; }
 }
 
