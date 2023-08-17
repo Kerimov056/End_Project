@@ -30,6 +30,8 @@ public static class ServiceRegistration
         //Repository
         services.AddScoped<ISliderReadRepository, SliderReadRepository>();
         services.AddScoped<ISliderWriteRepository, SliderWriteRepository>();
+        services.AddScoped<ICarTypeWriteRepository, CarTypeWriteRepository>();
+        services.AddScoped<ICarTypeReadRepository, CarTypeReadRepository>();
 
 
         //Service
