@@ -40,6 +40,8 @@ public static class ServiceRegistration
         services.AddScoped<ICarCategoryWriteRepository, CarCategoryWriteRepository>();
         services.AddScoped<ITagReadRepository, TagReadRepository>();
         services.AddScoped<ITagWriteRepository, TagWriteRepository>();
+        services.AddScoped<ICarTagReadRepository, CarTagReadRepository>();
+        services.AddScoped<ICarTagWriteRepository, CarTagWriteRepository>();
 
 
         //Service

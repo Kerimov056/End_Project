@@ -5,6 +5,7 @@ using EndProject.Application.DTOs.Car;
 using EndProject.Application.DTOs.CarImage;
 using EndProject.Application.DTOs.CarType;
 using EndProject.Domain.Entitys;
+using Microsoft.EntityFrameworkCore;
 
 namespace EndProjet.Persistance.Implementations.Services;
 
@@ -17,13 +18,18 @@ public class CarServices : ICarServices
     private readonly ICarImageServices _carImageServices;
     private readonly IMapper _mapper;
     private readonly ICarCategoryWriteRepository _carCategoryWriteRepository;
+    private readonly ITagReadRepository _tagReadRepository;
+    private readonly ITagWriteRepository _tagWriteRepository;
 
     public CarServices(ICarReadRepository carReadRepository,
                        ICarWriteRepository carWriteRepository,
                        IMapper mapper,
                        ICarTypeService carTypeService,
                        ICarTypeWriteRepository carTypeWriteRepository,
-                       ICarImageServices carImageServices)
+                       ICarImageServices carImageServices,
+                       ITagReadRepository tagReadRepository,
+                       ITagWriteRepository tagWriteRepository,
+                       ICarCategoryWriteRepository carCategoryWriteRepository)
     {
         _carReadRepository = carReadRepository;
         _carWriteRepository = carWriteRepository;
@@ -31,6 +37,9 @@ public class CarServices : ICarServices
         _carTypeService = carTypeService;
         _carTypeWriteRepository = carTypeWriteRepository;
         _carImageServices = carImageServices;
+        _tagReadRepository = tagReadRepository;
+        _tagWriteRepository = tagWriteRepository;
+        _carCategoryWriteRepository = carCategoryWriteRepository;
     }
 
     public async Task CreateAsync(CarCreateDTO carCreateDTO)
@@ -74,7 +83,33 @@ public class CarServices : ICarServices
             }
         }
 
-        
+        foreach (var item in carCreateDTO.tags)
+        {
+            bool istag = true;
+            foreach (var itemtag in await _tagReadRepository.GetAll().ToListAsync())
+            {
+                if (item==itemtag.tag)
+                {
+                    istag = false;
+                    var newCarTag = new CarTag
+                    {
+                        CarId = newCar.Id,
+                        Tag = itemtag
+                    };
+
+                }
+            }
+            if (istag==true)
+            {
+                var newTag = new Tag
+                {
+                    tag = item
+                };
+                await _tagWriteRepository.AddAsync(newTag);
+                await _tagWriteRepository.SavaChangeAsync();
+            }
+        }
+        await _carWriteRepository.SavaChangeAsync();
     }
 
     public Task<List<CarGetDTO>> GetAllAsync()

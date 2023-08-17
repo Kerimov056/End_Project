@@ -14,7 +14,7 @@ public class CarCreateDTO
     public int Year { get; set; }
     public string Description { get; set; }
     public CarTypeCreateEDTO CarType { get; set; }
-    public CarCategoryGetDTO CarCategory { get; set; }
+    public CarCategoryGetTDTO CarCategory { get; set; }
     public List<IFormFile> CarImages { get; set; }
-    public List<string> CarTags { get; set; }
+    public List<string> tags { get; set; }
 }
