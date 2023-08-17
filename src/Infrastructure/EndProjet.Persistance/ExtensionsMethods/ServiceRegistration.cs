@@ -34,6 +34,8 @@ public static class ServiceRegistration
         services.AddScoped<ICarTypeReadRepository, CarTypeReadRepository>();
         services.AddScoped<ICarReadRepository, CarReadRepository>();
         services.AddScoped<ICarWriteRepository, CarWriteRepository>();
+        services.AddScoped<ICarImageReadRepository, CarImageReadRepository>();
+        services.AddScoped<ICarImageWriteRepository, CarImageWriteRepository>();
 
 
         //Service
