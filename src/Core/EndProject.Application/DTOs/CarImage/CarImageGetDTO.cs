@@ -5,5 +5,5 @@ namespace EndProject.Application.DTOs.CarImage;
 public class CarImageGetDTO
 {
     public Guid Id { get; set; }
-    public IFormFile iamge { get; set; }
+    public string ImagePath { get; set; }
 }
