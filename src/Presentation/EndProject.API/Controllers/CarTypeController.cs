@@ -36,6 +36,13 @@ public class CarTypeController : ControllerBase
         return Ok(BySlider);
     }
 
+    [HttpGet("type")]
+    public async Task<IActionResult> GetByType(string type)
+    {
+        var BySlider = await _carService.GetByNameAsync(type);
+        return Ok(BySlider);
+    }
+
     [HttpDelete("{id:Guid}")]
     public async Task<IActionResult> Remove(Guid id)
     {
