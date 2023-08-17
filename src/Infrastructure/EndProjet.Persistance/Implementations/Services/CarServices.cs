@@ -12,17 +12,20 @@ public class CarServices : ICarServices
     private readonly ICarReadRepository _carReadRepository;
     private readonly ICarWriteRepository _carWriteRepository;
     private readonly ICarTypeService _carTypeService;
+    private readonly ICarTypeWriteRepository _carTypeWriteRepository;
     private readonly IMapper _mapper;
 
     public CarServices(ICarReadRepository carReadRepository,
                        ICarWriteRepository carWriteRepository,
                        IMapper mapper,
-                       ICarTypeService carTypeService)
+                       ICarTypeService carTypeService,
+                       ICarTypeWriteRepository carTypeWriteRepository)
     {
         _carReadRepository = carReadRepository;
         _carWriteRepository = carWriteRepository;
         _mapper = mapper;
         _carTypeService = carTypeService;
+        _carTypeWriteRepository = carTypeWriteRepository;
     }
 
     public async Task CreateAsync(CarCreateDTO carCreateDTO)
@@ -44,8 +47,7 @@ public class CarServices : ICarServices
             type = carCreateDTO.CarType.type,
             CarId = newCar.Id
         };
-        var ToDto = _mapper.Map<CarTypeCreateDTO>(newCar.carType);
-        await _carTypeService.CreateAsync(ToDto);
+        await _carTypeWriteRepository.AddAsync(newCar.carType);
 
 
     }
