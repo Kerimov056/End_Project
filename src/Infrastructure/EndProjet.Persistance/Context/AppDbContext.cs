@@ -11,17 +11,17 @@ public class AppDbContext : IdentityDbContext<AppUser>
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<TypeCategory>()
-            .HasOne(x => x.type)
-            .WithMany(d => d.typeCategories)
-            .HasForeignKey(x => x.typeId)
-            .OnDelete(DeleteBehavior.Restrict);
+        //modelBuilder.Entity<TypeCategory>()
+        //    .HasOne(x => x.type)
+        //    .WithMany(d => d.typeCategories)
+        //    .HasForeignKey(x => x.typeId)
+        //    .OnDelete(DeleteBehavior.Restrict);
 
-        modelBuilder.Entity<TypeCategory>()
-            .HasOne(f => f.category)
-            .WithMany(s => s.typeCategories)
-            .HasForeignKey(us => us.categoryId)
-            .OnDelete(DeleteBehavior.Restrict);
+        //modelBuilder.Entity<TypeCategory>()
+        //    .HasOne(f => f.category)
+        //    .WithMany(s => s.typeCategories)
+        //    .HasForeignKey(us => us.categoryId)
+        //    .OnDelete(DeleteBehavior.Restrict);
 
 
         modelBuilder.Entity<CarTag>()
@@ -55,7 +55,7 @@ public class AppDbContext : IdentityDbContext<AppUser>
     public DbSet<Car> Cars { get; set; }
     public DbSet<CarType> CarTypes { get; set; }
     public DbSet<CarCategory> CarCategories { get; set; }
-    public DbSet<TypeCategory> TypeCategories { get; set; }
+    //public DbSet<TypeCategory> TypeCategories { get; set; }
     public DbSet<CarImage> CarImages { get; set; }
     public DbSet<Tag> Tags { get; set; }
     public DbSet<CarTag> CarTags { get; set; }

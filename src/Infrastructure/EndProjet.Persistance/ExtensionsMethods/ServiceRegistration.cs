@@ -37,6 +37,7 @@ public static class ServiceRegistration
         //Service
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<ISliderService, SliderService>();
+        services.AddScoped<ICarTypeService, CarTypeService>();
       
 
 

@@ -1,7 +1,6 @@
 ﻿namespace EndProject.Application.DTOs.CarType;
 
-public class CarTypeGetDTO
+public class CarTypeUpdateDTO
 {
-    public Guid Id { get; set; }
     public string Type { get; set; }
 }
