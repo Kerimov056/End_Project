@@ -2,6 +2,7 @@
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Car;
+using EndProject.Application.DTOs.CarImage;
 using EndProject.Application.DTOs.CarType;
 using EndProject.Domain.Entitys;
 
@@ -13,19 +14,22 @@ public class CarServices : ICarServices
     private readonly ICarWriteRepository _carWriteRepository;
     private readonly ICarTypeService _carTypeService;
     private readonly ICarTypeWriteRepository _carTypeWriteRepository;
+    private readonly ICarImageServices _carImageServices;
     private readonly IMapper _mapper;
 
     public CarServices(ICarReadRepository carReadRepository,
                        ICarWriteRepository carWriteRepository,
                        IMapper mapper,
                        ICarTypeService carTypeService,
-                       ICarTypeWriteRepository carTypeWriteRepository)
+                       ICarTypeWriteRepository carTypeWriteRepository,
+                       ICarImageServices carImageServices)
     {
         _carReadRepository = carReadRepository;
         _carWriteRepository = carWriteRepository;
         _mapper = mapper;
         _carTypeService = carTypeService;
         _carTypeWriteRepository = carTypeWriteRepository;
+        _carImageServices = carImageServices;
     }
 
     public async Task CreateAsync(CarCreateDTO carCreateDTO)
@@ -49,7 +53,18 @@ public class CarServices : ICarServices
         };
         await _carTypeWriteRepository.AddAsync(newCar.carType);
 
-
+        if (carCreateDTO.CarImages is not null)
+        {
+            foreach (var item in carCreateDTO.CarImages)
+            {
+                var carImageDto = new CarImageCreateDTO
+                {
+                    CarId = newCar.Id,
+                    image = item
+                };
+                await _carImageServices.CreateAsync(carImageDto);
+            }
+        }
     }
 
     public Task<List<CarGetDTO>> GetAllAsync()
