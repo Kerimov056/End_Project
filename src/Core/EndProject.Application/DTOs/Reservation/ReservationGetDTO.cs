@@ -1,10 +1,12 @@
-﻿using EndProject.Application.DTOs.Location;
+﻿using EndProject.Application.DTOs.Chauffeurs;
+using EndProject.Application.DTOs.Location;
 using EndProject.Domain.Enums.ReservationStatus;
 
 namespace EndProject.Application.DTOs.Reservation;
 
 public class ReservationGetDTO
 {
+    public Guid Id { get; set; }
     public DateTime PickupDate { get; set; }
     public DateTime ReturnDate { get; set; }
     public string Notes { get; set; }
