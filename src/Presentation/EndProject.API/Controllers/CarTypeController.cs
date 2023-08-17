@@ -10,21 +10,21 @@ namespace EndProject.API.Controllers;
 [ApiController]
 public class CarTypeController : ControllerBase
 {
-    private readonly ICarTypeService _carService;
+    private readonly ICarTypeService _carTypeService;
 
-    public CarTypeController(ICarTypeService carService) => _carService = carService;
+    public CarTypeController(ICarTypeService carService) => _carTypeService = carService;
 
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var Slider = await _carService.GetAllAsync();
+        var Slider = await _carTypeService.GetAllAsync();
         return Ok(Slider);
     }
 
     [HttpPost]
     public async Task<IActionResult> Post([FromForm] CarTypeCreateDTO carTypeCreateDTO)
     {
-        await _carService.CreateAsync(carTypeCreateDTO);
+        await _carTypeService.CreateAsync(carTypeCreateDTO);
         return StatusCode((int)HttpStatusCode.Created);
     }
 
@@ -32,28 +32,28 @@ public class CarTypeController : ControllerBase
     [HttpGet("{id:Guid}")]
     public async Task<IActionResult> GetById(Guid id)
     {
-        var BySlider = await _carService.GetByIdAsync(id);
+        var BySlider = await _carTypeService.GetByIdAsync(id);
         return Ok(BySlider);
     }
 
     [HttpGet("type")]
     public async Task<IActionResult> GetByType(string type)
     {
-        var BySlider = await _carService.GetByNameAsync(type);
+        var BySlider = await _carTypeService.GetByNameAsync(type);
         return Ok(BySlider);
     }
 
     [HttpDelete("{id:Guid}")]
     public async Task<IActionResult> Remove(Guid id)
     {
-        await _carService.RemoveAsync(id);
+        await _carTypeService.RemoveAsync(id);
         return Ok();
     }
 
     [HttpPut("{id:Guid}")]
     public async Task<IActionResult> Uptade(Guid id, [FromForm] CarTypeUpdateDTO carTypeUpdateDTO)
     {
-        await _carService.UpdateAsync(id, carTypeUpdateDTO);
+        await _carTypeService.UpdateAsync(id, carTypeUpdateDTO);
         return Ok();
     }
 }
