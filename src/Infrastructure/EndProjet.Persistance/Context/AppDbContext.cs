@@ -62,5 +62,6 @@ public class AppDbContext : IdentityDbContext<AppUser>
     public DbSet<CarReservation> CarReservations { get; set; }
     public DbSet<Location> Locations { get; set; }
     public DbSet<Chauffeurs> Chauffeurs { get; set; }
+    public DbSet<CarComment> CarComments { get; set; }
 }
 
