@@ -20,6 +20,7 @@ public class CarServices : ICarServices
     private readonly ICarCategoryWriteRepository _carCategoryWriteRepository;
     private readonly ITagReadRepository _tagReadRepository;
     private readonly ITagWriteRepository _tagWriteRepository;
+    private readonly ICarTagWriteRepository _carTagWriteRepository;
 
     public CarServices(ICarReadRepository carReadRepository,
                        ICarWriteRepository carWriteRepository,
@@ -29,7 +30,8 @@ public class CarServices : ICarServices
                        ICarImageServices carImageServices,
                        ITagReadRepository tagReadRepository,
                        ITagWriteRepository tagWriteRepository,
-                       ICarCategoryWriteRepository carCategoryWriteRepository)
+                       ICarCategoryWriteRepository carCategoryWriteRepository,
+                       ICarTagWriteRepository carTagWriteRepository)
     {
         _carReadRepository = carReadRepository;
         _carWriteRepository = carWriteRepository;
@@ -40,6 +42,7 @@ public class CarServices : ICarServices
         _tagReadRepository = tagReadRepository;
         _tagWriteRepository = tagWriteRepository;
         _carCategoryWriteRepository = carCategoryWriteRepository;
+        _carTagWriteRepository = carTagWriteRepository;
     }
 
     public async Task CreateAsync(CarCreateDTO carCreateDTO)
@@ -96,7 +99,9 @@ public class CarServices : ICarServices
                         CarId = newCar.Id,
                         Tag = itemtag
                     };
-
+                    await _carTagWriteRepository.AddAsync(newCarTag);
+                    await _carTagWriteRepository.SavaChangeAsync();
+                    return;
                 }
             }
             if (istag==true)
