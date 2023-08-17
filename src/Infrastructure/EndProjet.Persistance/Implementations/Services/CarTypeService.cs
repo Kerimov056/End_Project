@@ -61,13 +61,22 @@ public class CarTypeService : ICarTypeService
         return ToDto;
     }
 
-    public Task RemoveAsync(Guid id)
+    public async Task RemoveAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var ByCarType = await _carTypeReadRepository.GetByIdAsync(id);
+        if (ByCarType is null) throw new NotFoundException("Car Type is null");
+
+        _carTypeWriteRepository.Remove(ByCarType);
+        await _carTypeWriteRepository.SavaChangeAsync();
     }
 
-    public Task UpdateAsync(Guid id, CarTypeUpdateDTO carTypeUpdateDTO)
+    public async Task UpdateAsync(Guid id, CarTypeUpdateDTO carTypeUpdateDTO)
     {
-        throw new NotImplementedException();
+        var ByCarType = await _carTypeReadRepository.GetByIdAsync(id);
+        if (ByCarType is null) throw new NotFoundException("Car Type is null");
+
+        _mapper.Map(carTypeUpdateDTO, ByCarType);
+        _carTypeWriteRepository.Update(ByCarType);
+        await _carTypeWriteRepository.SavaChangeAsync();
     }
 }
