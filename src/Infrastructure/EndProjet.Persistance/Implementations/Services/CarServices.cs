@@ -16,6 +16,7 @@ public class CarServices : ICarServices
     private readonly ICarTypeWriteRepository _carTypeWriteRepository;
     private readonly ICarImageServices _carImageServices;
     private readonly IMapper _mapper;
+    private readonly ICarCategoryWriteRepository _carCategoryWriteRepository;
 
     public CarServices(ICarReadRepository carReadRepository,
                        ICarWriteRepository carWriteRepository,
@@ -53,6 +54,13 @@ public class CarServices : ICarServices
         };
         await _carTypeWriteRepository.AddAsync(newCar.carType);
 
+        newCar.carCategory = new CarCategory
+        {
+            Category = carCreateDTO.CarCategory.Category,
+            CarId = newCar.Id
+        };
+        await _carCategoryWriteRepository.AddAsync(newCar.carCategory);
+
         if (carCreateDTO.CarImages is not null)
         {
             foreach (var item in carCreateDTO.CarImages)
@@ -65,6 +73,8 @@ public class CarServices : ICarServices
                 await _carImageServices.CreateAsync(carImageDto);
             }
         }
+
+        
     }
 
     public Task<List<CarGetDTO>> GetAllAsync()
