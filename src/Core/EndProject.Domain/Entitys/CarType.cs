@@ -8,5 +8,5 @@ public class CarType:BaseEntity  //sedan zad
     public List<TypeCategory> typeCategories { get; set; }
     public Guid CarId { get; set; }
     public Car Car { get; set; }
-
 }
+
