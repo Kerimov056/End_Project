@@ -5,6 +5,7 @@ using EndProject.Application.DTOs.Car;
 using EndProject.Application.DTOs.CarImage;
 using EndProject.Application.DTOs.CarType;
 using EndProject.Domain.Entitys;
+using EndProjet.Persistance.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
 namespace EndProjet.Persistance.Implementations.Services;
@@ -117,9 +118,19 @@ public class CarServices : ICarServices
         await _carWriteRepository.SavaChangeAsync();
     }
 
-    public Task<List<CarGetDTO>> GetAllAsync()
+    public async Task<List<CarGetDTO>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        var CarAll = await _carReadRepository
+            .GetAll()
+            .Include(x=>x.carTags)
+            .Include(x=>x.carType)
+            .Include(x=>x.carCategory)
+            .Include(x=>x.carImages)
+            .Include(x=>x.Reservations)
+            .ToListAsync();
+        if (CarAll == null) throw new NotFoundException("Car is null");
+        var ToDto = _mapper.Map<List<CarGetDTO>>(CarAll);
+        return ToDto;
     }
 
     public Task<CarGetDTO> GetByIdAsync(Guid Id)

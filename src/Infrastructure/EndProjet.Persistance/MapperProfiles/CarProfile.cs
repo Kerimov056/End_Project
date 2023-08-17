@@ -8,10 +8,7 @@ public class CarProfile:Profile
 {
     public CarProfile()
     {
-        CreateMap<Car, CarGetDTO>()
-               .ForMember(dest => dest.CarImages, opt => opt.MapFrom(src => src.carImages.Select(ci => ci.imagePath)))
-               .ForMember(dest => dest.CarTags, opt => opt.MapFrom(src => src.carTags.Select(ct => ct.Tag.tag)));
-
+        CreateMap<Car, CarGetDTO>().ReverseMap();
         CreateMap<CarCreateDTO, Car>().ReverseMap();
     }
 }
