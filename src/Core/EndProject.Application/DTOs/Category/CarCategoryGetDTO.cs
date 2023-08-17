@@ -3,4 +3,5 @@
 public class CarCategoryGetDTO
 {
     public string Category { get; set; }
+
 }
