@@ -22,6 +22,220 @@ namespace EndProjet.Persistance.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("EndProject.Domain.Entitys.Car", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Marka")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Model")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Cars");
+                });
+
+            modelBuilder.Entity("EndProject.Domain.Entitys.CarCategory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CarId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CarId")
+                        .IsUnique();
+
+                    b.ToTable("CarCategories");
+                });
+
+            modelBuilder.Entity("EndProject.Domain.Entitys.CarImage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CarId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("imagePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CarId");
+
+                    b.ToTable("CarImages");
+                });
+
+            modelBuilder.Entity("EndProject.Domain.Entitys.CarReservation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid>("CarId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("PickupDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("PickupLocationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ReservationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ReturnDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("ReturnLocationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("CarId");
+
+                    b.HasIndex("PickupLocationId");
+
+                    b.HasIndex("ReturnLocationId");
+
+                    b.ToTable("CarReservations");
+                });
+
+            modelBuilder.Entity("EndProject.Domain.Entitys.CarTag", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CarId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("TagId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CarId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("CarTags");
+                });
+
+            modelBuilder.Entity("EndProject.Domain.Entitys.CarType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CarId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CarId")
+                        .IsUnique();
+
+                    b.ToTable("CarTypes");
+                });
+
             modelBuilder.Entity("EndProject.Domain.Entitys.Identity.AppUser", b =>
                 {
                     b.Property<string>("Id")
@@ -99,6 +313,32 @@ namespace EndProjet.Persistance.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("EndProject.Domain.Entitys.Location", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<double>("Latitude")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Locations");
+                });
+
             modelBuilder.Entity("EndProject.Domain.Entitys.Slider", b =>
                 {
                     b.Property<Guid>("Id")
@@ -120,7 +360,31 @@ namespace EndProjet.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Slider");
+                    b.ToTable("Sliders");
+                });
+
+            modelBuilder.Entity("EndProject.Domain.Entitys.Tag", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("tag")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tags");
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.Test", b =>
@@ -147,7 +411,37 @@ namespace EndProjet.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("test");
+                    b.ToTable("Tests");
+                });
+
+            modelBuilder.Entity("EndProject.Domain.Entitys.TypeCategory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("categoryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("typeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("categoryId");
+
+                    b.HasIndex("typeId");
+
+                    b.ToTable("TypeCategories");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -283,6 +577,112 @@ namespace EndProjet.Persistance.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("EndProject.Domain.Entitys.CarCategory", b =>
+                {
+                    b.HasOne("EndProject.Domain.Entitys.Car", "Car")
+                        .WithOne("carCategory")
+                        .HasForeignKey("EndProject.Domain.Entitys.CarCategory", "CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Car");
+                });
+
+            modelBuilder.Entity("EndProject.Domain.Entitys.CarImage", b =>
+                {
+                    b.HasOne("EndProject.Domain.Entitys.Car", "Car")
+                        .WithMany("carImages")
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Car");
+                });
+
+            modelBuilder.Entity("EndProject.Domain.Entitys.CarReservation", b =>
+                {
+                    b.HasOne("EndProject.Domain.Entitys.Identity.AppUser", "AppUser")
+                        .WithMany("Reservations")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EndProject.Domain.Entitys.Car", "Car")
+                        .WithMany("Reservations")
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EndProject.Domain.Entitys.Location", "PickupLocation")
+                        .WithMany()
+                        .HasForeignKey("PickupLocationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("EndProject.Domain.Entitys.Location", "ReturnLocation")
+                        .WithMany()
+                        .HasForeignKey("ReturnLocationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Car");
+
+                    b.Navigation("PickupLocation");
+
+                    b.Navigation("ReturnLocation");
+                });
+
+            modelBuilder.Entity("EndProject.Domain.Entitys.CarTag", b =>
+                {
+                    b.HasOne("EndProject.Domain.Entitys.Car", "Car")
+                        .WithMany("carTags")
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EndProject.Domain.Entitys.Tag", "Tag")
+                        .WithMany("carTags")
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Car");
+
+                    b.Navigation("Tag");
+                });
+
+            modelBuilder.Entity("EndProject.Domain.Entitys.CarType", b =>
+                {
+                    b.HasOne("EndProject.Domain.Entitys.Car", "Car")
+                        .WithOne("carType")
+                        .HasForeignKey("EndProject.Domain.Entitys.CarType", "CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Car");
+                });
+
+            modelBuilder.Entity("EndProject.Domain.Entitys.TypeCategory", b =>
+                {
+                    b.HasOne("EndProject.Domain.Entitys.CarCategory", "category")
+                        .WithMany("typeCategories")
+                        .HasForeignKey("categoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("EndProject.Domain.Entitys.CarType", "type")
+                        .WithMany("typeCategories")
+                        .HasForeignKey("typeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("category");
+
+                    b.Navigation("type");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -332,6 +732,41 @@ namespace EndProjet.Persistance.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("EndProject.Domain.Entitys.Car", b =>
+                {
+                    b.Navigation("Reservations");
+
+                    b.Navigation("carCategory")
+                        .IsRequired();
+
+                    b.Navigation("carImages");
+
+                    b.Navigation("carTags");
+
+                    b.Navigation("carType")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("EndProject.Domain.Entitys.CarCategory", b =>
+                {
+                    b.Navigation("typeCategories");
+                });
+
+            modelBuilder.Entity("EndProject.Domain.Entitys.CarType", b =>
+                {
+                    b.Navigation("typeCategories");
+                });
+
+            modelBuilder.Entity("EndProject.Domain.Entitys.Identity.AppUser", b =>
+                {
+                    b.Navigation("Reservations");
+                });
+
+            modelBuilder.Entity("EndProject.Domain.Entitys.Tag", b =>
+                {
+                    b.Navigation("carTags");
                 });
 #pragma warning restore 612, 618
         }

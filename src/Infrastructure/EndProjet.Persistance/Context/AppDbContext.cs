@@ -11,11 +11,55 @@ public class AppDbContext : IdentityDbContext<AppUser>
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<TypeCategory>()
+            .HasOne(x => x.type)
+            .WithMany(d => d.typeCategories)
+            .HasForeignKey(x => x.typeId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<TypeCategory>()
+            .HasOne(f => f.category)
+            .WithMany(s => s.typeCategories)
+            .HasForeignKey(us => us.categoryId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+
+        modelBuilder.Entity<CarTag>()
+            .HasOne(x => x.Car)
+            .WithMany(d => d.carTags)
+            .HasForeignKey(x => x.CarId);
+
+        modelBuilder.Entity<CarTag>()
+            .HasOne(f => f.Tag)
+            .WithMany(s => s.carTags)
+            .HasForeignKey(us => us.TagId);
+
+
+        modelBuilder.Entity<CarReservation>()
+                 .HasOne(cr => cr.PickupLocation)
+                 .WithMany()
+                 .HasForeignKey(cr => cr.PickupLocationId)
+                 .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<CarReservation>()
+            .HasOne(cr => cr.ReturnLocation)
+            .WithMany()
+            .HasForeignKey(cr => cr.ReturnLocationId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         base.OnModelCreating(modelBuilder);
     }
 
-    public DbSet<Slider> Slider { get; set; }
-    public DbSet<Test> Test { get; set; }
+    public DbSet<Slider> Sliders { get; set; }
+    public DbSet<Test> Tests { get; set; }
+    public DbSet<Car> Cars { get; set; }
+    public DbSet<CarType> CarTypes { get; set; }
+    public DbSet<CarCategory> CarCategories { get; set; }
+    public DbSet<TypeCategory> TypeCategories { get; set; }
+    public DbSet<CarImage> CarImages { get; set; }
+    public DbSet<Tag> Tags { get; set; }
+    public DbSet<CarTag> CarTags { get; set; }
+    public DbSet<CarReservation> CarReservations { get; set; }
+    public DbSet<Location> Locations { get; set; }
 }
 
