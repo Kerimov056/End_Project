@@ -7,3 +7,8 @@ public enum ReservationStatus
     Completed,
     Canceled
 }
+
+//Gözləyən,
+// Təsdiqlənmiş,
+// Tamamlanmış,
+// Ləğv edildi

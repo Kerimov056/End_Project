@@ -36,8 +36,6 @@ public class CarCommentServices : ICarCommentServices
 
     public async Task<List<CarCommentGetDTO>> GetAllAsync(Guid CarId)
     {
-        //var ByCar = await _carReadRepository.GetByIdAsync(CarId);
-        //if (ByCar is null) throw new NotFoundException("Car is Null");
         var ByCar = await _carServices.GetByIdAsync(CarId);
 
         var CarAllComment = await _carCommentReadRepository
