@@ -4,6 +4,7 @@ using EndProjet.Persistance.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EndProjet.Persistance.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230818144645_PickupLocationsANDReturnLocations")]
+    partial class PickupLocationsANDReturnLocations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -386,6 +388,10 @@ namespace EndProjet.Persistance.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -399,74 +405,10 @@ namespace EndProjet.Persistance.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CarReservationId");
 
                     b.ToTable("Locations");
-                });
 
-            modelBuilder.Entity("EndProject.Domain.Entitys.PickupLocation", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CarReservationId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<double>("Latitude")
-                        .HasColumnType("float");
-
-                    b.Property<double>("Longitude")
-                        .HasColumnType("float");
-
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CarReservationId")
-                        .IsUnique();
-
-                    b.ToTable("PickupLocations");
-                });
-
-            modelBuilder.Entity("EndProject.Domain.Entitys.ReturnLocation", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CarReservationId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<double>("Latitude")
-                        .HasColumnType("float");
-
-                    b.Property<double>("Longitude")
-                        .HasColumnType("float");
-
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CarReservationId")
-                        .IsUnique();
-
-                    b.ToTable("ReturnLocations");
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Location");
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.Slider", b =>
@@ -677,6 +619,26 @@ namespace EndProjet.Persistance.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("EndProject.Domain.Entitys.PickupLocation", b =>
+                {
+                    b.HasBaseType("EndProject.Domain.Entitys.Location");
+
+                    b.HasIndex("CarReservationId")
+                        .IsUnique();
+
+                    b.HasDiscriminator().HasValue("PickupLocation");
+                });
+
+            modelBuilder.Entity("EndProject.Domain.Entitys.ReturnLocation", b =>
+                {
+                    b.HasBaseType("EndProject.Domain.Entitys.Location");
+
+                    b.HasIndex("CarReservationId")
+                        .IsUnique();
+
+                    b.HasDiscriminator().HasValue("ReturnLocation");
+                });
+
             modelBuilder.Entity("EndProject.Domain.Entitys.CarCategory", b =>
                 {
                     b.HasOne("EndProject.Domain.Entitys.Car", "Car")
@@ -773,39 +735,6 @@ namespace EndProjet.Persistance.Migrations
                     b.Navigation("Car");
                 });
 
-            modelBuilder.Entity("EndProject.Domain.Entitys.Location", b =>
-                {
-                    b.HasOne("EndProject.Domain.Entitys.CarReservation", "CarReservation")
-                        .WithMany()
-                        .HasForeignKey("CarReservationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CarReservation");
-                });
-
-            modelBuilder.Entity("EndProject.Domain.Entitys.PickupLocation", b =>
-                {
-                    b.HasOne("EndProject.Domain.Entitys.CarReservation", "CarReservation")
-                        .WithOne("PickupLocation")
-                        .HasForeignKey("EndProject.Domain.Entitys.PickupLocation", "CarReservationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CarReservation");
-                });
-
-            modelBuilder.Entity("EndProject.Domain.Entitys.ReturnLocation", b =>
-                {
-                    b.HasOne("EndProject.Domain.Entitys.CarReservation", "CarReservation")
-                        .WithOne("ReturnLocation")
-                        .HasForeignKey("EndProject.Domain.Entitys.ReturnLocation", "CarReservationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CarReservation");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -855,6 +784,28 @@ namespace EndProjet.Persistance.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("EndProject.Domain.Entitys.PickupLocation", b =>
+                {
+                    b.HasOne("EndProject.Domain.Entitys.CarReservation", "CarReservation")
+                        .WithOne("PickupLocation")
+                        .HasForeignKey("EndProject.Domain.Entitys.PickupLocation", "CarReservationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CarReservation");
+                });
+
+            modelBuilder.Entity("EndProject.Domain.Entitys.ReturnLocation", b =>
+                {
+                    b.HasOne("EndProject.Domain.Entitys.CarReservation", "CarReservation")
+                        .WithOne("ReturnLocation")
+                        .HasForeignKey("EndProject.Domain.Entitys.ReturnLocation", "CarReservationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CarReservation");
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.Car", b =>

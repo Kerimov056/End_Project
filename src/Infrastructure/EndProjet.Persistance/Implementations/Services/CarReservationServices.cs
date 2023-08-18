@@ -1,14 +1,32 @@
-﻿using EndProject.Application.Abstraction.Services;
+﻿using AutoMapper;
+using EndProject.Application.Abstraction.Repositories.IEntityRepository;
+using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.CarReservation;
 using EndProject.Application.DTOs.Slider;
+using EndProject.Domain.Entitys;
 
 namespace EndProjet.Persistance.Implementations.Services;
 
 public class CarReservationServices : ICarReservationServices
 {
-    public Task CreateAsync(CarReservationCreateDTO carReservationCreateDTO)
+    private readonly ICarReservationReadRepository _carReservationReadRepository;
+    private readonly ICarReservationWriteRepository _carReservationWriteRepository;
+    private readonly IMapper _mapper;
+
+    public CarReservationServices(ICarReservationReadRepository carReservationReadRepository,
+                                  ICarReservationWriteRepository carReservationWriteRepository,
+                                  IMapper mapper)
     {
-        throw new NotImplementedException();
+        _carReservationReadRepository = carReservationReadRepository;
+        _carReservationWriteRepository = carReservationWriteRepository;
+        _mapper = mapper;
+    }
+
+    public async Task CreateAsync(CarReservationCreateDTO carReservationCreateDTO)
+    {
+        var newReservation = _mapper.Map<CarReservation>(carReservationCreateDTO);
+        await _carReservationWriteRepository.AddAsync(newReservation);
+        await _carReservationWriteRepository.SavaChangeAsync();
     }
 
     public Task<List<CarReservationGetDTO>> GetAllAsync()

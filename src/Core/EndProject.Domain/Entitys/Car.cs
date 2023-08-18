@@ -13,7 +13,7 @@ public class Car : BaseEntity
     public CarCategory carCategory { get; set; }
     public List<CarImage>? carImages { get; set; }
     public List<CarTag>? carTags { get; set; }
-    public List<CarReservation>? Reservations { get; set; }
     public List<CarComment>? Comments { get; set; }
+    public List<CarReservation>? Reservations { get; set; }
 
 }

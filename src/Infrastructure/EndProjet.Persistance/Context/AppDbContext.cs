@@ -35,17 +35,17 @@ public class AppDbContext : IdentityDbContext<AppUser>
             .HasForeignKey(us => us.TagId);
 
 
-        modelBuilder.Entity<CarReservation>()
-                 .HasOne(cr => cr.PickupLocation)
-                 .WithMany()
-                 .HasForeignKey(cr => cr.PickupLocationId)
-                 .OnDelete(DeleteBehavior.Restrict);
+        //modelBuilder.Entity<CarReservation>()
+        //         .HasOne(cr => cr.PickupLocation)
+        //         .WithMany()
+        //         .HasForeignKey(cr => cr.PickupLocationId)
+        //         .OnDelete(DeleteBehavior.Restrict);
 
-        modelBuilder.Entity<CarReservation>()
-            .HasOne(cr => cr.ReturnLocation)
-            .WithMany()
-            .HasForeignKey(cr => cr.ReturnLocationId)
-            .OnDelete(DeleteBehavior.Restrict);
+        //modelBuilder.Entity<CarReservation>()
+        //    .HasOne(cr => cr.ReturnLocation)
+        //    .WithMany()
+        //    .HasForeignKey(cr => cr.ReturnLocationId)
+        //    .OnDelete(DeleteBehavior.Restrict);
 
         base.OnModelCreating(modelBuilder);
     }
@@ -63,5 +63,7 @@ public class AppDbContext : IdentityDbContext<AppUser>
     public DbSet<Location> Locations { get; set; }
     public DbSet<Chauffeurs> Chauffeurs { get; set; }
     public DbSet<CarComment> CarComments { get; set; }
+    public DbSet<PickupLocation> PickupLocations { get; set; }
+    public DbSet<ReturnLocation> ReturnLocations { get; set; }
 }
 
