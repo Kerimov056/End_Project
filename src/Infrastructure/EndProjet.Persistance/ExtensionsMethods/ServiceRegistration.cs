@@ -53,6 +53,7 @@ public static class ServiceRegistration
         services.AddScoped<ICarServices, CarServices>();
         services.AddScoped<ICarImageServices, CarImageServices>();
         services.AddScoped<ICarCategoryServices, CarCategoryServices>();
+        services.AddScoped<ICarCommentServices, CarCommentServices>();
       
 
 

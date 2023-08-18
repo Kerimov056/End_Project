@@ -129,19 +129,44 @@ public class CarServices : ICarServices
             .Include(x=>x.Reservations)
             .ToListAsync();
 
-        if (CarAll == null) throw new NotFoundException("Car is null");
+        if (CarAll is null) throw new NotFoundException("Car is null");
         var ToDto = _mapper.Map<List<CarGetDTO>>(CarAll);
         return ToDto;
     }
 
-    public Task<CarGetDTO> GetByIdAsync(Guid Id)
+    public async Task<CarGetDTO> GetByIdAsync(Guid Id)
     {
-        throw new NotImplementedException();
+        var ByCar = await _carReadRepository
+            .GetAll()
+            .Include(x => x.carTags)
+            .Include(x => x.carType)
+            .Include(x => x.carCategory)
+            .Include(x => x.carImages)
+            .Include(x => x.Reservations)
+            .FirstOrDefaultAsync(x=>x.Id==Id);
+
+        if (ByCar is null) throw new NotFoundException("Car is Null");
+
+        var ToDto = _mapper.Map<CarGetDTO>(ByCar);
+        return ToDto;
     }
 
-    public Task<CarGetDTO> GetByNameAsync(string car)
+    public async Task<List<CarGetDTO>> GetByNameAsync(string car)
     {
-        throw new NotImplementedException();
+        var ByCar = await _carReadRepository
+           .GetAll()
+           .Include(x => x.carTags)
+           .Include(x => x.carType)
+           .Include(x => x.carCategory)
+           .Include(x => x.carImages)
+           .Include(x => x.Reservations)
+           .Where(x=> x.Marka == car)
+           .ToListAsync();
+
+        if (ByCar is null) throw new NotFoundException("Car is Null");
+
+        var ToDto = _mapper.Map<List<CarGetDTO>>(ByCar);
+        return ToDto;
     }
 
     public Task RemoveAsync(Guid id)
