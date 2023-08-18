@@ -4,6 +4,7 @@ using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.CarReservation;
 using EndProject.Domain.Entitys;
 using EndProject.Domain.Enums.ReservationStatus;
+using EndProjet.Persistance.Exceptions;
 
 namespace EndProjet.Persistance.Implementations.Services;
 
@@ -71,9 +72,13 @@ public class CarReservationServices : ICarReservationServices
         throw new NotImplementedException();
     }
 
-    public Task RemoveAsync(Guid id)
+    public async Task RemoveAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var ByReserv = await _carReservationReadRepository.GetByIdAsync(id);
+        if (ByReserv is null) throw new NotFoundException("Reservation is Null");
+
+        _carReservationWriteRepository.Remove(ByReserv);
+        await _carReservationWriteRepository.SavaChangeAsync();
     }
 
     public Task UpdateAsync(Guid id, CarReservationUpdateDTO carReservationUpdateDTO)
