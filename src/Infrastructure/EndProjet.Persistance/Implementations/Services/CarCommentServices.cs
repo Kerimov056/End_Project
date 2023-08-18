@@ -13,14 +13,17 @@ public class CarCommentServices : ICarCommentServices
     private readonly ICarCommentReadRepository _carCommentReadRepository;
     private readonly ICarCommentWriteRepository _carCommentWriteRepository;
     private readonly ICarReadRepository _carReadRepository;
+    private readonly ICarServices _carServices;
     private readonly IMapper _mapper;
 
     public CarCommentServices(ICarCommentReadRepository carCommentReadRepository,
                               ICarCommentWriteRepository carCommentWriteRepository,
+                              ICarServices carServices,
                               IMapper mapper)
     {
         _carCommentReadRepository = carCommentReadRepository;
         _carCommentWriteRepository = carCommentWriteRepository;
+        _carServices = carServices;
         _mapper = mapper;
     }
 
@@ -35,10 +38,12 @@ public class CarCommentServices : ICarCommentServices
     {
         //var ByCar = await _carReadRepository.GetByIdAsync(CarId);
         //if (ByCar is null) throw new NotFoundException("Car is Null");
+        var ByCar = await _carServices.GetByIdAsync(CarId);
 
         var CarAllComment = await _carCommentReadRepository
             .GetAll()
-            .Include(x => x.CarId == CarId)
+            .Include(x => x.Car)
+            .Where(x=> x.Car.Marka == ByCar.Marka)
             .ToListAsync();
         if (CarAllComment is null) throw new NotFoundException("Comment is null");
 
