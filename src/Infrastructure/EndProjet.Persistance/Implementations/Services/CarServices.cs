@@ -92,7 +92,7 @@ public class CarServices : ICarServices
             bool istag = true;
             foreach (var itemtag in await _tagReadRepository.GetAll().ToListAsync())
             {
-                if (item==itemtag.tag)
+                if (item == itemtag.tag)
                 {
                     istag = false;
                     var newCarTag = new CarTag
@@ -105,7 +105,7 @@ public class CarServices : ICarServices
                     return;
                 }
             }
-            if (istag==true)
+            if (istag == true)
             {
                 var newTag = new Tag
                 {
@@ -122,11 +122,12 @@ public class CarServices : ICarServices
     {
         var CarAll = await _carReadRepository
             .GetAll()
-            .Include(x=>x.carTags)
-            .Include(x=>x.carType)
-            .Include(x=>x.carCategory)
-            .Include(x=>x.carImages)
-            .Include(x=>x.Reservations)
+            .Include(x => x.carTags)
+            .Include(x => x.carType)
+            .Include(x => x.carCategory)
+            .Include(x => x.carImages)
+            .Include(x => x.Reservations)
+            .Where(x => x.isReserv == false)
             .ToListAsync();
 
         if (CarAll is null) throw new NotFoundException("Car is null");
@@ -143,7 +144,7 @@ public class CarServices : ICarServices
             .Include(x => x.carCategory)
             .Include(x => x.carImages)
             .Include(x => x.Reservations)
-            .FirstOrDefaultAsync(x=>x.Id==Id);
+            .FirstOrDefaultAsync(x => x.Id == Id);
 
         if (ByCar is null) throw new NotFoundException("Car is Null");
 
@@ -160,7 +161,7 @@ public class CarServices : ICarServices
            .Include(x => x.carCategory)
            .Include(x => x.carImages)
            .Include(x => x.Reservations)
-           .Where(x=> x.Marka == car)
+           .Where(x => x.Marka == car)
            .ToListAsync();
 
         if (ByCar is null) throw new NotFoundException("Car is Null");
