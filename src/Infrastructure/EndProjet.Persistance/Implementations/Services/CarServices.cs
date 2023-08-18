@@ -4,6 +4,7 @@ using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Car;
 using EndProject.Application.DTOs.CarImage;
 using EndProject.Application.DTOs.CarType;
+using EndProject.Application.DTOs.Category;
 using EndProject.Domain.Entitys;
 using EndProjet.Persistance.Exceptions;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +23,8 @@ public class CarServices : ICarServices
     private readonly ITagReadRepository _tagReadRepository;
     private readonly ITagWriteRepository _tagWriteRepository;
     private readonly ICarTagWriteRepository _carTagWriteRepository;
+    private readonly ICarTagReadRepository _carTagReadRepository;
+    private readonly ICarCategoryServices _carCategoryServices;
 
     public CarServices(ICarReadRepository carReadRepository,
                        ICarWriteRepository carWriteRepository,
@@ -32,7 +35,8 @@ public class CarServices : ICarServices
                        ITagReadRepository tagReadRepository,
                        ITagWriteRepository tagWriteRepository,
                        ICarCategoryWriteRepository carCategoryWriteRepository,
-                       ICarTagWriteRepository carTagWriteRepository)
+                       ICarTagWriteRepository carTagWriteRepository,
+                       ICarTagReadRepository carTagReadRepository)
     {
         _carReadRepository = carReadRepository;
         _carWriteRepository = carWriteRepository;
@@ -44,6 +48,7 @@ public class CarServices : ICarServices
         _tagWriteRepository = tagWriteRepository;
         _carCategoryWriteRepository = carCategoryWriteRepository;
         _carTagWriteRepository = carTagWriteRepository;
+        _carTagReadRepository = carTagReadRepository;
     }
 
     public async Task CreateAsync(CarCreateDTO carCreateDTO)
@@ -200,17 +205,102 @@ public class CarServices : ICarServices
     public async Task UpdateAsync(Guid id, CarUpdateDTO carUpdateDTO)
     {
         var ByCar = await _carReadRepository
-           .GetAll()
+           .GetAll()                    //2bab2a3b-6435-48c5-f86d-08db9f6de8f1
            .Include(x => x.carTags)
            .Include(x => x.carType)
            .Include(x => x.carCategory)
            .Include(x => x.carImages)
            .Include(x => x.Reservations)
            .FirstOrDefaultAsync(x => x.Id == id);
-
         if (ByCar is null) throw new NotFoundException("Car is Null");
 
-        _mapper.Map(carUpdateDTO, ByCar);
+        ByCar.Marka = carUpdateDTO.Marka;
+        ByCar.Model = carUpdateDTO.Model;
+        ByCar.Price = carUpdateDTO.Price;
+        ByCar.Year = carUpdateDTO.Year;
+        ByCar.Description = carUpdateDTO.Description;
+        ByCar.isReserv = carUpdateDTO.isReserv;
+        if (ByCar.carType is not null)
+        {
+            var carUpdateType = new CarTypeUpdateDTO
+            {
+                Type = carUpdateDTO.CarType.Type
+            };
+            var CarTypeID = ByCar.carType.Id;
+            _carTypeService.UpdateAsync(CarTypeID, carUpdateType);
+        }
+        else
+        {
+            ByCar.carType = new CarType
+            {
+                type = carUpdateDTO.CarType.Type,
+                CarId = ByCar.Id
+            };
+            await _carTypeWriteRepository.AddAsync(ByCar.carType);
+        }
+
+        if (ByCar.carCategory is not null)
+        {
+            var carUpdateCategory = new CarCategoryUpdateDTO
+            {
+                category = carUpdateDTO.CarCategory.category
+            };
+            var CarCategoryID = ByCar.carCategory.Id;
+            _carCategoryServices.UpdateAsync(CarCategoryID, carUpdateCategory);
+        }
+        else
+        {
+            ByCar.carCategory = new CarCategory
+            {
+                Category = carUpdateDTO.CarCategory.category,
+                CarId = ByCar.Id
+            };
+            await _carCategoryWriteRepository.AddAsync(ByCar.carCategory);
+        }
+
+        foreach (var item in carUpdateDTO.tags)
+        {
+            var newTag = new Tag
+            {
+                tag = item
+            };
+            await _tagWriteRepository.AddAsync(newTag);
+            await _tagWriteRepository.SavaChangeAsync();
+            foreach (var tag in await _carTagReadRepository.GetAll().Where(x=>x.CarId==ByCar.Id).ToListAsync())
+            {
+                tag.TagId = newTag.Id;
+                _carTagWriteRepository.Update(tag);
+            }
+        }
+
+        if (carUpdateDTO.CarImages is not null)
+        {
+            foreach (var item in carUpdateDTO.CarImages)
+            {
+                if (ByCar.carImages is null)
+                {
+                    var carImageCreateDto = new CarImageCreateDTO
+                    {
+                        CarId = ByCar.Id,
+                        image = item
+                    };
+                    await _carImageServices.CreateAsync(carImageCreateDto);
+                }
+                else
+                {
+                    var carImageDto = new CarImageUpdateDTO
+                    {
+                        CarId = ByCar.Id,
+                        image = item
+                    };
+                    foreach (var updateImage in ByCar.carImages)
+                    {
+                        await _carImageServices.UpdateAsync(updateImage.Id, carImageDto);
+                    }
+                }
+            }
+        }
+
         _carWriteRepository.Update(ByCar);
         await _carWriteRepository.SavaChangeAsync();
     }

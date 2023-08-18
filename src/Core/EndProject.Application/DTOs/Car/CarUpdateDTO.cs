@@ -1,5 +1,7 @@
 ﻿using EndProject.Application.DTOs.CarType;
 using EndProject.Application.DTOs.Category;
+using EndProject.Domain.Entitys;
+using Microsoft.AspNetCore.Http;
 
 namespace EndProject.Application.DTOs.Car;
 
@@ -11,8 +13,8 @@ public class CarUpdateDTO
     public int Year { get; set; }
     public string Description { get; set; }
     public bool isReserv { get; set; }
-    public CarTypeCreateDTO CarType { get; set; }
-    public CarCategoryGetDTO CarCategory { get; set; }
-    public List<string> CarImages { get; set; }
-    public List<string> CarTags { get; set; }
+    public CarTypeUpdateDTO CarType { get; set; }
+    public CarCategoryUpdateDTO CarCategory { get; set; }
+    public List<IFormFile> CarImages { get; set; }
+    public List<string> tags { get; set; }
 }
