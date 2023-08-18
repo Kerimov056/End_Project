@@ -15,6 +15,7 @@ public class CarReservationServices : ICarReservationServices
     private readonly ICarReservationWriteRepository _carReservationWriteRepository;
     private readonly IPickupLocationWriteRepository _pickupLocationWriteRepository;
     private readonly IReturnLocationWriteRepository _returnLocationWriteRepository;
+    private readonly ICarServices _carServices;
     private readonly IStorageFile _uploadFile;
     private readonly IMapper _mapper;
 
@@ -23,7 +24,8 @@ public class CarReservationServices : ICarReservationServices
                                   IMapper mapper,
                                   IPickupLocationWriteRepository pickupLocationWriteRepository,
                                   IReturnLocationWriteRepository returnLocationWriteRepository,
-                                  IStorageFile uploadFile)
+                                  IStorageFile uploadFile,
+                                  ICarServices carServices)
     {
         _carReservationReadRepository = carReservationReadRepository;
         _carReservationWriteRepository = carReservationWriteRepository;
@@ -31,6 +33,7 @@ public class CarReservationServices : ICarReservationServices
         _pickupLocationWriteRepository = pickupLocationWriteRepository;
         _returnLocationWriteRepository = returnLocationWriteRepository;
         _uploadFile = uploadFile;
+        _carServices = carServices;
     }
 
     public async Task CreateAsync(CarReservationCreateDTO carReservationCreateDTO)
@@ -47,6 +50,7 @@ public class CarReservationServices : ICarReservationServices
             AppUserId = carReservationCreateDTO.AppUserId, //b9e6bbc7-b080-4405-880d-4aa8e35a5aee
             CarId = carReservationCreateDTO.CarId,
         };
+        await _carServices.ReservCar(carReservationCreateDTO.CarId);
         if (carReservationCreateDTO.Image != null && carReservationCreateDTO.Image.Length > 0)
         {
             var ImagePath = await _uploadFile.WriteFile("Upload\\Files", carReservationCreateDTO.Image);
