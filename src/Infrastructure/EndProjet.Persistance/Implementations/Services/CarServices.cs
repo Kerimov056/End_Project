@@ -150,7 +150,6 @@ public class CarServices : ICarServices
             .Include(x => x.carImages)
             .Include(x => x.Reservations)
             .FirstOrDefaultAsync(x => x.Id == Id);
-
         if (ByCar is null) throw new NotFoundException("Car is Null");
 
         var ToDto = _mapper.Map<CarGetDTO>(ByCar);

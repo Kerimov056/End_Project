@@ -2,10 +2,10 @@
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.CarReservation;
-using EndProject.Application.DTOs.Slider;
 using EndProject.Domain.Entitys;
 using EndProject.Domain.Enums.ReservationStatus;
 using EndProjet.Persistance.Exceptions;
+using Microsoft.EntityFrameworkCore;
 
 namespace EndProjet.Persistance.Implementations.Services;
 
@@ -82,9 +82,17 @@ public class CarReservationServices : ICarReservationServices
         throw new NotImplementedException();
     }
 
-    public Task<CarReservationGetDTO> GetByIdAsync(Guid Id)
+    public async Task<CarReservationGetDTO> GetByIdAsync(Guid Id)
     {
-        throw new NotImplementedException();
+        var ByReserv = await _carReservationReadRepository
+             .GetAll()
+             .Include(x => x.PickupLocation)    //de244236-515b-44bc-d1ec-08dba0162b17
+             .Include(x => x.ReturnLocation)
+             .FirstOrDefaultAsync(x => x.Id == Id);
+        if (ByReserv is null) throw new NotFoundException("Reservation is Null");
+
+        var ToDto = _mapper.Map<CarReservationGetDTO>(ByReserv);
+        return ToDto;
     }
 
     public async Task RemoveAsync(Guid id)
@@ -100,7 +108,30 @@ public class CarReservationServices : ICarReservationServices
     {
         var ByReserv = await _carReservationReadRepository.GetByIdAsync(id);
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
-        
 
+        throw new NotImplementedException();
     }
 }
+
+
+
+//var ToDto = new CarReservationGetDTO
+//{
+//    ImagePath = ByReserv.ImagePath,
+//    Id = ByReserv.Id,
+//    PickupDate = ByReserv.PickupDate,
+//    ReturnDate = ByReserv.ReturnDate,
+//    Notes = ByReserv.Notes,
+//    Status = ByReserv.Status,
+//    AppUserId = ByReserv.AppUserId,
+//    CarId = ByReserv.CarId,
+//    ChauffeursId = ByReserv.ChauffeursId
+//};
+//var test = ByReserv.PickupLocation.Id;
+//ToDto.PickupLocation.Id = test;
+
+//ToDto.PickupLocation.Latitude = ByReserv.PickupLocation.Latitude;
+//ToDto.PickupLocation.Longitude = ByReserv.PickupLocation.Longitude;
+
+//ToDto.ReturnLocation.Latitude = ByReserv.ReturnLocation.Latitude;
+//ToDto.ReturnLocation.Longitude = ByReserv.ReturnLocation.Longitude;

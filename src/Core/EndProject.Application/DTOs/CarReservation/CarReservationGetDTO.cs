@@ -1,9 +1,12 @@
-﻿using EndProject.Domain.Enums.ReservationStatus;
+﻿using EndProject.Application.DTOs.PickupLocation;
+using EndProject.Application.DTOs.ReturnLocation;
+using EndProject.Domain.Enums.ReservationStatus;
 
 namespace EndProject.Application.DTOs.CarReservation;
 
 public class CarReservationGetDTO
 {
+    public string ImagePath { get; set; }
     public Guid Id { get; set; }
     public DateTime PickupDate { get; set; }
     public DateTime ReturnDate { get; set; }
@@ -11,7 +14,7 @@ public class CarReservationGetDTO
     public ReservationStatus Status { get; set; }
     public string AppUserId { get; set; }
     public Guid CarId { get; set; }
-    public Guid? PickupLocationId { get; set; }
-    public Guid? ReturnLocationId { get; set; }
+    public PickupLocationGetDTO PickupLocation { get; set; }
+    public ReturnLocationGetDTO ReturnLocation { get; set; }
     public Guid? ChauffeursId { get; set; }
 }
