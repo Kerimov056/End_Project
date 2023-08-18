@@ -48,6 +48,8 @@ public static class ServiceRegistration
         services.AddScoped<ICarReservationWriteRepository, CarReservationWriteRepository>();
         services.AddScoped<IPickupLocationReadRepository, PickupLocationReadRepository>();
         services.AddScoped<IPickupLocationWriteRepository, PickupLocationWriteRepository>();
+        services.AddScoped<IReturnLocationReadRepository, ReturnLocationReadRepository>();
+        services.AddScoped<IReturnLocationWriteRepository, ReturnLocationWriteRepository>();
 
 
         //Service
