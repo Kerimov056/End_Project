@@ -300,7 +300,6 @@ D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\EndProject
 D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\EndProject.API.AssemblyInfoInputs.cache
 D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\EndProject.API.AssemblyInfo.cs
 D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\EndProject.API.csproj.CoreCompileInputs.cache
-D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\EndProject.API.MvcApplicationPartsAssemblyInfo.cs
 D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\EndProject.API.MvcApplicationPartsAssemblyInfo.cache
 D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\staticwebassets\msbuild.EndProject.API.Microsoft.AspNetCore.StaticWebAssets.props
 D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\staticwebassets\msbuild.build.EndProject.API.props
