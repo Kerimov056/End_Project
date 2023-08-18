@@ -6,6 +6,7 @@ namespace EndProject.Domain.Entitys;
 
 public class CarReservation:BaseEntity
 {
+    public string ImagePath { get; set; }
     public DateTime PickupDate { get; set; }
     public DateTime ReturnDate { get; set; }
     public string Notes { get; set; }

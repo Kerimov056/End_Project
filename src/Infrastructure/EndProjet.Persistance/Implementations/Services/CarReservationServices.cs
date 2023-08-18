@@ -2,6 +2,7 @@
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.CarReservation;
+using EndProject.Application.DTOs.Slider;
 using EndProject.Domain.Entitys;
 using EndProject.Domain.Enums.ReservationStatus;
 using EndProjet.Persistance.Exceptions;
@@ -14,24 +15,29 @@ public class CarReservationServices : ICarReservationServices
     private readonly ICarReservationWriteRepository _carReservationWriteRepository;
     private readonly IPickupLocationWriteRepository _pickupLocationWriteRepository;
     private readonly IReturnLocationWriteRepository _returnLocationWriteRepository;
+    private readonly IStorageFile _uploadFile;
     private readonly IMapper _mapper;
 
     public CarReservationServices(ICarReservationReadRepository carReservationReadRepository,
                                   ICarReservationWriteRepository carReservationWriteRepository,
                                   IMapper mapper,
                                   IPickupLocationWriteRepository pickupLocationWriteRepository,
-                                  IReturnLocationWriteRepository returnLocationWriteRepository)
+                                  IReturnLocationWriteRepository returnLocationWriteRepository,
+                                  IStorageFile uploadFile)
     {
         _carReservationReadRepository = carReservationReadRepository;
         _carReservationWriteRepository = carReservationWriteRepository;
         _mapper = mapper;
         _pickupLocationWriteRepository = pickupLocationWriteRepository;
         _returnLocationWriteRepository = returnLocationWriteRepository;
+        _uploadFile = uploadFile;
     }
 
     public async Task CreateAsync(CarReservationCreateDTO carReservationCreateDTO)
     {
-        //var newReservation = _mapper.Map<CarReservation>(carReservationCreateDTO);
+        if (carReservationCreateDTO.PickupDate < DateTime.Now) throw new Exception("Choose a Time !!!");
+        if (carReservationCreateDTO.ReturnDate < carReservationCreateDTO.PickupDate) throw new Exception("Choose a Time !!! ");
+
         var newReserv = new CarReservation
         {
             PickupDate = carReservationCreateDTO.PickupDate,
@@ -41,6 +47,11 @@ public class CarReservationServices : ICarReservationServices
             AppUserId = carReservationCreateDTO.AppUserId, //b9e6bbc7-b080-4405-880d-4aa8e35a5aee
             CarId = carReservationCreateDTO.CarId,
         };
+        if (carReservationCreateDTO.Image != null && carReservationCreateDTO.Image.Length > 0)
+        {
+            var ImagePath = await _uploadFile.WriteFile("Upload\\Files", carReservationCreateDTO.Image);
+            newReserv.ImagePath = ImagePath;
+        }
         await _carReservationWriteRepository.AddAsync(newReserv);
         await _carReservationWriteRepository.SavaChangeAsync();
 
@@ -81,8 +92,11 @@ public class CarReservationServices : ICarReservationServices
         await _carReservationWriteRepository.SavaChangeAsync();
     }
 
-    public Task UpdateAsync(Guid id, CarReservationUpdateDTO carReservationUpdateDTO)
+    public async Task UpdateAsync(Guid id, CarReservationUpdateDTO carReservationUpdateDTO)
     {
-        throw new NotImplementedException();
+        var ByReserv = await _carReservationReadRepository.GetByIdAsync(id);
+        if (ByReserv is null) throw new NotFoundException("Reservation is Null");
+        
+
     }
 }

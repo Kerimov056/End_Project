@@ -9,6 +9,7 @@ public class Car : BaseEntity
     public decimal Price { get; set; }
     public int Year { get; set; }
     public string Description { get; set; }
+    public bool isReserv { get; set; } = false;
     public CarType carType { get; set; }
     public CarCategory carCategory { get; set; }
     public List<CarImage>? carImages { get; set; }

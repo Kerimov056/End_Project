@@ -12,6 +12,7 @@ public class CarGetDTO
     public decimal Price { get; set; }
     public int Year { get; set; }
     public string Description { get; set; }
+    public bool isReserv { get; set; }
     public CarTypeGetDTO CarType { get; set; } 
     public CarCategoryGetDTO CarCategory { get; set; } 
     public List<string> CarImages { get; set; } 
