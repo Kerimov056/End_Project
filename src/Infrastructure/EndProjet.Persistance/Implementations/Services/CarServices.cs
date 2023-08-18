@@ -169,9 +169,21 @@ public class CarServices : ICarServices
         return ToDto;
     }
 
-    public Task RemoveAsync(Guid id)
+    public async Task RemoveAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var ByCar = await _carReadRepository
+           .GetAll()
+           .Include(x => x.carTags)
+           .Include(x => x.carType)
+           .Include(x => x.carCategory)
+           .Include(x => x.carImages)
+           .Include(x => x.Reservations)
+           .FirstOrDefaultAsync(x => x.Id == id);
+
+        if (ByCar is null) throw new NotFoundException("Car is Null");
+
+        _carWriteRepository.Remove(ByCar);
+        await _carWriteRepository.SavaChangeAsync();
     }
 
     public Task UpdateAsync(Guid id, CarUpdateDTO carUpdateDTO)
