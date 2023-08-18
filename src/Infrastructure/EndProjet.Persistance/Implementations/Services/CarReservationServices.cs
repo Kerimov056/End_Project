@@ -77,9 +77,16 @@ public class CarReservationServices : ICarReservationServices
         await _carReservationWriteRepository.SavaChangeAsync();
     }
 
-    public Task<List<CarReservationGetDTO>> GetAllAsync()
+    public async Task<List<CarReservationGetDTO>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        var ByReserv = await _carReservationReadRepository
+              .GetAll()
+              .Include(x => x.PickupLocation)    //de244236-515b-44bc-d1ec-08dba0162b17
+              .Include(x => x.ReturnLocation)
+              .ToListAsync();
+        if (ByReserv is null) throw new NotFoundException("Reservation is Null");
+        var ToDto = _mapper.Map<List<CarReservationGetDTO>>(ByReserv);
+        return ToDto;
     }
 
     public async Task<CarReservationGetDTO> GetByIdAsync(Guid Id)
@@ -90,7 +97,6 @@ public class CarReservationServices : ICarReservationServices
              .Include(x => x.ReturnLocation)
              .FirstOrDefaultAsync(x => x.Id == Id);
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
-
         var ToDto = _mapper.Map<CarReservationGetDTO>(ByReserv);
         return ToDto;
     }
