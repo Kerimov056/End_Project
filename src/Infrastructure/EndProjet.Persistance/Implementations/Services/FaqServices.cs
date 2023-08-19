@@ -49,9 +49,13 @@ public class FaqServices : IFaqServices
         return ToDto;
     }
 
-    public Task RemoveAsync(Guid id)
+    public async Task RemoveAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var byFaq = await _faqReadRepository.GetByIdAsync(id);
+        if (byFaq is null) throw new NotFoundException("Advantage is Null");
+        
+        _faqWriteRepository.Remove(byFaq);
+        await _faqWriteRepository.SavaChangeAsync();
     }
 
     public Task UpdateAsync(Guid id, FaqUpdateDTO faqUpdateDTO)
