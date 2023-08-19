@@ -1,4 +1,6 @@
-﻿namespace EndProject.Application.Abstraction.Repositories.IEntityRepository;
+﻿using EndProject.Domain.Entitys;
+
+namespace EndProject.Application.Abstraction.Repositories.IEntityRepository;
 
 public interface IBlogImageWriteRepository : IWriteRepository<BlogImage>
 {
