@@ -134,8 +134,8 @@ public class CarServices : ICarServices
             .Include(x => x.Reservations)
             .Where(x => x.isReserv == false)
             .ToListAsync();
-
         if (CarAll is null) throw new NotFoundException("Car is null");
+
         var ToDto = _mapper.Map<List<CarGetDTO>>(CarAll);
         return ToDto;
     }

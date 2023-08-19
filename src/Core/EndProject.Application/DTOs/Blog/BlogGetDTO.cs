@@ -5,7 +5,8 @@ namespace EndProject.Application.DTOs.Blog;
 
 public class BlogGetDTO
 {
+    public Guid Id { get; set; }
     public string Title { get; set; }
     public string Description { get; set; }
-    public List<BlogImageGetDTO> BlogImageGetDTOs { get; set; }
+    public List<string> BlogImages { get; set; }
 }

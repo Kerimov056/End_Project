@@ -4,6 +4,8 @@ using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Blog;
 using EndProject.Application.DTOs.BlogImage;
 using EndProject.Domain.Entitys;
+using EndProjet.Persistance.Exceptions;
+using Microsoft.EntityFrameworkCore;
 
 namespace EndProjet.Persistance.Implementations.Services;
 
@@ -50,23 +52,48 @@ public class BlogService : IBlogService
         await _blogWriteRepository.SavaChangeAsync();
     }
 
-    public Task<List<BlogGetDTO>> GetAllAsync()
+    public async Task<List<BlogGetDTO>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        var allBlog = await _blogReadRepository
+            .GetAll()
+            .Include(x => x.BlogImages)
+            .ToListAsync();
+        if (allBlog is null) throw new NotFoundException("Blog is Null");
+
+        var ToDto = _mapper.Map<List<BlogGetDTO>>(allBlog);
+        //foreach (var item in ToDto)
+        //{
+        //    await _blogImageServices.GetByIdAsync(item.Id);
+        //}
+        return ToDto;
     }
 
-    public Task<BlogGetDTO> GetByIdAsync(Guid Id)
+    public async Task<BlogGetDTO> GetByIdAsync(Guid Id)
     {
-        throw new NotImplementedException();
+        var ByBlog = await _blogReadRepository.GetByIdAsync(Id);
+        if (ByBlog is null) throw new NotFoundException("Blog is Null");
+
+        var ToDto = _mapper.Map<BlogGetDTO>(ByBlog);
+        return ToDto;
+
     }
 
-    public Task RemoveAsync(Guid id)
+    public async Task RemoveAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var ByBlog = await _blogReadRepository.GetByIdAsync(id);
+        if (ByBlog is null) throw new NotFoundException("Blog is Null");
+
+        _blogWriteRepository.Remove(ByBlog);
+        await _blogWriteRepository.SavaChangeAsync();   
     }
 
-    public Task UpdateAsync(Guid id, BlogUpdateDTO blogUpdateDTO)
+    public async Task UpdateAsync(Guid id, BlogUpdateDTO blogUpdateDTO)
     {
-        throw new NotImplementedException();
+        var ByBlog = await _blogReadRepository.GetByIdAsync(id);
+        if (ByBlog is null) throw new NotFoundException("Blog is Null");
+
+        _mapper.Map(blogUpdateDTO, ByBlog);
+        _blogWriteRepository.Update(ByBlog);
+        await _blogWriteRepository.SavaChangeAsync();
     }
 }

@@ -13,17 +13,20 @@ public class BlogImageServices : IBlogImageServices
     private readonly IBlogImageReadRepository _blogImageReadRepository;
     private readonly IBlogImageWriteRepository _blogImageWriteRepository;
     private readonly IStorageFile _storageFile;
+    private readonly IBlogReadRepository _blogReadRepository;
     private readonly IMapper _mapper;
 
     public BlogImageServices(IBlogImageReadRepository blogImageReadRepository,
                              IBlogImageWriteRepository blogImageWriteRepository,
                              IMapper mapper,
-                             IStorageFile storageFile)
+                             IStorageFile storageFile,
+                             IBlogReadRepository blogReadRepository)
     {
         _blogImageReadRepository = blogImageReadRepository;
         _blogImageWriteRepository = blogImageWriteRepository;
         _mapper = mapper;
         _storageFile = storageFile;
+        _blogReadRepository = blogReadRepository;
     }
 
     public async Task CreateAsync(BlogImageCreateDTO blogImageCreateDTO)
@@ -45,6 +48,27 @@ public class BlogImageServices : IBlogImageServices
 
         var ToDto = _mapper.Map<List<BlogImageGetDTO>>(BlogImageAll);
         return ToDto;
+    }
+
+    public async Task<List<BlogImageDTO>> GetAllBlogIdAsync(Guid blogId)
+    {
+        var byBlog = await _blogReadRepository.GetByIdAsync(blogId);
+        if (byBlog is null) throw new NotFoundException("Blog Is Null");
+
+        var BlogImageAll = await _blogImageReadRepository
+                            .GetAll()
+                            .Include(x=>x.Blog)
+                            .Where(x=>x.BlogId == blogId)
+                            .ToListAsync();
+
+        var ByBlogImage = new List<BlogImageDTO>();
+
+        //foreach (var blogImage in BlogImageAll)
+        //{
+        //    ByBlogImage.Add(blogImage.imagePath);
+        //}
+
+        return ByBlogImage;
     }
 
     public async Task<BlogImageGetDTO> GetByIdAsync(Guid Id)
