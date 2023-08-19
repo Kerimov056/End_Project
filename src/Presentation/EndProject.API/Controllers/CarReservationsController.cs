@@ -21,6 +21,13 @@ public class CarReservationsController : ControllerBase
         return Ok(Slider);
     }
 
+    [HttpGet("UserId")]
+    public async Task<IActionResult> YouGetAll(string Id)
+    {
+        var Slider = await _carReservationServices.YouGetAllAsync(Id);
+        return Ok(Slider);
+    }
+
     [HttpPost]
     public async Task<IActionResult> Post([FromForm] CarReservationCreateDTO carReservationCreateDTO)
     {

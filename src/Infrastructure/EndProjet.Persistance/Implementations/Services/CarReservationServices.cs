@@ -41,6 +41,9 @@ public class CarReservationServices : ICarReservationServices
         if (carReservationCreateDTO.PickupDate < DateTime.Now) throw new Exception("Choose a Time !!!");
         if (carReservationCreateDTO.ReturnDate < carReservationCreateDTO.PickupDate) throw new Exception("Choose a Time !!! ");
 
+        DateTime minimumReturnDate = carReservationCreateDTO.PickupDate.AddDays(1);
+        if (carReservationCreateDTO.ReturnDate < minimumReturnDate) throw new Exception("ReturnDate must be at least 1 day after PickupDate.");
+
         var newReserv = new CarReservation
         {
             Email = carReservationCreateDTO.Email,
@@ -172,11 +175,25 @@ public class CarReservationServices : ICarReservationServices
 
         _carReservationWriteRepository.Update(ByReserv);
         await _carReservationWriteRepository.SavaChangeAsync();  //bidene burda gelir partlayir ifso.
+                                                                 //R      de244236-515b-44bc-d1ec-08dba0162b17
+                                                                 //A      b9e6bbc7-b080-4405-880d-4aa8e35a5aee
+                                                                 //C      1a0793e2-7158-4dd4-d60b-08dba011c904
+    }
+
+    public async Task<List<CarReservationGetDTO>> YouGetAllAsync(string Id)
+    {
+        var ByReserv = await _carReservationReadRepository
+              .GetAll()
+              .Include(x => x.PickupLocation)
+              .Include(x => x.ReturnLocation)
+              .Where(x => x.AppUserId == Id)
+              .ToListAsync();
+        if (ByReserv is null) throw new NotFoundException("Reservation is Null");
+        var ToDto = _mapper.Map<List<CarReservationGetDTO>>(ByReserv);
+        return ToDto;
     }
 }
-    //R      de244236-515b-44bc-d1ec-08dba0162b17
-    //A      b9e6bbc7-b080-4405-880d-4aa8e35a5aee
-    //C      1a0793e2-7158-4dd4-d60b-08dba011c904
+
 
 
 
