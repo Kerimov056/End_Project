@@ -43,7 +43,7 @@ public class BlogImageServices : IBlogImageServices
     public async Task<List<BlogImageGetDTO>> GetAllAsync()
     {
         var BlogImageAll = await _blogImageReadRepository.GetAll().ToListAsync();
-        if (BlogImageAll is null) throw new NotFoundException("CarImage is Null");
+        if (BlogImageAll is null) throw new NotFoundException("BlogImage is Null");
 
         var ToDto = _mapper.Map<List<BlogImageGetDTO>>(BlogImageAll);
         return ToDto;
@@ -52,23 +52,28 @@ public class BlogImageServices : IBlogImageServices
     public async Task<BlogImageGetDTO> GetByIdAsync(Guid Id)
     {
         var ByBlogImage = await _blogImageReadRepository.GetByIdAsync(Id);
-        if (ByBlogImage is null) throw new NotFoundException("CarImage is Null");
+        if (ByBlogImage is null) throw new NotFoundException("BlogImage is Null");
 
         var ToDto = _mapper.Map<BlogImageGetDTO>(ByBlogImage);
         return ToDto;
     }
 
-    public Task RemoveAsync(Guid id)
+    public async Task RemoveAsync(Guid id)
     {
-        //var ByBlogImage = await _blogImageReadRepository.GetByIdAsync(Id);
-        //if (ByBlogImage is null) throw new NotFoundException("CarImage is Null");
+        var ByBlogImage = await _blogImageReadRepository.GetByIdAsync(id);
+        if (ByBlogImage is null) throw new NotFoundException("BlogImage is Null");
 
-        //_carImageWriteRepository.Remove(ByCarImage);
-        //await _carImageWriteRepository.SavaChangeAsync();
+        _blogImageWriteRepository.Remove(ByBlogImage);
+        await _blogImageWriteRepository.SavaChangeAsync();
     }
 
-    public Task UpdateAsync(Guid id, BlogImageUpdateDTO blogImageUpdateDTO)
+    public async Task UpdateAsync(Guid id, BlogImageUpdateDTO blogImageUpdateDTO)
     {
-        throw new NotImplementedException();
+        var ByBlogImage = await _blogImageReadRepository.GetByIdAsync(id);
+        if (ByBlogImage is null) throw new NotFoundException("BlogImage is Null");
+
+        _mapper.Map(blogImageUpdateDTO, ByBlogImage);
+        _blogImageWriteRepository.Update(ByBlogImage);
+        await _blogImageWriteRepository.SavaChangeAsync();
     }
 }
