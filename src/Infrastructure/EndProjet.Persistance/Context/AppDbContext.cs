@@ -68,5 +68,7 @@ public class AppDbContext : IdentityDbContext<AppUser>
     public DbSet<ReturnLocation> ReturnLocations { get; set; }
     public DbSet<Advantage> Advantages { get; set; }
     public DbSet<Faq> Faqs { get; set; }
+    public DbSet<Blog> Blogs { get; set; }
+    public DbSet<BlogImage> BlogImages { get; set; }
 }
 
