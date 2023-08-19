@@ -58,8 +58,13 @@ public class FaqServices : IFaqServices
         await _faqWriteRepository.SavaChangeAsync();
     }
 
-    public Task UpdateAsync(Guid id, FaqUpdateDTO faqUpdateDTO)
+    public async Task UpdateAsync(Guid id, FaqUpdateDTO faqUpdateDTO)
     {
-        throw new NotImplementedException();
+        var byFaq = await _faqReadRepository.GetByIdAsync(id);
+        if (byFaq is null) throw new NotFoundException("Advantage is Null");
+
+        _mapper.Map(faqUpdateDTO, byFaq);
+        _faqWriteRepository.Update(byFaq);
+        await _faqWriteRepository.SavaChangeAsync();
     }
 }
