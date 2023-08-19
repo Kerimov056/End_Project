@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
+using EndProject.Application.DTOs.Advantage;
 using EndProject.Application.DTOs.Faq;
+using EndProject.Domain.Entitys;
 
 namespace EndProjet.Persistance.Implementations.Services;
 
@@ -20,9 +22,11 @@ public class FaqServices : IFaqServices
         _mapper = mapper;
     }
 
-    public Task CreateAsync(FaqCreateDTO faqCreateDTO)
+    public async Task CreateAsync(FaqCreateDTO faqCreateDTO)
     {
-        throw new NotImplementedException();
+        var ToEntity = _mapper.Map<Faq>(faqCreateDTO);
+        await _faqWriteRepository.AddAsync(ToEntity);
+        await _faqWriteRepository.SavaChangeAsync();
     }
 
     public Task<List<FaqGetDTO>> GetAllAsync()
