@@ -3,6 +3,8 @@ using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Blog;
 using EndProject.Application.DTOs.BlogImage;
+using EndProject.Application.DTOs.Car;
+using EndProject.Application.DTOs.CarImage;
 using EndProject.Domain.Entitys;
 using EndProjet.Persistance.Exceptions;
 using Microsoft.EntityFrameworkCore;
@@ -61,10 +63,6 @@ public class BlogService : IBlogService
         if (allBlog is null) throw new NotFoundException("Blog is Null");
 
         var ToDto = _mapper.Map<List<BlogGetDTO>>(allBlog);
-        //foreach (var item in ToDto)
-        //{
-        //    await _blogImageServices.GetByIdAsync(item.Id);
-        //}
         return ToDto;
     }
 
@@ -91,8 +89,26 @@ public class BlogService : IBlogService
     {
         var ByBlog = await _blogReadRepository.GetByIdAsync(id);
         if (ByBlog is null) throw new NotFoundException("Blog is Null");
+            
+        ByBlog.Title = blogUpdateDTO.Title;
+        ByBlog.Description = blogUpdateDTO.Description;
 
-        _mapper.Map(blogUpdateDTO, ByBlog);
+        if (blogUpdateDTO.blogImages is not null)
+        {
+            foreach (var item in blogUpdateDTO.blogImages)
+            {
+                if (ByBlog.BlogImages is null)
+                {
+                    var carImageCreateDto = new BlogImageCreateDTO
+                    {
+                        BlogId = ByBlog.Id,
+                        imagePath = item
+                    };
+                    await _blogImageServices.CreateAsync(carImageCreateDto);
+                }
+            }
+        }
+
         _blogWriteRepository.Update(ByBlog);
         await _blogWriteRepository.SavaChangeAsync();
     }
