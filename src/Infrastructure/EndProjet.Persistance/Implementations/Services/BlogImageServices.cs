@@ -49,14 +49,22 @@ public class BlogImageServices : IBlogImageServices
         return ToDto;
     }
 
-    public Task<BlogImageGetDTO> GetByIdAsync(Guid Id)
+    public async Task<BlogImageGetDTO> GetByIdAsync(Guid Id)
     {
-        throw new NotImplementedException();
+        var ByBlogImage = await _blogImageReadRepository.GetByIdAsync(Id);
+        if (ByBlogImage is null) throw new NotFoundException("CarImage is Null");
+
+        var ToDto = _mapper.Map<BlogImageGetDTO>(ByBlogImage);
+        return ToDto;
     }
 
     public Task RemoveAsync(Guid id)
     {
-        throw new NotImplementedException();
+        //var ByBlogImage = await _blogImageReadRepository.GetByIdAsync(Id);
+        //if (ByBlogImage is null) throw new NotFoundException("CarImage is Null");
+
+        //_carImageWriteRepository.Remove(ByCarImage);
+        //await _carImageWriteRepository.SavaChangeAsync();
     }
 
     public Task UpdateAsync(Guid id, BlogImageUpdateDTO blogImageUpdateDTO)
