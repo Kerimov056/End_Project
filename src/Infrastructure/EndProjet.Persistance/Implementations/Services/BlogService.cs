@@ -33,12 +33,12 @@ public class BlogService : IBlogService
 
         if (newBlog.BlogImages is not null)
         {
-            foreach (var item in blogCreateDTO.BlogImageCreateDTOs)
+            foreach (var item in blogCreateDTO.blogImages)
             {
                 var newBlogImage = new BlogImageCreateDTO
                 {
                     BlogId = newBlog.Id,
-                    imagePath = item.imagePath
+                    imagePath = item
                 };
                 await _blogImageServices.CreateAsync(newBlogImage);
             }
