@@ -27,9 +27,11 @@ public class BlogService : IBlogService
 
     public async Task CreateAsync(BlogCreateDTO blogCreateDTO)
     {
-        var newBlog = _mapper.Map<Blog>(blogCreateDTO);
-        await _blogWriteRepository.AddAsync(newBlog);
-        await _blogWriteRepository.SavaChangeAsync();
+        var newBlog = new Blog
+        {
+            Title = blogCreateDTO.Title,
+            Description = blogCreateDTO.Description
+        };
 
         if (newBlog.BlogImages is not null)
         {
@@ -43,6 +45,9 @@ public class BlogService : IBlogService
                 await _blogImageServices.CreateAsync(newBlogImage);
             }
         }
+
+        await _blogWriteRepository.AddAsync(newBlog);
+        await _blogWriteRepository.SavaChangeAsync();
     }
 
     public Task<List<BlogGetDTO>> GetAllAsync()
