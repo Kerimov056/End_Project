@@ -40,9 +40,13 @@ public class FaqServices : IFaqServices
         return ToDto;
     }
 
-    public Task<FaqGetDTO> GetByIdAsync(Guid Id)
+    public async Task<FaqGetDTO> GetByIdAsync(Guid Id)
     {
-        throw new NotImplementedException();
+        var byFaq = await _faqReadRepository.GetByIdAsync(Id);
+        if (byFaq is null) throw new NotFoundException("Advantage is Null");
+
+        var ToDto = _mapper.Map<FaqGetDTO>(byFaq);
+        return ToDto;
     }
 
     public Task RemoveAsync(Guid id)
