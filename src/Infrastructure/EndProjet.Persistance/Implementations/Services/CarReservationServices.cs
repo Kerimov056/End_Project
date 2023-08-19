@@ -55,7 +55,7 @@ public class CarReservationServices : ICarReservationServices
             AppUserId = carReservationCreateDTO.AppUserId, //b9e6bbc7-b080-4405-880d-4aa8e35a5aee
             CarId = carReservationCreateDTO.CarId,
         };
-        await _carServices.ReservCar(carReservationCreateDTO.CarId);
+        
         if (carReservationCreateDTO.Image != null && carReservationCreateDTO.Image.Length > 0)
         {
             var ImagePath = await _uploadFile.WriteFile("Upload\\Files", carReservationCreateDTO.Image);
@@ -113,6 +113,18 @@ public class CarReservationServices : ICarReservationServices
 
         _carReservationWriteRepository.Remove(ByReserv);
         await _carReservationWriteRepository.SavaChangeAsync();
+    }
+
+    public async Task StatusConfirmed(Guid Id)
+    {
+        var ByReserv = await _carReservationReadRepository.GetByIdAsync(Id);
+        if (ByReserv is null) throw new NotFoundException("Reservation is Null");
+
+        ByReserv.Status = ReservationStatus.Confirmed;
+
+        _carReservationWriteRepository.Update(ByReserv);
+        await _carReservationWriteRepository.SavaChangeAsync();
+        await _carServices.ReservCar(ByReserv.CarId);
     }
 
     public async Task UpdateAsync(Guid id, CarReservationUpdateDTO carReservationUpdateDTO)

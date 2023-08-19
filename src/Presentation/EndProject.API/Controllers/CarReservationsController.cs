@@ -55,4 +55,11 @@ public class CarReservationsController : ControllerBase
         await _carReservationServices.UpdateAsync(id, carReservationUpdateDTO);
         return Ok();
     }
+
+    [HttpPut("Confirmed")]
+    public async Task<IActionResult> UptadeStatus(Guid Id)
+    {
+        await _carReservationServices.StatusConfirmed(Id);
+        return Ok();
+    }
 }
