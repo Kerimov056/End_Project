@@ -2,6 +2,7 @@
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Advantage;
+using EndProject.Domain.Entitys;
 
 namespace EndProjet.Persistance.Implementations.Services;
 
@@ -20,9 +21,11 @@ public class AdvantageServices : IAdvantageServices
         _mapper = mapper;
     }
 
-    public Task CreateAsync(AdvantageCreateDTO advantageCreateDTO)
+    public async Task CreateAsync(AdvantageCreateDTO advantageCreateDTO)
     {
-        throw new NotImplementedException();
+        var ToEntity = _mapper.Map<Advantage>(advantageCreateDTO);
+        await _writeRepository.AddAsync(ToEntity);
+        await _writeRepository.SavaChangeAsync();
     }
 
     public Task<List<AdvantageGetDTO>> GetAllAsync()
