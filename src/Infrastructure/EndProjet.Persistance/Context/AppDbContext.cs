@@ -66,5 +66,6 @@ public class AppDbContext : IdentityDbContext<AppUser>
     public DbSet<CarComment> CarComments { get; set; }
     public DbSet<PickupLocation> PickupLocations { get; set; }
     public DbSet<ReturnLocation> ReturnLocations { get; set; }
+    public DbSet<Advantage> Advantages { get; set; }
 }
 
