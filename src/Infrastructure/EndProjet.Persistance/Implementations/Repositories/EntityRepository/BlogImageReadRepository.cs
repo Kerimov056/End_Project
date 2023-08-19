@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using EndProject.Application.Abstraction.Repositories.IEntityRepository;
+using EndProject.Domain.Entitys;
+using EndProjet.Persistance.Context;
 
-namespace EndProjet.Persistance.Implementations.Repositories.EntityRepository
+namespace EndProjet.Persistance.Implementations.Repositories.EntityRepository;
+
+public class BlogImageReadRepository : ReadRepository<BlogImage>, IBlogImageReadRepository
 {
-    internal class BlogImageReadRepository
+    public BlogImageReadRepository(AppDbContext context) : base(context)
     {
     }
 }

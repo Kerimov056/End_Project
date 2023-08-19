@@ -60,6 +60,8 @@ public static class ServiceRegistration
         services.AddScoped<IFaqWriteRepository, FaqWriteRepository>();
         services.AddScoped<IBlogReadRepository, BlogReadRepository>();
         services.AddScoped<IBlogWriteRepository, BlogWriteRepository>();
+        services.AddScoped<IBlogImageReadRepository, BlogImageReadRepository>();
+        services.AddScoped<IBlogImageWriteRepository, BlogImageWriteRepository>();
 
 
         //Service
