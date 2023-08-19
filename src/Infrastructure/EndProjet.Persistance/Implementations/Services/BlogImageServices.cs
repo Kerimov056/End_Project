@@ -1,18 +1,52 @@
-﻿using EndProject.Application.Abstraction.Services;
+﻿using AutoMapper;
+using EndProject.Application.Abstraction.Repositories.IEntityRepository;
+using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.BlogImage;
+using EndProject.Application.DTOs.CarImage;
+using EndProject.Domain.Entitys;
+using EndProjet.Persistance.Exceptions;
+using EndProjet.Persistance.Implementations.Repositories.EntityRepository;
+using Microsoft.EntityFrameworkCore;
 
 namespace EndProjet.Persistance.Implementations.Services;
 
 public class BlogImageServices : IBlogImageServices
 {
-    public Task CreateAsync(BlogImageCreateDTO blogImageCreateDTO)
+    private readonly IBlogImageReadRepository _blogImageReadRepository;
+    private readonly IBlogImageWriteRepository _blogImageWriteRepository;
+    private readonly IStorageFile _storageFile;
+    private readonly IMapper _mapper;
+
+    public BlogImageServices(IBlogImageReadRepository blogImageReadRepository,
+                             IBlogImageWriteRepository blogImageWriteRepository,
+                             IMapper mapper,
+                             IStorageFile storageFile)
     {
-        throw new NotImplementedException();
+        _blogImageReadRepository = blogImageReadRepository;
+        _blogImageWriteRepository = blogImageWriteRepository;
+        _mapper = mapper;
+        _storageFile = storageFile;
     }
 
-    public Task<List<BlogImageGetDTO>> GetAllAsync()
+    public async Task CreateAsync(BlogImageCreateDTO blogImageCreateDTO)
     {
-        throw new NotImplementedException();
+        var ToEntity = _mapper.Map<BlogImage>(blogImageCreateDTO);
+        if (blogImageCreateDTO.imagePath != null && blogImageCreateDTO.imagePath.Length > 0)
+        {
+            var ImagePath = await _storageFile.WriteFile("Upload\\Files", blogImageCreateDTO.imagePath);
+            ToEntity.imagePath = ImagePath;
+        }
+        await _blogImageWriteRepository.AddAsync(ToEntity);
+        await _blogImageWriteRepository.SavaChangeAsync();
+    }
+
+    public async Task<List<BlogImageGetDTO>> GetAllAsync()
+    {
+        var BlogImageAll = await _blogImageReadRepository.GetAll().ToListAsync();
+        if (BlogImageAll is null) throw new NotFoundException("CarImage is Null");
+
+        var ToDto = _mapper.Map<List<BlogImageGetDTO>>(BlogImageAll);
+        return ToDto;
     }
 
     public Task<BlogImageGetDTO> GetByIdAsync(Guid Id)

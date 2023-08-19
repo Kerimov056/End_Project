@@ -2,7 +2,6 @@
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.CarImage;
-using EndProject.Application.DTOs.Slider;
 using EndProject.Domain.Entitys;
 using EndProjet.Persistance.Exceptions;
 using Microsoft.EntityFrameworkCore;
@@ -35,7 +34,6 @@ public class CarImageServices : ICarImageServices
             var ImagePath = await _storageFile.WriteFile("Upload\\Files", carImageCreateDTO.image);
             ToEntity.imagePath = ImagePath;
         }
-        //cfb38fcc-9a55-458b-b566-08db9f22da74
         await _carImageWriteRepository.AddAsync(ToEntity);
         await _carImageWriteRepository.SavaChangeAsync();
     }
