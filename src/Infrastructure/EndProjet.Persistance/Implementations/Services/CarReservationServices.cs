@@ -16,6 +16,7 @@ public class CarReservationServices : ICarReservationServices
     private readonly IPickupLocationWriteRepository _pickupLocationWriteRepository;
     private readonly IReturnLocationWriteRepository _returnLocationWriteRepository;
     private readonly ICarServices _carServices;
+    private readonly IChauffeursServices _chauffeursServices;
     private readonly IStorageFile _uploadFile;
     private readonly IMapper _mapper;
 
@@ -25,7 +26,8 @@ public class CarReservationServices : ICarReservationServices
                                   IPickupLocationWriteRepository pickupLocationWriteRepository,
                                   IReturnLocationWriteRepository returnLocationWriteRepository,
                                   IStorageFile uploadFile,
-                                  ICarServices carServices)
+                                  ICarServices carServices,
+                                  IChauffeursServices chauffeursServices)
     {
         _carReservationReadRepository = carReservationReadRepository;
         _carReservationWriteRepository = carReservationWriteRepository;
@@ -34,6 +36,7 @@ public class CarReservationServices : ICarReservationServices
         _returnLocationWriteRepository = returnLocationWriteRepository;
         _uploadFile = uploadFile;
         _carServices = carServices;
+        _chauffeursServices = chauffeursServices;
     }
 
     public async Task CreateAsync(CarReservationCreateDTO carReservationCreateDTO)
@@ -54,8 +57,9 @@ public class CarReservationServices : ICarReservationServices
             Status = ReservationStatus.Pending,
             AppUserId = carReservationCreateDTO.AppUserId, //b9e6bbc7-b080-4405-880d-4aa8e35a5aee
             CarId = carReservationCreateDTO.CarId,
+            ChauffeursId = carReservationCreateDTO.ChauffeursId
         };
-        
+
         if (carReservationCreateDTO.Image != null && carReservationCreateDTO.Image.Length > 0)
         {
             var ImagePath = await _uploadFile.WriteFile("Upload\\Files", carReservationCreateDTO.Image);
@@ -106,6 +110,45 @@ public class CarReservationServices : ICarReservationServices
         return ToDto;
     }
 
+    public async Task<List<CarReservationGetDTO>> IsResevCanceledGetAll()
+    {
+        var ByReserv = await _carReservationReadRepository
+             .GetAll()
+             .Include(x => x.PickupLocation)
+             .Include(x => x.ReturnLocation)
+             .Where(x => x.Status == ReservationStatus.Canceled)
+             .ToListAsync();
+        if (ByReserv is null) throw new NotFoundException("Reservation is Null");
+        var ToDto = _mapper.Map<List<CarReservationGetDTO>>(ByReserv);
+        return ToDto;
+    }
+
+    public async Task<List<CarReservationGetDTO>> IsResevComplatedGetAll()
+    {
+        var ByReserv = await _carReservationReadRepository
+             .GetAll()
+             .Include(x => x.PickupLocation)
+             .Include(x => x.ReturnLocation)
+             .Where(x => x.Status == ReservationStatus.Completed)
+             .ToListAsync();
+        if (ByReserv is null) throw new NotFoundException("Reservation is Null");
+        var ToDto = _mapper.Map<List<CarReservationGetDTO>>(ByReserv);
+        return ToDto;
+    }
+
+    public async Task<List<CarReservationGetDTO>> IsResevConfirmedGetAll()
+    {
+        var ByReserv = await _carReservationReadRepository
+             .GetAll()
+             .Include(x => x.PickupLocation)
+             .Include(x => x.ReturnLocation)
+             .Where(x => x.Status == ReservationStatus.Confirmed)
+             .ToListAsync();
+        if (ByReserv is null) throw new NotFoundException("Reservation is Null");
+        var ToDto = _mapper.Map<List<CarReservationGetDTO>>(ByReserv);
+        return ToDto;
+    }
+
     public async Task RemoveAsync(Guid id)
     {
         var ByReserv = await _carReservationReadRepository.GetByIdAsync(id);
@@ -125,6 +168,10 @@ public class CarReservationServices : ICarReservationServices
         _carReservationWriteRepository.Update(ByReserv);
         await _carReservationWriteRepository.SavaChangeAsync();
         await _carServices.ReservCar(ByReserv.CarId);
+        if (ByReserv.ChauffeursId is not null)
+        {
+            await _chauffeursServices.IsChauffeurs(ByReserv.ChauffeursId);
+        }
     }
 
     public async Task UpdateAsync(Guid id, CarReservationUpdateDTO carReservationUpdateDTO)

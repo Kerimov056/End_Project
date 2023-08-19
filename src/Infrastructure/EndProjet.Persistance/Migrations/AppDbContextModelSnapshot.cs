@@ -303,9 +303,15 @@ namespace EndProjet.Persistance.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
                     b.Property<string>("imagePath")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("isChauffeurs")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 

@@ -50,6 +50,8 @@ public static class ServiceRegistration
         services.AddScoped<IPickupLocationWriteRepository, PickupLocationWriteRepository>();
         services.AddScoped<IReturnLocationReadRepository, ReturnLocationReadRepository>();
         services.AddScoped<IReturnLocationWriteRepository, ReturnLocationWriteRepository>();
+        services.AddScoped<IChauffeursReadRepository, ChauffeursReadRepository>();
+        services.AddScoped<IChauffeursWriteRepository, ChauffeursWriteRepository>();
 
 
         //Service
@@ -61,6 +63,7 @@ public static class ServiceRegistration
         services.AddScoped<ICarCategoryServices, CarCategoryServices>();
         services.AddScoped<ICarCommentServices, CarCommentServices>();
         services.AddScoped<ICarReservationServices, CarReservationServices>();
+        services.AddScoped<IChauffeursServices, ChauffeursServices>();
       
 
 
