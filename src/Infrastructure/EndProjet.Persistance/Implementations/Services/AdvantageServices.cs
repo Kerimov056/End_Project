@@ -48,9 +48,13 @@ public class AdvantageServices : IAdvantageServices
         return ToDto;
     }
 
-    public Task RemoveAsync(Guid id)
+    public async Task RemoveAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var byAdvantage = await _readRepository.GetByIdAsync(id);
+        if (byAdvantage is null) throw new NotFoundException("Advantage is Null");
+
+        _writeRepository.Remove(byAdvantage);
+        await _writeRepository.SavaChangeAsync();
     }
 
     public Task UpdateAsync(Guid id, AdvantageUpdateDTO advantageUpdateDTO)
