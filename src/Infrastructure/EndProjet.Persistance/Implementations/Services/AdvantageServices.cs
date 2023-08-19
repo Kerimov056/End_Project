@@ -3,6 +3,8 @@ using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Advantage;
 using EndProject.Domain.Entitys;
+using EndProjet.Persistance.Exceptions;
+using Microsoft.EntityFrameworkCore;
 
 namespace EndProjet.Persistance.Implementations.Services;
 
@@ -28,9 +30,13 @@ public class AdvantageServices : IAdvantageServices
         await _writeRepository.SavaChangeAsync();
     }
 
-    public Task<List<AdvantageGetDTO>> GetAllAsync()
+    public async Task<List<AdvantageGetDTO>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        var AllAdvantage = await _readRepository.GetAll().ToListAsync();
+        if (AllAdvantage is null) throw new NotFoundException("Advantage is Null");
+
+        var ToDto = _mapper.Map<List<AdvantageGetDTO>>(AllAdvantage);
+        return ToDto;
     }
 
     public Task<AdvantageGetDTO> GetByIdAsync(Guid Id)
