@@ -57,8 +57,13 @@ public class AdvantageServices : IAdvantageServices
         await _writeRepository.SavaChangeAsync();
     }
 
-    public Task UpdateAsync(Guid id, AdvantageUpdateDTO advantageUpdateDTO)
+    public async Task UpdateAsync(Guid id, AdvantageUpdateDTO advantageUpdateDTO)
     {
-        throw new NotImplementedException();
+        var byAdvantage = await _readRepository.GetByIdAsync(id);
+        if (byAdvantage is null) throw new NotFoundException("Advantage is Null");
+
+        _mapper.Map(advantageUpdateDTO, byAdvantage);
+        _writeRepository.Update(byAdvantage);
+        await _writeRepository.SavaChangeAsync();
     }
 }
