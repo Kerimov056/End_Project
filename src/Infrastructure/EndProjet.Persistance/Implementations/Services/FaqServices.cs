@@ -4,6 +4,8 @@ using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Advantage;
 using EndProject.Application.DTOs.Faq;
 using EndProject.Domain.Entitys;
+using EndProjet.Persistance.Exceptions;
+using Microsoft.EntityFrameworkCore;
 
 namespace EndProjet.Persistance.Implementations.Services;
 
@@ -29,9 +31,13 @@ public class FaqServices : IFaqServices
         await _faqWriteRepository.SavaChangeAsync();
     }
 
-    public Task<List<FaqGetDTO>> GetAllAsync()
+    public async Task<List<FaqGetDTO>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        var AllFaq = await _faqReadRepository.GetAll().ToListAsync();
+        if (AllFaq is null) throw new NotFoundException("Faq is Null");
+
+        var ToDto = _mapper.Map<List<FaqGetDTO>>(AllFaq);
+        return ToDto;
     }
 
     public Task<FaqGetDTO> GetByIdAsync(Guid Id)
