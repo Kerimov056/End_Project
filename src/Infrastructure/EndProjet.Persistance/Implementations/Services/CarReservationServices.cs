@@ -2,7 +2,6 @@
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.CarReservation;
-using EndProject.Application.DTOs.Slider;
 using EndProject.Domain.Entitys;
 using EndProject.Domain.Enums.ReservationStatus;
 using EndProjet.Persistance.Exceptions;
@@ -44,6 +43,8 @@ public class CarReservationServices : ICarReservationServices
 
         var newReserv = new CarReservation
         {
+            Email = carReservationCreateDTO.Email,
+            Number = carReservationCreateDTO.Number,
             PickupDate = carReservationCreateDTO.PickupDate,
             ReturnDate = carReservationCreateDTO.ReturnDate,
             Notes = carReservationCreateDTO.Notes,
@@ -127,6 +128,8 @@ public class CarReservationServices : ICarReservationServices
 
         ByReserv.PickupDate = carReservationUpdateDTO.PickupDate;
         ByReserv.ReturnDate = carReservationUpdateDTO.ReturnDate;
+        ByReserv.Email = carReservationUpdateDTO.Email;
+        ByReserv.Number = carReservationUpdateDTO.Number;
 
         ByReserv.Notes = carReservationUpdateDTO.Notes;
         ByReserv.AppUserId = carReservationUpdateDTO.AppUserId;
