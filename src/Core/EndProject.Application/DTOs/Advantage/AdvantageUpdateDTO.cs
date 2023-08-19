@@ -2,4 +2,6 @@
 
 public class AdvantageUpdateDTO
 {
+    public string Title { get; set; }
+    public string Descrption { get; set; }
 }

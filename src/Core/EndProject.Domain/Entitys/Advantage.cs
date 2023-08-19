@@ -1,8 +1,8 @@
 ﻿using EndProject.Domain.Entitys.Common;
 
-namespace EndProject.Domain.Entitys.Identity;
+namespace EndProject.Domain.Entitys;
 
-public class Advantage:BaseEntity
+public class Advantage : BaseEntity
 {
     public string Title { get; set; }
     public string Descrption { get; set; }

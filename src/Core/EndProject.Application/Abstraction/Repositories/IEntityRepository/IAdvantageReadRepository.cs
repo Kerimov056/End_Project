@@ -1,4 +1,4 @@
-﻿using EndProject.Domain.Entitys.Identity;
+﻿using EndProject.Domain.Entitys;
 
 namespace EndProject.Application.Abstraction.Repositories.IEntityRepository;
 

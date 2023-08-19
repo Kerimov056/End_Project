@@ -1,5 +1,5 @@
 ﻿using EndProject.Application.Abstraction.Repositories.IEntityRepository;
-using EndProject.Domain.Entitys.Identity;
+using EndProject.Domain.Entitys;
 using EndProjet.Persistance.Context;
 
 namespace EndProjet.Persistance.Implementations.Repositories.EntityRepository;
