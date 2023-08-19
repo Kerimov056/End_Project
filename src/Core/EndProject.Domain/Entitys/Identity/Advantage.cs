@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using EndProject.Domain.Entitys.Common;
 
-namespace EndProject.Domain.Entitys.Identity
+namespace EndProject.Domain.Entitys.Identity;
+
+public class Advantage:BaseEntity
 {
-    internal class Advantage
-    {
-    }
+    public string Title { get; set; }
+    public string Descrption { get; set; }
 }
