@@ -102,7 +102,7 @@ public class CarReservationServices : ICarReservationServices
     {
         var ByReserv = await _carReservationReadRepository
              .GetAll()
-             .Include(x => x.PickupLocation)    //de244236-515b-44bc-d1ec-08dba0162b17
+             .Include(x => x.PickupLocation)    
              .Include(x => x.ReturnLocation)
              .FirstOrDefaultAsync(x => x.Id == Id);
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
@@ -158,7 +158,16 @@ public class CarReservationServices : ICarReservationServices
         await _carReservationWriteRepository.SavaChangeAsync();
     }
 
-    public async Task StatusConfirmed(Guid Id)
+    public async Task StatusCanceled(Guid Id)  //demeli men reserv'i legv eledikde ona gmail'e mesaj getsin.
+    {
+        var ByReserv = await _carReservationReadRepository.GetByIdAsync(Id);
+        if (ByReserv is null) throw new NotFoundException("Reservation is Null");
+        ByReserv.Status = ReservationStatus.Canceled;
+        _carReservationWriteRepository.Update(ByReserv);
+        await _carReservationWriteRepository.SavaChangeAsync();
+    }
+
+    public async Task StatusConfirmed(Guid Id)  //demeli men reserv'i tesdiqledikde ona gmail'e mesaj getsin.
     {
         var ByReserv = await _carReservationReadRepository.GetByIdAsync(Id);
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
@@ -187,6 +196,10 @@ public class CarReservationServices : ICarReservationServices
 
         if (carReservationUpdateDTO.PickupDate < DateTime.Now) throw new Exception("Choose a Time !!!");
         if (carReservationUpdateDTO.ReturnDate < carReservationUpdateDTO.PickupDate) throw new Exception("Choose a Time !!! ");
+
+        DateTime minimumReturnDate = carReservationUpdateDTO.PickupDate.AddDays(1);
+        if (carReservationUpdateDTO.ReturnDate < minimumReturnDate) throw new Exception("ReturnDate must be at least 1 day after PickupDate.");
+
 
         ByReserv.PickupDate = carReservationUpdateDTO.PickupDate;
         ByReserv.ReturnDate = carReservationUpdateDTO.ReturnDate;

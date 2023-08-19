@@ -13,6 +13,7 @@ public interface ICarReservationServices
     Task CreateAsync(CarReservationCreateDTO carReservationCreateDTO);
     Task<CarReservationGetDTO> GetByIdAsync(Guid Id);
     Task StatusConfirmed(Guid Id);
+    Task StatusCanceled(Guid Id);
     Task UpdateAsync(Guid id, CarReservationUpdateDTO carReservationUpdateDTO);
     Task RemoveAsync(Guid id);
 }

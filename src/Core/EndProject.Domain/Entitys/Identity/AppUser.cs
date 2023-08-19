@@ -10,6 +10,7 @@ public class AppUser:IdentityUser
     public string? RefreshToken { get; set; }
     public List<CarComment>? Comments { get; set; }
     public List<CarReservation>? Reservations { get; set; }
+    public List<OtherCarReservation>? OtherReservations { get; set; }
 }
 
 

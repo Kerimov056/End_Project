@@ -426,6 +426,80 @@ namespace EndProjet.Persistance.Migrations
                     b.ToTable("Locations");
                 });
 
+            modelBuilder.Entity("EndProject.Domain.Entitys.OtherCarReservation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid>("CarId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateOfYear")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImagePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Number")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PersonImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("PickupDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ReturnDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Surname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("CarId");
+
+                    b.ToTable("OtherCarReservations");
+                });
+
             modelBuilder.Entity("EndProject.Domain.Entitys.PickupLocation", b =>
                 {
                     b.Property<Guid>("Id")
@@ -805,6 +879,25 @@ namespace EndProjet.Persistance.Migrations
                     b.Navigation("CarReservation");
                 });
 
+            modelBuilder.Entity("EndProject.Domain.Entitys.OtherCarReservation", b =>
+                {
+                    b.HasOne("EndProject.Domain.Entitys.Identity.AppUser", "AppUser")
+                        .WithMany("OtherReservations")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EndProject.Domain.Entitys.Car", "Car")
+                        .WithMany("OtherReservations")
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Car");
+                });
+
             modelBuilder.Entity("EndProject.Domain.Entitys.PickupLocation", b =>
                 {
                     b.HasOne("EndProject.Domain.Entitys.CarReservation", "CarReservation")
@@ -882,6 +975,8 @@ namespace EndProjet.Persistance.Migrations
                 {
                     b.Navigation("Comments");
 
+                    b.Navigation("OtherReservations");
+
                     b.Navigation("Reservations");
 
                     b.Navigation("carCategory")
@@ -910,6 +1005,8 @@ namespace EndProjet.Persistance.Migrations
             modelBuilder.Entity("EndProject.Domain.Entitys.Identity.AppUser", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("OtherReservations");
 
                     b.Navigation("Reservations");
                 });

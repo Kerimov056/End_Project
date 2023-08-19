@@ -60,6 +60,7 @@ public class AppDbContext : IdentityDbContext<AppUser>
     public DbSet<Tag> Tags { get; set; }
     public DbSet<CarTag> CarTags { get; set; }
     public DbSet<CarReservation> CarReservations { get; set; }
+    public DbSet<OtherCarReservation> OtherCarReservations { get; set; }
     public DbSet<Location> Locations { get; set; }
     public DbSet<Chauffeurs> Chauffeurs { get; set; }
     public DbSet<CarComment> CarComments { get; set; }

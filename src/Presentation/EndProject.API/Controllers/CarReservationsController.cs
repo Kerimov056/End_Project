@@ -27,21 +27,21 @@ public class CarReservationsController : ControllerBase
         var Slider = await _carReservationServices.IsResevConfirmedGetAll();
         return Ok(Slider);
     }
-    
+
     [HttpGet("IsResevComplatedGetAll")]
     public async Task<IActionResult> ReservGetAllComplated()
     {
         var Slider = await _carReservationServices.IsResevComplatedGetAll();
         return Ok(Slider);
     }
-    
+
     [HttpGet("IsResevCanceledGetAll")]
     public async Task<IActionResult> ReservGetAllCanceled()
     {
         var Slider = await _carReservationServices.IsResevCanceledGetAll();
         return Ok(Slider);
     }
-    
+
 
     [HttpGet("UserId")]
     public async Task<IActionResult> YouGetAll(string Id)

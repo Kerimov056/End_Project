@@ -16,5 +16,6 @@ public class Car : BaseEntity
     public List<CarTag>? carTags { get; set; }
     public List<CarComment>? Comments { get; set; }
     public List<CarReservation>? Reservations { get; set; }
+    public List<OtherCarReservation>? OtherReservations { get; set; }
 
 }
