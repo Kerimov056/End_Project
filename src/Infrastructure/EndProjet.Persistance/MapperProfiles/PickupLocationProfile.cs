@@ -10,5 +10,6 @@ public class PickupLocationProfile:Profile
     {
         CreateMap<PickupLocation, PickupLocationGetDTO>().ReverseMap();
         CreateMap<PickupLocation, PickupLocationDTO>().ReverseMap();
+        CreateMap<PickupLocation, PickupLocationUpdateDTO>().ReverseMap();
     }
 }

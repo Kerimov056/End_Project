@@ -1,16 +1,20 @@
-﻿using EndProject.Domain.Enums.ReservationStatus;
+﻿using EndProject.Application.DTOs.PickupLocation;
+using EndProject.Application.DTOs.ReturnLocation;
+using EndProject.Domain.Enums.ReservationStatus;
+using Microsoft.AspNetCore.Http;
 
 namespace EndProject.Application.DTOs.CarReservation;
 
 public class CarReservationUpdateDTO
 {
+    public IFormFile ImagePath { get; set; }
     public DateTime PickupDate { get; set; }
     public DateTime ReturnDate { get; set; }
     public string Notes { get; set; }
     public ReservationStatus Status { get; set; }
     public string AppUserId { get; set; }
     public Guid CarId { get; set; }
-    public Guid? PickupLocationId { get; set; }
-    public Guid? ReturnLocationId { get; set; }
+    public ReturnLocationUpdateDTO PickupLocation { get; set; }
+    public PickupLocationUpdateDTO ReturnLocation { get; set; }
     public Guid? ChauffeursId { get; set; }
 }

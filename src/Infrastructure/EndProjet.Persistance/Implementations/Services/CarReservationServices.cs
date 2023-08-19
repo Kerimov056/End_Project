@@ -2,6 +2,7 @@
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.CarReservation;
+using EndProject.Application.DTOs.Slider;
 using EndProject.Domain.Entitys;
 using EndProject.Domain.Enums.ReservationStatus;
 using EndProjet.Persistance.Exceptions;
@@ -81,7 +82,7 @@ public class CarReservationServices : ICarReservationServices
     {
         var ByReserv = await _carReservationReadRepository
               .GetAll()
-              .Include(x => x.PickupLocation)    //de244236-515b-44bc-d1ec-08dba0162b17
+              .Include(x => x.PickupLocation)
               .Include(x => x.ReturnLocation)
               .ToListAsync();
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
@@ -115,29 +116,64 @@ public class CarReservationServices : ICarReservationServices
         var ByReserv = await _carReservationReadRepository.GetByIdAsync(id);
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
 
-        throw new NotImplementedException();
+        if (carReservationUpdateDTO.ImagePath != null && carReservationUpdateDTO.ImagePath.Length > 0)
+        {
+            var ImagePath = await _uploadFile.WriteFile("Upload\\Files", carReservationUpdateDTO.ImagePath);
+            ByReserv.ImagePath = ImagePath;
+        }
+
+        if (carReservationUpdateDTO.PickupDate < DateTime.Now) throw new Exception("Choose a Time !!!");
+        if (carReservationUpdateDTO.ReturnDate < carReservationUpdateDTO.PickupDate) throw new Exception("Choose a Time !!! ");
+
+        ByReserv.PickupDate = carReservationUpdateDTO.PickupDate;
+        ByReserv.ReturnDate = carReservationUpdateDTO.ReturnDate;
+
+        ByReserv.Notes = carReservationUpdateDTO.Notes;
+        ByReserv.AppUserId = carReservationUpdateDTO.AppUserId;
+        ByReserv.CarId = carReservationUpdateDTO.CarId;
+        ByReserv.ChauffeursId = carReservationUpdateDTO.ChauffeursId;
+
+        ByReserv.Status = ReservationStatus.Pending;
+
+        if (ByReserv.PickupLocation is not null)
+        {
+            ByReserv.PickupLocation.Latitude = carReservationUpdateDTO.PickupLocation.Latitude;
+            ByReserv.PickupLocation.Longitude = carReservationUpdateDTO.PickupLocation.Longitude;
+        }
+        else
+        {
+            ByReserv.PickupLocation = new PickupLocation
+            {
+                CarReservationId = ByReserv.Id,
+                Latitude = carReservationUpdateDTO.PickupLocation.Latitude,
+                Longitude = carReservationUpdateDTO.PickupLocation.Longitude
+            };
+            await _pickupLocationWriteRepository.AddAsync(ByReserv.PickupLocation);
+        }
+
+        if (ByReserv.ReturnLocation is not null)
+        {
+            ByReserv.ReturnLocation.Latitude = carReservationUpdateDTO.ReturnLocation.Latitude;
+            ByReserv.ReturnLocation.Longitude = carReservationUpdateDTO.ReturnLocation.Longitude;
+        }
+        else
+        {
+            ByReserv.ReturnLocation = new ReturnLocation
+            {
+                CarReservationId = ByReserv.Id,
+                Latitude = carReservationUpdateDTO.ReturnLocation.Latitude,
+                Longitude = carReservationUpdateDTO.ReturnLocation.Longitude
+            };
+            await _returnLocationWriteRepository.AddAsync(ByReserv.ReturnLocation);
+        }
+
+        _carReservationWriteRepository.Update(ByReserv);
+        await _carReservationWriteRepository.SavaChangeAsync();  //bidene burda gelir partlayir ifso.
     }
 }
+    //R      de244236-515b-44bc-d1ec-08dba0162b17
+    //A      b9e6bbc7-b080-4405-880d-4aa8e35a5aee
+    //C      1a0793e2-7158-4dd4-d60b-08dba011c904
 
 
 
-//var ToDto = new CarReservationGetDTO
-//{
-//    ImagePath = ByReserv.ImagePath,
-//    Id = ByReserv.Id,
-//    PickupDate = ByReserv.PickupDate,
-//    ReturnDate = ByReserv.ReturnDate,
-//    Notes = ByReserv.Notes,
-//    Status = ByReserv.Status,
-//    AppUserId = ByReserv.AppUserId,
-//    CarId = ByReserv.CarId,
-//    ChauffeursId = ByReserv.ChauffeursId
-//};
-//var test = ByReserv.PickupLocation.Id;
-//ToDto.PickupLocation.Id = test;
-
-//ToDto.PickupLocation.Latitude = ByReserv.PickupLocation.Latitude;
-//ToDto.PickupLocation.Longitude = ByReserv.PickupLocation.Longitude;
-
-//ToDto.ReturnLocation.Latitude = ByReserv.ReturnLocation.Latitude;
-//ToDto.ReturnLocation.Longitude = ByReserv.ReturnLocation.Longitude;

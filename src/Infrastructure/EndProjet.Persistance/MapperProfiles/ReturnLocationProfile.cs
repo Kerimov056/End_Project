@@ -10,5 +10,6 @@ public class ReturnLocationProfile:Profile
     {
         CreateMap<ReturnLocation, ReturnLocationGetDTO>().ReverseMap();
         CreateMap<ReturnLocation, ReturnLocationDTO>().ReverseMap();
+        CreateMap<ReturnLocation, ReturnLocationUpdateDTO>().ReverseMap();
     }
 }
