@@ -78,6 +78,7 @@ public static class ServiceRegistration
         services.AddScoped<IAdvantageServices, AdvantageServices>();
         services.AddScoped<IFaqServices, FaqServices>();
         services.AddScoped<IBlogImageServices, BlogImageServices>();
+        services.AddScoped<IBlogService, BlogService>();
       
 
 

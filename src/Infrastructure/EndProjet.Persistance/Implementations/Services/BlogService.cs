@@ -2,6 +2,8 @@
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Blog;
+using EndProject.Application.DTOs.BlogImage;
+using EndProject.Domain.Entitys;
 
 namespace EndProjet.Persistance.Implementations.Services;
 
@@ -23,9 +25,24 @@ public class BlogService : IBlogService
         _blogImageServices = blogImageServices;
     }
 
-    public Task CreateAsync(BlogCreateDTO blogCreateDTO)
+    public async Task CreateAsync(BlogCreateDTO blogCreateDTO)
     {
-        throw new NotImplementedException();
+        var newBlog = _mapper.Map<Blog>(blogCreateDTO);
+        await _blogWriteRepository.AddAsync(newBlog);
+        await _blogWriteRepository.SavaChangeAsync();
+
+        if (newBlog.BlogImages is not null)
+        {
+            foreach (var item in blogCreateDTO.BlogImageCreateDTOs)
+            {
+                var newBlogImage = new BlogImageCreateDTO
+                {
+                    BlogId = newBlog.Id,
+                    imagePath = item.imagePath
+                };
+                await _blogImageServices.CreateAsync(newBlogImage);
+            }
+        }
     }
 
     public Task<List<BlogGetDTO>> GetAllAsync()
