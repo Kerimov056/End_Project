@@ -39,9 +39,13 @@ public class AdvantageServices : IAdvantageServices
         return ToDto;
     }
 
-    public Task<AdvantageGetDTO> GetByIdAsync(Guid Id)
+    public async Task<AdvantageGetDTO> GetByIdAsync(Guid Id)
     {
-        throw new NotImplementedException();
+        var byAdvantage = await _readRepository.GetByIdAsync(Id);
+        if (byAdvantage is null) throw new NotFoundException("Advantage is Null");
+
+        var ToDto = _mapper.Map<AdvantageGetDTO>(byAdvantage);
+        return ToDto;
     }
 
     public Task RemoveAsync(Guid id)
