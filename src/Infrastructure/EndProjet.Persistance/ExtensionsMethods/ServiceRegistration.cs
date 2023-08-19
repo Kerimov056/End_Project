@@ -72,6 +72,7 @@ public static class ServiceRegistration
         services.AddScoped<IChauffeursServices, ChauffeursServices>();
         services.AddScoped<IOtherCarReservationServices, OtherCarReservationServices>();
         services.AddScoped<IAdvantageServices, AdvantageServices>();
+        services.AddScoped<IFaqServices, FaqServices>();
       
 
 
