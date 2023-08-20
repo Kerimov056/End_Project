@@ -33,7 +33,7 @@ public class ReservationPickupCheckService : IHostedService
 
             foreach (var reserv in otherConfirimReservs)
             {
-                Console.WriteLine("Other YEaaaaaaaaaaaaaaaYEYEYEYEYY");
+                Console.WriteLine("Other YEaa");
                 if (reserv.ReturnDate.Day == today.Day && reserv.ReturnDate.Hour == today.Hour && reserv.ReturnDate.Month == today.Month)
                 {
                     Console.WriteLine("yes yes");
@@ -56,7 +56,7 @@ public class ReservationPickupCheckService : IHostedService
 
             foreach (var reserv in confirmedReservs)
             {
-                Console.WriteLine("YEaaaaaaaaaaaaaaaYEYEYEYEYY");
+                Console.WriteLine("YEaa");
                 if (reserv.ReturnDate.Day == today.Day && reserv.ReturnDate.Hour == today.Hour)
                 {
                     Console.WriteLine("yes yes");
