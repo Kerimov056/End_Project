@@ -60,7 +60,7 @@ public class ChauffeurssController : ControllerBase
     [HttpPut("isCheuffeurs")]
     public async Task<IActionResult> isCheuffeurs(Guid isCheuff)
     {
-        await _chauffeursService.IsChauffeurs(isCheuff);
+        await _chauffeursService.IsChauffeursTrue(isCheuff);
         return Ok();
     }
 }

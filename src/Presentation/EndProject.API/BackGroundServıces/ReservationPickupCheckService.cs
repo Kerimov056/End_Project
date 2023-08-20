@@ -27,6 +27,7 @@ public class ReservationPickupCheckService : IHostedService
         {
             var carServices = scope.ServiceProvider.GetRequiredService<ICarServices>();
             var otherReservServices = scope.ServiceProvider.GetRequiredService<IOtherCarReservationServices>();
+            var chauffeurs = scope.ServiceProvider.GetRequiredService<IChauffeursServices>();
 
             var today = DateTime.Today;
             var otherConfirimReservs = await otherReservServices.IsResevConfirmedGetAll();
@@ -37,7 +38,8 @@ public class ReservationPickupCheckService : IHostedService
                 if (reserv.ReturnDate.Day == today.Day && reserv.ReturnDate.Hour == today.Hour && reserv.ReturnDate.Month == today.Month)
                 {
                     Console.WriteLine("yes yes");
-                    carServices.ReservCarTrue(reserv.CarId);
+                   await carServices.ReservCarTrue(reserv.CarId);
+                   await chauffeurs.IsChauffeursTrue(reserv.CarId);
                 }
             }
 
@@ -50,6 +52,8 @@ public class ReservationPickupCheckService : IHostedService
         {
             var carServices = scope.ServiceProvider.GetRequiredService<ICarServices>();
             var reservServices = scope.ServiceProvider.GetRequiredService<ICarReservationServices>();
+            var chauffeurs = scope.ServiceProvider.GetRequiredService<IChauffeursServices>();
+
 
             var today = DateTime.Today;
             var confirmedReservs = await reservServices.IsResevConfirmedGetAll();
@@ -60,7 +64,8 @@ public class ReservationPickupCheckService : IHostedService
                 if (reserv.ReturnDate.Day == today.Day && reserv.ReturnDate.Hour == today.Hour)
                 {
                     Console.WriteLine("yes yes");
-                    carServices.ReservCarTrue(reserv.CarId);
+                    await carServices.ReservCarTrue(reserv.CarId);
+                    await chauffeurs.IsChauffeursTrue(reserv.CarId);
                 }
             }
 
