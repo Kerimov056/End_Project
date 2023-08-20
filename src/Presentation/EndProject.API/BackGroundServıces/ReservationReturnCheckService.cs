@@ -1,14 +1,13 @@
 ﻿using EndProject.Application.Abstraction.Services;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace EndProject.API.BackGroundServıces;
 
-public class ReservationCheckService : IHostedService
+public class ReservationReturnCheckService : IHostedService
 {
     private IServiceProvider _serviceProvider;
     private Timer _timer;
 
-    public ReservationCheckService(
+    public ReservationReturnCheckService(
         IServiceProvider serviceProvider)
     {
         _serviceProvider = serviceProvider;
@@ -16,7 +15,7 @@ public class ReservationCheckService : IHostedService
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
-        Console.WriteLine($"{nameof(ReservationCheckService)}Service started....");
+        Console.WriteLine($"{nameof(ReservationReturnCheckService)}Service started....");
         _timer = new Timer(carStautus, null, TimeSpan.Zero, TimeSpan.FromHours(1));
         return Task.CompletedTask;
     }
@@ -49,7 +48,7 @@ public class ReservationCheckService : IHostedService
     public Task StopAsync(CancellationToken cancellationToken)
     {
         _timer?.Change(Timeout.Infinite, 0);
-        Console.WriteLine($"{nameof(ReservationCheckService)}Service stopped....");
+        Console.WriteLine($"{nameof(ReservationReturnCheckService)}Service stopped....");
         return Task.CompletedTask;
     }
 

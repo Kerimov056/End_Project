@@ -55,7 +55,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddHostedService<BirthDateBGServices>();
-builder.Services.AddHostedService<ReservationCheckService>();
+builder.Services.AddHostedService<ReservationPickupCheckService>();
+builder.Services.AddHostedService<ReservationReturnCheckService>();
 
 
 var app = builder.Build();
