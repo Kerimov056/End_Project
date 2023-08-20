@@ -134,7 +134,6 @@ public class OtherCarReservationServices : IOtherCarReservationServices
         ByReserv.Status = ReservationStatus.Confirmed;
 
         _otherCarReservationWrite.Update(ByReserv);
-        await _otherCarReservationWrite.SavaChangeAsync();
         await _carServices.ReservCarTrue(ByReserv.CarId);
     }
 

@@ -10,6 +10,7 @@ public interface IChauffeursServices
     Task CreateAsync(ChauffeursCreateDTO chauffeursCreateDTO);
     Task<ChauffeursGetDTO> GetByIdAsync(Guid Id);
     Task UpdateAsync(Guid id, ChauffeursUpdateDTO chauffeursUpdateDTO);
-    Task IsChauffeurs(Guid? cheuffeursId);
+    Task IsChauffeursTrue(Guid? cheuffeursId);
+    Task IsChauffeursFalse(Guid? cheuffeursId);
     Task RemoveAsync(Guid id);
 }

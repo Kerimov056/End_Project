@@ -81,12 +81,23 @@ public class ChauffeursServices : IChauffeursServices
         await _chauffeursWriteRepository.SavaChangeAsync();
     }
 
-    public async Task IsChauffeurs(Guid? cheuffeursId)
+    public async Task IsChauffeursTrue(Guid? cheuffeursId)
     {
         var byChauffeurs = await _chauffeursReadRepository.GetByIdAsync((Guid)cheuffeursId);
         if (byChauffeurs is null) throw new NotFoundException("Chauffeur is Null");
 
         byChauffeurs.isChauffeurs = true;
+        _chauffeursWriteRepository.Update(byChauffeurs);
+        await _chauffeursWriteRepository.SavaChangeAsync();
+    }
+
+
+    public async Task IsChauffeursFalse(Guid? cheuffeursId)
+    {
+        var byChauffeurs = await _chauffeursReadRepository.GetByIdAsync((Guid)cheuffeursId);
+        if (byChauffeurs is null) throw new NotFoundException("Chauffeur is Null");
+
+        byChauffeurs.isChauffeurs = false;
         _chauffeursWriteRepository.Update(byChauffeurs);
         await _chauffeursWriteRepository.SavaChangeAsync();
     }
@@ -102,4 +113,5 @@ public class ChauffeursServices : IChauffeursServices
         var chauffeurss = _mapper.Map<List<ChauffeursGetDTO>>(allChauffeurs);
         return chauffeurss;
     }
+
 }
