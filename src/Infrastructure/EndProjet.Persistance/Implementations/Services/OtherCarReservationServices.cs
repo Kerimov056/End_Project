@@ -7,7 +7,7 @@ using EndProject.Domain.Enums.ReservationStatus;
 using EndProjet.Persistance.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
-namespace EndProjet.Persistance.Implementations.Repositories.EntityRepository;
+namespace EndProjet.Persistance.Implementations.Services;
 
 public class OtherCarReservationServices : IOtherCarReservationServices
 {

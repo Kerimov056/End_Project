@@ -17,9 +17,33 @@ public class ReservationPickupCheckService : IHostedService
     {
         Console.WriteLine($"{nameof(ReservationReturnCheckService)}Service started....");
         _timer = new Timer(carStautus, null, TimeSpan.Zero, TimeSpan.FromHours(1));
+        _timer = new Timer(otherCarStautus, null, TimeSpan.Zero, TimeSpan.FromHours(1));
         return Task.CompletedTask;
     }
 
+    private async void otherCarStautus(object state)
+    {
+        using (IServiceScope scope = _serviceProvider.CreateScope())
+        {
+            var carServices = scope.ServiceProvider.GetRequiredService<ICarServices>();
+            var otherReservServices = scope.ServiceProvider.GetRequiredService<IOtherCarReservationServices>();
+
+            var today = DateTime.Today;
+            var otherConfirimReservs = await otherReservServices.IsResevConfirmedGetAll();
+
+            foreach (var reserv in otherConfirimReservs)
+            {
+                Console.WriteLine("Other YEaaaaaaaaaaaaaaaYEYEYEYEYY");
+                if (reserv.ReturnDate.Day == today.Day && reserv.ReturnDate.Hour == today.Hour && reserv.ReturnDate.Month == today.Month)
+                {
+                    Console.WriteLine("yes yes");
+                    carServices.ReservCarTrue(reserv.CarId);
+                }
+            }
+
+            Console.WriteLine($"Car Status DateTime is {DateTime.Now.ToLongTimeString()}");
+        }
+    }
     private async void carStautus(object state)
     {
         using (IServiceScope scope = _serviceProvider.CreateScope())
