@@ -4,17 +4,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EndProject.API.BackGroundServıces;
 
-public class BirthDateBGServıces : IHostedService
+public class BirthDateBGServices : IHostedService
 {
     private IServiceProvider _serviceProvider;
     private Timer _timer;
 
-    public BirthDateBGServıces(IServiceProvider serviceProvider)
+    public BirthDateBGServices(IServiceProvider serviceProvider)
         => _serviceProvider = serviceProvider;
 
     public  Task StartAsync(CancellationToken cancellationToken)
     {
-        Console.WriteLine($"{nameof(BirthDateBGServıces)}Service started....");
+        Console.WriteLine($"{nameof(BirthDateBGServices)}Service started....");
         _timer = new Timer(writeDateTimeOnLog, null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
         return Task.CompletedTask;
     }
@@ -48,7 +48,7 @@ public class BirthDateBGServıces : IHostedService
     public  Task StopAsync(CancellationToken cancellationToken)
     {
         _timer?.Change(Timeout.Infinite, 0);
-        Console.WriteLine($"{nameof(BirthDateBGServıces)}Service stopped....");
+        Console.WriteLine($"{nameof(BirthDateBGServices)}Service stopped....");
         return Task.CompletedTask;
     }
     
