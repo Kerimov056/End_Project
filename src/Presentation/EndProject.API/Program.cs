@@ -1,3 +1,4 @@
+using EndProject.API.BackGroundServ?ces;
 using EndProject.Infrastructure;
 using EndProjet.Persistance.Context;
 using EndProjet.Persistance.ExtensionsMethods;
@@ -52,6 +53,8 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddHostedService<BirthDateBGServ?ces>();
+
 
 var app = builder.Build();
 
