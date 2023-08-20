@@ -121,7 +121,18 @@ public class OtherCarReservationServices : IOtherCarReservationServices
     {
         var ByReserv = await _otherCarReservationRead.GetByIdAsync(Id);
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
+
         ByReserv.Status = ReservationStatus.Canceled;
+        _otherCarReservationWrite.Update(ByReserv);
+        await _otherCarReservationWrite.SavaChangeAsync();
+    }
+
+    public async Task StatusCompleted(Guid reservId)
+    {
+        var ByReserv = await _otherCarReservationRead.GetByIdAsync(reservId);
+        if (ByReserv is null) throw new NotFoundException("Reservation is Null");
+
+        ByReserv.Status = ReservationStatus.Completed;
         _otherCarReservationWrite.Update(ByReserv);
         await _otherCarReservationWrite.SavaChangeAsync();
     }

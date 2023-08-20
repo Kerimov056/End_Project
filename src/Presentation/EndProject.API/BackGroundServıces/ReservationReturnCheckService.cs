@@ -36,6 +36,7 @@ public class ReservationReturnCheckService : IHostedService
                 if (reserv.ReturnDate.Day == today.Day && reserv.ReturnDate.Hour == today.Hour && reserv.ReturnDate.Month == today.Month)
                 {
                     Console.WriteLine("yes yes");
+                    //await otherReservServices.StatusCompleted(reserv);
                     await carServices.ReservCarFalse(reserv.CarId);
                 }
             }
@@ -59,10 +60,11 @@ public class ReservationReturnCheckService : IHostedService
             foreach (var reserv in confirmedReservs)
             {
                 Console.WriteLine("YEaa");
-                if (reserv.ReturnDate.Day == today.Day && reserv.ReturnDate.Hour == today.Hour)
+                if (reserv.ReturnDate.Day == today.Day && reserv.ReturnDate.Hour == today.Hour && reserv.ReturnDate.Month == today.Month)
                 {
                     Console.WriteLine("yes yes");
                     await carServices.ReservCarFalse(reserv.CarId);
+                    await reservServices.StatusCompleted(reserv.Id);
                     await chauffeurs.IsChauffeursFalse(reserv.ChauffeursId);
                 }
             }

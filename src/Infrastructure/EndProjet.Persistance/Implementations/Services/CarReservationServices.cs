@@ -168,6 +168,16 @@ public class CarReservationServices : ICarReservationServices
         await _carReservationWriteRepository.SavaChangeAsync();
     }
 
+    public async Task StatusCompleted(Guid reservId)
+    {
+        var ByReserv = await _carReservationReadRepository.GetByIdAsync(reservId);
+        if (ByReserv is null) throw new NotFoundException("Reservation is Null");
+
+        ByReserv.Status = ReservationStatus.Completed;
+        _carReservationWriteRepository.Update(ByReserv);
+        await _carReservationWriteRepository.SavaChangeAsync();
+    }
+
     public async Task StatusConfirmed(Guid Id)  //demeli men reserv'i tesdiqledikde ona gmail'e mesaj getsin.
     {
         var ByReserv = await _carReservationReadRepository.GetByIdAsync(Id);

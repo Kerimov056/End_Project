@@ -1,5 +1,4 @@
 ﻿using EndProject.Application.DTOs.CarReservation;
-using EndProject.Application.DTOs.Slider;
 
 namespace EndProject.Application.Abstraction.Services;
 
@@ -13,6 +12,7 @@ public interface ICarReservationServices
     Task CreateAsync(CarReservationCreateDTO carReservationCreateDTO);
     Task<CarReservationGetDTO> GetByIdAsync(Guid Id);
     Task StatusConfirmed(Guid Id);
+    Task StatusCompleted(Guid reservId);
     Task StatusCanceled(Guid Id);
     Task UpdateAsync(Guid id, CarReservationUpdateDTO carReservationUpdateDTO);
     Task RemoveAsync(Guid id);

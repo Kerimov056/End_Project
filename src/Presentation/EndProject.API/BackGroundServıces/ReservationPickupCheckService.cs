@@ -59,7 +59,7 @@ public class ReservationPickupCheckService : IHostedService
             foreach (var reserv in confirmedReservs)
             {
                 Console.WriteLine("YEaa");
-                if (reserv.ReturnDate.Day == today.Day && reserv.ReturnDate.Hour == today.Hour)
+                if (reserv.ReturnDate.Day == today.Day && reserv.ReturnDate.Hour == today.Hour && reserv.ReturnDate.Month == today.Month)
                 {
                     Console.WriteLine("yes yes");
                     await carServices.ReservCarTrue(reserv.CarId);
