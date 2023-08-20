@@ -27,7 +27,6 @@ public class ReservationPickupCheckService : IHostedService
         {
             var carServices = scope.ServiceProvider.GetRequiredService<ICarServices>();
             var otherReservServices = scope.ServiceProvider.GetRequiredService<IOtherCarReservationServices>();
-            var chauffeurs = scope.ServiceProvider.GetRequiredService<IChauffeursServices>();
 
             var today = DateTime.Today;
             var otherConfirimReservs = await otherReservServices.IsResevConfirmedGetAll();
@@ -39,7 +38,6 @@ public class ReservationPickupCheckService : IHostedService
                 {
                     Console.WriteLine("yes yes");
                    await carServices.ReservCarTrue(reserv.CarId);
-                   await chauffeurs.IsChauffeursTrue(reserv.CarId);
                 }
             }
 
@@ -65,7 +63,7 @@ public class ReservationPickupCheckService : IHostedService
                 {
                     Console.WriteLine("yes yes");
                     await carServices.ReservCarTrue(reserv.CarId);
-                    await chauffeurs.IsChauffeursTrue(reserv.CarId);
+                    await chauffeurs.IsChauffeursTrue(reserv.ChauffeursId);
                 }
             }
 
