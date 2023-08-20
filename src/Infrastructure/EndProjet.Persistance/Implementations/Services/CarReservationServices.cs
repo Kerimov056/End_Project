@@ -44,8 +44,8 @@ public class CarReservationServices : ICarReservationServices
         if (carReservationCreateDTO.PickupDate < DateTime.Now) throw new Exception("Choose a Time !!!");
         if (carReservationCreateDTO.ReturnDate < carReservationCreateDTO.PickupDate) throw new Exception("Choose a Time !!! ");
 
-        DateTime minimumReturnDate = carReservationCreateDTO.PickupDate.AddDays(1);
-        if (carReservationCreateDTO.ReturnDate < minimumReturnDate) throw new Exception("ReturnDate must be at least 1 day after PickupDate.");
+        //DateTime minimumReturnDate = carReservationCreateDTO.PickupDate.AddDays(1);
+        //if (carReservationCreateDTO.ReturnDate < minimumReturnDate) throw new Exception("ReturnDate must be at least 1 day after PickupDate.");
 
         var newReserv = new CarReservation
         {
@@ -162,6 +162,7 @@ public class CarReservationServices : ICarReservationServices
     {
         var ByReserv = await _carReservationReadRepository.GetByIdAsync(Id);
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
+
         ByReserv.Status = ReservationStatus.Canceled;
         _carReservationWriteRepository.Update(ByReserv);
         await _carReservationWriteRepository.SavaChangeAsync();

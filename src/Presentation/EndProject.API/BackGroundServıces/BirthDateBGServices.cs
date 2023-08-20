@@ -15,7 +15,7 @@ public class BirthDateBGServices : IHostedService
     public  Task StartAsync(CancellationToken cancellationToken)
     {
         Console.WriteLine($"{nameof(BirthDateBGServices)}Service started....");
-        _timer = new Timer(writeDateTimeOnLog, null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
+        _timer = new Timer(writeDateTimeOnLog, null, TimeSpan.Zero, TimeSpan.FromSeconds(2));
         return Task.CompletedTask;
     }
 

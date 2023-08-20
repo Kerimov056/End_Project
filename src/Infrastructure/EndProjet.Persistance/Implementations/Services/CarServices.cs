@@ -191,7 +191,17 @@ public class CarServices : ICarServices
         await _carWriteRepository.SavaChangeAsync();
     }
 
-    public async Task ReservCar(Guid Id)
+    public async Task ReservCarFalse(Guid Id)
+    {
+        var ByCar = await _carReadRepository.GetByIdAsync(Id);
+        if (ByCar is null) throw new NotFoundException("Car is Null");
+
+        ByCar.isReserv = false;
+        _carWriteRepository.Update(ByCar);
+        await _carWriteRepository.SavaChangeAsync();
+    }
+
+    public async Task ReservCarTrue(Guid Id)
     {
         var ByCar = await _carReadRepository.GetByIdAsync(Id);
         if (ByCar is null) throw new NotFoundException("Car is Null");
