@@ -12,10 +12,10 @@ public class BirthDateBGServices : IHostedService
     public BirthDateBGServices(IServiceProvider serviceProvider)
         => _serviceProvider = serviceProvider;
 
-    public  Task StartAsync(CancellationToken cancellationToken)
+    public Task StartAsync(CancellationToken cancellationToken)
     {
         Console.WriteLine($"{nameof(BirthDateBGServices)}Service started....");
-        _timer = new Timer(writeDateTimeOnLog, null, TimeSpan.Zero, TimeSpan.FromSeconds(2));
+        _timer = new Timer(writeDateTimeOnLog, null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
         return Task.CompletedTask;
     }
 
@@ -45,13 +45,13 @@ public class BirthDateBGServices : IHostedService
         Console.WriteLine($"Sending birthday email to {user.Email}");
     }
 
-    public  Task StopAsync(CancellationToken cancellationToken)
+    public Task StopAsync(CancellationToken cancellationToken)
     {
         _timer?.Change(Timeout.Infinite, 0);
         Console.WriteLine($"{nameof(BirthDateBGServices)}Service stopped....");
         return Task.CompletedTask;
     }
-    
+
     public void Dispose()
     {
         _timer = null;

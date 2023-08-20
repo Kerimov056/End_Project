@@ -195,7 +195,7 @@ public class CarServices : ICarServices
     {
         var ByCar = await _carReadRepository.GetByIdAsync(Id);
         if (ByCar is null) throw new NotFoundException("Car is Null");
-
+        Console.WriteLine("Salam");
         ByCar.isReserv = false;
         _carWriteRepository.Update(ByCar);  //False
         await _carWriteRepository.SavaChangeAsync();

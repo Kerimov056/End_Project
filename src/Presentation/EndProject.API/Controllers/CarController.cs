@@ -62,7 +62,7 @@ public class CarController : ControllerBase
     [HttpPut("IsReserv")]
     public async Task<IActionResult> UptadeReserv(Guid id)
     {
-        await _carServices.ReservCar(id);
+        await _carServices.ReservCarTrue(id);
         return Ok();
     }
 }

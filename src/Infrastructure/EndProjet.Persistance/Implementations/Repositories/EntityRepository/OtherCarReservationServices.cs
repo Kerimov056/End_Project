@@ -135,7 +135,7 @@ public class OtherCarReservationServices : IOtherCarReservationServices
 
         _otherCarReservationWrite.Update(ByReserv);
         await _otherCarReservationWrite.SavaChangeAsync();
-        await _carServices.ReservCar(ByReserv.CarId);
+        await _carServices.ReservCarTrue(ByReserv.CarId);
     }
 
     public async Task UpdateAsync(Guid id, OtherCarReservationUpdateDTO otherCarReservationUpdateDTO)

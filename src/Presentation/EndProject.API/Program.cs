@@ -53,8 +53,9 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 builder.Services.AddHostedService<BirthDateBGServices>();
-//builder.Services.AddHostedService<CheckReservationsAsync>();
+builder.Services.AddHostedService<ReservationCheckService>();
 
 
 var app = builder.Build();
