@@ -16,18 +16,21 @@ public class BasketServices : IBasketServices
     private readonly IMapper _mapper;
     private readonly IHttpContextAccessor _contextAccessor;
     private readonly IBasketProducServices _productsServices;
+    private readonly ICarServices _carServices;
 
     public BasketServices(IBasketReadRepository readRepository,
                           IBasketWriteRepository writeRepository,
                           IHttpContextAccessor contextAccessor,
                           IMapper mapper,
-                          IBasketProducServices basketProducServices)
+                          IBasketProducServices basketProducServices,
+                          ICarServices carServices)
     {
         _readRepository = readRepository;
         _writeRepository = writeRepository;
         _contextAccessor = contextAccessor;
         _productsServices = basketProducServices;
         _mapper = mapper;
+        _carServices = carServices;
     }
 
     public async Task AddBasketAsync(Guid Id)
@@ -128,6 +131,10 @@ public class BasketServices : IBasketServices
         if (basket == null) throw new NullReferenceException();
 
         var basketProduct = _mapper.Map<List<BasketProductListDto>>(basket.basketProduct);
+        foreach (var byCar in basketProduct)
+        {
+            byCar.carGetDTO = await _carServices.GetByIdAsync(byCar.CarId);
+        }
         return basketProduct;
     }
 
