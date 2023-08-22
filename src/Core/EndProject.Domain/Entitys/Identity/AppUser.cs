@@ -12,6 +12,7 @@ public class AppUser:IdentityUser
     public List<CarComment>? Comments { get; set; }
     public List<CarReservation>? Reservations { get; set; }
     public List<OtherCarReservation>? OtherReservations { get; set; }
+    public Basket Basket { get; set; }
 }
 
 

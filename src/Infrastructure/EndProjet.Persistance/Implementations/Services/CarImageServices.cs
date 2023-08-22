@@ -27,7 +27,7 @@ public class CarImageServices : ICarImageServices
     }
 
     public async Task CreateAsync(CarImageCreateDTO carImageCreateDTO)
-    { 
+    {
         var ToEntity = _mapper.Map<CarImage>(carImageCreateDTO);
         if (carImageCreateDTO.image != null && carImageCreateDTO.image.Length > 0)
         {
@@ -40,7 +40,11 @@ public class CarImageServices : ICarImageServices
 
     public async Task<List<CarImageGetDTO>> GetAllAsync()
     {
-        var CarImageAll = await _carImageReadRepository.GetAll().ToListAsync();
+        var CarImageAll = await _carImageReadRepository.
+            GetAll()
+           .Include(x => x.Car)
+           .Where(x => x.Car.isReserv == false)
+           .ToListAsync();
         if (CarImageAll is null) throw new NotFoundException("CarImage is Null");
 
         var ToDto = _mapper.Map<List<CarImageGetDTO>>(CarImageAll);

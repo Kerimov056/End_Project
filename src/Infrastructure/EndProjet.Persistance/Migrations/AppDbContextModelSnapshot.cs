@@ -50,6 +50,66 @@ namespace EndProjet.Persistance.Migrations
                     b.ToTable("Advantages");
                 });
 
+            modelBuilder.Entity("EndProject.Domain.Entitys.Basket", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId")
+                        .IsUnique();
+
+                    b.ToTable("Baskets");
+                });
+
+            modelBuilder.Entity("EndProject.Domain.Entitys.BasketProduct", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BasketId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CarId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BasketId");
+
+                    b.HasIndex("CarId");
+
+                    b.ToTable("BasketProducts");
+                });
+
             modelBuilder.Entity("EndProject.Domain.Entitys.Blog", b =>
                 {
                     b.Property<Guid>("Id")
@@ -888,6 +948,36 @@ namespace EndProjet.Persistance.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("EndProject.Domain.Entitys.Basket", b =>
+                {
+                    b.HasOne("EndProject.Domain.Entitys.Identity.AppUser", "AppUser")
+                        .WithOne("Basket")
+                        .HasForeignKey("EndProject.Domain.Entitys.Basket", "AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+                });
+
+            modelBuilder.Entity("EndProject.Domain.Entitys.BasketProduct", b =>
+                {
+                    b.HasOne("EndProject.Domain.Entitys.Basket", "Basket")
+                        .WithMany("basketProduct")
+                        .HasForeignKey("BasketId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EndProject.Domain.Entitys.Car", "Car")
+                        .WithMany()
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Basket");
+
+                    b.Navigation("Car");
+                });
+
             modelBuilder.Entity("EndProject.Domain.Entitys.BlogImage", b =>
                 {
                     b.HasOne("EndProject.Domain.Entitys.Blog", "Blog")
@@ -1098,6 +1188,11 @@ namespace EndProjet.Persistance.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("EndProject.Domain.Entitys.Basket", b =>
+                {
+                    b.Navigation("basketProduct");
+                });
+
             modelBuilder.Entity("EndProject.Domain.Entitys.Blog", b =>
                 {
                     b.Navigation("BlogImages");
@@ -1136,6 +1231,9 @@ namespace EndProjet.Persistance.Migrations
 
             modelBuilder.Entity("EndProject.Domain.Entitys.Identity.AppUser", b =>
                 {
+                    b.Navigation("Basket")
+                        .IsRequired();
+
                     b.Navigation("Comments");
 
                     b.Navigation("OtherReservations");

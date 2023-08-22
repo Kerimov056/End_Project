@@ -132,9 +132,11 @@ public class CarServices : ICarServices
             .Include(x => x.carCategory)
             .Include(x => x.carImages)
             .Include(x => x.Reservations)
+            .Include(x => x.OtherReservations)
             .Where(x => x.isReserv == false)
             .ToListAsync();
         if (CarAll is null) throw new NotFoundException("Car is null");
+        foreach (var item in CarAll) item.Reservations = null;
 
         var ToDto = _mapper.Map<List<CarGetDTO>>(CarAll);
         return ToDto;

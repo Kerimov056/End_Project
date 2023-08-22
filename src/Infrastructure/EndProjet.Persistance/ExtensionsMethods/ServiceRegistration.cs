@@ -62,6 +62,10 @@ public static class ServiceRegistration
         services.AddScoped<IBlogWriteRepository, BlogWriteRepository>();
         services.AddScoped<IBlogImageReadRepository, BlogImageReadRepository>();
         services.AddScoped<IBlogImageWriteRepository, BlogImageWriteRepository>();
+        services.AddScoped<IBasketReadRepository, BasketReadRepository>();
+        services.AddScoped<IBasketWriteRepository, BasketWriteRepository>();
+        services.AddScoped<IBasketProductReadRepository, BasketProductReadRepository>();
+        services.AddScoped<IBasketProductWriteRepository, BasketProductWriteRepository>();
 
 
         //Service
@@ -79,6 +83,8 @@ public static class ServiceRegistration
         services.AddScoped<IFaqServices, FaqServices>();
         services.AddScoped<IBlogImageServices, BlogImageServices>();
         services.AddScoped<IBlogService, BlogService>();
+        services.AddScoped<IBasketServices, BasketServices>();
+        services.AddScoped<IBasketProducServices, BasketProducServices>();
       
 
 

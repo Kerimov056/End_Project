@@ -1,5 +1,6 @@
 ﻿using EndProject.Application.DTOs.CarType;
 using EndProject.Application.DTOs.Category;
+using EndProject.Application.DTOs.OtherCarReservation;
 using EndProject.Application.DTOs.Reservation;
 
 namespace EndProject.Application.DTOs.Car;
@@ -18,4 +19,6 @@ public class CarGetDTO
     public List<string> CarImages { get; set; } 
     public List<string> CarTags { get; set; } 
     public List<ReservationGetDTO>? Reservations { get; set; }
+    public List<OtherCarReservationGetDTO>? OtherReservations { get; set; }
+
 }

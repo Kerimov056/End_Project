@@ -15,15 +15,17 @@ builder.Services.AddControllers();
 builder.Services.AddPersistenceServices();
 builder.Services.AddInfrastructureServices();
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowOrigin", builder =>
-    {
-        builder.AllowAnyOrigin()
-               .AllowAnyHeader()
-               .AllowAnyMethod();
-    });
-});
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("AllowOrigin", builder =>
+//    {
+//        builder.AllowAnyOrigin()
+//               .AllowAnyHeader()
+//               .AllowAnyMethod();
+//    });
+//});
+builder.Services.AddCors();
+
 
 
 builder.Services.AddScoped<AppDbContextInitializer>();
@@ -76,7 +78,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors();
+//app.UseCors();
+
+app.UseCors(cors => cors
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .SetIsOriginAllowed(x => true)
+            .AllowCredentials());
+
 
 app.UseHttpsRedirection();
 
