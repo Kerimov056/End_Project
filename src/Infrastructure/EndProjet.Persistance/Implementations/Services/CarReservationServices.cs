@@ -68,21 +68,28 @@ public class CarReservationServices : ICarReservationServices
         await _carReservationWriteRepository.AddAsync(newReserv);
         await _carReservationWriteRepository.SavaChangeAsync();
 
-        newReserv.PickupLocation = new PickupLocation
+        if (carReservationCreateDTO.PickupLocation is not null)
         {
-            CarReservationId = newReserv.Id,
-            Latitude = carReservationCreateDTO.PickupLocation.Latitude,
-            Longitude = carReservationCreateDTO.PickupLocation.Longitude
-        };
-        await _pickupLocationWriteRepository.AddAsync(newReserv.PickupLocation);
+            newReserv.PickupLocation = new PickupLocation
+            {
+                CarReservationId = newReserv.Id,
+                Latitude = carReservationCreateDTO.PickupLocation.Latitude,
+                Longitude = carReservationCreateDTO.PickupLocation.Longitude
+            };
+            await _pickupLocationWriteRepository.AddAsync(newReserv.PickupLocation);
+        }
 
-        newReserv.ReturnLocation = new ReturnLocation
+        if (carReservationCreateDTO.ReturnLocation is not null)
         {
-            CarReservationId = newReserv.Id,
-            Latitude = carReservationCreateDTO.ReturnLocation.Latitude,
-            Longitude = carReservationCreateDTO.ReturnLocation.Longitude
-        };
-        await _returnLocationWriteRepository.AddAsync(newReserv.ReturnLocation);
+            newReserv.ReturnLocation = new ReturnLocation
+            {
+                CarReservationId = newReserv.Id,
+                Latitude = carReservationCreateDTO.ReturnLocation.Latitude,
+                Longitude = carReservationCreateDTO.ReturnLocation.Longitude
+            };
+            await _returnLocationWriteRepository.AddAsync(newReserv.ReturnLocation);
+        }
+
         await _carReservationWriteRepository.SavaChangeAsync();
     }
 

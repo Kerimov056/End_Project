@@ -72,5 +72,6 @@ public class AppDbContext : IdentityDbContext<AppUser>
     public DbSet<BlogImage> BlogImages { get; set; }
     public DbSet<BasketProduct> BasketProducts { get; set; }
     public DbSet<Basket> Baskets { get; set; }
+    public DbSet<Like> Likes { get; set; }
 }
 
