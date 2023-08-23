@@ -1,12 +1,13 @@
-﻿using EndProject.Application.DTOs.Slider;
+﻿using EndProject.Application.DTOs.Like;
+using EndProject.Application.DTOs.Slider;
 
 namespace EndProject.Application.Abstraction.Services;
 
 public interface ILikeServices
 {
-    Task<List<SliderGetDTO>> GetAllAsync();
-    Task CreateAsync(SliderCreateDTO sliderCreateDTO);
-    Task<SliderGetDTO> GetByIdAsync(Guid Id);
-    Task UpdateAsync(Guid id, SliderUpdateDTO sliderUptadeDTO);
+    Task<List<LikeGetDTO>> GetAllAsync();
+    Task CreateAsync(LikeCreateDTO likeCreateDTO);
+    Task<LikeGetDTO> GetByIdAsync(Guid Id);
+    Task UpdateAsync(Guid id, LikeUpdateDTO likeUpdateDTO);
     Task RemoveAsync(Guid id);
 }
