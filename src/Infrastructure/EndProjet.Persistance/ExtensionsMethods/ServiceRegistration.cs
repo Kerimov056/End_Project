@@ -87,6 +87,7 @@ public static class ServiceRegistration
         services.AddScoped<IBlogService, BlogService>();
         services.AddScoped<IBasketServices, BasketServices>();
         services.AddScoped<IBasketProducServices, BasketProducServices>();
+        services.AddScoped<ILikeServices, LikeServices>();
       
 
 

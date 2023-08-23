@@ -2,6 +2,7 @@
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Car;
+using EndProject.Application.DTOs.CarComment;
 using EndProject.Application.DTOs.CarImage;
 using EndProject.Application.DTOs.CarType;
 using EndProject.Application.DTOs.Category;
@@ -149,6 +150,7 @@ public class CarServices : ICarServices
             .Include(x => x.carTags)
             .Include(x => x.carType)
             .Include(x => x.carCategory)
+            .Include(x => x.Comments)
             .Include(x => x.carImages)
             .Include(x => x.Reservations)
             .FirstOrDefaultAsync(x => x.Id == Id);
@@ -156,6 +158,9 @@ public class CarServices : ICarServices
         ByCar.Reservations = null;
 
         var ToDto = _mapper.Map<CarGetDTO>(ByCar);
+
+        var toComentDto = _mapper.Map<List<CarCommentGetDTO>>(ByCar.Comments);
+        ToDto.carCommentGetDTO = toComentDto;
         return ToDto;
     }
 
@@ -167,13 +172,27 @@ public class CarServices : ICarServices
            .Include(x => x.carType)
            .Include(x => x.carCategory)
            .Include(x => x.carImages)
+           .Include(x => x.Comments)
            .Include(x => x.Reservations)
            .Where(x => x.Marka == car)
            .ToListAsync();
-
         if (ByCar is null) throw new NotFoundException("Car is Null");
+        foreach (var item in ByCar) item.Reservations = null;
 
         var ToDto = _mapper.Map<List<CarGetDTO>>(ByCar);
+        foreach (var item in ByCar)
+        {
+
+            var toComentDto = _mapper.Map<List<CarCommentGetDTO>>(item.Comments);
+            foreach (var ByToDto in ToDto)
+            {
+                if (item.Id == ByToDto.Id)
+                {
+                    ByToDto.carCommentGetDTO = toComentDto;
+                    break;
+                }
+            }
+        }
         return ToDto;
     }
 
@@ -278,7 +297,7 @@ public class CarServices : ICarServices
             };
             await _tagWriteRepository.AddAsync(newTag);
             await _tagWriteRepository.SavaChangeAsync();
-            foreach (var tag in await _carTagReadRepository.GetAll().Where(x=>x.CarId==ByCar.Id).ToListAsync())
+            foreach (var tag in await _carTagReadRepository.GetAll().Where(x => x.CarId == ByCar.Id).ToListAsync())
             {
                 tag.TagId = newTag.Id;
                 _carTagWriteRepository.Update(tag);
