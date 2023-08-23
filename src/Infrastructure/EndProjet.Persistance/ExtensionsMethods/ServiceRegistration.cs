@@ -66,6 +66,8 @@ public static class ServiceRegistration
         services.AddScoped<IBasketWriteRepository, BasketWriteRepository>();
         services.AddScoped<IBasketProductReadRepository, BasketProductReadRepository>();
         services.AddScoped<IBasketProductWriteRepository, BasketProductWriteRepository>();
+        services.AddScoped<ILikeReadRepository, LikeReadRepository>();
+        services.AddScoped<ILikeWriteRepository, LikeWriteRepository>();
 
 
         //Service
