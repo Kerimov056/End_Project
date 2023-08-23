@@ -322,3 +322,5 @@ D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Azure.Stor
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\System.IO.Hashing.dll
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\System.Memory.Data.dll
+D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Newtonsoft.Json.dll
+D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\System.Net.WebSockets.WebSocketProtocol.dll

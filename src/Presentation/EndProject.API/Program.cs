@@ -1,4 +1,6 @@
-﻿using EndProject.API.BackGroundServıces;
+﻿//using SignalRChat.Hubs;
+using EndProject.API.BackGroundServıces;
+using EndProject.API.Hub;
 using EndProject.Infrastructure;
 using EndProjet.Persistance.Context;
 using EndProjet.Persistance.ExtensionsMethods;
@@ -10,22 +12,11 @@ using SymmetricSecurityKey = Microsoft.IdentityModel.Tokens.SymmetricSecurityKey
 var builder = WebApplication.CreateBuilder(args);
 
 
-
 builder.Services.AddControllers();
 builder.Services.AddPersistenceServices();
 builder.Services.AddInfrastructureServices();
 
-//builder.Services.AddCors(options =>
-//{
-//    options.AddPolicy("AllowOrigin", builder =>
-//    {
-//        builder.AllowAnyOrigin()
-//               .AllowAnyHeader()
-//               .AllowAnyMethod();
-//    });
-//});
 builder.Services.AddCors();
-
 
 
 builder.Services.AddScoped<AppDbContextInitializer>();
@@ -60,6 +51,8 @@ builder.Services.AddHostedService<BirthDateBGServices>();
 builder.Services.AddHostedService<ReservationPickupCheckService>();
 builder.Services.AddHostedService<ReservationReturnCheckService>();
 
+builder.Services.AddSignalR();
+builder.Services.AddSingleton<IDictionary<string, UserConnection>>(opts => new Dictionary<string, UserConnection>());
 
 var app = builder.Build();
 
@@ -78,9 +71,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//app.UseCors();
+
+app.MapHub<ChatHub>("/chat");
+
 
 app.UseCors(cors => cors
+            .WithOrigins("http://localhost:3000")
             .AllowAnyHeader()
             .AllowAnyMethod()
             .SetIsOriginAllowed(x => true)
@@ -88,6 +84,8 @@ app.UseCors(cors => cors
 
 
 app.UseHttpsRedirection();
+app.UseRouting(); // Bu satırı ekleyin
+
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -95,7 +93,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-
-
-
-//Salam

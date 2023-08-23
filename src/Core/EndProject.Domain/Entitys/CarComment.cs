@@ -10,4 +10,5 @@ public class CarComment:BaseEntity
     public Car Car { get; set; }
     public string AppUserId { get; set; }
     public AppUser AppUser { get; set; }
+    public List<Like>? Likes { get; set; }
 }

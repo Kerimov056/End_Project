@@ -11,18 +11,11 @@ public class AppDbContext : IdentityDbContext<AppUser>
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        //modelBuilder.Entity<TypeCategory>()
-        //    .HasOne(x => x.type)
-        //    .WithMany(d => d.typeCategories)
-        //    .HasForeignKey(x => x.typeId)
-        //    .OnDelete(DeleteBehavior.Restrict);
-
-        //modelBuilder.Entity<TypeCategory>()
-        //    .HasOne(f => f.category)
-        //    .WithMany(s => s.typeCategories)
-        //    .HasForeignKey(us => us.categoryId)
-        //    .OnDelete(DeleteBehavior.Restrict);
-
+        modelBuilder.Entity<Like>()
+            .HasOne(l => l.CarComment)
+            .WithMany()
+            .HasForeignKey(l => l.CarCommentId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<CarTag>()
             .HasOne(x => x.Car)
@@ -35,19 +28,8 @@ public class AppDbContext : IdentityDbContext<AppUser>
             .HasForeignKey(us => us.TagId);
 
 
-        //modelBuilder.Entity<CarReservation>()
-        //         .HasOne(cr => cr.PickupLocation)
-        //         .WithMany()
-        //         .HasForeignKey(cr => cr.PickupLocationId)
-        //         .OnDelete(DeleteBehavior.Restrict);
-
-        //modelBuilder.Entity<CarReservation>()
-        //    .HasOne(cr => cr.ReturnLocation)
-        //    .WithMany()
-        //    .HasForeignKey(cr => cr.ReturnLocationId)
-        //    .OnDelete(DeleteBehavior.Restrict);
-
         base.OnModelCreating(modelBuilder);
+
     }
 
     public DbSet<Slider> Sliders { get; set; }

@@ -59,6 +59,7 @@ public class CarReservationServices : ICarReservationServices
             CarId = carReservationCreateDTO.CarId,
             ChauffeursId = carReservationCreateDTO.ChauffeursId
         };
+        newReserv.AppUserId = "1c1b3f62-334d-46c1-8563-b872782f11ed";
 
         if (carReservationCreateDTO.Image != null && carReservationCreateDTO.Image.Length > 0)
         {
@@ -198,6 +199,13 @@ public class CarReservationServices : ICarReservationServices
 
     public async Task UpdateAsync(Guid id, CarReservationUpdateDTO carReservationUpdateDTO)
     {
+        Console.WriteLine(carReservationUpdateDTO.AppUserId
+            , carReservationUpdateDTO.CarId
+            ,carReservationUpdateDTO.Number
+            , carReservationUpdateDTO.Email,
+            "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT" +
+            "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT" +
+            "");
         var ByReserv = await _carReservationReadRepository.GetByIdAsync(id);
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
 

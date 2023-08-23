@@ -577,6 +577,16 @@ namespace EndProjet.Persistance.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid>("CarCommentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CarCommentId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -590,6 +600,12 @@ namespace EndProjet.Persistance.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("CarCommentId");
+
+                    b.HasIndex("CarCommentId1");
 
                     b.ToTable("Likes");
                 });
@@ -1110,6 +1126,29 @@ namespace EndProjet.Persistance.Migrations
                     b.Navigation("Car");
                 });
 
+            modelBuilder.Entity("EndProject.Domain.Entitys.Like", b =>
+                {
+                    b.HasOne("EndProject.Domain.Entitys.Identity.AppUser", "AppUser")
+                        .WithMany("Likes")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EndProject.Domain.Entitys.CarComment", "CarComment")
+                        .WithMany()
+                        .HasForeignKey("CarCommentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("EndProject.Domain.Entitys.CarComment", null)
+                        .WithMany("Likes")
+                        .HasForeignKey("CarCommentId1");
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("CarComment");
+                });
+
             modelBuilder.Entity("EndProject.Domain.Entitys.Location", b =>
                 {
                     b.HasOne("EndProject.Domain.Entitys.CarReservation", "CarReservation")
@@ -1238,6 +1277,11 @@ namespace EndProjet.Persistance.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("EndProject.Domain.Entitys.CarComment", b =>
+                {
+                    b.Navigation("Likes");
+                });
+
             modelBuilder.Entity("EndProject.Domain.Entitys.CarReservation", b =>
                 {
                     b.Navigation("PickupLocation");
@@ -1256,6 +1300,8 @@ namespace EndProjet.Persistance.Migrations
                         .IsRequired();
 
                     b.Navigation("Comments");
+
+                    b.Navigation("Likes");
 
                     b.Navigation("OtherReservations");
 
