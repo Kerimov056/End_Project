@@ -132,6 +132,7 @@ public class CarServices : ICarServices
             .Include(x => x.carType)
             .Include(x => x.carCategory)
             .Include(x => x.carImages)
+            .Include(x => x.Comments)
             .Include(x => x.Reservations)
             .Include(x => x.OtherReservations)
             .Where(x => x.isReserv == false)
@@ -140,6 +141,19 @@ public class CarServices : ICarServices
         foreach (var item in CarAll) item.Reservations = null;
 
         var ToDto = _mapper.Map<List<CarGetDTO>>(CarAll);
+        foreach (var item in CarAll)
+        {
+
+            var toComentDto = _mapper.Map<List<CarCommentGetDTO>>(item.Comments);
+            foreach (var ByToDto in ToDto)
+            {
+                if (item.Id == ByToDto.Id)
+                {
+                    ByToDto.carCommentGetDTO = toComentDto;
+                    break;
+                }
+            }
+        }
         return ToDto;
     }
 
