@@ -5,6 +5,7 @@ namespace EndProject.Application.Abstraction.Services;
 public interface ICarReservationServices
 {
     Task<List<CarReservationGetDTO>> GetAllAsync();
+    Task<List<CarReservationGetDTO>> IsResevPedingGetAll();
     Task<List<CarReservationGetDTO>> IsResevConfirmedGetAll();
     Task<List<CarReservationGetDTO>> IsResevComplatedGetAll();
     Task<List<CarReservationGetDTO>> IsResevCanceledGetAll();

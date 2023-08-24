@@ -21,7 +21,7 @@ public class CarReservationsController : ControllerBase
         return Ok(Slider);
     }
 
-    [HttpGet("ReservConfirmedCount")]
+    [HttpGet("ReservConfirmedCount")] 
     public async Task<IActionResult> GetReservConfirmed()
     {
         var reserv = await _carReservationServices.GetConfirmedCountAsync();
