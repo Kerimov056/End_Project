@@ -18,4 +18,9 @@ public class CarReadRepository : ReadRepository<Car>, ICarReadRepository
     {
         return await _appDbContext.Cars.CountAsync();
     }
+
+    public async Task<int> GetReservCarCountAsync()
+    {
+        return await _appDbContext.Cars.Where(x => x.isReserv == true).CountAsync();
+    }
 }

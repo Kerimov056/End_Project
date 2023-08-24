@@ -31,6 +31,13 @@ public class CarController : ControllerBase
         return Ok(count);
     }
 
+    [HttpGet("ReservCarCount")]
+    public async Task<IActionResult> GetReservCarCount()
+    {
+        var count = await _carServices.GetReservCarCountAsync();
+        return Ok(count);
+    }
+
     [HttpPost]
     public async Task<IActionResult> Post([FromForm] CarCreateDTO carCreateDTO)
     {
