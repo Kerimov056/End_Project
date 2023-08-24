@@ -118,6 +118,11 @@ public class CarReservationServices : ICarReservationServices
         return ToDto;
     }
 
+    public async Task<int> GetCompletedCountAsync()
+    {
+        return await _carReservationReadRepository.GetReservCompletedCountAsync();
+    }
+
     public async Task<int> GetConfirmedCountAsync()
     {
         return await _carReservationReadRepository.GetReservConfirmedCountAsync();  
