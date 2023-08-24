@@ -62,11 +62,18 @@ public class CarReservationsController : ControllerBase
         return Ok(Slider);
     }
 
+    [HttpGet("IsResevCanceledCount")]
+    public async Task<IActionResult> ReservGetAllCanceledCount()
+    {
+        var reservCount = await _carReservationServices.GetCanceledCountAsync();
+        return Ok(reservCount); 
+    }
+
     [HttpGet("IsResevCanceledGetAll")]
     public async Task<IActionResult> ReservGetAllCanceled()
     {
         var Slider = await _carReservationServices.IsResevCanceledGetAll();
-        return Ok(Slider);
+        return Ok(Slider); 
     }
 
 

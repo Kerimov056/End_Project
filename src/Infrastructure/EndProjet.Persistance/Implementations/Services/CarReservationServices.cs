@@ -118,9 +118,9 @@ public class CarReservationServices : ICarReservationServices
         return ToDto;
     }
 
-    public Task<int> GetCanceledCountAsync()
+    public async Task<int> GetCanceledCountAsync()
     {
-        throw new NotImplementedException();
+        return await _carReservationReadRepository.GetReservCanceledCountAsync();
     }
 
     public async Task<int> GetCompletedCountAsync()
