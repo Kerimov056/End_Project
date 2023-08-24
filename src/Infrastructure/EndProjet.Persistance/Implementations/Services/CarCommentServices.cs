@@ -30,7 +30,7 @@ public class CarCommentServices : ICarCommentServices
     public async Task CreateAsync(CarCommentCreateDTO carCommentCreateDTO)
     {
         var newCarCommnet = _mapper.Map<CarComment>(carCommentCreateDTO);
-        //newCarCommnet.Likes = null;
+        newCarCommnet.Like = null;
         await _carCommentWriteRepository.AddAsync(newCarCommnet);
         await _carCommentWriteRepository.SavaChangeAsync();
     }
@@ -41,7 +41,7 @@ public class CarCommentServices : ICarCommentServices
 
         var CarAllComment = await _carCommentReadRepository
                             .GetAll()
-                            //.Include(x => x.Likes)
+                            .Include(x => x.Like)
                             .Include(x => x.Car)
                             .Where(x => x.Car.Id == CarId)
                             .ToListAsync();
@@ -67,14 +67,18 @@ public class CarCommentServices : ICarCommentServices
 
     public async Task<CarCommentGetDTO> GetByIdAsync(Guid Id)
     {
-        var ByComment = await _carCommentReadRepository.GetByIdAsync(Id);
+        var ByComment = await _carCommentReadRepository
+            .GetAll()
+            .Include(x =>x.Like)
+            .Where(x => x.Id == Id)
+            .FirstOrDefaultAsync();
         if (ByComment is null) throw new NotFoundException("Comment is Null");
 
         var ToDto = _mapper.Map<CarCommentGetDTO>(ByComment);
-        //if (ByComment.Likes is not null)
-            //ToDto.LikeSum = ByComment.Likes.Count;
-        //else
-            //ToDto.LikeSum = 0;
+        if (ByComment.Like is not null)
+          ToDto.LikeSum = ByComment.Like.Count;
+        else
+            ToDto.LikeSum = 0;
         return ToDto;
     }
 
@@ -92,7 +96,7 @@ public class CarCommentServices : ICarCommentServices
         if (ByComment is null) throw new NotFoundException("Comment is null");
 
         _mapper.Map(carCommentUpdateDTO, ByComment);
-        //ByComment.Likes = ByComment.Likes;
+        ByComment.Like = ByComment.Like;
         _carCommentWriteRepository.Update(ByComment);
         await _carCommentWriteRepository.SavaChangeAsync();
     }

@@ -2,6 +2,7 @@
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Like;
+using EndProject.Domain.Entitys;
 using EndProjet.Persistance.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -33,26 +34,18 @@ public class LikeServices : ILikeServices
         var byLike = await _likeReadRepository
             .GetAll()
             .Where(x => x.AppUserId == likeCreateDTO.AppUserId)
-            //.Where(x => x.CarCommentId == likeCreateDTO.CarCommentId)
+            .Where(x => x.CarCommentId == likeCreateDTO.CarCommentId)
             .FirstOrDefaultAsync();
 
         var byComment = await _appDbContext.CarComments.FindAsync(likeCreateDTO.CarCommentId);
 
         if (byLike is null)
         {
-            //var newLike = _mapper.Map<Like>(likeCreateDTO);
-            //if (byComment.Likes is null)
-            //{
-            //    byComment.Likes.Add(newLike);
-            //}
-            //await _likeWriteRepository.AddAsync(newLike);
+            var newLike = _mapper.Map<Like>(likeCreateDTO);
+            await _likeWriteRepository.AddAsync(newLike);
         }
         else
         {
-            //if (byComment.Likes is not null)
-            //{
-            //    byComment.Likes.Remove(byLike);
-            //}
             _likeWriteRepository.Remove(byLike);
         }
 
