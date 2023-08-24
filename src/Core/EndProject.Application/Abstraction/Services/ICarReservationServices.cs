@@ -19,4 +19,5 @@ public interface ICarReservationServices
     Task RemoveAsync(Guid id);
     Task<int> GetPeddingCountAsync();
     Task<int> GetConfirmedCountAsync();
+    Task<int> GetCompletedCountAsync();
 }

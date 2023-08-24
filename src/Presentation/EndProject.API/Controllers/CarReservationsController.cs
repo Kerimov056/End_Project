@@ -1,6 +1,5 @@
 ﻿using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.CarReservation;
-using EndProject.Application.DTOs.Slider;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
