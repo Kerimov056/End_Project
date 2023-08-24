@@ -47,6 +47,14 @@ public class CarReservationsController : ControllerBase
         return Ok(Slider);
     }
 
+    [HttpGet("ReservComplatedCount")]
+    public async Task<IActionResult> GetReservComplated()
+    {
+        var reserv = await _carReservationServices.GetCompletedCountAsync();
+        return Ok(reserv);
+    }
+
+    
     [HttpGet("IsResevComplatedGetAll")]
     public async Task<IActionResult> ReservGetAllComplated()
     {
