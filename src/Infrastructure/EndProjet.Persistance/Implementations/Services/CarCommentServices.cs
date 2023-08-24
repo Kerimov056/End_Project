@@ -30,6 +30,7 @@ public class CarCommentServices : ICarCommentServices
     public async Task CreateAsync(CarCommentCreateDTO carCommentCreateDTO)
     {
         var newCarCommnet = _mapper.Map<CarComment>(carCommentCreateDTO);
+        //newCarCommnet.Likes = null;
         await _carCommentWriteRepository.AddAsync(newCarCommnet);
         await _carCommentWriteRepository.SavaChangeAsync();
     }
@@ -39,13 +40,28 @@ public class CarCommentServices : ICarCommentServices
         var ByCar = await _carServices.GetByIdAsync(CarId);
 
         var CarAllComment = await _carCommentReadRepository
-            .GetAll()
-            .Include(x => x.Car)
-            .Where(x=> x.Car.Marka == ByCar.Marka)
-            .ToListAsync();
+                            .GetAll()
+                            //.Include(x => x.Likes)
+                            .Include(x => x.Car)
+                            .Where(x => x.Car.Id == CarId)
+                            .ToListAsync();
         if (CarAllComment is null) throw new NotFoundException("Comment is null");
 
         var ToDto = _mapper.Map<List<CarCommentGetDTO>>(CarAllComment);
+        foreach (var item in ToDto)
+        {
+            foreach (var car in CarAllComment)
+            {
+                if (item.Id == car.Id)
+                {
+                    //if (car.Likes is not null)
+                    //    item.LikeSum = car.Likes.Count;
+                    //else
+                    //    item.LikeSum = 0;
+                    //break;
+                }
+            }
+        }
         return ToDto;
     }
 
@@ -55,6 +71,10 @@ public class CarCommentServices : ICarCommentServices
         if (ByComment is null) throw new NotFoundException("Comment is Null");
 
         var ToDto = _mapper.Map<CarCommentGetDTO>(ByComment);
+        //if (ByComment.Likes is not null)
+            //ToDto.LikeSum = ByComment.Likes.Count;
+        //else
+            //ToDto.LikeSum = 0;
         return ToDto;
     }
 
@@ -72,6 +92,7 @@ public class CarCommentServices : ICarCommentServices
         if (ByComment is null) throw new NotFoundException("Comment is null");
 
         _mapper.Map(carCommentUpdateDTO, ByComment);
+        //ByComment.Likes = ByComment.Likes;
         _carCommentWriteRepository.Update(ByComment);
         await _carCommentWriteRepository.SavaChangeAsync();
     }

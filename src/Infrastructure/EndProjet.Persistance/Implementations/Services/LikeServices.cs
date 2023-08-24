@@ -2,7 +2,7 @@
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Like;
-using EndProject.Domain.Entitys;
+using EndProjet.Persistance.Context;
 using Microsoft.EntityFrameworkCore;
 
 namespace EndProjet.Persistance.Implementations.Services;
@@ -12,33 +12,51 @@ public class LikeServices : ILikeServices
     private readonly ILikeReadRepository _likeReadRepository;
     private readonly ILikeWriteRepository _likeWriteRepository;
     private readonly ICarCommentReadRepository _carCommentReadRepository;
-    private readonly ICarCommentServices _carCommentServices;
+    private readonly ICarCommentWriteRepository _carCommentWriteRepository;
+    private readonly AppDbContext _appDbContext;
     private readonly IMapper _mapper;
-
     public LikeServices(ILikeReadRepository likeReadRepository,
                         ILikeWriteRepository likeWriteRepository,
                         IMapper mapper,
-                        ICarCommentServices carCommentServices)
+                        ICarCommentWriteRepository carCommentWriteRepository,
+                        AppDbContext appDbContext)
     {
         _likeReadRepository = likeReadRepository;
         _likeWriteRepository = likeWriteRepository;
+        _carCommentWriteRepository = carCommentWriteRepository;
         _mapper = mapper;
-        _carCommentServices = carCommentServices;
+        _appDbContext = appDbContext;
     }
 
     public async Task CreateAsync(LikeCreateDTO likeCreateDTO)
     {
-        var byComment = await _carCommentReadRepository.GetByIdAsync(likeCreateDTO.CarCommentId);
-    
-        var newLike = new Like
+        var byLike = await _likeReadRepository
+            .GetAll()
+            .Where(x => x.AppUserId == likeCreateDTO.AppUserId)
+            //.Where(x => x.CarCommentId == likeCreateDTO.CarCommentId)
+            .FirstOrDefaultAsync();
+
+        var byComment = await _appDbContext.CarComments.FindAsync(likeCreateDTO.CarCommentId);
+
+        if (byLike is null)
         {
-            AppUserId = likeCreateDTO.AppUserId,
-            CarCommentId = byComment.Id,
-            LikeSum = 1
-        };
-        byComment.Likes.Add(newLike);
-       
-        await _likeWriteRepository.AddAsync(newLike);
+            //var newLike = _mapper.Map<Like>(likeCreateDTO);
+            //if (byComment.Likes is null)
+            //{
+            //    byComment.Likes.Add(newLike);
+            //}
+            //await _likeWriteRepository.AddAsync(newLike);
+        }
+        else
+        {
+            //if (byComment.Likes is not null)
+            //{
+            //    byComment.Likes.Remove(byLike);
+            //}
+            _likeWriteRepository.Remove(byLike);
+        }
+
+        await _carCommentWriteRepository.SavaChangeAsync();
         await _likeWriteRepository.SavaChangeAsync();
     }
 
@@ -62,15 +80,4 @@ public class LikeServices : ILikeServices
         await _likeWriteRepository.SavaChangeAsync();
     }
 
-    public async Task UpdateAsync(Guid id, LikeUpdateDTO likeUpdateDTO)
-    {
-        var byLike = await _likeReadRepository.GetByIdAsync(id);
-        _mapper.Map(likeUpdateDTO, byLike);
-        if (byLike.LikeSum >= 1)
-        {
-            byLike.LikeSum = byLike.LikeSum - 1;
-        }
-        _likeWriteRepository.Update(byLike);
-        await _likeWriteRepository.SavaChangeAsync();
-    }
 }

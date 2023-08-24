@@ -12,10 +12,10 @@ public class AppDbContext : IdentityDbContext<AppUser>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Like>()
-            .HasOne(l => l.CarComment)
-            .WithMany()
-            .HasForeignKey(l => l.CarCommentId)
-            .OnDelete(DeleteBehavior.Restrict);
+      .HasOne(l => l.CarComment)
+      .WithMany(c => c.Like)
+      .HasForeignKey(l => l.CarCommentId)
+      .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<CarTag>()
             .HasOne(x => x.Car)
@@ -55,5 +55,6 @@ public class AppDbContext : IdentityDbContext<AppUser>
     public DbSet<BasketProduct> BasketProducts { get; set; }
     public DbSet<Basket> Baskets { get; set; }
     public DbSet<Like> Likes { get; set; }
+    //public DbSet<CommentLike> CommentLikes { get; set; }
 }
 

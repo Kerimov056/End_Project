@@ -42,10 +42,4 @@ public class LikesController : ControllerBase
         return Ok();
     }
 
-    [HttpPut("{id:Guid}")]
-    public async Task<IActionResult> Uptade(Guid id, [FromForm] LikeUpdateDTO likeUpdateDTO)
-    {
-        await _likeServices.UpdateAsync(id, likeUpdateDTO);
-        return Ok();
-    }
 }

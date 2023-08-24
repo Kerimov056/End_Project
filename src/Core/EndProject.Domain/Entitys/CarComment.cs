@@ -1,5 +1,6 @@
 ﻿using EndProject.Domain.Entitys.Common;
 using EndProject.Domain.Entitys.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EndProject.Domain.Entitys;
 
@@ -10,5 +11,5 @@ public class CarComment:BaseEntity
     public Car Car { get; set; }
     public string AppUserId { get; set; }
     public AppUser AppUser { get; set; }
-    public List<Like>? Likes { get; set; }
+    public List<Like> Like { get; set; }
 }

@@ -584,17 +584,11 @@ namespace EndProjet.Persistance.Migrations
                     b.Property<Guid>("CarCommentId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CarCommentId1")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
-
-                    b.Property<int>("LikeSum")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("ModifiedDate")
                         .HasColumnType("datetime2");
@@ -604,8 +598,6 @@ namespace EndProjet.Persistance.Migrations
                     b.HasIndex("AppUserId");
 
                     b.HasIndex("CarCommentId");
-
-                    b.HasIndex("CarCommentId1");
 
                     b.ToTable("Likes");
                 });
@@ -1129,20 +1121,16 @@ namespace EndProjet.Persistance.Migrations
             modelBuilder.Entity("EndProject.Domain.Entitys.Like", b =>
                 {
                     b.HasOne("EndProject.Domain.Entitys.Identity.AppUser", "AppUser")
-                        .WithMany("Likes")
+                        .WithMany()
                         .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("EndProject.Domain.Entitys.CarComment", "CarComment")
-                        .WithMany()
+                        .WithMany("Like")
                         .HasForeignKey("CarCommentId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("EndProject.Domain.Entitys.CarComment", null)
-                        .WithMany("Likes")
-                        .HasForeignKey("CarCommentId1");
 
                     b.Navigation("AppUser");
 
@@ -1279,7 +1267,7 @@ namespace EndProjet.Persistance.Migrations
 
             modelBuilder.Entity("EndProject.Domain.Entitys.CarComment", b =>
                 {
-                    b.Navigation("Likes");
+                    b.Navigation("Like");
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.CarReservation", b =>
@@ -1300,8 +1288,6 @@ namespace EndProjet.Persistance.Migrations
                         .IsRequired();
 
                     b.Navigation("Comments");
-
-                    b.Navigation("Likes");
 
                     b.Navigation("OtherReservations");
 
