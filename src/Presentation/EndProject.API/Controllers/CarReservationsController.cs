@@ -20,6 +20,13 @@ public class CarReservationsController : ControllerBase
         var Slider = await _carReservationServices.GetAllAsync();
         return Ok(Slider);
     }
+    
+    [HttpGet("resercPedding")]
+    public async Task<IActionResult> GetReservPedding()
+    {
+        var Slider = await _carReservationServices.IsResevPedingGetAll();
+        return Ok(Slider);
+    }
 
     [HttpGet("ReservConfirmedCount")] 
     public async Task<IActionResult> GetReservConfirmed()
