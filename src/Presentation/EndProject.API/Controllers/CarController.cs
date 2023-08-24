@@ -1,9 +1,5 @@
-﻿using AutoMapper;
-using EndProject.Application.Abstraction.Services;
+﻿using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Car;
-using EndProject.Application.DTOs.CarType;
-using EndProject.Domain.Entitys;
-using EndProjet.Persistance.Context;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
