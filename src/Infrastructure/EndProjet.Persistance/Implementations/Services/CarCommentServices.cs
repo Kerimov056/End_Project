@@ -54,11 +54,11 @@ public class CarCommentServices : ICarCommentServices
             {
                 if (item.Id == car.Id)
                 {
-                    //if (car.Likes is not null)
-                    //    item.LikeSum = car.Likes.Count;
-                    //else
-                    //    item.LikeSum = 0;
-                    //break;
+                    if (car.Like is not null)
+                        item.LikeSum = car.Like.Count;
+                    else
+                        item.LikeSum = 0;
+                    break;
                 }
             }
         }
