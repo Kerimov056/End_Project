@@ -17,5 +17,6 @@ public interface ICarReservationServices
     Task StatusCanceled(Guid Id);
     Task UpdateAsync(Guid id, CarReservationUpdateDTO carReservationUpdateDTO);
     Task RemoveAsync(Guid id);
+    Task<int> GetPeddingCountAsync();
     Task<int> GetConfirmedCountAsync();
 }

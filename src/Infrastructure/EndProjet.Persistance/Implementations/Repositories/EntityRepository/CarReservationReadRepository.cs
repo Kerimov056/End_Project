@@ -18,4 +18,9 @@ public class CarReservationReadRepository : ReadRepository<CarReservation>, ICar
     {
         return await _appDbContext.CarReservations.Where(x =>x.Status == ReservationStatus.Confirmed).CountAsync();
     }
+
+    public async Task<int> GetReservPeddingCountAsync()
+    {
+        return await _appDbContext.CarReservations.Where(x => x.Status == ReservationStatus.Pending).CountAsync();
+    }
 }
