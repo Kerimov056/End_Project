@@ -20,8 +20,15 @@ public class CarController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var Slider = await _carServices.GetAllAsync();
-        return Ok(Slider);
+        var car = await _carServices.GetAllAsync();
+        return Ok(car);
+    }
+
+    [HttpGet("Count")]
+    public async Task<IActionResult> GetCarCount()
+    {
+        var count = await _carServices.GetCarCountAsync();
+        return Ok(count);
     }
 
     [HttpPost]

@@ -227,6 +227,11 @@ public class CarServices : ICarServices
         return ToDto;
     }
 
+    public async Task<int> GetCarCountAsync()
+    {
+        return await _carReadRepository.GetCarCountAsync();
+    }
+
     public async Task RemoveAsync(Guid id)
     {
         var ByCar = await _carReadRepository
