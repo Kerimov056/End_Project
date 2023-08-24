@@ -14,6 +14,11 @@ public class CarReservationReadRepository : ReadRepository<CarReservation>, ICar
         _appDbContext = context;
     }
 
+    public async Task<int> GetReservCanceledCountAsync()
+    {
+        return await _appDbContext.CarReservations.Where(x => x.Status == ReservationStatus.Canceled).CountAsync();
+    }
+
     public async Task<int> GetReservCompletedCountAsync()
     {
         return await _appDbContext.CarReservations.Where(x => x.Status == ReservationStatus.Completed).CountAsync();
