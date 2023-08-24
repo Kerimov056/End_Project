@@ -123,6 +123,11 @@ public class CarReservationServices : ICarReservationServices
         return await _carReservationReadRepository.GetReservConfirmedCountAsync();  
     }
 
+    public async Task<int> GetPeddingCountAsync()
+    {
+        return await _carReservationReadRepository.GetReservPeddingCountAsync();
+    }
+
     public async Task<List<CarReservationGetDTO>> IsResevCanceledGetAll()
     {
         var ByReserv = await _carReservationReadRepository
