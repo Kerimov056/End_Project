@@ -137,6 +137,7 @@ public class CarServices : ICarServices
             .Include(x => x.OtherReservations)
             .Where(x => x.isReserv == false)
             .ToListAsync();
+
         if (CarAll is null) throw new NotFoundException("Car is null");
         foreach (var item in CarAll) item.Reservations = null;
 
@@ -165,6 +166,7 @@ public class CarServices : ICarServices
             .Include(x => x.carType)
             .Include(x => x.carCategory)
             .Include(x => x.Comments)
+            .ThenInclude(x => x.Like)
             .Include(x => x.carImages)
             .Include(x => x.Reservations)
             .FirstOrDefaultAsync(x => x.Id == Id);
@@ -175,6 +177,21 @@ public class CarServices : ICarServices
 
         var toComentDto = _mapper.Map<List<CarCommentGetDTO>>(ByCar.Comments);
         ToDto.carCommentGetDTO = toComentDto;
+
+        foreach (var item in ToDto.carCommentGetDTO)
+        {
+            foreach (var coment in ByCar.Comments)
+            {
+                if (item.Id == coment.Id)
+                {
+                    if (coment.Like is not null)
+                        item.LikeSum = coment.Like.Count;
+                    else
+                        item.LikeSum = 0;
+                    break;
+                }
+            }
+        }
         return ToDto;
     }
 
