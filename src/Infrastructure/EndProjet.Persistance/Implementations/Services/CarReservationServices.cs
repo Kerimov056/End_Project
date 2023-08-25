@@ -212,6 +212,31 @@ public class CarReservationServices : ICarReservationServices
         return ToDto;
     }
 
+    public async Task<List<CarReservationGetDTO>> IsResevNowGetAll()
+    {
+        var ByReserv = await _carReservationReadRepository
+            .GetAll()
+            .Include(x => x.PickupLocation)
+            .Include(x => x.ReturnLocation)
+            .Where(x => x.Status == ReservationStatus.RightNow)
+            .ToListAsync();
+
+        if (ByReserv is null) throw new NotFoundException("Reservation is Null");
+        var ToDto = _mapper.Map<List<CarReservationGetDTO>>(ByReserv);
+        foreach (var byCar in ByReserv)
+        {
+            foreach (var byCarDto in ToDto)
+            {
+                if (byCar.Id == byCarDto.Id)
+                {
+                    byCarDto.ReservCar = await _carServices.GetByIdAsync(byCar.CarId);
+                    break;
+                }
+            }
+        }
+        return ToDto;
+    }
+
     public async Task<List<CarReservationGetDTO>> IsResevPedingGetAll()
     {
         var ByReserv = await _carReservationReadRepository
@@ -290,7 +315,7 @@ public class CarReservationServices : ICarReservationServices
 
     public async Task UpdateAsync(Guid id, CarReservationUpdateDTO carReservationUpdateDTO)
     {
-       
+
         var ByReserv = await _carReservationReadRepository.GetByIdAsync(id);
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
 
