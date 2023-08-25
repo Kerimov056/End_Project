@@ -131,5 +131,12 @@ public class CarReservationsController : ControllerBase
     {
         await _carReservationServices.StatusCanceled(Id);
         return Ok();
+    } 
+    
+    [HttpPut("Complated")]
+    public async Task<IActionResult> UptadeStatusComplated(Guid Id)
+    {
+        await _carReservationServices.StatusCompleted(Id);
+        return Ok();
     }
 }
