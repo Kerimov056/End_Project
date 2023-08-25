@@ -87,13 +87,6 @@ public class CarReservationsController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Post([FromForm] CarReservationCreateDTO carReservationCreateDTO)
     {
-        Console.WriteLine(carReservationCreateDTO.AppUserId
-           , carReservationCreateDTO.CarId
-           , carReservationCreateDTO.Number
-           , carReservationCreateDTO.Email,
-           "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT" +
-           "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT" +
-           "");
         await _carReservationServices.CreateAsync(carReservationCreateDTO);
         return StatusCode((int)HttpStatusCode.Created);
     }

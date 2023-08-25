@@ -5,7 +5,8 @@ public enum ReservationStatus
     Pending = 0,
     Confirmed,
     Completed,
-    Canceled
+    Canceled,
+    RightNow
 }
 
 // Gözləyən,
