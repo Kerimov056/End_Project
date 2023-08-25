@@ -115,6 +115,7 @@ public class CarReservationServices : ICarReservationServices
              .FirstOrDefaultAsync(x => x.Id == Id);
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
         var ToDto = _mapper.Map<CarReservationGetDTO>(ByReserv);
+        ToDto.ReservCar = await _carServices.GetByIdAsync(ByReserv.CarId);
         return ToDto;
     }
 
