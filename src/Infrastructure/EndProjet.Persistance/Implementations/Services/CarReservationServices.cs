@@ -277,15 +277,20 @@ public class CarReservationServices : ICarReservationServices
         await _carReservationWriteRepository.SavaChangeAsync();
     }
 
+    public async Task StatusNow(Guid Id)
+    {
+        var ByReserv = await _carReservationReadRepository.GetByIdAsync(Id);
+        if (ByReserv is null) throw new NotFoundException("Reservation is Null");
+
+        ByReserv.Status = ReservationStatus.RightNow;
+
+        _carReservationWriteRepository.Update(ByReserv);
+        await _carReservationWriteRepository.SavaChangeAsync();
+    }
+
     public async Task UpdateAsync(Guid id, CarReservationUpdateDTO carReservationUpdateDTO)
     {
-        Console.WriteLine(carReservationUpdateDTO.AppUserId
-            , carReservationUpdateDTO.CarId
-            , carReservationUpdateDTO.Number
-            , carReservationUpdateDTO.Email,
-            "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT" +
-            "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT" +
-            "");
+       
         var ByReserv = await _carReservationReadRepository.GetByIdAsync(id);
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
 
