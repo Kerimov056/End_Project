@@ -75,6 +75,13 @@ public class CarReservationsController : ControllerBase
         var Slider = await _carReservationServices.IsResevCanceledGetAll();
         return Ok(Slider); 
     }
+    
+    [HttpGet("IsResevNowGetAll")]
+    public async Task<IActionResult> ReservGetAllNow()
+    {
+        var Slider = await _carReservationServices.IsResevNowGetAll();
+        return Ok(Slider); 
+    }
 
 
     [HttpGet("UserId")]
