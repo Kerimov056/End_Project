@@ -34,7 +34,7 @@ public class CarController : ControllerBase
         return Ok(count);
     }
 
-    [HttpPost]
+    [HttpPost("postCar")]
     public async Task<IActionResult> Post([FromForm] CarCreateDTO carCreateDTO)
     {
         await _carServices.CreateAsync(carCreateDTO);
