@@ -110,7 +110,7 @@ public class CarReservationServices : ICarReservationServices
     {
         var ByReserv = await _carReservationReadRepository
              .GetAll()
-             .Include(x => x.PickupLocation)    
+             .Include(x => x.PickupLocation)
              .Include(x => x.ReturnLocation)
              .FirstOrDefaultAsync(x => x.Id == Id);
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
@@ -130,7 +130,7 @@ public class CarReservationServices : ICarReservationServices
 
     public async Task<int> GetConfirmedCountAsync()
     {
-        return await _carReservationReadRepository.GetReservConfirmedCountAsync();  
+        return await _carReservationReadRepository.GetReservConfirmedCountAsync();
     }
 
     public async Task<int> GetPeddingCountAsync()
@@ -172,7 +172,7 @@ public class CarReservationServices : ICarReservationServices
              .Include(x => x.ReturnLocation)
              .Where(x => x.Status == ReservationStatus.Confirmed)
              .ToListAsync();
-        
+
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
         var ToDto = _mapper.Map<List<CarReservationGetDTO>>(ByReserv);
         return ToDto;
@@ -189,6 +189,17 @@ public class CarReservationServices : ICarReservationServices
 
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
         var ToDto = _mapper.Map<List<CarReservationGetDTO>>(ByReserv);
+        foreach (var byCar in ByReserv)
+        {
+            foreach (var byCarDto in ToDto)
+            {
+                if (byCar.Id == byCarDto.Id)
+                {
+                    byCarDto.ReservCar = await _carServices.GetByIdAsync(byCar.CarId);
+                    break;
+                }
+            }
+        }
         return ToDto;
     }
 
@@ -236,7 +247,7 @@ public class CarReservationServices : ICarReservationServices
     {
         Console.WriteLine(carReservationUpdateDTO.AppUserId
             , carReservationUpdateDTO.CarId
-            ,carReservationUpdateDTO.Number
+            , carReservationUpdateDTO.Number
             , carReservationUpdateDTO.Email,
             "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT" +
             "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT" +
