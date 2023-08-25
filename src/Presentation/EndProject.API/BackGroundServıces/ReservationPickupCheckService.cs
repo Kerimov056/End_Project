@@ -39,6 +39,7 @@ public class ReservationPickupCheckService : IHostedService
                 if (reserv.ReturnDate.Hour == today.Hour  && reserv.ReturnDate.Day == today.Day && reserv.ReturnDate.Month == today.Month) 
                 {
                     await carServices.ReservCarTrue(reserv.CarId);
+                    await reservServices.StatusNow(reserv.CarId);
                     if (reserv.ChauffeursId is not null)
                     {
                         await chauffeurs.IsChauffeursTrue(reserv.ChauffeursId);
