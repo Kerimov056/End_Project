@@ -63,6 +63,17 @@ public class BlogService : IBlogService
         if (allBlog is null) throw new NotFoundException("Blog is Null");
 
         var ToDto = _mapper.Map<List<BlogGetDTO>>(allBlog);
+        foreach (var item in allBlog)
+        {
+            foreach (var dto in ToDto)
+            {
+                if (item.Id == dto.Id)
+                {
+                    dto.BlogImages = await _blogImageServices.GetAllBlogIdAsync(dto.Id);
+                    break;
+                }
+            }
+        }
         return ToDto;
     }
 
