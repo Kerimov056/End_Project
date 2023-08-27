@@ -83,6 +83,7 @@ public class BlogService : IBlogService
         if (ByBlog is null) throw new NotFoundException("Blog is Null");
 
         var ToDto = _mapper.Map<BlogGetDTO>(ByBlog);
+        ToDto.BlogImages = await _blogImageServices.GetAllBlogIdAsync(ByBlog.Id);
         return ToDto;
 
     }
