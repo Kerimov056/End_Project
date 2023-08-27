@@ -12,8 +12,13 @@ namespace EndProject.API.Controllers;
 public class BlogsController : ControllerBase
 {
     private readonly IBlogService _blogService;
+    private readonly IBlogImageServices _blogImageServices;
 
-    public BlogsController(IBlogService blogService) => _blogService = blogService;
+    public BlogsController(IBlogService blogService, IBlogImageServices blogImageServices)
+    {
+        _blogService = blogService;
+        _blogImageServices = blogImageServices;
+    }
 
     [HttpGet]
     public async Task<IActionResult> GetAll()
@@ -21,6 +26,14 @@ public class BlogsController : ControllerBase
         var Slider = await _blogService.GetAllAsync();
         return Ok(Slider);
     }
+
+    [HttpGet("AllBlogImage")]
+    public async Task<IActionResult> BlogAllImage(Guid blogId)
+    {
+        var blogImage = await _blogImageServices.GetAllBlogIdAsync(blogId);
+        return Ok(blogImage);
+    }
+
 
     [HttpPost]
     public async Task<IActionResult> Post([FromForm] BlogCreateDTO blogCreateDTO)

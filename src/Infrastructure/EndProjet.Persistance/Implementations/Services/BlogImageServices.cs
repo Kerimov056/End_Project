@@ -50,26 +50,21 @@ public class BlogImageServices : IBlogImageServices
         return ToDto;
     }
 
-    //public async Task<List<BlogImageDTO>> GetAllBlogIdAsync(Guid blogId)
-    //{
-    //    var byBlog = await _blogReadRepository.GetByIdAsync(blogId);
-    //    if (byBlog is null) throw new NotFoundException("Blog Is Null");
+    public async Task<List<BlogImageGetDTO>> GetAllBlogIdAsync(Guid blogId)
+    {
+        var byBlog = await _blogReadRepository.GetByIdAsync(blogId);
+        if (byBlog is null) throw new NotFoundException("Blog Is Null");
 
-    //    var BlogImageAll = await _blogImageReadRepository
-    //                        .GetAll()
-    //                        .Include(x=>x.Blog)
-    //                        .Where(x=>x.BlogId == blogId)
-    //                        .ToListAsync();
+        var BlogImageAll = await _blogImageReadRepository
+                            .GetAll()
+                            .Include(x=>x.Blog)
+                            .Where(x=>x.BlogId == blogId)
+                            .ToListAsync();
 
-    //    var ByBlogImage = new List<BlogImageDTO>();
 
-    //    //foreach (var blogImage in BlogImageAll)
-    //    //{
-    //    //    ByBlogImage.Add(blogImage.imagePath);
-    //    //}
-
-    //    return ByBlogImage;
-    //}
+        var blogImageDto = _mapper.Map<List<BlogImageGetDTO>>(BlogImageAll);
+        return blogImageDto;
+    }
 
     public async Task<BlogImageGetDTO> GetByIdAsync(Guid Id)
     {

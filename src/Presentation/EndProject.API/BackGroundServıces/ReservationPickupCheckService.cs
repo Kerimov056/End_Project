@@ -16,7 +16,7 @@ public class ReservationPickupCheckService : IHostedService
     public Task StartAsync(CancellationToken cancellationToken)
     {
         Console.WriteLine($"{nameof(ReservationReturnCheckService)}Service started....");
-        _timer = new Timer(carStautus, null, TimeSpan.Zero, TimeSpan.FromHours(1));
+        _timer = new Timer(carStautus, null, TimeSpan.Zero, TimeSpan.FromMinutes(10));
         //_timer = new Timer(otherCarStautus, null, TimeSpan.Zero, TimeSpan.FromHours(1));
         return Task.CompletedTask;
     }
@@ -36,7 +36,7 @@ public class ReservationPickupCheckService : IHostedService
             foreach (var reserv in confirmedReservs)
             {
                 Console.WriteLine("YEaa -");
-                if (reserv.ReturnDate.Hour == today.Hour  && reserv.ReturnDate.Day == today.Day && reserv.ReturnDate.Month == today.Month) 
+                if (reserv.ReturnDate.Hour == today.Hour  && reserv.ReturnDate.Day == today.Day) 
                 {
                     await carServices.ReservCarTrue(reserv.CarId);
                     await reservServices.StatusNow(reserv.CarId);
