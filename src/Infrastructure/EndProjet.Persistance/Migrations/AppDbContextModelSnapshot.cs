@@ -713,7 +713,7 @@ namespace EndProjet.Persistance.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CarReservationId")
+                    b.Property<Guid>("CarReservationId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedDate")
@@ -734,8 +734,7 @@ namespace EndProjet.Persistance.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CarReservationId")
-                        .IsUnique()
-                        .HasFilter("[CarReservationId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("PickupLocations");
                 });
@@ -746,7 +745,7 @@ namespace EndProjet.Persistance.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CarReservationId")
+                    b.Property<Guid>("CarReservationId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedDate")
@@ -767,8 +766,7 @@ namespace EndProjet.Persistance.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CarReservationId")
-                        .IsUnique()
-                        .HasFilter("[CarReservationId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("ReturnLocations");
                 });
@@ -1171,7 +1169,9 @@ namespace EndProjet.Persistance.Migrations
                 {
                     b.HasOne("EndProject.Domain.Entitys.CarReservation", "CarReservation")
                         .WithOne("PickupLocation")
-                        .HasForeignKey("EndProject.Domain.Entitys.PickupLocation", "CarReservationId");
+                        .HasForeignKey("EndProject.Domain.Entitys.PickupLocation", "CarReservationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("CarReservation");
                 });
@@ -1180,7 +1180,9 @@ namespace EndProjet.Persistance.Migrations
                 {
                     b.HasOne("EndProject.Domain.Entitys.CarReservation", "CarReservation")
                         .WithOne("ReturnLocation")
-                        .HasForeignKey("EndProject.Domain.Entitys.ReturnLocation", "CarReservationId");
+                        .HasForeignKey("EndProject.Domain.Entitys.ReturnLocation", "CarReservationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("CarReservation");
                 });

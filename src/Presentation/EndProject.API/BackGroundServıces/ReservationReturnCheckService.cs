@@ -36,7 +36,7 @@ public class ReservationReturnCheckService : IHostedService
             foreach (var reserv in confirmedReservs)
             {
                 Console.WriteLine("YEaa");
-                if (reserv.ReturnDate.Day == today.Day && reserv.ReturnDate.Hour == today.Hour && reserv.ReturnDate.Month == today.Month)
+                if (reserv.ReturnDate.Day == today.Day && reserv.ReturnDate.Hour == today.Hour )
                 {
                     Console.WriteLine("yes yes");
                     await carServices.ReservCarFalse(reserv.CarId);
@@ -52,30 +52,30 @@ public class ReservationReturnCheckService : IHostedService
         }
     }
 
-    private async void otherCarStautus(object state)
-    {
-        using (IServiceScope scope = _serviceProvider.CreateScope())
-        {
-            var carServices = scope.ServiceProvider.GetRequiredService<ICarServices>();
-            var otherReservServices = scope.ServiceProvider.GetRequiredService<IOtherCarReservationServices>();
-
-            var today = DateTime.Today;
-            var otherConfirimReservs = await otherReservServices.IsResevConfirmedGetAll();
-
-            foreach (var reserv in otherConfirimReservs)
-            {
-                Console.WriteLine("Other YEaa");
-                if (reserv.ReturnDate.Day == today.Day && reserv.ReturnDate.Hour == today.Hour && reserv.ReturnDate.Month == today.Month)
-                {
-                    Console.WriteLine("yes yes");
-                    //await otherReservServices.StatusCompleted(reserv);
-                    await carServices.ReservCarFalse(reserv.CarId);
-                }
-            }
-
-            Console.WriteLine($"Car Status DateTime is {DateTime.Now.ToLongTimeString()}");
-        }
-    }
+   // private async void otherCarStautus(object state)
+   // {
+   //     using (IServiceScope scope = _serviceProvider.CreateScope())
+   //     {
+   //         var carServices = scope.ServiceProvider.GetRequiredService<ICarServices>();
+   //         var otherReservServices = scope.ServiceProvider.GetRequiredService<IOtherCarReservationServices>();
+   //
+   //         var today = DateTime.Today;
+   //         var otherConfirimReservs = await otherReservServices.IsResevConfirmedGetAll();
+   //
+   //         foreach (var reserv in otherConfirimReservs)
+   //         {
+   //             Console.WriteLine("Other YEaa");
+   //             if (reserv.ReturnDate.Day == today.Day && reserv.ReturnDate.Hour == today.Hour && reserv.ReturnDate.Month == today.Month)
+   //             {
+   //                 Console.WriteLine("yes yes");
+   //                 //await otherReservServices.StatusCompleted(reserv);
+   //                 await carServices.ReservCarFalse(reserv.CarId);
+   //             }
+   //         }
+   //
+   //         Console.WriteLine($"Car Status DateTime is {DateTime.Now.ToLongTimeString()}");
+   //     }
+   // }
 
 
     public Task StopAsync(CancellationToken cancellationToken)

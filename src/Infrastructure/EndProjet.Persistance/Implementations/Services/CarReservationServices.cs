@@ -326,7 +326,6 @@ public class CarReservationServices : ICarReservationServices
 
     public async Task UpdateAsync(Guid id, CarReservationUpdateDTO carReservationUpdateDTO)
     {
-
         var ByReserv = await _carReservationReadRepository.GetByIdAsync(id);
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
 

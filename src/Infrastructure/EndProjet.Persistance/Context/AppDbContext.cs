@@ -12,10 +12,10 @@ public class AppDbContext : IdentityDbContext<AppUser>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Like>()
-      .HasOne(l => l.CarComment)
-      .WithMany(c => c.Like)
-      .HasForeignKey(l => l.CarCommentId)
-      .OnDelete(DeleteBehavior.Restrict);
+            .HasOne(l => l.CarComment)
+            .WithMany(c => c.Like)
+            .HasForeignKey(l => l.CarCommentId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<CarTag>()
             .HasOne(x => x.Car)

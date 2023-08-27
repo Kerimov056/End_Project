@@ -36,8 +36,9 @@ public class ReservationPickupCheckService : IHostedService
             foreach (var reserv in confirmedReservs)
             {
                 Console.WriteLine("YEaa -");
-                if (reserv.ReturnDate.Hour == today.Hour  && reserv.ReturnDate.Day == today.Day) 
+                if (reserv.PickupDate.Hour == today.Hour && reserv.PickupDate.Day == today.Day)
                 {
+                    Console.WriteLine("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
                     await carServices.ReservCarTrue(reserv.CarId);
                     await reservServices.StatusNow(reserv.CarId);
                     if (reserv.ChauffeursId is not null)
@@ -46,7 +47,6 @@ public class ReservationPickupCheckService : IHostedService
                     }
                 }
             }
-
             Console.WriteLine($"Car Pickup DateTime is {DateTime.Now.ToLongTimeString()}");
         }
     }

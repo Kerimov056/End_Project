@@ -219,6 +219,9 @@ D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\EndProject
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\EndProject.API.pdb
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\AutoMapper.dll
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Azure.Core.dll
+D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Azure.Storage.Blobs.dll
+D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Azure.Storage.Common.dll
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\FluentValidation.dll
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\FluentValidation.AspNetCore.dll
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\FluentValidation.DependencyInjectionExtensions.dll
@@ -227,6 +230,7 @@ D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Microsoft.
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.Internal.dll
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
@@ -247,6 +251,7 @@ D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Microsoft.
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Microsoft.OpenApi.dll
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Newtonsoft.Json.dll
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -254,6 +259,9 @@ D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\System.Con
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\System.Diagnostics.DiagnosticSource.dll
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\System.Drawing.Common.dll
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\System.IO.Hashing.dll
+D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\System.Memory.Data.dll
+D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\System.Net.WebSockets.WebSocketProtocol.dll
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\System.Runtime.Caching.dll
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\System.Security.Cryptography.Pkcs.dll
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
@@ -316,11 +324,3 @@ D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\refint\End
 D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\EndProject.API.pdb
 D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\EndProject.API.genruntimeconfig.cache
 D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\ref\EndProject.API.dll
-D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Azure.Core.dll
-D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Azure.Storage.Blobs.dll
-D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Azure.Storage.Common.dll
-D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
-D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\System.IO.Hashing.dll
-D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\System.Memory.Data.dll
-D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Newtonsoft.Json.dll
-D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\System.Net.WebSockets.WebSocketProtocol.dll

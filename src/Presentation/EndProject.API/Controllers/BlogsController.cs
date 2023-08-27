@@ -1,7 +1,5 @@
 ﻿using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Blog;
-using EndProject.Application.DTOs.Slider;
-using EndProjet.Persistance.Implementations.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 

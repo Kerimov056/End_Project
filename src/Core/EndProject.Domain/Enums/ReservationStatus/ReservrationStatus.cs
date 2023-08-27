@@ -13,3 +13,4 @@ public enum ReservationStatus
 // Təsdiqlənmiş,
 // Tamamlanmış,
 // Ləğv edildi
+// hal hazirda
