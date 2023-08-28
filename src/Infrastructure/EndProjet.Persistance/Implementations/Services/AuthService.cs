@@ -44,10 +44,7 @@ public class AuthService : IAuthService
         if (appUser is null)
         {
             appUser = await _userManager.FindByNameAsync(loginDTO.UsernameOrEmail);
-            if (appUser is null)
-            {
-                throw new LogInFailerException("Invalid Login!");
-            }
+            if (appUser is null) throw new LogInFailerException("Invalid Login!");
         }
 
         Microsoft.AspNetCore.Identity.SignInResult signResult = await _siginManager.CheckPasswordSignInAsync(appUser, loginDTO.password, true);
