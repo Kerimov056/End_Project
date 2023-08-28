@@ -148,6 +148,14 @@ public class CarReservationsController : ControllerBase
     public async Task<IActionResult> UptadeStatusCancled(Guid Id)
     {
         await _carReservationServices.StatusCanceled(Id);
+        var byReserv = await _carReservationServices.GetByIdAsync(Id);
+        string subject = "Was not accepted message";
+        string html = string.Empty;
+
+        string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "templates", "Cancel.html");
+        html = System.IO.File.ReadAllText(filePath);
+
+        _emailService.Send(byReserv.Email, subject, html);
         return Ok();
     } 
     

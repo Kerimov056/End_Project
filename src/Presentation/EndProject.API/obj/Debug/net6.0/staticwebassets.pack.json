@@ -1,6 +1,10 @@
 {
   "Files": [
     {
+      "Id": "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\wwwroot\\templates\\Cancel.html",
+      "PackagePath": "staticwebassets\\templates\\Cancel.html"
+    },
+    {
       "Id": "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\wwwroot\\templates\\confirm.html",
       "PackagePath": "staticwebassets\\templates\\confirm.html"
     },
