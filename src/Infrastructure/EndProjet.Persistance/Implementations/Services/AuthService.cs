@@ -7,6 +7,7 @@ using EndProject.Domain.Helpers;
 using EndProjet.Persistance.Context;
 using EndProjet.Persistance.Exceptions;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Text;
@@ -36,6 +37,7 @@ public class AuthService : IAuthService
         _configuration = configuration;
         _tokenHandler = tokenHandler;
     }
+
     public async Task<TokenResponseDTO> Login(LoginDTO loginDTO)
     {
         AppUser appUser = await _userManager.FindByEmailAsync(loginDTO.UsernameOrEmail);
@@ -48,7 +50,7 @@ public class AuthService : IAuthService
             }
         }
 
-        SignInResult signResult = await _siginManager.CheckPasswordSignInAsync(appUser, loginDTO.password, true);
+        Microsoft.AspNetCore.Identity.SignInResult signResult = await _siginManager.CheckPasswordSignInAsync(appUser, loginDTO.password, true);
         if (!signResult.Succeeded)
         {
             throw new LogInFailerException("Invalid Login!");

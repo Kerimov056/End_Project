@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure;
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.CarReservation;
@@ -21,7 +22,6 @@ public class CarReservationServices : ICarReservationServices
     private readonly IStorageFile _uploadFile;
     private readonly IMapper _mapper;
     private readonly IBasketServices _basketServices;
-    private readonly AppDbContext _appDbContext;
 
     public CarReservationServices(ICarReservationReadRepository carReservationReadRepository,
                                   ICarReservationWriteRepository carReservationWriteRepository,
@@ -31,8 +31,7 @@ public class CarReservationServices : ICarReservationServices
                                   IStorageFile uploadFile,
                                   ICarServices carServices,
                                   IChauffeursServices chauffeursServices,
-                                  IBasketServices basketServices,
-                                  AppDbContext appDbContext)
+                                  IBasketServices basketServices)
     {
         _carReservationReadRepository = carReservationReadRepository;
         _carReservationWriteRepository = carReservationWriteRepository;
@@ -42,7 +41,6 @@ public class CarReservationServices : ICarReservationServices
         _uploadFile = uploadFile;
         _carServices = carServices;
         _chauffeursServices = chauffeursServices;
-        _appDbContext = appDbContext;
         _basketServices = basketServices;
     }
 
@@ -75,7 +73,7 @@ public class CarReservationServices : ICarReservationServices
             CarId = carReservationCreateDTO.CarId,
             ChauffeursId = carReservationCreateDTO.ChauffeursId
         };
-        newReserv.AppUserId = "1c1b3f62-334d-46c1-8563-b872782f11ed";
+        newReserv.AppUserId = "4d12fb35-a688-4270-9c51-f28d4b19e3ae";
 
         if (carReservationCreateDTO.Image != null && carReservationCreateDTO.Image.Length > 0)
         {

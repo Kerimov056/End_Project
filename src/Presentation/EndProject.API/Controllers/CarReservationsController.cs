@@ -1,5 +1,8 @@
-﻿using EndProject.Application.Abstraction.Services;
+﻿using Azure;
+using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.CarReservation;
+using EndProject.Domain.Entitys.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -10,8 +13,14 @@ namespace EndProject.API.Controllers;
 public class CarReservationsController : ControllerBase
 {
     private readonly ICarReservationServices _carReservationServices;
-    public CarReservationsController(ICarReservationServices carReservationServices) => _carReservationServices = carReservationServices;
+    private readonly IEmailService _emailService;
 
+    public CarReservationsController(ICarReservationServices carReservationServices,
+                                     IEmailService emailService)
+    {
+        _carReservationServices = carReservationServices;
+        _emailService = emailService;
+    }
 
     [HttpGet]
     public async Task<IActionResult> GetAll()
@@ -123,6 +132,15 @@ public class CarReservationsController : ControllerBase
     public async Task<IActionResult> UptadeStatus(Guid Id)
     {
         await _carReservationServices.StatusConfirmed(Id);
+        var byReserv = await _carReservationServices.GetByIdAsync(Id);
+        string subject = "Confirmation message";
+        string html = string.Empty;
+
+        string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "templates", "confirm.html");
+        html = System.IO.File.ReadAllText(filePath);
+
+        _emailService.Send(byReserv.Email, subject, html);
+
         return Ok();
     }
 

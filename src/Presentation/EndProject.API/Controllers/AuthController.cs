@@ -2,10 +2,11 @@
 using EndProject.Application.DTOs.Auth;
 using EndProject.Domain.Entitys.Common;
 using EndProject.Domain.Helpers;
-using EndProjet.Persistance.Exceptions;
+using EndProjet.Persistance.Context;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
 
 namespace EndProject.API.Controllersş
 {
@@ -16,13 +17,16 @@ namespace EndProject.API.Controllersş
     {
         private readonly IAuthService _authService;
         private readonly IEmailService _emailService;
+        private readonly AppDbContext _appDbContext;
 
         public AuthController(IAuthService authService
             , IEmailService emailService
+            , AppDbContext appDbContext
             )
         {
             _authService = authService;
             _emailService = emailService;
+            _appDbContext = appDbContext;
         }
 
         [HttpPost("register")]
@@ -70,6 +74,18 @@ namespace EndProject.API.Controllersş
             return Ok(response);
         }
 
+        //[HttpPost("Forget-Password")]
+        //public async Task<IActionResult> ForgetPassword(string email)
+        //{
+        //    var user = await _appDbContext.Users.FirstOrDefaultAsync(x => x.Email == email);
+        //    if (user is null) return BadRequest("User not Found");
+            
+        //    user.RefreshTokenExpration
+        //}
 
+       // private string CreateRandomToken()
+       // {
+       //     return Convert.ToHexString(RandomNumberGenerator.GetBytes(64));
+       // }
     }
 }

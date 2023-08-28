@@ -90,13 +90,11 @@ if (app.Environment.IsDevelopment())
 app.MapHub<ChatHub>("/chat");
 
 app.UseCors();
-
-//app.UseCors(cors => cors
-//            .AllowAnyHeader()
-//            .AllowAnyMethod()
-//            .SetIsOriginAllowed(x => true)
-//            .AllowCredentials());
-
+app.UseCors(cors => cors
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .SetIsOriginAllowed(x => true)
+            .AllowCredentials());
 
 //app.UseHttpsRedirection();
 //app.UseRouting(); // Bu satırı ekleyin
