@@ -4,6 +4,7 @@ using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.CarReservation;
 using EndProject.Domain.Entitys;
 using EndProject.Domain.Enums.ReservationStatus;
+using EndProjet.Persistance.Context;
 using EndProjet.Persistance.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +20,8 @@ public class CarReservationServices : ICarReservationServices
     private readonly IChauffeursServices _chauffeursServices;
     private readonly IStorageFile _uploadFile;
     private readonly IMapper _mapper;
+    private readonly IBasketServices _basketServices;
+    private readonly AppDbContext _appDbContext;
 
     public CarReservationServices(ICarReservationReadRepository carReservationReadRepository,
                                   ICarReservationWriteRepository carReservationWriteRepository,
@@ -27,7 +30,9 @@ public class CarReservationServices : ICarReservationServices
                                   IReturnLocationWriteRepository returnLocationWriteRepository,
                                   IStorageFile uploadFile,
                                   ICarServices carServices,
-                                  IChauffeursServices chauffeursServices)
+                                  IChauffeursServices chauffeursServices,
+                                  IBasketServices basketServices,
+                                  AppDbContext appDbContext)
     {
         _carReservationReadRepository = carReservationReadRepository;
         _carReservationWriteRepository = carReservationWriteRepository;
@@ -37,6 +42,18 @@ public class CarReservationServices : ICarReservationServices
         _uploadFile = uploadFile;
         _carServices = carServices;
         _chauffeursServices = chauffeursServices;
+        _appDbContext = appDbContext;
+        _basketServices = basketServices;
+    }
+
+    public async Task AllCreateAsync(CarReservationCreateDTO carReservationCreateDTO)
+    {
+        //var products = await _basketServices.GetBasketProductsAsync();
+        //foreach (var product in products)
+        //{
+            
+        //}
+        throw new NotImplementedException();
     }
 
     public async Task CreateAsync(CarReservationCreateDTO carReservationCreateDTO)
@@ -44,9 +61,8 @@ public class CarReservationServices : ICarReservationServices
         if (carReservationCreateDTO.PickupDate < DateTime.Now) throw new Exception("Choose a Time !!!");
         if (carReservationCreateDTO.ReturnDate < carReservationCreateDTO.PickupDate) throw new Exception("Choose a Time !!! ");
 
-        DateTime minimumReturnDate = carReservationCreateDTO.PickupDate.AddDays(1);
-        if (carReservationCreateDTO.ReturnDate < minimumReturnDate) throw new Exception("ReturnDate must be at least 1 day after PickupDate.");
-
+        //DateTime minimumReturnDate = carReservationCreateDTO.PickupDate.AddDays(1);
+        //if (carReservationCreateDTO.ReturnDate < minimumReturnDate) throw new Exception("ReturnDate must be at least 1 day after PickupDate.");
         var newReserv = new CarReservation
         {
             Email = carReservationCreateDTO.Email,

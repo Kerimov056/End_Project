@@ -69,7 +69,8 @@ public class CarCommentServices : ICarCommentServices
     {
         var ByComment = await _carCommentReadRepository
             .GetAll()
-            .Include(x =>x.Like)
+            .Include(x => x.Like)
+            .Include(x => x.AppUser)
             .Where(x => x.Id == Id)
             .FirstOrDefaultAsync();
         if (ByComment is null) throw new NotFoundException("Comment is Null");

@@ -30,21 +30,24 @@ public class ReservationReturnCheckService : IHostedService
             var chauffeurs = scope.ServiceProvider.GetRequiredService<IChauffeursServices>();
 
 
-            var today = DateTime.Today;
+            var today = DateTime.Now;
             var confirmedReservs = await reservServices.IsResevConfirmedGetAll();
 
             foreach (var reserv in confirmedReservs)
             {
                 Console.WriteLine("YEaa");
-                if (reserv.ReturnDate.Day == today.Day && reserv.ReturnDate.Hour == today.Hour )
+                if (reserv.ReturnDate.Minute == today.Minute
+                    && reserv.ReturnDate.Hour == today.Hour
+                    && reserv.ReturnDate.Day == today.Day
+                    && reserv.ReturnDate.Month == today.Month)
                 {
                     Console.WriteLine("yes yes");
-                    await carServices.ReservCarFalse(reserv.CarId);
-                    await reservServices.StatusCompleted(reserv.Id);
-                    if (reserv.ChauffeursId is not null)
-                    {
-                        await chauffeurs.IsChauffeursFalse(reserv.ChauffeursId);
-                    }
+                    //await carServices.ReservCarFalse(reserv.CarId);
+                    //await reservServices.StatusCompleted(reserv.Id);
+                    //if (reserv.ChauffeursId is not null)
+                    //{
+                    //    await chauffeurs.IsChauffeursFalse(reserv.ChauffeursId);
+                    //}
                 }
             }
 

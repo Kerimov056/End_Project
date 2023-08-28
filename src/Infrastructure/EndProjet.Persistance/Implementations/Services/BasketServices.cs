@@ -3,7 +3,6 @@ using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Basket;
 using EndProject.Domain.Entitys;
-using EndProjet.Persistance.Context;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
@@ -135,7 +134,7 @@ public class BasketServices : IBasketServices
         {
             byCar.carGetDTO = await _carServices.GetByIdAsync(byCar.CarId);
         }
-        return basketProduct;
+        return basketProduct;    
     }
 
     private async Task<int> GetItemBasketCount(Guid carId)
