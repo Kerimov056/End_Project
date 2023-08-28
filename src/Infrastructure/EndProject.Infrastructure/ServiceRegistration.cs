@@ -13,7 +13,6 @@ public static class ServiceRegistration
     {
         services.AddScoped<ITokenHandler, TokenHandler>();
         services.AddScoped<IStorageFile, StorageFile>();
-        services.AddScoped<IEmailService, EmailService>();
         services.AddScoped<AzureBlobService>();
         //services.AddScoped<ILocalStorage, LocalStorage>();
     }
