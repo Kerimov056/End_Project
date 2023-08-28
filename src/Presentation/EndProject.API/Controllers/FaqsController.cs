@@ -23,7 +23,7 @@ public class FaqsController : ControllerBase
         return Ok(Slider);
     }
 
-    [HttpPost]
+    [HttpPost("PostFaq")]
     public async Task<IActionResult> Post([FromForm] FaqCreateDTO faqCreateDTO)
     {
         await _faqServices.CreateAsync(faqCreateDTO);
