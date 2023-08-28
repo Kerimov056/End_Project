@@ -1,11 +1,54 @@
 {
   "Version": 1,
-  "Hash": "/ZKeEygEKIfm7oLbGIfrhHX8T6336mYPTAZODklvRr8=",
+  "Hash": "FKpv4Htm7LimiaOc1vs2JnP52ag+4717HTiLP3yYWBs=",
   "Source": "EndProject.API",
   "BasePath": "_content/EndProject.API",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "EndProject.API\\wwwroot",
+      "Source": "EndProject.API",
+      "ContentRoot": "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\wwwroot\\",
+      "BasePath": "_content/EndProject.API",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\wwwroot\\templates\\confirm.html",
+      "SourceId": "EndProject.API",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\wwwroot\\",
+      "BasePath": "_content/EndProject.API",
+      "RelativePath": "templates/confirm.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\templates\\confirm.html"
+    },
+    {
+      "Identity": "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\wwwroot\\templates\\verify.html",
+      "SourceId": "EndProject.API",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\wwwroot\\",
+      "BasePath": "_content/EndProject.API",
+      "RelativePath": "templates/verify.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\templates\\verify.html"
+    }
+  ]
 }

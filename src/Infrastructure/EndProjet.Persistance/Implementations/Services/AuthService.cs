@@ -1,7 +1,9 @@
 ﻿using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Auth;
+using EndProject.Domain.Entitys.Common;
 using EndProject.Domain.Entitys.Identity;
 using EndProject.Domain.Enums.Role;
+using EndProject.Domain.Helpers;
 using EndProjet.Persistance.Context;
 using EndProjet.Persistance.Exceptions;
 using Microsoft.AspNetCore.Identity;
@@ -64,7 +66,7 @@ public class AuthService : IAuthService
     }
 
 
-    public async Task Register(RegisterDTO registerDTO)
+    public async Task<SignUpResponse> Register(RegisterDTO registerDTO)
     {
         AppUser appUser = new AppUser()
         {
@@ -88,13 +90,19 @@ public class AuthService : IAuthService
         var result = await _userManager.AddToRoleAsync(appUser, Role.Member.ToString());
         if (!result.Succeeded)
         {
-            StringBuilder errorMessage = new();
-            foreach (var error in result.Errors)
+            return new SignUpResponse
             {
-                errorMessage.AppendLine(error.Description);
-            }
-            throw new RegistrationException(errorMessage.ToString());
+                StatusMessage = ExceptionResponseMessages.UserFailedMessage,
+                Errors = result.Errors.Select(e => e.Description).ToList()
+            };
         }
+
+        return new SignUpResponse
+        {
+            Errors = null,
+            StatusMessage = ExceptionResponseMessages.UserSuccesMessage,
+            UserEmail = appUser.Email
+        };
     }
 
     public async Task<TokenResponseDTO> ValidRefleshToken(string refreshToken)

@@ -1,7 +1,10 @@
 ﻿//using SignalRChat.Hubs;
 using EndProject.API.BackGroundServıces;
 using EndProject.API.Hub;
+using EndProject.Application.Abstraction.Services;
+using EndProject.Domain.Helpers.AccountSetting;
 using EndProject.Infrastructure;
+using EndProject.Infrastructure.Services.Email;
 using EndProjet.Persistance.Context;
 using EndProjet.Persistance.ExtensionsMethods;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -16,7 +19,20 @@ builder.Services.AddControllers();
 builder.Services.AddPersistenceServices();
 builder.Services.AddInfrastructureServices();
 
-builder.Services.AddCors();
+//builder.Services.AddCors();
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        builder =>
+        {
+            builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+        });
+});
+
+
+builder.Services.Configure<EmailSetting>(builder.Configuration.GetSection("EmailSettings"));
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<EmailSetting>();
 
 
 builder.Services.AddScoped<AppDbContextInitializer>();
@@ -64,7 +80,6 @@ using (var scope = app.Services.CreateScope())
     await instance.UserSeedAsync();
 }
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -74,17 +89,17 @@ if (app.Environment.IsDevelopment())
 
 app.MapHub<ChatHub>("/chat");
 
+app.UseCors();
 
-app.UseCors(cors => cors
-            .WithOrigins("http://localhost:3000")
-            .AllowAnyHeader()
-            .AllowAnyMethod()
-            .SetIsOriginAllowed(x => true)
-            .AllowCredentials());
+//app.UseCors(cors => cors
+//            .AllowAnyHeader()
+//            .AllowAnyMethod()
+//            .SetIsOriginAllowed(x => true)
+//            .AllowCredentials());
 
 
-app.UseHttpsRedirection();
-app.UseRouting(); // Bu satırı ekleyin
+//app.UseHttpsRedirection();
+//app.UseRouting(); // Bu satırı ekleyin
 
 
 app.UseAuthentication();

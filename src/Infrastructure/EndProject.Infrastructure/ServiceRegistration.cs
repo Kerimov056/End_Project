@@ -1,8 +1,7 @@
 ﻿using EndProject.Application.Abstraction.Services;
-using EndProject.Application.Abstraction.Services.Loccal;
 using EndProject.Infrastructure.Services;
 using EndProject.Infrastructure.Services.Azure;
-using EndProject.Infrastructure.Services.Local;
+using EndProject.Infrastructure.Services.Email;
 using EndProject.Infrastructure.Services.Token;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,7 +13,7 @@ public static class ServiceRegistration
     {
         services.AddScoped<ITokenHandler, TokenHandler>();
         services.AddScoped<IStorageFile, StorageFile>();
-        services.AddScoped<IStorgeService, StorgeService>();
+        services.AddScoped<IEmailService, EmailService>();
         services.AddScoped<AzureBlobService>();
         //services.AddScoped<ILocalStorage, LocalStorage>();
     }

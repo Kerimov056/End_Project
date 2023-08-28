@@ -1,7 +1,11 @@
 ﻿using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Auth;
+using EndProject.Domain.Entitys.Common;
+using EndProject.Domain.Helpers;
+using EndProjet.Persistance.Exceptions;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace EndProject.API.Controllersş
 {
@@ -11,14 +15,45 @@ namespace EndProject.API.Controllersş
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
-        public AuthController(IAuthService authService) => _authService = authService;
+        private readonly IEmailService _emailService;
 
+        public AuthController(IAuthService authService
+            , IEmailService emailService
+            )
+        {
+            _authService = authService;
+            _emailService = emailService;
+        }
 
         [HttpPost("register")]
+        [ProducesResponseType(statusCode: StatusCodes.Status200OK)]
         public async Task<IActionResult> Register([FromBody] RegisterDTO registerDTO)
         {
-            await _authService.Register(registerDTO);
-            return Ok();
+            ArgumentNullException.ThrowIfNull(registerDTO, ExceptionResponseMessages.ParametrNotFoundMessage);
+
+            SignUpResponse response = await _authService.Register(registerDTO)
+                    ?? throw new InvalidException(ExceptionResponseMessages.NotFoundMessage);
+
+            if (response.Errors != null)
+            {
+                if (response.Errors.Count > 0)
+                {
+                    return BadRequest(response.Errors);
+                }
+            }
+
+            string subject = "Register Confirmation";
+            string html = string.Empty;
+            string password = registerDTO.password;
+
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "templates", "verify.html");
+            html = System.IO.File.ReadAllText(filePath);
+
+            html = html.Replace("{{password}}", password);
+
+            _emailService.Send(registerDTO.Email, subject, html);
+
+            return Ok(response);
         }
 
         [HttpPost("Login")]
@@ -35,6 +70,6 @@ namespace EndProject.API.Controllersş
             return Ok(response);
         }
 
-     
+
     }
 }
