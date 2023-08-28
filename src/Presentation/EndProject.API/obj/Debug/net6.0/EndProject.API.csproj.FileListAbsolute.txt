@@ -324,3 +324,9 @@ D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\refint\End
 D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\EndProject.API.pdb
 D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\EndProject.API.genruntimeconfig.cache
 D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\ref\EndProject.API.dll
+D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\BouncyCastle.Cryptography.dll
+D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\MailKit.dll
+D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\MimeKit.dll
+D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\System.Formats.Asn1.dll
+D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\System.Text.Encoding.CodePages.dll
+D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Text.Encoding.CodePages.dll
