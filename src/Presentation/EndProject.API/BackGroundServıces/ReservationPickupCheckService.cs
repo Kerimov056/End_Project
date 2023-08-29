@@ -1,4 +1,7 @@
 ﻿using EndProject.Application.Abstraction.Services;
+using EndProject.Domain.Enums.ReservationStatus;
+using EndProjet.Persistance.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace EndProject.API.BackGroundServıces;
 
@@ -16,41 +19,38 @@ public class ReservationPickupCheckService : IHostedService
     public Task StartAsync(CancellationToken cancellationToken)
     {
         Console.WriteLine($"{nameof(ReservationReturnCheckService)}Service started....");
-        _timer = new Timer(carStautus, null, TimeSpan.Zero, TimeSpan.FromSeconds(10));
+        _timer = new Timer(carStautus, null, TimeSpan.Zero, TimeSpan.FromSeconds(50));
         //_timer = new Timer(otherCarStautus, null, TimeSpan.Zero, TimeSpan.FromHours(1));
         return Task.CompletedTask;
     }
+    private static readonly object lockObject = new object(); // Kilidi yönetmek için bir nesne oluşturuyoruz
 
     private async void carStautus(object state)
     {
         using (IServiceScope scope = _serviceProvider.CreateScope())
         {
+            var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
             var carServices = scope.ServiceProvider.GetRequiredService<ICarServices>();
             var reservServices = scope.ServiceProvider.GetRequiredService<ICarReservationServices>();
             var chauffeurs = scope.ServiceProvider.GetRequiredService<IChauffeursServices>();
 
 
             var today = DateTime.Now;
-            Console.WriteLine(today);
-            var confirmedReservs = await reservServices.IsResevConfirmedGetAll();
-
-
-
+            var confirmedReservs = await dbContext.CarReservations
+                                   .Where(x => x.Status == ReservationStatus.Confirmed)
+                                   .Where(x => x.PickupDate.Hour == today.Hour)
+                                   .Where(x => x.PickupDate.Day == today.Day)
+                                   .ToListAsync();
+            Console.WriteLine("Heleki yo");
             foreach (var reserv in confirmedReservs)
             {
-                Console.WriteLine("YEaa -");
-                if (reserv.PickupDate.Minute == today.Minute
-                    && reserv.PickupDate.Hour == today.Hour
-                    && reserv.PickupDate.Day == today.Day
-                    && reserv.PickupDate.Month == today.Month)
+
+                Console.WriteLine("-----MMMMMMMMMMMMMMMMMMMMMMM-----");
+                await reservServices.StatusNow(reserv.Id);
+                await carServices.ReservCarTrue(reserv.CarId);
+                if (reserv.ChauffeursId is not null)
                 {
-                    Console.WriteLine("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
-                    await reservServices.StatusNow(reserv.Id);
-                    await carServices.ReservCarTrue(reserv.CarId);
-                    if (reserv.ChauffeursId is not null)
-                    {
-                        await chauffeurs.IsChauffeursTrue(reserv.ChauffeursId);
-                    }
+                    await chauffeurs.IsChauffeursTrue(reserv.ChauffeursId);
                 }
             }
             Console.WriteLine($"Car Pickup DateTime is {DateTime.Now.ToLongTimeString()}");

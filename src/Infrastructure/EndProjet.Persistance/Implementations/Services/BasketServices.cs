@@ -5,6 +5,7 @@ using EndProject.Application.DTOs.Basket;
 using EndProject.Domain.Entitys;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System.IdentityModel.Claims;
 
 namespace EndProjet.Persistance.Implementations.Services;
 
@@ -34,8 +35,8 @@ public class BasketServices : IBasketServices
 
     public async Task AddBasketAsync(Guid Id)
     {
-        //var userId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        var userId = "1c1b3f62-334d-46c1-8563-b872782f11ed";
+        var userId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        //var userId = "4d12fb35-a688-4270-9c51-f28d4b19e3ae";
 
         var basket = await _readRepository
                             .Table
@@ -68,7 +69,7 @@ public class BasketServices : IBasketServices
 
     public async Task DeleteBasketAsync(Guid id)
     {
-       var userId = "1c1b3f62-334d-46c1-8563-b872782f11ed";
+        var userId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         if (userId is null) throw new NullReferenceException();
 
         var basket = await _readRepository
@@ -83,7 +84,7 @@ public class BasketServices : IBasketServices
 
     public async Task DeleteBasketItemAsync(Guid carId)
     {
-        var userId = "1c1b3f62-334d-46c1-8563-b872782f11ed";
+        var userId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
         var basket = await _readRepository
                              .Table
@@ -102,7 +103,7 @@ public class BasketServices : IBasketServices
 
     public async Task<int> GetBasketCountAsync()
     {
-        var userId = "1c1b3f62-334d-46c1-8563-b872782f11ed";
+        var userId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
         var basket = await _readRepository
                             .Table
@@ -121,7 +122,7 @@ public class BasketServices : IBasketServices
 
     public async Task<List<BasketProductListDto>> GetBasketProductsAsync()
     {
-        var userId = "1c1b3f62-334d-46c1-8563-b872782f11ed";
+        var userId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
         var basket = await _readRepository
                             .Table
@@ -139,7 +140,7 @@ public class BasketServices : IBasketServices
 
     private async Task<int> GetItemBasketCount(Guid carId)
     {
-        var userId = "1c1b3f62-334d-46c1-8563-b872782f11ed";
+        var userId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
 
         var basket = await _readRepository

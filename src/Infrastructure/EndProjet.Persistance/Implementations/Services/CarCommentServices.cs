@@ -44,6 +44,7 @@ public class CarCommentServices : ICarCommentServices
                             .Include(x => x.Like)
                             .Include(x => x.Car)
                             .Where(x => x.Car.Id == CarId)
+                            .OrderByDescending(x => x.CreatedDate)
                             .ToListAsync();
         if (CarAllComment is null) throw new NotFoundException("Comment is null");
 

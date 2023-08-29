@@ -63,7 +63,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//builder.Services.AddHostedService<BirthDateBGServices>();
+builder.Services.AddHostedService<BirthDateBGServices>();
 builder.Services.AddHostedService<ReservationPickupCheckService>();
 builder.Services.AddHostedService<ReservationReturnCheckService>();
 

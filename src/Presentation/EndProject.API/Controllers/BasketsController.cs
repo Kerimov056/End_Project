@@ -17,7 +17,6 @@ public class BasketsController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> AddBasket([Required][FromQuery] Guid Id)
     {
-
         await _basketService.AddBasketAsync(Id);
         return StatusCode((int)HttpStatusCode.Created);
     }
