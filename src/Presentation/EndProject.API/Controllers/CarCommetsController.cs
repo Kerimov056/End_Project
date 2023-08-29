@@ -19,7 +19,7 @@ public class CarCommetsController : ControllerBase
         return Ok(Slider);
     }
 
-    [HttpPost]
+    [HttpPost("commentPost")]
     public async Task<IActionResult> Post([FromForm] CarCommentCreateDTO carCommentCreateDTO)
     {
         await _carCommentServices.CreateAsync(carCommentCreateDTO);

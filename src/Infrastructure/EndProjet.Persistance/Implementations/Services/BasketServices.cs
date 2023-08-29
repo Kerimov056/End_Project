@@ -33,20 +33,19 @@ public class BasketServices : IBasketServices
         _carServices = carServices;
     }
 
-    public async Task AddBasketAsync(Guid Id)
+    public async Task AddBasketAsync(Guid Id, string UserId)
     {
-        var userId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         //var userId = "4d12fb35-a688-4270-9c51-f28d4b19e3ae";
 
         var basket = await _readRepository
                             .Table
                             .Include(x => x.basketProduct)
-                            .FirstOrDefaultAsync(x => x.AppUserId == userId);
-        if (basket == null)
+                            .FirstOrDefaultAsync(x => x.AppUserId == UserId);
+        if (basket is null)
         {
             basket = new Basket
             {
-                AppUserId = userId,
+                AppUserId = UserId,
             };
             await _writeRepository.AddAsync(basket);
             await _writeRepository.SavaChangeAsync();
@@ -67,15 +66,15 @@ public class BasketServices : IBasketServices
         await _writeRepository.SavaChangeAsync();
     }
 
-    public async Task DeleteBasketAsync(Guid id)
+    public async Task DeleteBasketAsync(Guid id, string UserId)
     {
-        var userId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        if (userId is null) throw new NullReferenceException();
+        //var userId = "4d12fb35-a688-4270-9c51-f28d4b19e3ae";
+        if (UserId is null) throw new NullReferenceException();
 
         var basket = await _readRepository
                                .Table
                                .Include(x =>x.basketProduct)
-                               .FirstOrDefaultAsync(x=>x.AppUserId == userId);
+                               .FirstOrDefaultAsync(x=>x.AppUserId == UserId);
         if (basket == null) throw new NullReferenceException();
 
         _writeRepository.Remove(basket);
@@ -84,12 +83,13 @@ public class BasketServices : IBasketServices
 
     public async Task DeleteBasketItemAsync(Guid carId)
     {
-        var userId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        var userId = "4d12fb35-a688-4270-9c51-f28d4b19e3ae";
 
         var basket = await _readRepository
                              .Table
                              .Include(x => x.basketProduct)
                              .FirstOrDefaultAsync(x => x.AppUserId == userId);
+
         if (basket is null) throw new NullReferenceException();
 
         var basketProduct = basket.basketProduct.FirstOrDefault(x => x.CarId == carId && x.BasketId == basket.Id);
@@ -101,14 +101,13 @@ public class BasketServices : IBasketServices
         await _writeRepository.SavaChangeAsync();
     }
 
-    public async Task<int> GetBasketCountAsync()
+    public async Task<int> GetBasketCountAsync(string UserId)
     {
-        var userId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
         var basket = await _readRepository
                             .Table
                             .Include(x => x.basketProduct)
-                            .FirstOrDefaultAsync(x => x.AppUserId == userId);
+                            .FirstOrDefaultAsync(x => x.AppUserId == UserId);
         if (basket == null) throw new NullReferenceException();
 
         var basketProduct = basket?.basketProduct;
@@ -120,14 +119,13 @@ public class BasketServices : IBasketServices
         return uniqeProductCount;
     }
 
-    public async Task<List<BasketProductListDto>> GetBasketProductsAsync()
+    public async Task<List<BasketProductListDto>> GetBasketProductsAsync(string UserId)
     {
-        var userId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
         var basket = await _readRepository
                             .Table
                             .Include(x => x.basketProduct)
-                            .FirstOrDefaultAsync(x => x.AppUserId == userId);
+                            .FirstOrDefaultAsync(x => x.AppUserId == UserId);
         if (basket == null) throw new NullReferenceException();
 
         var basketProduct = _mapper.Map<List<BasketProductListDto>>(basket.basketProduct);
@@ -140,8 +138,7 @@ public class BasketServices : IBasketServices
 
     private async Task<int> GetItemBasketCount(Guid carId)
     {
-        var userId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
+        var userId = "4d12fb35-a688-4270-9c51-f28d4b19e3ae";
 
         var basket = await _readRepository
                            .Table

@@ -43,7 +43,7 @@ public class ReservationReturnCheckService : IHostedService
             Console.WriteLine("Heleki yo");
             foreach (var reserv in confirmedReservs)
             {
-                Console.WriteLine("yes yes");
+                Console.WriteLine("-----MMMMMMMMMMMMMMMMMMMMMMM-----");
                 await carServices.ReservCarFalse(reserv.CarId);
                 await reservServices.StatusCompleted(reserv.Id);
                 if (reserv.ChauffeursId is not null)

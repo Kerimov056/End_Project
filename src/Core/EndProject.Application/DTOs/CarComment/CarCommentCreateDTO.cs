@@ -2,7 +2,7 @@
 
 public class CarCommentCreateDTO
 {
-    public string Comment { get; set; }
-    public Guid CarId { get; set; }
-    public Guid AppUserId { get; set; }
+    public string comment { get; set; }
+    public Guid carid { get; set; }
+    public Guid appuserid { get; set; }
 }
