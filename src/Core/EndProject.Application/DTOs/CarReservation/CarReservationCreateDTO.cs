@@ -1,6 +1,5 @@
 ﻿using EndProject.Application.DTOs.PickupLocation;
 using EndProject.Application.DTOs.ReturnLocation;
-using EndProject.Domain.Enums.ReservationStatus;
 using Microsoft.AspNetCore.Http;
 
 namespace EndProject.Application.DTOs.CarReservation;

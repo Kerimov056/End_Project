@@ -338,6 +338,11 @@ public class CarReservationServices : ICarReservationServices
         await _carReservationWriteRepository.SavaChangeAsync();
     }
 
+    public Task SumCreateAsync(CarReservationCreateDTO carReservationCreateDTO)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task UpdateAsync(Guid id, CarReservationUpdateDTO carReservationUpdateDTO)
     {
         var ByReserv = await _carReservationReadRepository.GetByIdAsync(id);
