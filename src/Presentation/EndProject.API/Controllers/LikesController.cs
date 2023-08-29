@@ -1,6 +1,7 @@
 ﻿using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Like;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 using System.Net;
 
 namespace EndProject.API.Controllers;
@@ -22,9 +23,9 @@ public class LikesController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post([FromForm] LikeCreateDTO likeCreateDTO)
+    public async Task<IActionResult> Post([Required][FromQuery] string AppUserId, [Required][FromQuery] Guid CarCommentId)
     {
-        await _likeServices.CreateAsync(likeCreateDTO);
+        await _likeServices.CreateAsync(AppUserId, CarCommentId);
         return StatusCode((int)HttpStatusCode.Created);
     }
 

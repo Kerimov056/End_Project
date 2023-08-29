@@ -29,19 +29,23 @@ public class LikeServices : ILikeServices
         _appDbContext = appDbContext;
     }
 
-    public async Task CreateAsync(LikeCreateDTO likeCreateDTO)
+    public async Task CreateAsync(string UserId, Guid CarCommentId)
     {
         var byLike = await _likeReadRepository
             .GetAll()
-            .Where(x => x.AppUserId == likeCreateDTO.AppUserId)
-            .Where(x => x.CarCommentId == likeCreateDTO.CarCommentId)
+            .Where(x => x.AppUserId == UserId)
+            .Where(x => x.CarCommentId == CarCommentId)
             .FirstOrDefaultAsync();
 
-        var byComment = await _appDbContext.CarComments.FindAsync(likeCreateDTO.CarCommentId);
+        var byComment = await _appDbContext.CarComments.FindAsync(CarCommentId);
 
         if (byLike is null)
         {
-            var newLike = _mapper.Map<Like>(likeCreateDTO);
+            var newLike = new Like
+            {
+                AppUserId = UserId,
+                CarCommentId = CarCommentId,
+            };
             await _likeWriteRepository.AddAsync(newLike);
         }
         else
