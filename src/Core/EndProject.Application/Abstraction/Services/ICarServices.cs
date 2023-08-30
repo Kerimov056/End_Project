@@ -8,7 +8,7 @@ public interface ICarServices
     Task<List<CarGetDTO>> GetAllAsync();
     Task CreateAsync(CarCreateDTO carCreateDTO);
     Task<CarGetDTO> GetByIdAsync(Guid Id);
-    Task<List<CarGetDTO>> GetByNameAsync(string car);
+    Task<List<CarGetDTO>> GetByNameAsync(string? car, string? model);
     Task UpdateAsync(Guid id, CarUpdateDTO carUpdateDTO);
     Task ReservCarTrue(Guid Id);
     Task ReservCarFalse(Guid Id);

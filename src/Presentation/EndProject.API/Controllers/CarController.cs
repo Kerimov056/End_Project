@@ -1,6 +1,8 @@
 ﻿using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Car;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.ComponentModel.DataAnnotations;
 using System.Net;
 
 namespace EndProject.API.Controllers;
@@ -50,9 +52,9 @@ public class CarController : ControllerBase
     }
 
     [HttpGet("car")]
-    public async Task<IActionResult> GetByType(string car)
+    public async Task<IActionResult> GetByType(string? car,string? model)
     {
-        var BySlider = await _carServices.GetByNameAsync(car);
+        var BySlider = await _carServices.GetByNameAsync(car,model);
         return Ok(BySlider);
     }
 

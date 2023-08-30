@@ -196,9 +196,9 @@ public class CarServices : ICarServices
         return ToDto;
     }
 
-    public async Task<List<CarGetDTO>> GetByNameAsync(string car)
+    public async Task<List<CarGetDTO>> GetByNameAsync(string? car, string? model)
     {
-        var ByCar = await _carReadRepository
+        var ByCar = _carReadRepository
            .GetAll()
            .Include(x => x.carTags)
            .Include(x => x.carType)
@@ -206,13 +206,23 @@ public class CarServices : ICarServices
            .Include(x => x.carImages)
            .Include(x => x.Comments)
            .Include(x => x.Reservations)
-           .Where(x => x.Marka.ToLower() == car.ToLower())
-           .ToListAsync();
-        if (ByCar is null) throw new NotFoundException("Car is Null");
-        foreach (var item in ByCar) item.Reservations = null;
+           .Where(x => x.isReserv == false);
 
-        var ToDto = _mapper.Map<List<CarGetDTO>>(ByCar);
-        foreach (var item in ByCar)
+        if(!string.IsNullOrEmpty(car))
+        {
+            ByCar = ByCar.Where(x => x.Marka.ToLower() == car.ToLower());
+        }
+        if (!string.IsNullOrEmpty(model))
+        {
+            ByCar = ByCar.Where(x => x.Model.ToLower() == model.ToLower());
+        }
+        var query = await ByCar.ToListAsync();
+
+        if (query is null) throw new NotFoundException("Car is Null");
+        foreach (var item in query) item.Reservations = null;
+
+        var ToDto = _mapper.Map<List<CarGetDTO>>(query);
+        foreach (var item in query)
         {
 
             var toComentDto = _mapper.Map<List<CarCommentGetDTO>>(item.Comments);
