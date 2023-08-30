@@ -158,6 +158,17 @@ public class CarServices : ICarServices
         return ToDto;
     }
 
+    public async Task<List<string>> GetAllCarMarka()
+    {
+        var AllCar = await _carReadRepository.GetAll().ToListAsync();
+        var allMarka = new List<string>();  
+        foreach (var item in AllCar)
+        {
+            allMarka.Add(item.Marka);
+        }
+        return allMarka;
+    }
+
     public async Task<CarGetDTO> GetByIdAsync(Guid Id)
     {
         var ByCar = await _carReadRepository
