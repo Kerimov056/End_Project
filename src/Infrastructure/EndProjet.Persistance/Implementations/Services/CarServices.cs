@@ -169,6 +169,17 @@ public class CarServices : ICarServices
         return allMarka;
     }
 
+    public async Task<List<string>> GetAllCarModel()
+    {
+        var AllCar = await _carReadRepository.GetAll().ToListAsync();
+        var allModel = new List<string>();
+        foreach (var item in AllCar)
+        {
+            allModel.Add(item.Model);
+        }
+        return allModel; throw new NotImplementedException();
+    }
+
     public async Task<CarGetDTO> GetByIdAsync(Guid Id)
     {
         var ByCar = await _carReadRepository
