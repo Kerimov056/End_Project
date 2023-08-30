@@ -248,7 +248,12 @@ public class CarServices : ICarServices
         return await _carReadRepository.GetReservCarCountAsync();
     }
 
-    public async Task<List<CarGetDTO>> GetSearchCar(string? category, string? type, string? marka, string? model, decimal? minPrice, decimal? maxPrice)
+    public async Task<List<CarGetDTO>> GetSearchCar(string? category,
+                                                    string? type,
+                                                    string? marka,
+                                                    string? model,
+                                                    decimal? minPrice,
+                                                    decimal? maxPrice)
     {
         var ByCar = _carReadRepository
                  .GetAll()
