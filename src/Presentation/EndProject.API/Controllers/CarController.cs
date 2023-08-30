@@ -57,9 +57,9 @@ public class CarController : ControllerBase
     }
 
     [HttpGet("searchCar")]
-    public async Task<IActionResult> GetSearchCars(string? category, string? type, string? marka, string? model)
+    public async Task<IActionResult> GetSearchCars(string? category, string? type, string? marka, string? model, double? price)
     {
-        var BySlider = await _carServices.GetSearchCar(category, type, marka, model);
+        var BySlider = await _carServices.GetSearchCar(category, type, marka, model, price);
         return Ok(BySlider);
     }
 

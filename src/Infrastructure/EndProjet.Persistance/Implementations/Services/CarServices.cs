@@ -208,7 +208,7 @@ public class CarServices : ICarServices
            .Include(x => x.Reservations)
            .Where(x => x.isReserv == false);
 
-        if(!string.IsNullOrEmpty(car))
+        if (!string.IsNullOrEmpty(car))
         {
             ByCar = ByCar.Where(x => x.Marka.ToLower() == car.ToLower());
         }
@@ -248,9 +248,55 @@ public class CarServices : ICarServices
         return await _carReadRepository.GetReservCarCountAsync();
     }
 
-    public Task<List<CarGetDTO>> GetSearchCar(string? category, string? type, string? marka, string? model)
+    public async Task<List<CarGetDTO>> GetSearchCar(string? category, string? type, string? marka, string? model, double? price)
     {
-        throw new NotImplementedException();
+        var ByCar = _carReadRepository
+                 .GetAll()
+                 .Include(x => x.carTags)
+                 .Include(x => x.carType)
+                 .Include(x => x.carCategory)
+                 .Include(x => x.carImages)
+                 .Include(x => x.Comments)
+                 .Include(x => x.Reservations)
+                 .Where(x => x.isReserv == false);
+
+
+        if (!string.IsNullOrEmpty(category))
+        {
+            ByCar = ByCar.Where(x => x.carCategory.category.ToLower() == category.ToLower());
+        }
+        if (!string.IsNullOrEmpty(type))
+        {
+            ByCar = ByCar.Where(x => x.carType.type.ToLower() == type.ToLower());
+        }
+        if (!string.IsNullOrEmpty(marka))
+        {
+            ByCar = ByCar.Where(x => x.Marka.ToLower() == marka.ToLower());
+        }
+        if (!string.IsNullOrEmpty(model))
+        {
+            ByCar = ByCar.Where(x => x.Model.ToLower() == model.ToLower());
+        }
+        var query = await ByCar.ToListAsync();
+
+        if (query is null) throw new NotFoundException("Car is Null");
+        foreach (var item in query) item.Reservations = null;
+
+        var ToDto = _mapper.Map<List<CarGetDTO>>(query);
+        foreach (var item in query)
+        {
+
+            var toComentDto = _mapper.Map<List<CarCommentGetDTO>>(item.Comments);
+            foreach (var ByToDto in ToDto)
+            {
+                if (item.Id == ByToDto.Id)
+                {
+                    ByToDto.carCommentGetDTO = toComentDto;
+                    break;
+                }
+            }
+        }
+        return ToDto;
     }
 
     public async Task RemoveAsync(Guid id)
