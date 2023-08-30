@@ -36,10 +36,10 @@ public class ReservationReturnCheckService : IHostedService
 
             var today = DateTime.Now;
             var confirmedReservs = await dbContext.CarReservations
-                                   .Where(x => x.Status == ReservationStatus.Confirmed)
+                                   .Where(x => x.Status == ReservationStatus.RightNow)
                                    .Where(x => x.ReturnDate.Hour == today.Hour)
                                    .Where(x => x.ReturnDate.Day == today.Day)
-                                    .ToListAsync();
+                                   .ToListAsync();
             Console.WriteLine("Heleki yo");
             foreach (var reserv in confirmedReservs)
             {
