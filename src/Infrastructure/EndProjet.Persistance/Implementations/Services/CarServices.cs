@@ -206,7 +206,7 @@ public class CarServices : ICarServices
            .Include(x => x.carImages)
            .Include(x => x.Comments)
            .Include(x => x.Reservations)
-           .Where(x => x.Marka == car)
+           .Where(x => x.Marka.ToLower() == car.ToLower())
            .ToListAsync();
         if (ByCar is null) throw new NotFoundException("Car is Null");
         foreach (var item in ByCar) item.Reservations = null;
