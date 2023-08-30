@@ -248,7 +248,7 @@ public class CarServices : ICarServices
         return await _carReadRepository.GetReservCarCountAsync();
     }
 
-    public async Task<List<CarGetDTO>> GetSearchCar(string? category, string? type, string? marka, string? model, double? price)
+    public async Task<List<CarGetDTO>> GetSearchCar(string? category, string? type, string? marka, string? model, decimal? minPrice, decimal? maxPrice)
     {
         var ByCar = _carReadRepository
                  .GetAll()
@@ -263,7 +263,7 @@ public class CarServices : ICarServices
 
         if (!string.IsNullOrEmpty(category))
         {
-            ByCar = ByCar.Where(x => x.carCategory.category.ToLower() == category.ToLower());
+            ByCar = ByCar.Where(x => x.carCategory.Category.ToLower() == category.ToLower());
         }
         if (!string.IsNullOrEmpty(type))
         {
@@ -276,6 +276,14 @@ public class CarServices : ICarServices
         if (!string.IsNullOrEmpty(model))
         {
             ByCar = ByCar.Where(x => x.Model.ToLower() == model.ToLower());
+        }
+        if (minPrice is not null)
+        {
+            ByCar = ByCar.Where(x => x.Price >= minPrice);
+        }
+        if (maxPrice is not null)
+        {
+            ByCar = ByCar.Where(x => x.Price <= maxPrice);
         }
         var query = await ByCar.ToListAsync();
 
