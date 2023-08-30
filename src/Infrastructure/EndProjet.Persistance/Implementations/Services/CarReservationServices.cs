@@ -44,13 +44,14 @@ public class CarReservationServices : ICarReservationServices
         _basketServices = basketServices;
     }
 
-    public async Task AllCreateAsync(CarReservationCreateDTO carReservationCreateDTO)
+    public async Task AllCreateAsync(ReservationFake ReservationFake)
     {
-        var products = await _basketServices.GetBasketProductsAsync(carReservationCreateDTO.AppUserId);
+        var products = await _basketServices.GetBasketProductsAsync(ReservationFake.AppUserId);
         foreach (var product in products)
         {
-            carReservationCreateDTO.CarId = product.CarId;
-            await CreateAsync(carReservationCreateDTO);
+            var car  = _mapper.Map<CarReservationCreateDTO>(ReservationFake);
+            car.CarId = product.CarId;
+            await CreateAsync(car);
         }
     }
 
@@ -59,8 +60,8 @@ public class CarReservationServices : ICarReservationServices
         if (carReservationCreateDTO.PickupDate < DateTime.Now) throw new Exception("Choose a Time !!!");
         if (carReservationCreateDTO.ReturnDate < carReservationCreateDTO.PickupDate) throw new Exception("Choose a Time !!! ");
 
-        DateTime minimumReturnDate = carReservationCreateDTO.PickupDate.AddDays(1);
-        if (carReservationCreateDTO.ReturnDate < minimumReturnDate) throw new Exception("ReturnDate must be at least 1 day after PickupDate.");
+        //DateTime minimumReturnDate = carReservationCreateDTO.PickupDate.AddDays(1);
+        //if (carReservationCreateDTO.ReturnDate < minimumReturnDate) throw new Exception("ReturnDate must be at least 1 day after PickupDate.");
         var newReserv = new CarReservation
         {
             Email = carReservationCreateDTO.Email,
