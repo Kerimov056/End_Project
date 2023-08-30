@@ -20,6 +20,13 @@ public class CarController : ControllerBase
         return Ok(car);
     }
 
+    [HttpGet("AllMarka")]
+    public async Task<IActionResult> GetAllMarka()
+    {
+        var AllMarka = await _carServices.GetAllCarMarka();
+        return Ok(AllMarka);
+    }
+
     [HttpGet("Count")]
     public async Task<IActionResult> GetCarCount()
     {
