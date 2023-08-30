@@ -248,6 +248,11 @@ public class CarServices : ICarServices
         return await _carReadRepository.GetReservCarCountAsync();
     }
 
+    public Task<List<CarGetDTO>> GetSearchCar(string? category, string? type, string? marka, string? model)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task RemoveAsync(Guid id)
     {
         var ByCar = await _carReadRepository
