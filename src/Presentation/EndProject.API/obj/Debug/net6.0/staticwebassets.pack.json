@@ -9,6 +9,10 @@
       "PackagePath": "staticwebassets\\templates\\confirm.html"
     },
     {
+      "Id": "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\wwwroot\\templates\\newReservation.html",
+      "PackagePath": "staticwebassets\\templates\\newReservation.html"
+    },
+    {
       "Id": "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\wwwroot\\templates\\verify.html",
       "PackagePath": "staticwebassets\\templates\\verify.html"
     },

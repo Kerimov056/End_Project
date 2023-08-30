@@ -1,8 +1,8 @@
-﻿using Azure;
+﻿using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.CarReservation;
 using EndProject.Domain.Entitys.Identity;
-using EndProject.Domain.Enums.Role;
+using EndProjet.Persistance.Implementations.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,16 +18,19 @@ public class CarReservationsController : ControllerBase
     private readonly IEmailService _emailService;
     private readonly UserManager<AppUser> _userManager;
     private readonly RoleManager<IdentityRole> _roleManager;
+    private readonly ICarReadRepository _carReadRepository;
 
     public CarReservationsController(ICarReservationServices carReservationServices,
                                      IEmailService emailService,
                                      UserManager<AppUser> userManager,
-                                     RoleManager<IdentityRole> roleManager)
+                                     RoleManager<IdentityRole> roleManager,
+                                     ICarReadRepository carReadRepository)
     {
         _carReservationServices = carReservationServices;
         _emailService = emailService;
         _userManager = userManager;
         _roleManager = roleManager;
+        _carReadRepository = carReadRepository;
     }
 
     [HttpGet]
@@ -115,8 +118,16 @@ public class CarReservationsController : ControllerBase
         string subject = "There is a new reservation";
         string html = string.Empty;
 
-        string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "templates", "Cancel.html");
+        string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "templates", "newReservation.html");
         html = System.IO.File.ReadAllText(filePath);
+
+        var byCar = await _carReadRepository.GetByIdAsync(carReservationCreateDTO.CarId);
+
+        html = html.Replace("{{Email}}", carReservationCreateDTO.Email);
+        html = html.Replace("{{Number}}", carReservationCreateDTO.Number);
+        html = html.Replace("{{Marka}}", byCar.Marka);
+        html = html.Replace("{{Model}}", byCar.Model);
+
 
         var adminRoles = await _roleManager.Roles
          .Where(r => r.Name == "Admin" || r.Name == "SuperAdmin")
