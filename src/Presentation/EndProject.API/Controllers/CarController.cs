@@ -27,6 +27,13 @@ public class CarController : ControllerBase
         return Ok(AllMarka);
     }
 
+    [HttpGet("AllModel")]
+    public async Task<IActionResult> GetAllModel()
+    {
+        var AllModel = await _carServices.GetAllCarModel();
+        return Ok(AllModel);
+    }
+
     [HttpGet("Count")]
     public async Task<IActionResult> GetCarCount()
     {
