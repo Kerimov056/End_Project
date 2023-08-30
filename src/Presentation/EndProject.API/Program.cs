@@ -7,6 +7,7 @@ using EndProject.Infrastructure;
 using EndProject.Infrastructure.Services.Email;
 using EndProjet.Persistance.Context;
 using EndProjet.Persistance.ExtensionsMethods;
+using EndProjet.Persistance.Implementations.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -58,7 +59,6 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true
     };
 });
-
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

@@ -5,7 +5,6 @@ using EndProject.Application.DTOs.Basket;
 using EndProject.Domain.Entitys;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using System.IdentityModel.Claims;
 
 namespace EndProjet.Persistance.Implementations.Services;
 

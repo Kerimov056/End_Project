@@ -107,6 +107,13 @@ public class CarReservationsController : ControllerBase
         return StatusCode((int)HttpStatusCode.Created);
     }
 
+    [HttpPost("AllResev")]
+    public async Task<IActionResult> AllPost([FromForm] CarReservationCreateDTO carReservationCreateDTO)
+    {
+        await _carReservationServices.AllCreateAsync(carReservationCreateDTO);
+        return StatusCode((int)HttpStatusCode.Created);
+    }
+
     [HttpGet("{id:Guid}")]
     public async Task<IActionResult> GetById(Guid id)
     {
