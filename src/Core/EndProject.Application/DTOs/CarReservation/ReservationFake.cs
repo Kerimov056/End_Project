@@ -16,5 +16,4 @@ public class ReservationFake
     public string AppUserId { get; set; }
     public PickupLocationDTO? PickupLocation { get; set; }
     public ReturnLocationDTO? ReturnLocation { get; set; }
-    public Guid? ChauffeursId { get; set; }
 }

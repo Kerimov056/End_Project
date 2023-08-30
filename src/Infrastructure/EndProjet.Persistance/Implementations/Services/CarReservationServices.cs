@@ -49,8 +49,20 @@ public class CarReservationServices : ICarReservationServices
         var products = await _basketServices.GetBasketProductsAsync(ReservationFake.AppUserId);
         foreach (var product in products)
         {
-            var car  = _mapper.Map<CarReservationCreateDTO>(ReservationFake);
-            car.CarId = product.CarId;
+            CarReservationCreateDTO car = new()
+            {
+                Image = ReservationFake.Image,
+                Email = ReservationFake.Email,
+                Notes = ReservationFake.Notes,
+                Number = ReservationFake.Number,
+                PickupDate = ReservationFake.PickupDate,
+                ReturnDate = ReservationFake.ReturnDate,
+                AppUserId = ReservationFake.AppUserId,
+                CarId = product.CarId,
+                PickupLocation = ReservationFake.PickupLocation,
+                ReturnLocation = ReservationFake.ReturnLocation,
+                ChauffeursId  = null
+            };
             await CreateAsync(car);
         }
     }
