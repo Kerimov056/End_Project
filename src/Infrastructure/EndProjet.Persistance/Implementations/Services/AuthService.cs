@@ -7,7 +7,6 @@ using EndProject.Domain.Helpers;
 using EndProjet.Persistance.Context;
 using EndProjet.Persistance.Exceptions;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Text;

@@ -2,8 +2,10 @@
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.CarReservation;
 using EndProject.Domain.Entitys.Identity;
+using EndProject.Domain.Enums.Role;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Net;
 
 namespace EndProject.API.Controllers;
@@ -14,12 +16,18 @@ public class CarReservationsController : ControllerBase
 {
     private readonly ICarReservationServices _carReservationServices;
     private readonly IEmailService _emailService;
+    private readonly UserManager<AppUser> _userManager;
+    private readonly RoleManager<IdentityRole> _roleManager;
 
     public CarReservationsController(ICarReservationServices carReservationServices,
-                                     IEmailService emailService)
+                                     IEmailService emailService,
+                                     UserManager<AppUser> userManager,
+                                     RoleManager<IdentityRole> roleManager)
     {
         _carReservationServices = carReservationServices;
         _emailService = emailService;
+        _userManager = userManager;
+        _roleManager = roleManager;
     }
 
     [HttpGet]
@@ -43,13 +51,13 @@ public class CarReservationsController : ControllerBase
         return Ok(Slider);
     }
 
-    [HttpGet("ReservConfirmedCount")] 
+    [HttpGet("ReservConfirmedCount")]
     public async Task<IActionResult> GetReservConfirmed()
     {
         var reserv = await _carReservationServices.GetConfirmedCountAsync();
         return Ok(reserv);
     }
-    [HttpGet("IsResevConfirmedGetAll")] 
+    [HttpGet("IsResevConfirmedGetAll")]
     public async Task<IActionResult> ReservGetAllConfirmed()
     {
         var Slider = await _carReservationServices.IsResevConfirmedGetAll();
@@ -63,7 +71,7 @@ public class CarReservationsController : ControllerBase
         return Ok(reserv);
     }
 
-    
+
     [HttpGet("IsResevComplatedGetAll")]
     public async Task<IActionResult> ReservGetAllComplated()
     {
@@ -75,21 +83,21 @@ public class CarReservationsController : ControllerBase
     public async Task<IActionResult> ReservGetAllCanceledCount()
     {
         var reservCount = await _carReservationServices.GetCanceledCountAsync();
-        return Ok(reservCount); 
+        return Ok(reservCount);
     }
 
     [HttpGet("IsResevCanceledGetAll")]
     public async Task<IActionResult> ReservGetAllCanceled()
     {
         var Slider = await _carReservationServices.IsResevCanceledGetAll();
-        return Ok(Slider); 
+        return Ok(Slider);
     }
-    
+
     [HttpGet("IsResevNowGetAll")]
     public async Task<IActionResult> ReservGetAllNow()
     {
         var Slider = await _carReservationServices.IsResevNowGetAll();
-        return Ok(Slider); 
+        return Ok(Slider);
     }
 
 
@@ -104,6 +112,30 @@ public class CarReservationsController : ControllerBase
     public async Task<IActionResult> Post([FromForm] CarReservationCreateDTO carReservationCreateDTO)
     {
         await _carReservationServices.CreateAsync(carReservationCreateDTO);
+        string subject = "There is a new reservation";
+        string html = string.Empty;
+
+        string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "templates", "Cancel.html");
+        html = System.IO.File.ReadAllText(filePath);
+
+        var adminRoles = await _roleManager.Roles
+         .Where(r => r.Name == "Admin" || r.Name == "SuperAdmin")
+         .ToListAsync();
+
+        var adminUsersList = new List<AppUser>();
+
+        foreach (var role in adminRoles)
+        {
+            var adminUsers = await _userManager.GetUsersInRoleAsync(role.Name);
+            adminUsersList.AddRange(adminUsers);
+        }
+
+        var adminUserEmails = adminUsersList.Select(user => user.Email).ToList();
+        foreach (var item in adminUserEmails)
+        {
+            _emailService.Send(item, subject, html);
+        }
+
         return StatusCode((int)HttpStatusCode.Created);
     }
 
@@ -164,8 +196,8 @@ public class CarReservationsController : ControllerBase
 
         _emailService.Send(byReserv.Email, subject, html);
         return Ok();
-    } 
-    
+    }
+
     [HttpPut("Complated")]
     public async Task<IActionResult> UptadeStatusComplated(Guid Id)
     {

@@ -5,8 +5,6 @@ using EndProject.Domain.Helpers;
 using EndProjet.Persistance.Context;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography;
 
 namespace EndProject.API.Controllersş
 {
