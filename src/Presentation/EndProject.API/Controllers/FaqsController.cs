@@ -24,9 +24,9 @@ public class FaqsController : ControllerBase
     }
 
     [HttpPost("PostFaq")]
-    public async Task<IActionResult> Post([FromForm] FaqCreateDTO faqCreateDTO)
+    public async Task<IActionResult> Post(string Title, string Descrption)
     {
-        await _faqServices.CreateAsync(faqCreateDTO);
+        await _faqServices.CreateAsync(Title, Descrption);
         return StatusCode((int)HttpStatusCode.Created);
     }
 

@@ -8,6 +8,7 @@ namespace EndProject.Application.DTOs.CarReservation;
 public class CarReservationUpdateDTO
 {
     public IFormFile ImagePath { get; set; }
+    public string FullName { get; set; }
     public string Email { get; set; }
     public string Number { get; set; }
     public DateTime PickupDate { get; set; }

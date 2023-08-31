@@ -7,6 +7,7 @@ namespace EndProject.Application.DTOs.CarReservation;
 public class CarReservationCreateDTO
 {
     public IFormFile Image { get; set; }
+    public string FullName { get; set; }
     public string Email { get; set; }
     public string Number { get; set; }
     public DateTime PickupDate { get; set; }

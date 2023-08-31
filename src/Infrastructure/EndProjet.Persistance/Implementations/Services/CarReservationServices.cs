@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
-using Azure;
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.CarReservation;
 using EndProject.Domain.Entitys;
 using EndProject.Domain.Enums.ReservationStatus;
-using EndProjet.Persistance.Context;
 using EndProjet.Persistance.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
@@ -51,6 +49,7 @@ public class CarReservationServices : ICarReservationServices
         {
             CarReservationCreateDTO car = new()
             {
+                FullName = ReservationFake.FullName,
                 Image = ReservationFake.Image,
                 Email = ReservationFake.Email,
                 Notes = ReservationFake.Notes,
@@ -76,6 +75,7 @@ public class CarReservationServices : ICarReservationServices
         //if (carReservationCreateDTO.ReturnDate < minimumReturnDate) throw new Exception("ReturnDate must be at least 1 day after PickupDate.");
         var newReserv = new CarReservation
         {
+            FullName = carReservationCreateDTO.FullName,
             Email = carReservationCreateDTO.Email,
             Number = carReservationCreateDTO.Number,
             PickupDate = carReservationCreateDTO.PickupDate,
@@ -86,7 +86,6 @@ public class CarReservationServices : ICarReservationServices
             CarId = carReservationCreateDTO.CarId,
             ChauffeursId = carReservationCreateDTO.ChauffeursId
         };
-        newReserv.AppUserId = "4d12fb35-a688-4270-9c51-f28d4b19e3ae";
 
         if (carReservationCreateDTO.Image != null && carReservationCreateDTO.Image.Length > 0)
         {
@@ -373,7 +372,7 @@ public class CarReservationServices : ICarReservationServices
         DateTime minimumReturnDate = carReservationUpdateDTO.PickupDate.AddDays(1);
         if (carReservationUpdateDTO.ReturnDate < minimumReturnDate) throw new Exception("ReturnDate must be at least 1 day after PickupDate.");
 
-
+        ByReserv.FullName = carReservationUpdateDTO.FullName;
         ByReserv.PickupDate = carReservationUpdateDTO.PickupDate;
         ByReserv.ReturnDate = carReservationUpdateDTO.ReturnDate;
         ByReserv.Email = carReservationUpdateDTO.Email;
@@ -434,6 +433,7 @@ public class CarReservationServices : ICarReservationServices
               .Where(x => x.AppUserId == Id)
               .ToListAsync();
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
+
         var ToDto = _mapper.Map<List<CarReservationGetDTO>>(ByReserv);
         return ToDto;
     }

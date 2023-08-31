@@ -115,37 +115,37 @@ public class CarReservationsController : ControllerBase
     public async Task<IActionResult> Post([FromForm] CarReservationCreateDTO carReservationCreateDTO)
     {
         await _carReservationServices.CreateAsync(carReservationCreateDTO);
-        string subject = "There is a new reservation";
-        string html = string.Empty;
+        //string subject = "There is a new reservation";
+        //string html = string.Empty;
 
-        string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "templates", "newReservation.html");
-        html = System.IO.File.ReadAllText(filePath);
+        //string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "templates", "newReservation.html");
+        //html = System.IO.File.ReadAllText(filePath);
 
-        var byCar = await _carReadRepository.GetByIdAsync(carReservationCreateDTO.CarId);
+        //var byCar = await _carReadRepository.GetByIdAsync(carReservationCreateDTO.CarId);
 
-        html = html.Replace("{{Email}}", carReservationCreateDTO.Email);
-        html = html.Replace("{{Number}}", carReservationCreateDTO.Number);
-        html = html.Replace("{{Marka}}", byCar.Marka);
-        html = html.Replace("{{Model}}", byCar.Model);
+        //html = html.Replace("{{Email}}", carReservationCreateDTO.Email);
+        //html = html.Replace("{{Number}}", carReservationCreateDTO.Number);
+        //html = html.Replace("{{Marka}}", byCar.Marka);
+        //html = html.Replace("{{Model}}", byCar.Model);
 
 
-        var adminRoles = await _roleManager.Roles
-         .Where(r => r.Name == "Admin" || r.Name == "SuperAdmin")
-         .ToListAsync();
+        //var adminRoles = await _roleManager.Roles
+        // .Where(r => r.Name == "Admin" || r.Name == "SuperAdmin")
+        // .ToListAsync();
 
-        var adminUsersList = new List<AppUser>();
+        //var adminUsersList = new List<AppUser>();
 
-        foreach (var role in adminRoles)
-        {
-            var adminUsers = await _userManager.GetUsersInRoleAsync(role.Name);
-            adminUsersList.AddRange(adminUsers);
-        }
+        //foreach (var role in adminRoles)
+        //{
+        //    var adminUsers = await _userManager.GetUsersInRoleAsync(role.Name);
+        //    adminUsersList.AddRange(adminUsers);
+        //}
 
-        var adminUserEmails = adminUsersList.Select(user => user.Email).ToList();
-        foreach (var item in adminUserEmails)
-        {
-            _emailService.Send(item, subject, html);
-        }
+        //var adminUserEmails = adminUsersList.Select(user => user.Email).ToList();
+        //foreach (var item in adminUserEmails)
+        //{
+        //    _emailService.Send(item, subject, html);
+        //}
 
         return StatusCode((int)HttpStatusCode.Created);
     }

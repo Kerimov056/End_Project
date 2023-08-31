@@ -7,7 +7,6 @@ using EndProject.Infrastructure;
 using EndProject.Infrastructure.Services.Email;
 using EndProjet.Persistance.Context;
 using EndProjet.Persistance.ExtensionsMethods;
-using EndProjet.Persistance.Implementations.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -97,7 +96,7 @@ app.UseCors(cors => cors
             .AllowCredentials());
 
 //app.UseHttpsRedirection();
-//app.UseRouting(); // Bu satırı ekleyin
+//app.UseRouting(); 
 
 
 app.UseAuthentication();

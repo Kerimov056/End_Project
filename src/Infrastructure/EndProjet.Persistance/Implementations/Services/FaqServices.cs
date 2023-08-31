@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
-using EndProject.Application.DTOs.Advantage;
 using EndProject.Application.DTOs.Faq;
 using EndProject.Domain.Entitys;
 using EndProjet.Persistance.Exceptions;
@@ -24,16 +23,27 @@ public class FaqServices : IFaqServices
         _mapper = mapper;
     }
 
-    public async Task CreateAsync(FaqCreateDTO faqCreateDTO)
+    public async Task CreateAsync(string Title, string Descrption)
     {
-        var ToEntity = _mapper.Map<Faq>(faqCreateDTO);
-        await _faqWriteRepository.AddAsync(ToEntity);
+        var newFaq = new Faq()
+        {
+            Title = Title,
+            Descrption = Descrption
+        };
+        await _faqWriteRepository.AddAsync(newFaq);
         await _faqWriteRepository.SavaChangeAsync();
     }
 
+    //public async Task CreateAsync(FaqCreateDTO faqCreateDTO)
+    //{
+    //    var ToEntity = _mapper.Map<Faq>(faqCreateDTO);
+    //    await _faqWriteRepository.AddAsync(ToEntity);
+    //    await _faqWriteRepository.SavaChangeAsync();
+    //}
+
     public async Task<List<FaqGetDTO>> GetAllAsync()
     {
-        var AllFaq = await _faqReadRepository.GetAll().ToListAsync();
+        var AllFaq = await _faqReadRepository.GetAll().OrderByDescending(x=>x.CreatedDate).ToListAsync();
         if (AllFaq is null) throw new NotFoundException("Faq is Null");
 
         var ToDto = _mapper.Map<List<FaqGetDTO>>(AllFaq);

@@ -25,6 +25,7 @@ public class AdvantageServices : IAdvantageServices
 
     public async Task CreateAsync(AdvantageCreateDTO advantageCreateDTO)
     {
+        if (advantageCreateDTO is null) throw new NotFoundException("Errror Advantages");
         var ToEntity = _mapper.Map<Advantage>(advantageCreateDTO);
         await _writeRepository.AddAsync(ToEntity);
         await _writeRepository.SavaChangeAsync();

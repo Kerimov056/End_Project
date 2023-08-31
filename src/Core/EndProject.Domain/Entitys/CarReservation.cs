@@ -6,6 +6,7 @@ namespace EndProject.Domain.Entitys;
 
 public class CarReservation:BaseEntity
 {
+    public string FullName { get; set; }
     public string Email { get; set; }
     public string Number { get; set; }
     public string ImagePath { get; set; }
