@@ -435,6 +435,17 @@ public class CarReservationServices : ICarReservationServices
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
 
         var ToDto = _mapper.Map<List<CarReservationGetDTO>>(ByReserv);
+        foreach (var byCar in ByReserv)
+        {
+            foreach (var byCarDto in ToDto)
+            {
+                if (byCar.Id == byCarDto.Id)
+                {
+                    byCarDto.ReservCar = await _carServices.GetByIdAsync(byCar.CarId);
+                    break;
+                }
+            }
+        }
         return ToDto;
     }
 }
