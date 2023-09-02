@@ -11,7 +11,7 @@ namespace EndProjet.Persistance.Implementations.Services;
 public class AdvantageServices : IAdvantageServices
 {
     private readonly IAdvantageReadRepository _readRepository;
-    private readonly IAdvantageWriteRepository _writeRepository;    
+    private readonly IAdvantageWriteRepository _writeRepository;
     private readonly IMapper _mapper;
 
     public AdvantageServices(IAdvantageReadRepository readRepository,
@@ -33,7 +33,10 @@ public class AdvantageServices : IAdvantageServices
 
     public async Task<List<AdvantageGetDTO>> GetAllAsync()
     {
-        var AllAdvantage = await _readRepository.GetAll().ToListAsync();
+        var AllAdvantage = await _readRepository
+            .GetAll()
+            .OrderByDescending(x => x.CreatedDate)
+            .ToListAsync();
         if (AllAdvantage is null) throw new NotFoundException("Advantage is Null");
 
         var ToDto = _mapper.Map<List<AdvantageGetDTO>>(AllAdvantage);

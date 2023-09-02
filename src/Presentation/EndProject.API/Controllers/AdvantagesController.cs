@@ -22,7 +22,7 @@ public class AdvantagesController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post([FromForm] AdvantageCreateDTO advantageCreateDTO)
+    public async Task<IActionResult> Post(AdvantageCreateDTO advantageCreateDTO)
     {
         await _advantageServices.CreateAsync(advantageCreateDTO);
         return StatusCode((int)HttpStatusCode.Created);
