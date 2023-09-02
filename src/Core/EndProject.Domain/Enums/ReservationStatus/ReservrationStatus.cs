@@ -1,4 +1,4 @@
-﻿namespace EndProject.Domain.Enums.ReservationStatus;
+﻿    namespace EndProject.Domain.Enums.ReservationStatus;
 
 public enum ReservationStatus
 {

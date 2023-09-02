@@ -100,8 +100,8 @@ public class CarReservationServices : ICarReservationServices
             newReserv.PickupLocation = new PickupLocation
             {
                 CarReservationId = newReserv.Id,
-                Latitude = carReservationCreateDTO.PickupLocation.Latitude,
-                Longitude = carReservationCreateDTO.PickupLocation.Longitude
+                Latitude = (double)carReservationCreateDTO.PickupLocation.Latitude,
+                Longitude = (double)carReservationCreateDTO.PickupLocation.Longitude
             };
             await _pickupLocationWriteRepository.AddAsync(newReserv.PickupLocation);
         }
@@ -111,8 +111,8 @@ public class CarReservationServices : ICarReservationServices
             newReserv.ReturnLocation = new ReturnLocation
             {
                 CarReservationId = newReserv.Id,
-                Latitude = carReservationCreateDTO.ReturnLocation.Latitude,
-                Longitude = carReservationCreateDTO.ReturnLocation.Longitude
+                Latitude = (double)carReservationCreateDTO.ReturnLocation.Latitude,
+                Longitude = (double)carReservationCreateDTO.ReturnLocation.Longitude
             };
             await _returnLocationWriteRepository.AddAsync(newReserv.ReturnLocation);
         }

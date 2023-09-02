@@ -37,7 +37,10 @@ public class BlogService : IBlogService
             Description = blogCreateDTO.Description
         };
 
-        if (newBlog.BlogImages is not null)
+        await _blogWriteRepository.AddAsync(newBlog);
+        await _blogWriteRepository.SavaChangeAsync();
+
+        if (blogCreateDTO.blogImages is not null)
         {
             foreach (var item in blogCreateDTO.blogImages)
             {
@@ -49,9 +52,6 @@ public class BlogService : IBlogService
                 await _blogImageServices.CreateAsync(newBlogImage);
             }
         }
-
-        await _blogWriteRepository.AddAsync(newBlog);
-        await _blogWriteRepository.SavaChangeAsync();
     }
 
     public async Task<List<BlogGetDTO>> GetAllAsync()
@@ -63,27 +63,18 @@ public class BlogService : IBlogService
         if (allBlog is null) throw new NotFoundException("Blog is Null");
 
         var ToDto = _mapper.Map<List<BlogGetDTO>>(allBlog);
-        foreach (var item in allBlog)
-        {
-            foreach (var dto in ToDto)
-            {
-                if (item.Id == dto.Id)
-                {
-                    dto.BlogImages = await _blogImageServices.GetAllBlogIdAsync(dto.Id);
-                    break;
-                }
-            }
-        }
         return ToDto;
     }
 
     public async Task<BlogGetDTO> GetByIdAsync(Guid Id)
     {
-        var ByBlog = await _blogReadRepository.GetByIdAsync(Id);
+        var ByBlog = await _blogReadRepository
+            .GetAll()
+            .Include(x => x.BlogImages)
+            .FirstOrDefaultAsync(x => x.Id == Id);
         if (ByBlog is null) throw new NotFoundException("Blog is Null");
 
         var ToDto = _mapper.Map<BlogGetDTO>(ByBlog);
-        ToDto.BlogImages = await _blogImageServices.GetAllBlogIdAsync(ByBlog.Id);
         return ToDto;
 
     }
