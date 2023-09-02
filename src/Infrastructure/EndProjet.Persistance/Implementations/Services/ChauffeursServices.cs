@@ -41,7 +41,10 @@ public class ChauffeursServices : IChauffeursServices
 
     public async Task<List<ChauffeursGetDTO>> GetAllAsync()
     {
-        var allChauffeurs = await _chauffeursReadRepository.GetAll().ToListAsync();
+        var allChauffeurs = await _chauffeursReadRepository
+            .GetAll()
+            .OrderByDescending(x => x.CreatedDate)
+            .ToListAsync();
         if (allChauffeurs is null) throw new NotFoundException("Chauffeurs is Null");
 
         var chauffeurss = _mapper.Map<List<ChauffeursGetDTO>>(allChauffeurs);

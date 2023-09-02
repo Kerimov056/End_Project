@@ -45,7 +45,7 @@ public class FaqsController : ControllerBase
     }
 
     [HttpPut("{id:Guid}")]
-    public async Task<IActionResult> Uptade(Guid id, [FromForm] FaqUpdateDTO faqUpdateDTO)
+    public async Task<IActionResult> Uptade(Guid id, FaqUpdateDTO faqUpdateDTO)
     {
         await _faqServices.UpdateAsync(id, faqUpdateDTO);
         return Ok();

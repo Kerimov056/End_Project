@@ -343,7 +343,7 @@ public class CarReservationServices : ICarReservationServices
     {
         var ByReserv = await _carReservationReadRepository.GetByIdAsync(Id);
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
-
+            
         ByReserv.Status = ReservationStatus.RightNow;
 
         _carReservationWriteRepository.Update(ByReserv);

@@ -40,6 +40,7 @@ public class BlogsController : ControllerBase
         return StatusCode((int)HttpStatusCode.Created);
     }
 
+
     [HttpGet("{id:Guid}")]
     public async Task<IActionResult> GetById(Guid id)
     {
@@ -60,4 +61,6 @@ public class BlogsController : ControllerBase
         await _blogService.UpdateAsync(id, blogUpdateDTO);
         return Ok();
     }
+
+
 }

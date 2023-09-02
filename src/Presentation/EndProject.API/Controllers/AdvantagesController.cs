@@ -43,9 +43,10 @@ public class AdvantagesController : ControllerBase
     }
 
     [HttpPut("{id:Guid}")]
-    public async Task<IActionResult> Uptade(Guid id, [FromForm] AdvantageUpdateDTO advantageUpdateDTO)
+    public async Task<IActionResult> Uptade(Guid id, AdvantageUpdateDTO advantageUpdateDTO)
     {
         await _advantageServices.UpdateAsync(id, advantageUpdateDTO);
         return Ok();
     }
+
 }

@@ -46,4 +46,5 @@ public class SlidersController : ControllerBase
         await _sliderService.UpdateAsync(id, sliderUptadeDTO);
         return Ok();
     }
+
 }
