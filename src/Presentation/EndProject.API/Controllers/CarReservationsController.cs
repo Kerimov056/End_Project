@@ -162,6 +162,14 @@ public class CarReservationsController : ControllerBase
         return Ok(BySlider);
     }
 
+
+    [HttpGet("CarReservValue")]
+    public async Task<IActionResult> GetCarReservValue(Guid CarId)
+    {
+        var ByReserv = await _carReservationServices.GetReservValue(CarId);
+        return Ok(ByReserv);
+    }
+
     [HttpDelete("{id:Guid}")]
     public async Task<IActionResult> Remove(Guid id)
     {

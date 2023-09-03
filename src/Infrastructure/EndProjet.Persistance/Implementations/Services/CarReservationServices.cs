@@ -176,7 +176,7 @@ public class CarReservationServices : ICarReservationServices
         return await _carReservationReadRepository.GetReservPeddingCountAsync();
     }
 
-    public async Task<CarReservation> GetStatusValue(Guid CarId)
+    public async Task<CarReservation> GetReservValue(Guid CarId)
     {
         var Reserv = await _carReservationReadRepository
             .GetAll()
@@ -320,7 +320,7 @@ public class CarReservationServices : ICarReservationServices
         await _carReservationWriteRepository.SavaChangeAsync();
     }
 
-    public async Task StatusCanceled(Guid Id)  //demeli men reserv'i legv eledikde ona gmail'e mesaj getsin.
+    public async Task StatusCanceled(Guid Id)  
     {
         var ByReserv = await _carReservationReadRepository.GetByIdAsync(Id);
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
@@ -340,7 +340,7 @@ public class CarReservationServices : ICarReservationServices
         await _carReservationWriteRepository.SavaChangeAsync();
     }
 
-    public async Task StatusConfirmed(Guid Id)  //demeli men reserv'i tesdiqledikde ona gmail'e mesaj getsin.
+    public async Task StatusConfirmed(Guid Id) 
     {
         var ByReserv = await _carReservationReadRepository.GetByIdAsync(Id);
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
