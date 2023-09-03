@@ -5,6 +5,7 @@ using EndProject.Application.DTOs.Car;
 using EndProject.Application.DTOs.CarComment;
 using EndProject.Application.DTOs.CarImage;
 using EndProject.Application.DTOs.CarType;
+using EndProject.Application.DTOs.Reservation;
 using EndProject.Domain.Entitys;
 using EndProjet.Persistance.Exceptions;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +26,7 @@ public class CarServices : ICarServices
     private readonly ICarTagWriteRepository _carTagWriteRepository;
     private readonly ICarTagReadRepository _carTagReadRepository;
     private readonly ICarCategoryServices _carCategoryServices;
+    private readonly ICarReservationReadRepository _carReservationReadRepository;
 
     public CarServices(ICarReadRepository carReadRepository,
                        ICarWriteRepository carWriteRepository,
@@ -36,7 +38,8 @@ public class CarServices : ICarServices
                        ITagWriteRepository tagWriteRepository,
                        ICarCategoryWriteRepository carCategoryWriteRepository,
                        ICarTagWriteRepository carTagWriteRepository,
-                       ICarTagReadRepository carTagReadRepository)
+                       ICarTagReadRepository carTagReadRepository,
+                       ICarReservationReadRepository carReservationReadRepository)
     {
         _carReadRepository = carReadRepository;
         _carWriteRepository = carWriteRepository;
@@ -49,6 +52,7 @@ public class CarServices : ICarServices
         _carCategoryWriteRepository = carCategoryWriteRepository;
         _carTagWriteRepository = carTagWriteRepository;
         _carTagReadRepository = carTagReadRepository;
+        _carReservationReadRepository = carReservationReadRepository;
     }
 
     public async Task CreateAsync(CarCreateDTO carCreateDTO)
@@ -166,7 +170,6 @@ public class CarServices : ICarServices
              .Include(x => x.carCategory)
              .Include(x => x.carImages)
              .Include(x => x.Comments)
-             .Include(x => x.Reservations)
              .Include(x => x.OtherReservations)
              .ToListAsync();
 
@@ -177,6 +180,7 @@ public class CarServices : ICarServices
         var ToDto = _mapper.Map<List<CarGetDTO>>(CarAll);
         foreach (var item in CarAll)
         {
+
             var toComentDto = _mapper.Map<List<CarCommentGetDTO>>(item.Comments);
             foreach (var ByToDto in ToDto)
             {
@@ -233,6 +237,12 @@ public class CarServices : ICarServices
         var toComentDto = _mapper.Map<List<CarCommentGetDTO>>(ByCar.Comments);
         ToDto.carCommentGetDTO = toComentDto;
 
+        var reservCar = await _carReservationReadRepository
+            .GetAll()
+            .Where(x => x.CarId == ByCar.Id)
+            .FirstOrDefaultAsync();
+
+        if (reservCar is not null) ToDto.ReservationsId = reservCar.Id;
         foreach (var item in ToDto.carCommentGetDTO)
         {
             foreach (var coment in ByCar.Comments)

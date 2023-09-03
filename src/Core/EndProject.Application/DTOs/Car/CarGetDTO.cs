@@ -23,7 +23,7 @@ public class CarGetDTO
     public List<CarCommentGetDTO> carCommentGetDTO { get; set; }
     public List<CarImageGetDTO> CarImages { get; set; } 
     public List<string> CarTags { get; set; } 
-    public  List<ReservationGetDTO> Reservations { get; set; }
+    public Guid? ReservationsId { get; set; }
     public List<OtherCarReservationGetDTO>? OtherReservations { get; set; }
 
 }
