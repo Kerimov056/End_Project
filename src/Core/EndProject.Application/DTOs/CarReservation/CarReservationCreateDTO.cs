@@ -13,11 +13,10 @@ public class CarReservationCreateDTO
     public DateTime PickupDate { get; set; }
     public DateTime ReturnDate { get; set; }
     public string Notes { get; set; }
-    //public ReservationStatus Status { get; set; }
     public string AppUserId { get; set; }
     public Guid CarId { get; set; }
-    public PickupLocationDTO? PickupLocation { get; set; }
-    public ReturnLocationDTO? ReturnLocation { get; set; }
+    public PickupLocationDTO? PickupLocation { get; set; } =null;
+    public ReturnLocationDTO? ReturnLocation { get; set; }=null;
     public Guid? ChauffeursId { get; set; }
 }
 

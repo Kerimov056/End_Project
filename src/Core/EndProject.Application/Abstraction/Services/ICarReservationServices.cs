@@ -1,6 +1,4 @@
 ﻿using EndProject.Application.DTOs.CarReservation;
-using EndProject.Domain.Entitys;
-using EndProject.Domain.Enums.ReservationStatus;
 
 namespace EndProject.Application.Abstraction.Services;
 

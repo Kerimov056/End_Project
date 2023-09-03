@@ -69,7 +69,7 @@ public class CarReservationServices : ICarReservationServices
     public async Task CreateAsync(CarReservationCreateDTO carReservationCreateDTO)
     {
         if (carReservationCreateDTO.PickupDate < DateTime.Now) throw new Exception("Choose a Time !!!");
-        if (carReservationCreateDTO.ReturnDate < carReservationCreateDTO.PickupDate) throw new Exception("Choose a Time !!! ");
+        if (carReservationCreateDTO.ReturnDate <= carReservationCreateDTO.PickupDate) throw new Exception("Choose a Time !!! ");
 
         //DateTime minimumReturnDate = carReservationCreateDTO.PickupDate.AddDays(1);
         //if (carReservationCreateDTO.ReturnDate < minimumReturnDate) throw new Exception("ReturnDate must be at least 1 day after PickupDate.");
@@ -82,10 +82,11 @@ public class CarReservationServices : ICarReservationServices
             ReturnDate = carReservationCreateDTO.ReturnDate,
             Notes = carReservationCreateDTO.Notes,
             Status = ReservationStatus.Pending,
-            AppUserId = carReservationCreateDTO.AppUserId, //b9e6bbc7-b080-4405-880d-4aa8e35a5aee
+            AppUserId = carReservationCreateDTO.AppUserId, 
             CarId = carReservationCreateDTO.CarId,
             ChauffeursId = carReservationCreateDTO.ChauffeursId
         };
+        //var userId = "4d12fb35-a688-4270-9c51-f28d4b19e3ae";
 
         if (carReservationCreateDTO.Image != null && carReservationCreateDTO.Image.Length > 0)
         {
@@ -95,8 +96,9 @@ public class CarReservationServices : ICarReservationServices
         await _carReservationWriteRepository.AddAsync(newReserv);
         await _carReservationWriteRepository.SavaChangeAsync();
 
-        if (carReservationCreateDTO.PickupLocation is not null)
+        if (carReservationCreateDTO.PickupLocation.Latitude is not null)
         {
+
             newReserv.PickupLocation = new PickupLocation
             {
                 CarReservationId = newReserv.Id,
@@ -106,7 +108,7 @@ public class CarReservationServices : ICarReservationServices
             await _pickupLocationWriteRepository.AddAsync(newReserv.PickupLocation);
         }
 
-        if (carReservationCreateDTO.ReturnLocation is not null)
+        if (carReservationCreateDTO.ReturnLocation.Latitude is not null)
         {
             newReserv.ReturnLocation = new ReturnLocation
             {
