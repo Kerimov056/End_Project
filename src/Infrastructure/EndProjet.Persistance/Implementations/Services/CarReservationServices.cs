@@ -176,6 +176,18 @@ public class CarReservationServices : ICarReservationServices
         return await _carReservationReadRepository.GetReservPeddingCountAsync();
     }
 
+    public async Task<CarReservation> GetStatusValue(Guid CarId)
+    {
+        var Reserv = await _carReservationReadRepository
+            .GetAll()
+            .Where(x => x.CarId == CarId)
+            .FirstOrDefaultAsync();
+
+        return Reserv is null ? null : Reserv;
+    }
+
+    //private static ReservationStatus StatusNull() => null;
+
     public async Task<List<CarReservationGetDTO>> IsResevCanceledGetAll()
     {
         var ByReserv = await _carReservationReadRepository

@@ -1,4 +1,5 @@
 ﻿using EndProject.Application.DTOs.CarReservation;
+using EndProject.Domain.Entitys;
 using EndProject.Domain.Enums.ReservationStatus;
 
 namespace EndProject.Application.Abstraction.Services;
@@ -15,7 +16,7 @@ public interface ICarReservationServices
     Task CreateAsync(CarReservationCreateDTO carReservationCreateDTO);
     Task AllCreateAsync(ReservationFake ReservationFake);
     Task<CarReservationGetDTO> GetByIdAsync(Guid Id);
-    Task<ReservationStatus> GetStatusValue(Guid CarId);
+    Task<CarReservation> GetStatusValue(Guid CarId);
     Task StatusConfirmed(Guid Id);
     Task StatusCompleted(Guid reservId);
     Task StatusCanceled(Guid Id);
