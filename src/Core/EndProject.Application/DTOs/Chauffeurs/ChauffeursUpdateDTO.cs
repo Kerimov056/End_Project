@@ -8,5 +8,4 @@ public class ChauffeursUpdateDTO
     public string Number { get; set; }
     public IFormFile Image { get; set; }
     public double Price { get; set; }
-    public bool isChauffeurs { get; set; }
 }

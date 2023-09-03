@@ -18,3 +18,4 @@ public class CarCreateDTO
     public List<IFormFile> CarImages { get; set; }
     public List<string> tags { get; set; }
 }
+

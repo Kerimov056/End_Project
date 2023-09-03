@@ -161,7 +161,7 @@ public class CarServices : ICarServices
     public async Task<List<string>> GetAllCarMarka()
     {
         var AllCar = await _carReadRepository.GetAll().ToListAsync();
-        var allMarka = new List<string>();  
+        var allMarka = new List<string>();
         foreach (var item in AllCar)
         {
             allMarka.Add(item.Marka);
@@ -395,7 +395,7 @@ public class CarServices : ICarServices
                 Type = carUpdateDTO.CarType.Type
             };
             var CarTypeID = ByCar.carType.Id;
-            _carTypeService.UpdateAsync(CarTypeID, carUpdateType);
+            await _carTypeService.UpdateAsync(CarTypeID, carUpdateType);
         }
         else
         {
@@ -409,12 +409,13 @@ public class CarServices : ICarServices
 
         if (ByCar.carCategory is not null)
         {
-            var carUpdateCategory = new CarCategoryUpdateDTO
+            var carUpdateCategory = new CarCategory
             {
-                category = carUpdateDTO.CarCategory.category
+                CarId = ByCar.Id,
+                Category = carUpdateDTO.CarCategory.category
             };
-            var CarCategoryID = ByCar.carCategory.Id;
-            _carCategoryServices.UpdateAsync(CarCategoryID, carUpdateCategory);
+
+            _carCategoryWriteRepository.Update(carUpdateCategory);
         }
         else
         {
