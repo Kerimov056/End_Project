@@ -5,6 +5,7 @@ namespace EndProject.Application.Abstraction.Services;
 
 public interface ICarServices
 {
+    Task<List<CarGetDTO>> GetAllCarAsync();
     Task<List<CarGetDTO>> GetAllAsync();
     Task CreateAsync(CarCreateDTO carCreateDTO);
     Task<CarGetDTO> GetByIdAsync(Guid Id);

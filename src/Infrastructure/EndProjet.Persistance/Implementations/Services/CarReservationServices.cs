@@ -176,14 +176,16 @@ public class CarReservationServices : ICarReservationServices
         return await _carReservationReadRepository.GetReservPeddingCountAsync();
     }
 
-    public async Task<CarReservation> GetReservValue(Guid CarId)
+    public async Task<CarReservationGetDTO> GetReservValue(Guid CarId)
     {
         var Reserv = await _carReservationReadRepository
             .GetAll()
             .Where(x => x.CarId == CarId)
             .FirstOrDefaultAsync();
 
-        return Reserv is null ? null : Reserv;
+        var ToDto = _mapper.Map<CarReservationGetDTO>(Reserv);
+
+        return ToDto is null ? null : ToDto;
     }
 
     //private static ReservationStatus StatusNull() => null;

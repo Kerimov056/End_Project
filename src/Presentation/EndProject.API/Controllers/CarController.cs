@@ -18,6 +18,13 @@ public class CarController : ControllerBase
     {
         var car = await _carServices.GetAllAsync();
         return Ok(car);
+    } 
+    
+    [HttpGet("GetAllCar")]
+    public async Task<IActionResult> GetAllCar()
+    {
+        var car = await _carServices.GetAllCarAsync();
+        return Ok(car);
     }
 
     [HttpGet("AllMarka")]

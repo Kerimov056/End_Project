@@ -5,7 +5,6 @@ using EndProject.Application.DTOs.Car;
 using EndProject.Application.DTOs.CarComment;
 using EndProject.Application.DTOs.CarImage;
 using EndProject.Application.DTOs.CarType;
-using EndProject.Application.DTOs.Category;
 using EndProject.Domain.Entitys;
 using EndProjet.Persistance.Exceptions;
 using Microsoft.EntityFrameworkCore;
@@ -140,6 +139,40 @@ public class CarServices : ICarServices
 
         if (CarAll is null) throw new NotFoundException("Car is null");
         foreach (var item in CarAll) item.Reservations = null;
+
+
+        var ToDto = _mapper.Map<List<CarGetDTO>>(CarAll);
+        foreach (var item in CarAll)
+        {
+            var toComentDto = _mapper.Map<List<CarCommentGetDTO>>(item.Comments);
+            foreach (var ByToDto in ToDto)
+            {
+                if (item.Id == ByToDto.Id)
+                {
+                    ByToDto.carCommentGetDTO = toComentDto;
+                    break;
+                }
+            }
+        }
+        return ToDto;
+    }
+
+    public async Task<List<CarGetDTO>> GetAllCarAsync()
+    {
+        var CarAll = await _carReadRepository
+             .GetAll()
+             .Include(x => x.carTags)
+             .Include(x => x.carType)
+             .Include(x => x.carCategory)
+             .Include(x => x.carImages)
+             .Include(x => x.Comments)
+             .Include(x => x.Reservations)
+             .Include(x => x.OtherReservations)
+             .ToListAsync();
+
+        if (CarAll is null) throw new NotFoundException("Car is null");
+        foreach (var item in CarAll) item.Reservations = null;
+
 
         var ToDto = _mapper.Map<List<CarGetDTO>>(CarAll);
         foreach (var item in CarAll)
