@@ -2,10 +2,8 @@
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.CarReservation;
 using EndProject.Domain.Entitys.Identity;
-using EndProjet.Persistance.Implementations.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Net;
 
 namespace EndProject.API.Controllers;

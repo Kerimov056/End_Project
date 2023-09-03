@@ -144,7 +144,6 @@ public class CarServices : ICarServices
         var ToDto = _mapper.Map<List<CarGetDTO>>(CarAll);
         foreach (var item in CarAll)
         {
-
             var toComentDto = _mapper.Map<List<CarCommentGetDTO>>(item.Comments);
             foreach (var ByToDto in ToDto)
             {
