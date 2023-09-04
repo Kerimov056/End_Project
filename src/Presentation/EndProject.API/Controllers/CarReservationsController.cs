@@ -63,6 +63,12 @@ public class CarReservationsController : ControllerBase
     {
         var Slider = await _carReservationServices.IsResevConfirmedGetAll();
         return Ok(Slider);
+    } 
+    [HttpGet("IsResevConfirmedLocatıonGetAll")]
+    public async Task<IActionResult> ReservGetAllConfirmedLocatıon()
+    {
+        var Slider = await _carReservationServices.IsResevConfirmLocationGetAll();
+        return Ok(Slider);
     }  
     [HttpGet("IsResevConfirmedPickUpGetAll")]
     public async Task<IActionResult> ReservGetAllConfirmPickUpLocation()
