@@ -64,13 +64,13 @@ public class CarReservationsController : ControllerBase
         var Slider = await _carReservationServices.IsResevConfirmedGetAll();
         return Ok(Slider);
     }  
-    [HttpGet("IsResevConfirmedLocationGetAll")]
+    [HttpGet("IsResevConfirmedPickUpGetAll")]
     public async Task<IActionResult> ReservGetAllConfirmPickUpLocation()
     {
         var Slider = await _carReservationServices.IsResevConfirmPickUpGetAll();
         return Ok(Slider);
     }
-    [HttpGet("IsResevConfirmedLocationGetAll")]
+    [HttpGet("IsResevConfirmedReturnGetAll")]
     public async Task<IActionResult> ReservGetAllConfirmReturnLocation()
     {
         var Slider = await _carReservationServices.IsResevConfirmReturnGetAll();
