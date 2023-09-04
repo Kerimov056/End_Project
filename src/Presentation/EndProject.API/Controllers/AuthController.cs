@@ -1,9 +1,12 @@
 ﻿using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Auth;
 using EndProject.Domain.Entitys.Common;
+using EndProject.Domain.Entitys.Identity;
 using EndProject.Domain.Helpers;
 using EndProjet.Persistance.Context;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EndProject.API.Controllersş
@@ -14,17 +17,19 @@ namespace EndProject.API.Controllersş
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
+        private readonly SignInManager<AppUser> _siginManager;
         private readonly IEmailService _emailService;
         private readonly AppDbContext _appDbContext;
 
-        public AuthController(IAuthService authService
-            , IEmailService emailService
-            , AppDbContext appDbContext
-            )
+        public AuthController(IAuthService authService,
+            IEmailService emailService,
+            AppDbContext appDbContext,
+            SignInManager<AppUser> signInManager)
         {
             _authService = authService;
             _emailService = emailService;
             _appDbContext = appDbContext;
+            _siginManager = signInManager;
         }
 
         [HttpPost("register")]
@@ -72,18 +77,36 @@ namespace EndProject.API.Controllersş
             return Ok(response);
         }
 
+
+        //[HttpGet]
+        //[AllowAnonymous]
+        //[Route("account/external-auth-callback")]
+        //public async Task<IActionResult> ExternalLoginCallback()
+        //{
+        //    ExternalLoginInfo info = await _siginManager.GetExternalLoginInfoAsync();
+        //    var result = await _authService.ExternalLogin(info);
+
+        //}
+
+
+
+
+
+
+
+
         //[HttpPost("Forget-Password")]
         //public async Task<IActionResult> ForgetPassword(string email)
         //{
         //    var user = await _appDbContext.Users.FirstOrDefaultAsync(x => x.Email == email);
         //    if (user is null) return BadRequest("User not Found");
-            
+
         //    user.RefreshTokenExpration
         //}
 
-       // private string CreateRandomToken()
-       // {
-       //     return Convert.ToHexString(RandomNumberGenerator.GetBytes(64));
-       // }
+        // private string CreateRandomToken()
+        // {
+        //     return Convert.ToHexString(RandomNumberGenerator.GetBytes(64));
+        // }
     }
 }

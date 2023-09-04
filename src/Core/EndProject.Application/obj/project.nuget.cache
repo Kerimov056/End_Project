@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "3xd+wu56bih2fX8WAmu+UDy5BJ7sGSntbDB8H+zUnMPOpT1V/wd/MvtbnF7uM3Ae/YhgY2HtbTAPTF/JEPwYhw==",
+  "dgSpecHash": "+LnqJMXakQ9c6Vn/q6JstLqr0tpBypG/tzAZR43ilFouZcpq/26c0Kul/tsPs5hPU1G7Kwp9eKc+vw3hgHauSA==",
   "success": true,
   "projectFilePath": "D:\\work2\\End_Project\\src\\Core\\EndProject.Application\\EndProject.Application.csproj",
   "expectedPackageFiles": [
@@ -11,6 +11,7 @@
     "C:\\Users\\Legion\\.nuget\\packages\\fluentvalidation\\11.6.0\\fluentvalidation.11.6.0.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\mailkit\\4.1.0\\mailkit.4.1.0.nupkg.sha512",
+    "C:\\Users\\Legion\\.nuget\\packages\\microsoft.aspnetcore.authentication.google\\6.0.20\\microsoft.aspnetcore.authentication.google.6.0.20.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\6.0.20\\microsoft.aspnetcore.cryptography.internal.6.0.20.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\6.0.20\\microsoft.aspnetcore.cryptography.keyderivation.6.0.20.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\microsoft.aspnetcore.http.features\\6.0.0-preview.4.21253.5\\microsoft.aspnetcore.http.features.6.0.0-preview.4.21253.5.nupkg.sha512",

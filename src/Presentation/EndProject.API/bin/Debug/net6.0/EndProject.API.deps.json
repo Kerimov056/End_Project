@@ -11,6 +11,7 @@
           "Azure.Storage.Blobs": "12.18.0-beta.1",
           "EndProjet.Persistance": "1.0.0",
           "MailKit": "4.1.0",
+          "Microsoft.AspNetCore.Authentication.Google": "6.0.20",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.20",
           "Microsoft.AspNetCore.Cors": "2.2.0",
           "Microsoft.AspNetCore.SignalR": "1.1.0",
@@ -173,6 +174,14 @@
           "Microsoft.AspNetCore.Authentication.Abstractions": "2.2.0",
           "Microsoft.AspNetCore.Http": "2.2.0",
           "Microsoft.AspNetCore.Http.Extensions": "2.2.0"
+        }
+      },
+      "Microsoft.AspNetCore.Authentication.Google/6.0.20": {
+        "runtime": {
+          "lib/net6.0/Microsoft.AspNetCore.Authentication.Google.dll": {
+            "assemblyVersion": "6.0.20.0",
+            "fileVersion": "6.0.2023.32106"
+          }
         }
       },
       "Microsoft.AspNetCore.Authentication.JwtBearer/6.0.20": {
@@ -1162,6 +1171,7 @@
           "EndProject.Domain": "1.0.0",
           "FluentValidation": "11.6.0",
           "MailKit": "4.1.0",
+          "Microsoft.AspNetCore.Authentication.Google": "6.0.20",
           "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": "1.18.1"
         },
         "runtime": {
@@ -1172,6 +1182,7 @@
         "dependencies": {
           "Azure.Storage.Blobs": "12.18.0-beta.1",
           "MailKit": "4.1.0",
+          "Microsoft.AspNetCore.Authentication.Google": "6.0.20",
           "Microsoft.AspNetCore.Http.Features": "6.0.0-preview.4.21253.5",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.20",
           "Microsoft.EntityFrameworkCore": "6.0.20",
@@ -1186,6 +1197,7 @@
           "Azure.Storage.Blobs": "12.18.0-beta.1",
           "EndProject.Application": "1.0.0",
           "MailKit": "4.1.0",
+          "Microsoft.AspNetCore.Authentication.Google": "6.0.20",
           "Microsoft.IdentityModel.Tokens": "6.20.0",
           "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": "1.18.1",
           "System.IdentityModel.Tokens.Jwt": "6.20.0",
@@ -1204,6 +1216,7 @@
           "EndProject.Infrastructure": "1.0.0",
           "FluentValidation.AspNetCore": "11.3.0",
           "MailKit": "4.1.0",
+          "Microsoft.AspNetCore.Authentication.Google": "6.0.20",
           "Microsoft.AspNetCore.Identity": "2.2.0",
           "Microsoft.EntityFrameworkCore": "6.0.20",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.20",
@@ -1325,6 +1338,13 @@
       "sha512": "sha512-XlVJzJ5wPOYW+Y0J6Q/LVTEyfS4ssLXmt60T0SPP+D8abVhBTl+cgw2gDHlyKYIkcJg7btMVh383NDkMVqD/fg==",
       "path": "microsoft.aspnetcore.authentication.core/2.2.0",
       "hashPath": "microsoft.aspnetcore.authentication.core.2.2.0.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Authentication.Google/6.0.20": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-VL1BrqPT3tEhdko5YHwkBse47yG+XnRYc78AAbZfUEFCxrEAttCD1BcCuFbNk6eNXXP8/rM2QyrlWqit8gTATw==",
+      "path": "microsoft.aspnetcore.authentication.google/6.0.20",
+      "hashPath": "microsoft.aspnetcore.authentication.google.6.0.20.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Authentication.JwtBearer/6.0.20": {
       "type": "package",

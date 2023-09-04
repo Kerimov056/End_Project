@@ -9,6 +9,7 @@ using EndProjet.Persistance.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.Security.Claims;
 using System.Text;
 
 namespace EndProjet.Persistance.Implementations.Services;
@@ -37,6 +38,51 @@ public class AuthService : IAuthService
         _tokenHandler = tokenHandler;
     }
 
+    public async Task<LoginDTO> ExternalLogin(ExternalLoginInfo info)
+    {
+        //LoginDTO loginResult = null;
+
+        //if (info==null)
+        //{
+        //    return null;
+        //}
+
+        //var signinResult = await _siginManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, false);
+        //var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+        //var user = await _userManager.FindByEmailAsync(email);
+        ////var claims = await GetUserClaims(user);
+
+
+        //if (signinResult.Succeeded)
+        //{
+        //    var jwtResult = await _tokenHandler.CreateAccessToken(2, 3, user);
+
+
+        //    await _userManager.SetAuthenticationTokenAsync(
+        //        user,
+        //        TokenOptions.DefaultProvider,
+        //        jwtResult.refreshToken,
+        //        jwtResult.refreshToken);
+
+        //    loginResult = new LoginDTO()
+        //    {
+        //        user = new UserViewModel()
+        //        {
+        //            Email = email,
+        //            AccessToken = jwtResult.AccessToken,
+        //            RefreshToken = jwtResult.RefreshToken,
+        //            FirstName = user.FirstName,
+        //            LastName = user.LastName,
+        //            Phone = user.PhoneNumber,
+        //            UserId = user.Id
+        //        }
+        //    };             //https://mahdi-karimipour.medium.com/react-google-auth-asp-net-5-0-api-azure-and-asp-net-identity-4dfe1ced369e
+
+        //    return loginResult;
+        //}
+        throw new NotImplementedException();    
+    }
+
     public async Task<TokenResponseDTO> Login(LoginDTO loginDTO)
     {
         AppUser appUser = await _userManager.FindByEmailAsync(loginDTO.UsernameOrEmail);
@@ -46,7 +92,7 @@ public class AuthService : IAuthService
             if (appUser is null) throw new LogInFailerException("Invalid Login!");
         }
 
-        Microsoft.AspNetCore.Identity.SignInResult signResult = await _siginManager.CheckPasswordSignInAsync(appUser, loginDTO.password, true);
+    SignInResult signResult = await _siginManager.CheckPasswordSignInAsync(appUser, loginDTO.password, true);
         if (!signResult.Succeeded)
         {
             throw new LogInFailerException("Invalid Login!");

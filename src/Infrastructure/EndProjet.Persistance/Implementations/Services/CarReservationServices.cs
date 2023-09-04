@@ -47,7 +47,7 @@ public class CarReservationServices : ICarReservationServices
         var products = await _basketServices.GetBasketProductsAsync(AllCarReservation.AppUserId);
         foreach (var product in products)
         {
-            CarReservationCreateDTO car = new()
+            CarReservationCreateDTO carCreateDTO = new()
             {
                 FullName = AllCarReservation.FullName,
                 Image = AllCarReservation.Image,
@@ -62,9 +62,8 @@ public class CarReservationServices : ICarReservationServices
                 ReturnLocation = AllCarReservation.ReturnLocation,
                 ChauffeursId  = null
             };
-
             
-            await CreateAsync(car);
+            await CreateAsync(carCreateDTO);
         }
     }
 
@@ -250,6 +249,33 @@ public class CarReservationServices : ICarReservationServices
              .Include(x => x.ReturnLocation)
              .Where(x => x.Status == ReservationStatus.Confirmed)
              .ToListAsync();
+
+        if (ByReserv is null) throw new NotFoundException("Reservation is Null");
+        var ToDto = _mapper.Map<List<CarReservationGetDTO>>(ByReserv);
+        foreach (var byCar in ByReserv)
+        {
+            foreach (var byCarDto in ToDto)
+            {
+                if (byCar.Id == byCarDto.Id)
+                {
+                    byCarDto.ReservCar = await _carServices.GetByIdAsync(byCar.CarId);
+                    break;
+                }
+            }
+        }
+        return ToDto;
+    }
+
+    public async Task<List<CarReservationGetDTO>> IsResevConfirmPickUpGetAll()
+    {
+        var ByReserv = await _carReservationReadRepository
+            .GetAll()
+            .Include(x => x.PickupLocation)
+            .Include(x => x.ReturnLocation)
+            .Where(x => x.Status == ReservationStatus.Confirmed)
+            .Where(x => x.PickupLocation != null)
+            .Where(x => x.ReturnLocation == null)
+            .ToListAsync();
 
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
         var ToDto = _mapper.Map<List<CarReservationGetDTO>>(ByReserv);

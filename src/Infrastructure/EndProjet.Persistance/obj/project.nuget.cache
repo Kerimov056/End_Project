@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "RoLCXyy1ug6fl9xtWxUTaoYCWzydWRMPpnMHpQ4S724watj8/oh8kbJmDKeSY3A/tcfjK+u5QuD1Dvk2b/Q/VQ==",
+  "dgSpecHash": "p8UkBeGWBwhOXgV3vueXXQsfO9Tt9WG5uAzIM9cKtj0IarksSACNk3OuRkfpp9xQ5wHBAepBZydf9V1WXPP1LQ==",
   "success": true,
   "projectFilePath": "D:\\work2\\End_Project\\src\\Infrastructure\\EndProjet.Persistance\\EndProjet.Persistance.csproj",
   "expectedPackageFiles": [
@@ -19,6 +19,7 @@
     "C:\\Users\\Legion\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\microsoft.aspnetcore.authentication.cookies\\2.2.0\\microsoft.aspnetcore.authentication.cookies.2.2.0.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\microsoft.aspnetcore.authentication.core\\2.2.0\\microsoft.aspnetcore.authentication.core.2.2.0.nupkg.sha512",
+    "C:\\Users\\Legion\\.nuget\\packages\\microsoft.aspnetcore.authentication.google\\6.0.20\\microsoft.aspnetcore.authentication.google.6.0.20.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\6.0.20\\microsoft.aspnetcore.cryptography.internal.6.0.20.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\6.0.20\\microsoft.aspnetcore.cryptography.keyderivation.6.0.20.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\microsoft.aspnetcore.dataprotection\\2.2.0\\microsoft.aspnetcore.dataprotection.2.2.0.nupkg.sha512",

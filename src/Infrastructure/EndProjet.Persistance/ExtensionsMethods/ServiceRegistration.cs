@@ -26,6 +26,13 @@ public static class ServiceRegistration
             options.UseSqlServer(services.BuildServiceProvider().GetService<IConfiguration>().GetConnectionString("Default"));
         });
 
+        //services.AddAuthentication()
+        //       .AddGoogle(options =>
+        //       {
+        //           options.ClientId = "http://91997614652-1q2taif2sptoou1dahqsiripc4u5e0b6.apps.googleusercontent.com";
+        //           options.ClientSecret = "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";
+        //       });
+
 
         //Repository
         services.AddScoped<ISliderReadRepository, SliderReadRepository>();

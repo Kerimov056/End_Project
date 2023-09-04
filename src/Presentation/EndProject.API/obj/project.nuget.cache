@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "V8NbnLJ1cYVwQlsEYYidMBZeuiSAcSqr018nByVkCi0uPSHkNaEsXoi2C3rmJXqXxiIrowSAqJ+5X4Lq2jAnpg==",
+  "dgSpecHash": "7zaaVGbjqSjWI1ANDw/ViF54Sh/oO8XWFVPNq0kVNc1YFs3OQa48okQtwBA9HD7LkUwq3OL/TnV1DK92FsadYQ==",
   "success": true,
   "projectFilePath": "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\EndProject.API.csproj",
   "expectedPackageFiles": [
@@ -19,6 +19,7 @@
     "C:\\Users\\Legion\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\microsoft.aspnetcore.authentication.cookies\\2.2.0\\microsoft.aspnetcore.authentication.cookies.2.2.0.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\microsoft.aspnetcore.authentication.core\\2.2.0\\microsoft.aspnetcore.authentication.core.2.2.0.nupkg.sha512",
+    "C:\\Users\\Legion\\.nuget\\packages\\microsoft.aspnetcore.authentication.google\\6.0.20\\microsoft.aspnetcore.authentication.google.6.0.20.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.20\\microsoft.aspnetcore.authentication.jwtbearer.6.0.20.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\microsoft.aspnetcore.authorization\\2.2.0\\microsoft.aspnetcore.authorization.2.2.0.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\microsoft.aspnetcore.authorization.policy\\2.2.0\\microsoft.aspnetcore.authorization.policy.2.2.0.nupkg.sha512",

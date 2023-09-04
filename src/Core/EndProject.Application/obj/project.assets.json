@@ -113,6 +113,22 @@
           }
         }
       },
+      "Microsoft.AspNetCore.Authentication.Google/6.0.20": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/Microsoft.AspNetCore.Authentication.Google.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Microsoft.AspNetCore.Authentication.Google.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
       "Microsoft.AspNetCore.Cryptography.Internal/6.0.20": {
         "type": "package",
         "compile": {
@@ -721,6 +737,7 @@
         "dependencies": {
           "Azure.Storage.Blobs": "12.18.0-beta.1",
           "MailKit": "4.1.0",
+          "Microsoft.AspNetCore.Authentication.Google": "6.0.20",
           "Microsoft.AspNetCore.Http.Features": "6.0.0-preview.4.21253.5",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.20",
           "Microsoft.EntityFrameworkCore": "6.0.20",
@@ -891,6 +908,21 @@
         "lib/netstandard2.1/MailKit.xml",
         "mailkit.4.1.0.nupkg.sha512",
         "mailkit.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Authentication.Google/6.0.20": {
+      "sha512": "VL1BrqPT3tEhdko5YHwkBse47yG+XnRYc78AAbZfUEFCxrEAttCD1BcCuFbNk6eNXXP8/rM2QyrlWqit8gTATw==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.authentication.google/6.0.20",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net6.0/Microsoft.AspNetCore.Authentication.Google.dll",
+        "lib/net6.0/Microsoft.AspNetCore.Authentication.Google.xml",
+        "microsoft.aspnetcore.authentication.google.6.0.20.nupkg.sha512",
+        "microsoft.aspnetcore.authentication.google.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Cryptography.Internal/6.0.20": {
@@ -1845,6 +1877,7 @@
       "EndProject.Domain >= 1.0.0",
       "FluentValidation >= 11.6.0",
       "MailKit >= 4.1.0",
+      "Microsoft.AspNetCore.Authentication.Google >= 6.0.20",
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.20",
       "Microsoft.VisualStudio.Azure.Containers.Tools.Targets >= 1.18.1"
     ]
@@ -1903,6 +1936,10 @@
           "MailKit": {
             "target": "Package",
             "version": "[4.1.0, )"
+          },
+          "Microsoft.AspNetCore.Authentication.Google": {
+            "target": "Package",
+            "version": "[6.0.20, )"
           },
           "Microsoft.EntityFrameworkCore.Tools": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",

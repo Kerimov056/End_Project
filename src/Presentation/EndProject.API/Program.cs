@@ -2,12 +2,15 @@
 using EndProject.API.BackGroundServıces;
 using EndProject.API.Hub;
 using EndProject.Application.Abstraction.Services;
+using EndProject.Domain.Entitys.Identity;
 using EndProject.Domain.Helpers.AccountSetting;
 using EndProject.Infrastructure;
 using EndProject.Infrastructure.Services.Email;
 using EndProjet.Persistance.Context;
 using EndProjet.Persistance.ExtensionsMethods;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using SymmetricSecurityKey = Microsoft.IdentityModel.Tokens.SymmetricSecurityKey;
@@ -57,6 +60,20 @@ builder.Services.AddAuthentication(options =>
         ValidateLifetime = false,
         ValidateIssuerSigningKey = true
     };
+})
+.AddGoogle(options =>
+{
+    options.ClientId = "http://91997614652-1q2taif2sptoou1dahqsiripc4u5e0b6.apps.googleusercontent.com";
+    options.ClientSecret = "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";
+    //this function is get user google profile image
+    options.Scope.Add("profile");
+    options.SignInScheme = Microsoft.AspNetCore.Identity.IdentityConstants.ExternalScheme;
+});
+
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    options.CheckConsentNeeded = context => true;
+    options.MinimumSameSitePolicy = SameSiteMode.Unspecified;
 });
 
 builder.Services.AddEndpointsApiExplorer();
@@ -98,6 +115,17 @@ app.UseCors(cors => cors
 //app.UseHttpsRedirection();
 //app.UseRouting(); 
 
+app.UseHsts();
+
+app.Use((context, next) =>
+{
+    context.Request.Host = new HostString("api.domain.com");
+    context.Request.PathBase = new PathString("/identity"); //if you need this
+    context.Request.Scheme = "https";
+    return next();
+});
+
+app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
