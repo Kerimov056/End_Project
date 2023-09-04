@@ -12,7 +12,7 @@ public interface ICarReservationServices
     Task<List<CarReservationGetDTO>> IsResevNowGetAll();
     Task<List<CarReservationGetDTO>> YouGetAllAsync(string Id);
     Task CreateAsync(CarReservationCreateDTO carReservationCreateDTO);
-    Task AllCreateAsync(ReservationFake ReservationFake);
+    Task AllCreateAsync(AllCarReservation AllCarReservation);
     Task<CarReservationGetDTO> GetByIdAsync(Guid Id);
     Task<CarReservationGetDTO> GetReservValue(Guid CarId);
     Task StatusConfirmed(Guid Id);

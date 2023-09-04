@@ -42,26 +42,28 @@ public class CarReservationServices : ICarReservationServices
         _basketServices = basketServices;
     }
 
-    public async Task AllCreateAsync(ReservationFake ReservationFake)
+    public async Task AllCreateAsync(AllCarReservation AllCarReservation)
     {
-        var products = await _basketServices.GetBasketProductsAsync(ReservationFake.AppUserId);
+        var products = await _basketServices.GetBasketProductsAsync(AllCarReservation.AppUserId);
         foreach (var product in products)
         {
             CarReservationCreateDTO car = new()
             {
-                FullName = ReservationFake.FullName,
-                Image = ReservationFake.Image,
-                Email = ReservationFake.Email,
-                Notes = ReservationFake.Notes,
-                Number = ReservationFake.Number,
-                PickupDate = ReservationFake.PickupDate,
-                ReturnDate = ReservationFake.ReturnDate,
-                AppUserId = ReservationFake.AppUserId,
+                FullName = AllCarReservation.FullName,
+                Image = AllCarReservation.Image,
+                Email = AllCarReservation.Email,
+                Notes = AllCarReservation.Notes,
+                Number = AllCarReservation.Number,
+                PickupDate = AllCarReservation.PickupDate,
+                ReturnDate = AllCarReservation.ReturnDate,
+                AppUserId = AllCarReservation.AppUserId,
                 CarId = product.CarId,
-                PickupLocation = ReservationFake.PickupLocation,
-                ReturnLocation = ReservationFake.ReturnLocation,
+                PickupLocation = AllCarReservation.PickupLocation,
+                ReturnLocation = AllCarReservation.ReturnLocation,
                 ChauffeursId  = null
             };
+
+            
             await CreateAsync(car);
         }
     }

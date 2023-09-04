@@ -149,9 +149,9 @@ public class CarReservationsController : ControllerBase
     }
 
     [HttpPost("AllResev")]
-    public async Task<IActionResult> AllPost([FromForm] ReservationFake ReservationFake)
+    public async Task<IActionResult> AllPost([FromForm] AllCarReservation AllCarReservation)
     {
-        await _carReservationServices.AllCreateAsync(ReservationFake);
+        await _carReservationServices.AllCreateAsync(AllCarReservation);
         return StatusCode((int)HttpStatusCode.Created);
     }
 
