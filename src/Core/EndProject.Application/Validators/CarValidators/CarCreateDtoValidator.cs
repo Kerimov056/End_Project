@@ -13,3 +13,4 @@ public class CarCreateDtoValidator : AbstractValidator<CarCreateDTO>
         RuleFor(x => x.Year).NotNull().NotEmpty();
         RuleFor(x => x.Description).NotNull().NotEmpty().MaximumLength(1000);
     }
+}
