@@ -122,6 +122,21 @@ app.UseCors(cors => cors
 //    return next();
 //});
 
+//WebSocket---------
+
+app.UseWebSockets();
+var webSocketOptions = new WebSocketOptions
+{
+    KeepAliveInterval = TimeSpan.FromMinutes(2)
+};
+
+app.UseWebSockets(webSocketOptions);
+
+
+
+
+
+//WebSocket---------
 
 app.UseHttpsRedirection();
 

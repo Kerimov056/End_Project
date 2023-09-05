@@ -91,8 +91,9 @@ public class AuthService : IAuthService
             appUser = await _userManager.FindByNameAsync(loginDTO.UsernameOrEmail);
             if (appUser is null) throw new LogInFailerException("Invalid Login!");
         }
+        
 
-    SignInResult signResult = await _siginManager.CheckPasswordSignInAsync(appUser, loginDTO.password, true);
+        SignInResult signResult = await _siginManager.CheckPasswordSignInAsync(appUser, loginDTO.password, true);
         if (!signResult.Succeeded)
         {
             throw new LogInFailerException("Invalid Login!");
@@ -102,13 +103,38 @@ public class AuthService : IAuthService
         //    throw new UserBlockedException("User Blocked");
         //}
 
-        var tokenResponse = await _tokenHandler.CreateAccessToken(2,3,appUser);
+
+            var tokenResponse = await _tokenHandler.CreateAccessToken(2,3,appUser);
         appUser.RefreshToken = tokenResponse.refreshToken;
         appUser.RefreshTokenExpration = tokenResponse.refreshTokenExpration;
         await _userManager.UpdateAsync(appUser);
         return tokenResponse;
     }
 
+    public async Task<TokenResponseDTO> LoginAdmin(LoginDTO loginDTO)
+    {
+        AppUser appUser = await _userManager.FindByEmailAsync(loginDTO.UsernameOrEmail);
+        if (appUser is null)
+        {
+            appUser = await _userManager.FindByNameAsync(loginDTO.UsernameOrEmail);
+            if (appUser is null) throw new LogInFailerException("Invalid Login!");
+        }
+
+        SignInResult signResult = await _siginManager.CheckPasswordSignInAsync(appUser, loginDTO.password, true);
+        if (!signResult.Succeeded) throw new LogInFailerException("Invalid Login!");
+
+        var userRoles = await _userManager.GetRolesAsync(appUser);
+
+        if (userRoles.Contains("Admin") || userRoles.Contains("SuperAdmin"))
+        {
+            var tokenResponse = await _tokenHandler.CreateAccessToken(2, 3, appUser);
+            appUser.RefreshToken = tokenResponse.refreshToken;
+            appUser.RefreshTokenExpration = tokenResponse.refreshTokenExpration;
+            await _userManager.UpdateAsync(appUser);
+            return tokenResponse;
+        }
+        else  throw new LogInFailerException("You do not have permission to access this resource.");
+    }
 
     public async Task<SignUpResponse> Register(RegisterDTO registerDTO)
     {

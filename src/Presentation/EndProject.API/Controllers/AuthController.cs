@@ -57,16 +57,24 @@ namespace EndProject.API.Controllersş
             html = System.IO.File.ReadAllText(filePath);
 
             html = html.Replace("{{password}}", password);
-
+                
             _emailService.Send(registerDTO.Email, subject, html);
 
             return Ok(response);
         }
 
+
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] LoginDTO loginDTO)
         {
             var responseToken = await _authService.Login(loginDTO);
+            return Ok(responseToken);
+        }  
+        
+        [HttpPost("AdminLogin")]
+        public async Task<IActionResult> LoginAdmin([FromBody] LoginDTO loginDTO)
+        {
+            var responseToken = await _authService.LoginAdmin(loginDTO);
             return Ok(responseToken);
         }
 

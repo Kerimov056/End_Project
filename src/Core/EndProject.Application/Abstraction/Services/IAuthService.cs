@@ -7,6 +7,7 @@ public interface IAuthService
 {
     Task<SignUpResponse> Register(RegisterDTO registerDTO);
     Task<TokenResponseDTO> Login(LoginDTO loginDTO);
+    Task<TokenResponseDTO> LoginAdmin(LoginDTO loginDTO);
     Task<TokenResponseDTO> ValidRefleshToken(string refreshToken);
     //Task<LoginDTO> ExternalLogin(ExternalLoginInfo info);
 }

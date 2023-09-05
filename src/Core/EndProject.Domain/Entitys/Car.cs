@@ -17,5 +17,6 @@ public class Car : BaseEntity
     public List<CarComment>? Comments { get; set; }
     public List<CarReservation>? Reservations { get; set; }
     public List<OtherCarReservation>? OtherReservations { get; set; }
+    //public JPSData? JPSData { get; set; }
 
 }
