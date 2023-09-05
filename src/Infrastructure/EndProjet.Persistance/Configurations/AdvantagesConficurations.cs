@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EndProjet.Persistance.Configurations;
 
-public class AdvantagesConficurations : IEntityTypeConfiguration<Faq>
+public class AdvantagesConficurations : IEntityTypeConfiguration<Advantage>
 {
-    public void Configure(EntityTypeBuilder<Faq> builder)
+    public void Configure(EntityTypeBuilder<Advantage> builder)
     {
         builder.Property(x => x.Title).IsRequired().HasMaxLength(100);
         builder.Property(x => x.Descrption).IsRequired().HasMaxLength(1000);
