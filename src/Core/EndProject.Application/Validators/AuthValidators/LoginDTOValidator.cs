@@ -1,13 +1,13 @@
-﻿//using EndProject.Application.DTOs.Auth;
-//using FluentValidation;
+﻿using EndProject.Application.DTOs.Auth;
+using FluentValidation;
 
-//namespace EndProject.Application.Validators.AuthValidators;
+namespace EndProject.Application.Validators.AuthValidators;
 
-//public class LoginDTOValidator: AbstractValidator<LoginDTO>
-//{
-//	public LoginDTOValidator()
-//	{
-//		RuleFor(x => x.UsernameOrEmail).NotEmpty().NotNull().MaximumLength(255);
-//		RuleFor(x => x.password).NotEmpty().NotNull().MaximumLength(255);
-//	}
-//}
+public class LoginDTOValidator : AbstractValidator<LoginDTO>
+{
+	public LoginDTOValidator()
+	{
+		RuleFor(x => x.UsernameOrEmail).NotEmpty().NotNull().MaximumLength(255);
+		RuleFor(x => x.password).NotEmpty().NotNull().MaximumLength(255);
+	}
+}
