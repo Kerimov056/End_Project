@@ -7,6 +7,7 @@ public class SliderCreateDtoValidator:AbstractValidator<SliderCreateDTO>
 {
     public SliderCreateDtoValidator()
     {
+        RuleFor(x => x.image).NotEmpty().NotNull();
     }
 }
 
