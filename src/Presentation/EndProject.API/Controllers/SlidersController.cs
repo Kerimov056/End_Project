@@ -16,6 +16,7 @@ public class SlidersController : ControllerBase
     public async Task<IActionResult> GetAll()
     {
         var Slider = await _sliderService.GetAllAsync();
+
         return Ok(Slider);
     }
 

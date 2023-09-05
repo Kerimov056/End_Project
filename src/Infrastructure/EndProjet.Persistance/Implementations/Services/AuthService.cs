@@ -38,50 +38,50 @@ public class AuthService : IAuthService
         _tokenHandler = tokenHandler;
     }
 
-    public async Task<LoginDTO> ExternalLogin(ExternalLoginInfo info)
-    {
-        //LoginDTO loginResult = null;
+    //public async Task<LoginDTO> ExternalLogin(ExternalLoginInfo info)
+    //{
+    //    //LoginDTO loginResult = null;
 
-        //if (info==null)
-        //{
-        //    return null;
-        //}
+    //    //if (info==null)
+    //    //{
+    //    //    return null;
+    //    //}
 
-        //var signinResult = await _siginManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, false);
-        //var email = info.Principal.FindFirstValue(ClaimTypes.Email);
-        //var user = await _userManager.FindByEmailAsync(email);
-        ////var claims = await GetUserClaims(user);
-
-
-        //if (signinResult.Succeeded)
-        //{
-        //    var jwtResult = await _tokenHandler.CreateAccessToken(2, 3, user);
+    //    //var signinResult = await _siginManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, false);
+    //    //var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+    //    //var user = await _userManager.FindByEmailAsync(email);
+    //    ////var claims = await GetUserClaims(user);
 
 
-        //    await _userManager.SetAuthenticationTokenAsync(
-        //        user,
-        //        TokenOptions.DefaultProvider,
-        //        jwtResult.refreshToken,
-        //        jwtResult.refreshToken);
+    //    //if (signinResult.Succeeded)
+    //    //{
+    //    //    var jwtResult = await _tokenHandler.CreateAccessToken(2, 3, user);
 
-        //    loginResult = new LoginDTO()
-        //    {
-        //        user = new UserViewModel()
-        //        {
-        //            Email = email,
-        //            AccessToken = jwtResult.AccessToken,
-        //            RefreshToken = jwtResult.RefreshToken,
-        //            FirstName = user.FirstName,
-        //            LastName = user.LastName,
-        //            Phone = user.PhoneNumber,
-        //            UserId = user.Id
-        //        }
-        //    };             //https://mahdi-karimipour.medium.com/react-google-auth-asp-net-5-0-api-azure-and-asp-net-identity-4dfe1ced369e
 
-        //    return loginResult;
-        //}
-        throw new NotImplementedException();    
-    }
+    //    //    await _userManager.SetAuthenticationTokenAsync(
+    //    //        user,
+    //    //        TokenOptions.DefaultProvider,
+    //    //        jwtResult.refreshToken,
+    //    //        jwtResult.refreshToken);
+
+    //    //    loginResult = new LoginDTO()
+    //    //    {
+    //    //        user = new UserViewModel()
+    //    //        {
+    //    //            Email = email,
+    //    //            AccessToken = jwtResult.AccessToken,
+    //    //            RefreshToken = jwtResult.RefreshToken,
+    //    //            FirstName = user.FirstName,
+    //    //            LastName = user.LastName,
+    //    //            Phone = user.PhoneNumber,
+    //    //            UserId = user.Id
+    //    //        }
+    //    //    };             //https://mahdi-karimipour.medium.com/react-google-auth-asp-net-5-0-api-azure-and-asp-net-identity-4dfe1ced369e
+
+    //    //    return loginResult;
+    //    //}
+    //    throw new NotImplementedException();    
+    //}
 
     public async Task<TokenResponseDTO> Login(LoginDTO loginDTO)
     {

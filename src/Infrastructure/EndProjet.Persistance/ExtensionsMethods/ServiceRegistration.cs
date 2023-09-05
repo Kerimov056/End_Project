@@ -1,4 +1,5 @@
-﻿using EndProject.Application.Abstraction.Repositories.IEntityRepository;
+﻿using AutoMapper;
+using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.Validators.SliderValidators;
 using EndProject.Domain.Entitys.Identity;
@@ -8,6 +9,7 @@ using EndProjet.Persistance.Implementations.Services;
 using EndProjet.Persistance.MapperProfiles;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -19,7 +21,7 @@ namespace EndProjet.Persistance.ExtensionsMethods;
 
 public static class ServiceRegistration
 {
-    public static void AddPersistenceServices (this IServiceCollection services)
+    public static void AddPersistenceServices(this IServiceCollection services)
     {
         services.AddDbContext<AppDbContext>(options =>
         {
@@ -95,7 +97,7 @@ public static class ServiceRegistration
         services.AddScoped<ILikeServices, LikeServices>();
         services.AddScoped<IBasketServices, BasketServices>();
         services.AddScoped<IBasketProducServices, BasketProducServices>();
-      
+
 
 
 
@@ -114,9 +116,15 @@ public static class ServiceRegistration
             Options.Lockout.AllowedForNewUsers = true;
         }).AddDefaultTokenProviders().AddEntityFrameworkStores<AppDbContext>();
 
-        
+
         //Mapper
         services.AddAutoMapper(typeof(SliderProfile).Assembly);
+
+        //services.AddSingleton(provider => new MapperConfiguration(cfg =>
+        //{
+        //    cfg.AddProfile(new SliderProfile(provider.GetService<IHttpContextAccessor>()));
+        //}).CreateMapper());
+
 
         //Validator
         services.AddFluentValidationAutoValidation();
