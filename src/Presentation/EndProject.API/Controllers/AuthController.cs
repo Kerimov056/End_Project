@@ -86,6 +86,13 @@ namespace EndProject.API.Controllersş
         }
 
 
+        [HttpGet("AllMember")]
+        public async Task<IActionResult> AllMemberUsers()
+        {
+            var memberUsers = await _authService.AllMemberUser();
+            return Ok(memberUsers);
+        }
+
         //[HttpGet]
         //[AllowAnonymous]
         //[Route("account/external-auth-callback")]

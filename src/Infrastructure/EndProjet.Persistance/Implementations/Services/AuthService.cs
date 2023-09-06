@@ -9,7 +9,6 @@ using EndProjet.Persistance.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System.Security.Claims;
 using System.Text;
 
 namespace EndProjet.Persistance.Implementations.Services;
@@ -22,13 +21,15 @@ public class AuthService : IAuthService
     private readonly AppDbContext _appDbContext;
     private readonly IConfiguration _configuration;
     private readonly ITokenHandler _tokenHandler;
+    private readonly AppDbContext _context;
 
     public AuthService(UserManager<AppUser> userManager,
-                      SignInManager<AppUser> siginManager,
-                      RoleManager<IdentityRole> roleManager,
-                      AppDbContext appDbContext,
-                      IConfiguration configuration,
-                      ITokenHandler tokenHandler)
+                       SignInManager<AppUser> siginManager,
+                       RoleManager<IdentityRole> roleManager,
+                       AppDbContext appDbContext,
+                       IConfiguration configuration,
+                       ITokenHandler tokenHandler,
+                       AppDbContext context)
     {
         _userManager = userManager;
         _siginManager = siginManager;
@@ -36,6 +37,23 @@ public class AuthService : IAuthService
         _appDbContext = appDbContext;
         _configuration = configuration;
         _tokenHandler = tokenHandler;
+        _context = context;
+    }
+
+    public async Task<List<AppUser>> AllMemberUser()
+    {
+
+        var AllUsers = await _context.Users.ToListAsync();
+        var MemberList = new List<AppUser>();
+        foreach (var item in AllUsers)
+        {
+            var userRoles = await _userManager.GetRolesAsync(item);
+            if (userRoles.Contains("Member"))
+            {
+                MemberList.Add(item);
+            }
+        }
+        return MemberList;
     }
 
     //public async Task<LoginDTO> ExternalLogin(ExternalLoginInfo info)
@@ -91,7 +109,7 @@ public class AuthService : IAuthService
             appUser = await _userManager.FindByNameAsync(loginDTO.UsernameOrEmail);
             if (appUser is null) throw new LogInFailerException("Invalid Login!");
         }
-        
+
 
         SignInResult signResult = await _siginManager.CheckPasswordSignInAsync(appUser, loginDTO.password, true);
         if (!signResult.Succeeded)
@@ -104,7 +122,7 @@ public class AuthService : IAuthService
         //}
 
 
-            var tokenResponse = await _tokenHandler.CreateAccessToken(2,3,appUser);
+        var tokenResponse = await _tokenHandler.CreateAccessToken(2, 3, appUser);
         appUser.RefreshToken = tokenResponse.refreshToken;
         appUser.RefreshTokenExpration = tokenResponse.refreshTokenExpration;
         await _userManager.UpdateAsync(appUser);
@@ -133,7 +151,7 @@ public class AuthService : IAuthService
             await _userManager.UpdateAsync(appUser);
             return tokenResponse;
         }
-        else  throw new LogInFailerException("You do not have permission to access this resource.");
+        else throw new LogInFailerException("You do not have permission to access this resource.");
     }
 
     public async Task<SignUpResponse> Register(RegisterDTO registerDTO)
@@ -146,10 +164,10 @@ public class AuthService : IAuthService
             IsActive = false
         };
 
-        IdentityResult identityResult = await _userManager.CreateAsync(appUser,registerDTO.password);
+        IdentityResult identityResult = await _userManager.CreateAsync(appUser, registerDTO.password);
         if (!identityResult.Succeeded)
         {
-            StringBuilder errorMessage= new();
+            StringBuilder errorMessage = new();
             foreach (var error in identityResult.Errors)
             {
                 errorMessage.AppendLine(error.Description);
