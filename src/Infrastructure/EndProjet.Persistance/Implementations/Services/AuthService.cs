@@ -43,7 +43,7 @@ public class AuthService : IAuthService
         
         var targetUser = await _userManager.FindByIdAsync(appUserId);
 
-        if (targetUser == null)   throw new NotFoundException("Hedef kullanıcı bulunamadı.");
+        if (targetUser == null)   throw new NotFoundException("User Not Found");
 
         await _userManager.RemoveFromRoleAsync(targetUser, "Member");
         await _userManager.AddToRoleAsync(targetUser, "Admin");
@@ -208,12 +208,17 @@ public class AuthService : IAuthService
         };
     }
 
-    public async Task RemoveUser(string userId)
+    public async Task RemoveUser(string superAdminId, string userId)
     {
-        var bySuperAdmin = await _userManager.FindByIdAsync(userId);
+        var bySuperAdmin = await _userManager.FindByIdAsync(superAdminId);
         if (bySuperAdmin is null) throw new NotFoundException("SuperAdmin Not found");
+        if (bySuperAdmin == null || !await _userManager.IsInRoleAsync(bySuperAdmin, "SuperAdmin"))
+            throw new UnauthorizedAccessException("You do not have permission to perform this action.");
 
-        _context.Remove(bySuperAdmin);
+        var targetUser = await _userManager.FindByIdAsync(userId);
+        if (targetUser == null) throw new NotFoundException("User Not Found");
+
+        _context.Remove(targetUser);
         await _context.SaveChangesAsync();
     }
 

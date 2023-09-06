@@ -102,9 +102,9 @@ namespace EndProject.API.Controllersş
 
 
         [HttpDelete("RemoveUser")]
-        public async Task<IActionResult> UserRemove([FromQuery] string? userID)
+        public async Task<IActionResult> UserRemove([FromQuery] string superAdminId, [FromQuery] string userId)
         {
-            await _authService.RemoveUser(userID);
+            await _authService.RemoveUser(superAdminId, userId);
             return Ok();
         }
 
