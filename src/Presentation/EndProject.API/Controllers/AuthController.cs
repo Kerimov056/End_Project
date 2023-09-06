@@ -91,6 +91,13 @@ namespace EndProject.API.Controllersş
             await _authService.AdminCreate(superAdminId, appUserId);
             return StatusCode((int)HttpStatusCode.Created);
         }
+        
+        [HttpPost("AdminDelete")]
+        public async Task<IActionResult> AdminDelete([FromQuery] string superAdminId, [FromQuery] string appUserId)
+        {
+            await _authService.AdminDelete(superAdminId, appUserId);
+            return Ok();
+        }
 
         [HttpGet("AllAdmin")]
         public async Task<IActionResult> AllAdminUsers([FromQuery] string? searchUser)

@@ -14,6 +14,7 @@ public interface IAuthService
     Task<List<AppUser>> AllAdminUser(string? searchUser);
     Task<AppUser> ByUser(string? userId);
     Task AdminCreate(string superAdminId, string appUserId);
+    Task AdminDelete(string superAdminId, string appAdminId);
     Task RemoveUser(string superAdminId, string userId);
     //Task<LoginDTO> ExternalLogin(ExternalLoginInfo info);
 }

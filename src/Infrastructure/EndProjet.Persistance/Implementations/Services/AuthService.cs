@@ -49,6 +49,22 @@ public class AuthService : IAuthService
         await _userManager.AddToRoleAsync(targetUser, "Admin");
     }
 
+    public async Task AdminDelete(string superAdminId, string appAdminId)
+    {
+        var bySuperAdmin = await _userManager.FindByIdAsync(superAdminId);
+        if (bySuperAdmin is null) throw new NotFoundException("SuperAdmin Not found");
+        if (bySuperAdmin == null || !await _userManager.IsInRoleAsync(bySuperAdmin, "SuperAdmin"))
+            throw new UnauthorizedAccessException("You do not have permission to perform this action.");
+
+
+        var targetAdmin = await _userManager.FindByIdAsync(appAdminId);
+
+        if (targetAdmin == null) throw new NotFoundException("Admin Not Found");
+
+        await _userManager.RemoveFromRoleAsync(targetAdmin, "Admin");
+        await _userManager.AddToRoleAsync(targetAdmin, "Member");
+    }
+
     public async Task<List<AppUser>> AllAdminUser(string? searchUser)
     {
         IQueryable<AppUser> AllUsers = _context.Users;
