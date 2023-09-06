@@ -4,7 +4,6 @@ using EndProject.Domain.Entitys.Common;
 using EndProject.Domain.Entitys.Identity;
 using EndProject.Domain.Helpers;
 using EndProjet.Persistance.Context;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -95,11 +94,12 @@ namespace EndProject.API.Controllersş
 
 
         [HttpGet("AllMember")]
-        public async Task<IActionResult> AllMemberUsers()
+        public async Task<IActionResult> AllMemberUsers([FromQuery] string? searchUser)
         {
-            var memberUsers = await _authService.AllMemberUser();
+            var memberUsers = await _authService.AllMemberUser(searchUser);
             return Ok(memberUsers);
         }
+   
 
         //[HttpGet]
         //[AllowAnonymous]

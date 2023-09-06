@@ -10,7 +10,7 @@ public interface IAuthService
     Task<TokenResponseDTO> Login(LoginDTO loginDTO);
     Task<TokenResponseDTO> LoginAdmin(LoginDTO loginDTO);
     Task<TokenResponseDTO> ValidRefleshToken(string refreshToken);
-    Task<List<AppUser>> AllMemberUser();
+    Task<List<AppUser>> AllMemberUser(string? searchUser);
     Task AdminCreate(string superAdminId, string appUserId);
     //Task<LoginDTO> ExternalLogin(ExternalLoginInfo info);
 }

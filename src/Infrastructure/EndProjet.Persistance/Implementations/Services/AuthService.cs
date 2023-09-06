@@ -1,5 +1,6 @@
 ﻿using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Auth;
+using EndProject.Domain.Entitys;
 using EndProject.Domain.Entitys.Common;
 using EndProject.Domain.Entitys.Identity;
 using EndProject.Domain.Enums.Role;
@@ -56,12 +57,18 @@ public class AuthService : IAuthService
         await _userManager.AddToRoleAsync(targetUser, "Admin");
     }
 
-    public async Task<List<AppUser>> AllMemberUser()
+    public async Task<List<AppUser>> AllMemberUser(string? searchUser)
     {
+        IQueryable<AppUser> AllUsers = _context.Users; // DbSet<AppUser> türünden olduğunu varsayalım
 
-        var AllUsers = await _context.Users.ToListAsync();
+        if (!string.IsNullOrEmpty(searchUser))
+        {
+            // Arama ifadesini hem FullName hem de Email ile karşılaştırın
+            AllUsers = AllUsers.Where(x => x.FullName.ToLower().Contains(searchUser.ToLower()) || x.Email.ToLower().Contains(searchUser.ToLower()));
+        }
+
         var MemberList = new List<AppUser>();
-        foreach (var item in AllUsers)
+        foreach (var item in await AllUsers.ToListAsync())
         {
             var userRoles = await _userManager.GetRolesAsync(item);
             if (userRoles.Contains("Member"))
@@ -71,6 +78,7 @@ public class AuthService : IAuthService
         }
         return MemberList;
     }
+
 
     //public async Task<LoginDTO> ExternalLogin(ExternalLoginInfo info)
     //{
