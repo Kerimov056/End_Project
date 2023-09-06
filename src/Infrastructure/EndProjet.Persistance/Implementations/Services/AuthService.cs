@@ -220,6 +220,7 @@ public class AuthService : IAuthService
             FullName = registerDTO.Fullname,
             UserName = registerDTO.Username,
             Email = registerDTO.Email,
+            BirthDate = registerDTO.BirthDate,
             IsActive = false
         };
 
