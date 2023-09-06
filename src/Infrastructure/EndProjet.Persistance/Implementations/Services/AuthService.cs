@@ -19,7 +19,6 @@ public class AuthService : IAuthService
     private readonly UserManager<AppUser> _userManager;
     private readonly SignInManager<AppUser> _siginManager;
     private readonly RoleManager<IdentityRole> _roleManager;
-    private readonly AppDbContext _appDbContext;
     private readonly IConfiguration _configuration;
     private readonly ITokenHandler _tokenHandler;
     private readonly AppDbContext _context;
@@ -27,7 +26,6 @@ public class AuthService : IAuthService
     public AuthService(UserManager<AppUser> userManager,
                        SignInManager<AppUser> siginManager,
                        RoleManager<IdentityRole> roleManager,
-                       AppDbContext appDbContext,
                        IConfiguration configuration,
                        ITokenHandler tokenHandler,
                        AppDbContext context)
@@ -35,7 +33,6 @@ public class AuthService : IAuthService
         _userManager = userManager;
         _siginManager = siginManager;
         _roleManager = roleManager;
-        _appDbContext = appDbContext;
         _configuration = configuration;
         _tokenHandler = tokenHandler;
         _context = context;
@@ -59,11 +56,10 @@ public class AuthService : IAuthService
 
     public async Task<List<AppUser>> AllMemberUser(string? searchUser)
     {
-        IQueryable<AppUser> AllUsers = _context.Users; // DbSet<AppUser> türünden olduğunu varsayalım
+        IQueryable<AppUser> AllUsers = _context.Users; 
 
         if (!string.IsNullOrEmpty(searchUser))
         {
-            // Arama ifadesini hem FullName hem de Email ile karşılaştırın
             AllUsers = AllUsers.Where(x => x.FullName.ToLower().Contains(searchUser.ToLower()) || x.Email.ToLower().Contains(searchUser.ToLower()));
         }
 
@@ -223,7 +219,7 @@ public class AuthService : IAuthService
         {
             throw new ArgumentNullException("Refresh token does not exist");
         }
-        var ByUser = await _appDbContext.Users.Where(a => a.RefreshToken == refreshToken).FirstOrDefaultAsync();
+        var ByUser = await _context.Users.Where(a => a.RefreshToken == refreshToken).FirstOrDefaultAsync();
         if (ByUser is null)
         {
             throw new NotFoundException("User does Not Exist");
