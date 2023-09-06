@@ -99,7 +99,14 @@ namespace EndProject.API.Controllersş
             var memberUsers = await _authService.AllMemberUser(searchUser);
             return Ok(memberUsers);
         }
-   
+
+
+        [HttpDelete("RemoveUser")]
+        public async Task<IActionResult> UserRemove([FromQuery] string? userID)
+        {
+            await _authService.RemoveUser(userID);
+            return Ok();
+        }
 
         //[HttpGet]
         //[AllowAnonymous]

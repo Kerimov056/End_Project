@@ -1,6 +1,5 @@
 ﻿using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Auth;
-using EndProject.Domain.Entitys;
 using EndProject.Domain.Entitys.Common;
 using EndProject.Domain.Entitys.Identity;
 using EndProject.Domain.Enums.Role;
@@ -9,7 +8,6 @@ using EndProjet.Persistance.Context;
 using EndProjet.Persistance.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using System.Text;
 
 namespace EndProjet.Persistance.Implementations.Services;
@@ -19,21 +17,18 @@ public class AuthService : IAuthService
     private readonly UserManager<AppUser> _userManager;
     private readonly SignInManager<AppUser> _siginManager;
     private readonly RoleManager<IdentityRole> _roleManager;
-    private readonly IConfiguration _configuration;
     private readonly ITokenHandler _tokenHandler;
     private readonly AppDbContext _context;
 
     public AuthService(UserManager<AppUser> userManager,
                        SignInManager<AppUser> siginManager,
                        RoleManager<IdentityRole> roleManager,
-                       IConfiguration configuration,
                        ITokenHandler tokenHandler,
                        AppDbContext context)
     {
         _userManager = userManager;
         _siginManager = siginManager;
         _roleManager = roleManager;
-        _configuration = configuration;
         _tokenHandler = tokenHandler;
         _context = context;
     }
@@ -211,6 +206,15 @@ public class AuthService : IAuthService
             StatusMessage = ExceptionResponseMessages.UserSuccesMessage,
             UserEmail = appUser.Email
         };
+    }
+
+    public async Task RemoveUser(string userId)
+    {
+        var bySuperAdmin = await _userManager.FindByIdAsync(userId);
+        if (bySuperAdmin is null) throw new NotFoundException("SuperAdmin Not found");
+
+        _context.Remove(bySuperAdmin);
+        await _context.SaveChangesAsync();
     }
 
     public async Task<TokenResponseDTO> ValidRefleshToken(string refreshToken)
