@@ -57,7 +57,7 @@ namespace EndProject.API.Controllersş
             html = System.IO.File.ReadAllText(filePath);
 
             html = html.Replace("{{password}}", password);
-                
+
             _emailService.Send(registerDTO.Email, subject, html);
 
             return Ok(response);
@@ -69,8 +69,8 @@ namespace EndProject.API.Controllersş
         {
             var responseToken = await _authService.Login(loginDTO);
             return Ok(responseToken);
-        }  
-        
+        }
+
         [HttpPost("AdminLogin")]
         public async Task<IActionResult> LoginAdmin([FromBody] LoginDTO loginDTO)
         {
@@ -98,6 +98,12 @@ namespace EndProject.API.Controllersş
         {
             var memberUsers = await _authService.AllMemberUser(searchUser);
             return Ok(memberUsers);
+        }
+        [HttpGet("ByUser")]
+        public async Task<IActionResult> ByUser([FromQuery] string? userId)
+        {
+            var Users = await _authService.ByUser(userId);
+            return Ok(Users);
         }
 
 

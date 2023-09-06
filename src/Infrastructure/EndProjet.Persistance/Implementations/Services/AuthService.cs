@@ -70,6 +70,13 @@ public class AuthService : IAuthService
         return MemberList;
     }
 
+    public async Task<AppUser> ByUser(string? userId)
+    {
+        var byUser = await _userManager.FindByIdAsync(userId);
+        if (byUser is null) throw new NotFoundException("SuperAdmin Not found");
+        return byUser;
+    }
+
 
     //public async Task<LoginDTO> ExternalLogin(ExternalLoginInfo info)
     //{
