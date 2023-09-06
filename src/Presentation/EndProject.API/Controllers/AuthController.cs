@@ -92,6 +92,13 @@ namespace EndProject.API.Controllersş
             return StatusCode((int)HttpStatusCode.Created);
         }
 
+        [HttpGet("AllAdmin")]
+        public async Task<IActionResult> AllAdminUsers([FromQuery] string? searchUser)
+        {
+            var adminUsers = await _authService.AllAdminUser(searchUser);
+            return Ok(adminUsers);
+        }
+
 
         [HttpGet("AllMember")]
         public async Task<IActionResult> AllMemberUsers([FromQuery] string? searchUser)

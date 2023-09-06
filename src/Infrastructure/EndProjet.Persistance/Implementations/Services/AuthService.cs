@@ -49,6 +49,27 @@ public class AuthService : IAuthService
         await _userManager.AddToRoleAsync(targetUser, "Admin");
     }
 
+    public async Task<List<AppUser>> AllAdminUser(string? searchUser)
+    {
+        IQueryable<AppUser> AllUsers = _context.Users;
+
+        if (!string.IsNullOrEmpty(searchUser))
+        {
+            AllUsers = AllUsers.Where(x => x.FullName.ToLower().Contains(searchUser.ToLower()) || x.Email.ToLower().Contains(searchUser.ToLower()));
+        }
+
+        var AdminList = new List<AppUser>();
+        foreach (var item in await AllUsers.ToListAsync())
+        {
+            var userRoles = await _userManager.GetRolesAsync(item);
+            if (userRoles.Contains("Admin"))
+            {
+                AdminList.Add(item);
+            }
+        }
+        return AdminList;
+    }
+
     public async Task<List<AppUser>> AllMemberUser(string? searchUser)
     {
         IQueryable<AppUser> AllUsers = _context.Users; 
