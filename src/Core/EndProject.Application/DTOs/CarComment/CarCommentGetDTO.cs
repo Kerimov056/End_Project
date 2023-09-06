@@ -6,5 +6,6 @@ public class CarCommentGetDTO
     public string Comment { get; set; }
     public Guid CarId { get; set; }
     public string AppUserId { get; set; }
+    public string UserName { get; set; }
     public int LikeSum { get; set; }
 }
