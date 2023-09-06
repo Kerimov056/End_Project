@@ -11,5 +11,6 @@ public interface IAuthService
     Task<TokenResponseDTO> LoginAdmin(LoginDTO loginDTO);
     Task<TokenResponseDTO> ValidRefleshToken(string refreshToken);
     Task<List<AppUser>> AllMemberUser();
+    Task AdminCreate(string superAdminId, string appUserId);
     //Task<LoginDTO> ExternalLogin(ExternalLoginInfo info);
 }

@@ -40,6 +40,22 @@ public class AuthService : IAuthService
         _context = context;
     }
 
+    public async Task AdminCreate(string superAdminId, string appUserId)
+    {
+        var bySuperAdmin = await _userManager.FindByIdAsync(superAdminId);
+        if (bySuperAdmin is null) throw new NotFoundException("SuperAdmin Not found");
+        if (bySuperAdmin == null || !await _userManager.IsInRoleAsync(bySuperAdmin, "SuperAdmin"))
+            throw new UnauthorizedAccessException("You do not have permission to perform this action.");
+       
+        
+        var targetUser = await _userManager.FindByIdAsync(appUserId);
+
+        if (targetUser == null)   throw new NotFoundException("Hedef kullanıcı bulunamadı.");
+
+        await _userManager.RemoveFromRoleAsync(targetUser, "Member");
+        await _userManager.AddToRoleAsync(targetUser, "Admin");
+    }
+
     public async Task<List<AppUser>> AllMemberUser()
     {
 

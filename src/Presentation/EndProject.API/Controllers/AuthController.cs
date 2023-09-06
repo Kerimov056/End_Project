@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace EndProject.API.Controllersş
 {
@@ -83,6 +84,13 @@ namespace EndProject.API.Controllersş
         {
             var response = await _authService.ValidRefleshToken(ReRefreshtoken);
             return Ok(response);
+        }
+
+        [HttpPost("AdminCreate")]
+        public async Task<IActionResult> AdminCreate([FromQuery] string superAdminId, [FromQuery] string appUserId)
+        {
+            await _authService.AdminCreate(superAdminId, appUserId);
+            return StatusCode((int)HttpStatusCode.Created);
         }
 
 
