@@ -2,6 +2,7 @@
 using EndProject.Application.DTOs.Auth;
 using EndProject.Application.DTOs.Auth.FacebookLogin;
 using EndProject.Application.DTOs.Auth.GoogleLogin;
+using EndProject.Application.DTOs.Auth.PasswordReset;
 using EndProject.Domain.Entitys.Common;
 using EndProject.Domain.Entitys.Identity;
 using EndProject.Domain.Helpers;
@@ -93,6 +94,12 @@ namespace EndProject.API.Controllersş
             return Ok(response);
         }
 
+        [HttpPost("password-reset")]
+        public async Task<IActionResult> PasswordReset([FromBody] PasswordResetCommandRequest passwordResetCommandRequest)
+        {
+            PasswordResetCommandResponse response = await _mediator.Send(passwordResetCommandRequest);
+            return Ok(response);
+        }
 
         [HttpPost("google-login")]
         public async Task<IActionResult> GoogleLogin(GoogleLoginCommandRequest googleLoginCommandRequest)
