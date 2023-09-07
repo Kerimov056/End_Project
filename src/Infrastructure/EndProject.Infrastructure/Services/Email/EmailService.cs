@@ -5,6 +5,7 @@ using MailKit.Security;
 using Microsoft.Extensions.Options;
 using MimeKit;
 using MimeKit.Text;
+using System.Text;
 
 namespace EndProject.Infrastructure.Services.Email;
 
@@ -28,5 +29,18 @@ public class EmailService : IEmailService
         smtp.Authenticate(_emailSetting.Username, _emailSetting.Password);
         smtp.Send(email);
         smtp.Disconnect(true);
+    }
+
+    public async Task SendPasswordResetMailAsync(string to, string userId, string resetToken)
+    {
+        StringBuilder mail = new();
+        mail.AppendLine("Merhaba <br/>  Eger yeni sifre talebinde bulunduysaniz asagdaki link'e click ederek kecid yapa bilirsiniz." +
+            "<br/><strong><a target=\"_blank\" href=\"............./");
+        mail.AppendLine(userId);
+        mail.AppendLine("/");
+        mail.AppendLine(resetToken);
+        mail.AppendLine("\">Yeni şifre talebi için tıklayınız...</a></strong><br><br><span style=\"font-size:12px;\">NOT : Eğer ki bu talep tarafınızca gerçekleştirilmemişse lütfen bu maili ciddiye almayınız.</span><br>Saygılarımızla...<br><br><br>LD - LuxeDrive");
+
+        Send(to, "Şifre Yenileme Talebi", mail.ToString());
     }
 }
