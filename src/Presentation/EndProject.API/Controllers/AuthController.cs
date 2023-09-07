@@ -98,7 +98,13 @@ namespace EndProject.API.Controllersş
             await _authService.PasswordResetAsnyc(email);
             return Ok();
         }
-         
+
+        [HttpPost("ConfiremPassword")]
+        public async Task<IActionResult> ConfiremPassword(string email)
+        {
+            //await _authService.PasswordResetAsnyc(email);
+            //return Ok();
+        }
         //[HttpPost("google-login")]
         //public async Task<IActionResult> GoogleLogin(GoogleLoginCommandRequest googleLoginCommandRequest)
         //{
