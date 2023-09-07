@@ -39,8 +39,7 @@ public class EmailService : IEmailService
     public async Task SendPasswordResetMailAsync(string to, string userId, string resetToken)
     {
         StringBuilder mail = new();
-        mail.AppendLine("Merhaba <br/>  Eger yeni sifre talebinde bulunduysaniz asagdaki link'e click ederek kecid yapa bilirsiniz." +
-            "<br/><strong><a target=\"_blank\" href=\"");
+        mail.AppendLine("Merhaba<br>Eğer yeni şifre talebinde bulunduysanız aşağıdaki linkten şifrenizi yenileyebilirsiniz.<br><strong><a target=\"_blank\" href=\"");
         mail.AppendLine(_configuration["ReactClinetUrl"]);
         mail.AppendLine("/UpdatePassword/");
         mail.AppendLine(userId);

@@ -2,7 +2,7 @@
 
 namespace EndProject.Application.DTOs.Auth.PasswordReset;
 
-public class PasswordResetCommandRequest : IRequest<PasswordResetCommandResponse>
+public class PasswordResetCommandRequest /*: IRequest<PasswordResetCommandResponse>*/
 {
     public string Email { get; set; }
 }

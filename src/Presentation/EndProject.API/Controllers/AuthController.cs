@@ -1,8 +1,5 @@
 ﻿using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Auth;
-using EndProject.Application.DTOs.Auth.FacebookLogin;
-using EndProject.Application.DTOs.Auth.GoogleLogin;
-using EndProject.Application.DTOs.Auth.PasswordReset;
 using EndProject.Domain.Entitys.Common;
 using EndProject.Domain.Entitys.Identity;
 using EndProject.Domain.Helpers;
@@ -25,19 +22,20 @@ namespace EndProject.API.Controllersş
         private readonly SignInManager<AppUser> _siginManager;
         private readonly IEmailService _emailService;
         private readonly AppDbContext _appDbContext;
-        private readonly IMediator _mediator;
+        //private readonly IMediator _mediator;
 
         public AuthController(IAuthService authService,
             IEmailService emailService,
             AppDbContext appDbContext,
-            SignInManager<AppUser> signInManager,
-            IMediator mediator)
+            SignInManager<AppUser> signInManager
+            //IMediator mediator
+            )
         {
             _authService = authService;
             _emailService = emailService;
             _appDbContext = appDbContext;
             _siginManager = signInManager;
-            _mediator = mediator;
+            //_mediator = mediator;
 
         }
 
@@ -95,25 +93,25 @@ namespace EndProject.API.Controllersş
         }
 
         [HttpPost("password-reset")]
-        public async Task<IActionResult> PasswordReset([FromBody] PasswordResetCommandRequest passwordResetCommandRequest)
+        public async Task<IActionResult> PasswordReset(string email)
         {
-            PasswordResetCommandResponse response = await _mediator.Send(passwordResetCommandRequest);
-            return Ok(response);
+            await _authService.PasswordResetAsnyc(email);
+            return Ok();
         }
+         
+        //[HttpPost("google-login")]
+        //public async Task<IActionResult> GoogleLogin(GoogleLoginCommandRequest googleLoginCommandRequest)
+        //{
+        //    GoogleLoginCommandResponse response = await _mediator.Send(googleLoginCommandRequest);
+        //    return Ok(response);
+        //}
 
-        [HttpPost("google-login")]
-        public async Task<IActionResult> GoogleLogin(GoogleLoginCommandRequest googleLoginCommandRequest)
-        {
-            GoogleLoginCommandResponse response = await _mediator.Send(googleLoginCommandRequest);
-            return Ok(response);
-        }
-
-        [HttpPost("facebook-login")]
-        public async Task<IActionResult> FacebookLogin(FacebookLoginCommandRequest facebookLoginCommandRequest)
-        {
-            FacebookLoginCommandResponse response = await _mediator.Send(facebookLoginCommandRequest);
-            return Ok(response);
-        }
+        //[HttpPost("facebook-login")]
+        //public async Task<IActionResult> FacebookLogin(FacebookLoginCommandRequest facebookLoginCommandRequest)
+        //{
+        //    FacebookLoginCommandResponse response = await _mediator.Send(facebookLoginCommandRequest);
+        //    return Ok(response);
+        //}
 
         [HttpPost("AdminCreate")]
         [Authorize(AuthenticationSchemes = "SuperAdmin")]
