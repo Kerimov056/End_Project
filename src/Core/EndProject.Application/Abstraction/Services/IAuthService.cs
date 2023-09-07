@@ -12,5 +12,6 @@ public interface IAuthService : IExternalAuthentications, IAdminCommands
     Task<TokenResponseDTO> Login(LoginDTO loginDTO);
     Task<TokenResponseDTO> LoginAdmin(LoginDTO loginDTO);
     Task<TokenResponseDTO> ValidRefleshToken(string refreshToken);
+    Task PasswordResetAsnyc(string email);
 
 }

@@ -9,6 +9,7 @@ using EndProjet.Persistance.Context;
 using EndProjet.Persistance.Exceptions;
 using Google.Apis.Auth;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Linq;
@@ -24,7 +25,8 @@ public class AuthService : IAuthService
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly ITokenHandler _tokenHandler;
     private readonly AppDbContext _context;
-    readonly IConfiguration _configuration;
+    private readonly IConfiguration _configuration;
+    private readonly IEmailService _emailService;
     //readonly HttpClient _httpClient;
 
 
@@ -34,6 +36,8 @@ public class AuthService : IAuthService
                        RoleManager<IdentityRole> roleManager,
                        ITokenHandler tokenHandler,
                        AppDbContext context,
+                       //HttpClient httpClient,
+                       IEmailService emailService,
                        IConfiguration configuration
         )
     {
@@ -43,6 +47,7 @@ public class AuthService : IAuthService
         _tokenHandler = tokenHandler;
         _context = context;
         _configuration = configuration;
+        _emailService = emailService;
         //_httpClient = httpClient;
     }
 
@@ -152,7 +157,7 @@ public class AuthService : IAuthService
         {
             await _userManager.AddLoginAsync(user, info); //AspNetUserLogins
 
-            TokenResponseDTO token = await _tokenHandler.CreateAccessToken(2,3, user);
+            TokenResponseDTO token = await _tokenHandler.CreateAccessToken(2, 3, user);
             user.RefreshToken = token.refreshToken;
             user.RefreshTokenExpration = token.refreshTokenExpration;
             await _userManager.UpdateAsync(user);
@@ -329,5 +334,19 @@ public class AuthService : IAuthService
         //    return await CreateUserExternalAsync(user, userInfo.Email, userInfo.Name, info, accessTokenLifeTime);
         //}
         throw new Exception("Invalid external authentication.");
+    }
+
+    public async Task PasswordResetAsnyc(string email)
+    {
+        AppUser user = await _userManager.FindByEmailAsync(email);
+        if (user != null)
+        {
+            string resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+            byte[] tokenBytes = Encoding.UTF8.GetBytes(resetToken);
+            resetToken = WebEncoders.Base64UrlEncode(tokenBytes);
+
+            await _emailService.SendPasswordResetMailAsync(user.Email, user.Id, resetToken); 
+        }
     }
 }
