@@ -1,5 +1,6 @@
 ﻿using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Auth;
+using EndProject.Application.DTOs.Auth.FacebookLogin;
 using EndProject.Domain.Entitys.Common;
 using EndProject.Domain.Entitys.Identity;
 using EndProject.Domain.Enums.Role;
@@ -12,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Linq;
 using System.Text;
+using System.Text.Json;
 
 namespace EndProjet.Persistance.Implementations.Services;
 
@@ -23,6 +25,8 @@ public class AuthService : IAuthService
     private readonly ITokenHandler _tokenHandler;
     private readonly AppDbContext _context;
     readonly IConfiguration _configuration;
+    readonly HttpClient _httpClient;
+
 
 
     public AuthService(UserManager<AppUser> userManager,
@@ -30,7 +34,8 @@ public class AuthService : IAuthService
                        RoleManager<IdentityRole> roleManager,
                        ITokenHandler tokenHandler,
                        AppDbContext context,
-                       IConfiguration configuration
+                       IConfiguration configuration,
+                       HttpClient httpClient
         )
     {
         _userManager = userManager;
@@ -39,6 +44,7 @@ public class AuthService : IAuthService
         _tokenHandler = tokenHandler;
         _context = context;
         _configuration = configuration;
+        _httpClient = httpClient;
     }
 
     public async Task AdminCreate(string superAdminId, string appUserId)
@@ -300,5 +306,29 @@ public class AuthService : IAuthService
         ByUser.RefreshTokenExpration = tokenResponse.refreshTokenExpration;
         await _userManager.UpdateAsync(ByUser);
         return tokenResponse;
+    }
+
+    public async Task<TokenResponseDTO> FacebookLoginAsync(string authToken, int accessTokenLifeTime)
+    {
+        string accessTokenResponse = await _httpClient.GetStringAsync($"https://graph.facebook.com/oauth/access_token?client_id={_configuration["ExternalLoginSettings:Facebook:Client_ID"]}&client_secret={_configuration["ExternalLoginSettings:Facebook:Client_Secret"]}&grant_type=client_credentials");
+
+        FacebookAccessTokenResponse? facebookAccessTokenResponse = JsonSerializer.Deserialize<FacebookAccessTokenResponse>(accessTokenResponse);
+
+        string userAccessTokenValidation = await _httpClient.GetStringAsync($"https://graph.facebook.com/debug_token?input_token={authToken}&access_token={facebookAccessTokenResponse?.AccessToken}");
+
+        FacebookUserAccessTokenValidation? validation = JsonSerializer.Deserialize<FacebookUserAccessTokenValidation>(userAccessTokenValidation);
+
+        if (validation?.Data.IsValid != null)
+        {
+            string userInfoResponse = await _httpClient.GetStringAsync($"https://graph.facebook.com/me?fields=email,name&access_token={authToken}");
+
+            FacebookUserInfoResponse? userInfo = JsonSerializer.Deserialize<FacebookUserInfoResponse>(userInfoResponse);
+
+            var info = new UserLoginInfo("FACEBOOK", validation.Data.UserId, "FACEBOOK");
+            AppUser user = await _userManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey);
+
+            return await CreateUserExternalAsync(user, userInfo.Email, userInfo.Name, info, accessTokenLifeTime);
+        }
+        throw new Exception("Invalid external authentication.");
     }
 }
