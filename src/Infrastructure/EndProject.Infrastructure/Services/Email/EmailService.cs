@@ -2,6 +2,7 @@
 using EndProject.Domain.Helpers.AccountSetting;
 using MailKit.Net.Smtp;
 using MailKit.Security;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using MimeKit;
 using MimeKit.Text;
@@ -12,8 +13,12 @@ namespace EndProject.Infrastructure.Services.Email;
 public class EmailService : IEmailService
 {
     private readonly EmailSetting _emailSetting;
-    public EmailService(IOptions<EmailSetting> emailSetting)
-     =>  _emailSetting = emailSetting.Value;
+    private readonly IConfiguration _configuration;
+    public EmailService(IOptions<EmailSetting> emailSetting, IConfiguration configuration)
+    {
+        _emailSetting = emailSetting.Value;
+        _configuration = configuration;
+    }
     public void Send(string to, string subject, string html, string from = null)
     {
         // create email message
@@ -35,7 +40,9 @@ public class EmailService : IEmailService
     {
         StringBuilder mail = new();
         mail.AppendLine("Merhaba <br/>  Eger yeni sifre talebinde bulunduysaniz asagdaki link'e click ederek kecid yapa bilirsiniz." +
-            "<br/><strong><a target=\"_blank\" href=\"............./");
+            "<br/><strong><a target=\"_blank\" href=\"");
+        mail.AppendLine(_configuration["ReactClinetUrl"]);
+        mail.AppendLine("/UpdatePassword/");
         mail.AppendLine(userId);
         mail.AppendLine("/");
         mail.AppendLine(resetToken);
