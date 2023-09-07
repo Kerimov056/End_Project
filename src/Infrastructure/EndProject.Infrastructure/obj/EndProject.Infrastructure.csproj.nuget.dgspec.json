@@ -52,9 +52,17 @@
               "target": "Package",
               "version": "[11.6.0, )"
             },
+            "Google.Apis.Auth": {
+              "target": "Package",
+              "version": "[1.62.0, )"
+            },
             "MailKit": {
               "target": "Package",
               "version": "[4.1.0, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[12.1.1, )"
             },
             "Microsoft.AspNetCore.Authentication.Google": {
               "target": "Package",
@@ -131,9 +139,17 @@
               "target": "Package",
               "version": "[12.18.0-beta.1, )"
             },
+            "Google.Apis.Auth": {
+              "target": "Package",
+              "version": "[1.62.0, )"
+            },
             "MailKit": {
               "target": "Package",
               "version": "[4.1.0, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[12.1.1, )"
             },
             "Microsoft.AspNetCore.Authentication.Google": {
               "target": "Package",
@@ -226,9 +242,17 @@
               "target": "Package",
               "version": "[12.18.0-beta.1, )"
             },
+            "Google.Apis.Auth": {
+              "target": "Package",
+              "version": "[1.62.0, )"
+            },
             "MailKit": {
               "target": "Package",
               "version": "[4.1.0, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[12.1.1, )"
             },
             "Microsoft.AspNetCore.Authentication.Google": {
               "target": "Package",

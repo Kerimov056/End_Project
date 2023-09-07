@@ -6,8 +6,11 @@ using EndProject.Domain.Enums.Role;
 using EndProject.Domain.Helpers;
 using EndProjet.Persistance.Context;
 using EndProjet.Persistance.Exceptions;
+using Google.Apis.Auth;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json.Linq;
 using System.Text;
 
 namespace EndProjet.Persistance.Implementations.Services;
@@ -19,18 +22,23 @@ public class AuthService : IAuthService
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly ITokenHandler _tokenHandler;
     private readonly AppDbContext _context;
+    readonly IConfiguration _configuration;
+
 
     public AuthService(UserManager<AppUser> userManager,
                        SignInManager<AppUser> siginManager,
                        RoleManager<IdentityRole> roleManager,
                        ITokenHandler tokenHandler,
-                       AppDbContext context)
+                       AppDbContext context,
+                       IConfiguration configuration
+        )
     {
         _userManager = userManager;
         _siginManager = siginManager;
         _roleManager = roleManager;
         _tokenHandler = tokenHandler;
         _context = context;
+        _configuration = configuration;
     }
 
     public async Task AdminCreate(string superAdminId, string appUserId)
@@ -39,11 +47,11 @@ public class AuthService : IAuthService
         if (bySuperAdmin is null) throw new NotFoundException("SuperAdmin Not found");
         if (bySuperAdmin == null || !await _userManager.IsInRoleAsync(bySuperAdmin, "SuperAdmin"))
             throw new UnauthorizedAccessException("You do not have permission to perform this action.");
-       
-        
+
+
         var targetUser = await _userManager.FindByIdAsync(appUserId);
 
-        if (targetUser == null)   throw new NotFoundException("User Not Found");
+        if (targetUser == null) throw new NotFoundException("User Not Found");
 
         await _userManager.RemoveFromRoleAsync(targetUser, "Member");
         await _userManager.AddToRoleAsync(targetUser, "Admin");
@@ -88,7 +96,7 @@ public class AuthService : IAuthService
 
     public async Task<List<AppUser>> AllMemberUser(string? searchUser)
     {
-        IQueryable<AppUser> AllUsers = _context.Users; 
+        IQueryable<AppUser> AllUsers = _context.Users;
 
         if (!string.IsNullOrEmpty(searchUser))
         {
@@ -114,51 +122,55 @@ public class AuthService : IAuthService
         return byUser;
     }
 
+    async Task<TokenResponseDTO> CreateUserExternalAsync(AppUser user, string email, string name, UserLoginInfo info, int accessTokenLifeTime)
+    {
+        bool result = user != null;
+        if (user == null)
+        {
+            user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                user = new()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Email = email,
+                    UserName = email,
+                    FullName = name,
+                    IsActive = false,
+                };
+                var identityResult = await _userManager.CreateAsync(user);
+                result = identityResult.Succeeded;
+            }
+        }
 
-    //public async Task<LoginDTO> ExternalLogin(ExternalLoginInfo info)
-    //{
-    //    //LoginDTO loginResult = null;
+        if (result)
+        {
+            await _userManager.AddLoginAsync(user, info); //AspNetUserLogins
 
-    //    //if (info==null)
-    //    //{
-    //    //    return null;
-    //    //}
+            TokenResponseDTO token = await _tokenHandler.CreateAccessToken(2,3, user);
+            user.RefreshToken = token.refreshToken;
+            user.RefreshTokenExpration = token.refreshTokenExpration;
+            await _userManager.UpdateAsync(user);
+            return token;
+        }
+        throw new Exception("Invalid external authentication.");
+    }
 
-    //    //var signinResult = await _siginManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, false);
-    //    //var email = info.Principal.FindFirstValue(ClaimTypes.Email);
-    //    //var user = await _userManager.FindByEmailAsync(email);
-    //    ////var claims = await GetUserClaims(user);
+    public async Task<TokenResponseDTO> GoogleLoginAsync(string idToken, int accessTokenLifeTime)
+    {
+        var settings = new GoogleJsonWebSignature.ValidationSettings()
+        {
+            Audience = new List<string> { _configuration["ExternalLoginSettings:Google:Client_ID"] }
+        };
 
+        var payload = await GoogleJsonWebSignature.ValidateAsync(idToken, settings);
 
-    //    //if (signinResult.Succeeded)
-    //    //{
-    //    //    var jwtResult = await _tokenHandler.CreateAccessToken(2, 3, user);
+        var info = new UserLoginInfo("GOOGLE", payload.Subject, "GOOGLE");
+        AppUser user = await _userManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey);
 
+        return await CreateUserExternalAsync(user, payload.Email, payload.Name, info, accessTokenLifeTime);
+    }
 
-    //    //    await _userManager.SetAuthenticationTokenAsync(
-    //    //        user,
-    //    //        TokenOptions.DefaultProvider,
-    //    //        jwtResult.refreshToken,
-    //    //        jwtResult.refreshToken);
-
-    //    //    loginResult = new LoginDTO()
-    //    //    {
-    //    //        user = new UserViewModel()
-    //    //        {
-    //    //            Email = email,
-    //    //            AccessToken = jwtResult.AccessToken,
-    //    //            RefreshToken = jwtResult.RefreshToken,
-    //    //            FirstName = user.FirstName,
-    //    //            LastName = user.LastName,
-    //    //            Phone = user.PhoneNumber,
-    //    //            UserId = user.Id
-    //    //        }
-    //    //    };             //https://mahdi-karimipour.medium.com/react-google-auth-asp-net-5-0-api-azure-and-asp-net-identity-4dfe1ced369e
-
-    //    //    return loginResult;
-    //    //}
-    //    throw new NotImplementedException();    
-    //}
 
     public async Task<TokenResponseDTO> Login(LoginDTO loginDTO)
     {

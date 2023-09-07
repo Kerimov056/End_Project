@@ -1,6 +1,7 @@
 ﻿//using SignalRChat.Hubs;
 using EndProject.API.BackGroundServıces;
 using EndProject.API.Hub;
+using EndProject.Application;
 using EndProject.Application.Abstraction.Services;
 using EndProject.Domain.Helpers.AccountSetting;
 using EndProject.Infrastructure;
@@ -17,6 +18,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddPersistenceServices();
+builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices();
 
 builder.Services.AddCors();

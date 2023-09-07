@@ -9,6 +9,7 @@ public interface IAuthService
     Task<SignUpResponse> Register(RegisterDTO registerDTO);
     Task<TokenResponseDTO> Login(LoginDTO loginDTO);
     Task<TokenResponseDTO> LoginAdmin(LoginDTO loginDTO);
+    Task<TokenResponseDTO> GoogleLoginAsync(string idToken, int accessTokenLifeTime);
     Task<TokenResponseDTO> ValidRefleshToken(string refreshToken);
     Task<List<AppUser>> AllMemberUser(string? searchUser);
     Task<List<AppUser>> AllAdminUser(string? searchUser);
@@ -16,5 +17,4 @@ public interface IAuthService
     Task AdminCreate(string superAdminId, string appUserId);
     Task AdminDelete(string superAdminId, string appAdminId);
     Task RemoveUser(string superAdminId, string userId);
-    //Task<LoginDTO> ExternalLogin(ExternalLoginInfo info);
 }

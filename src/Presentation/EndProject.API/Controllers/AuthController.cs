@@ -1,9 +1,11 @@
 ﻿using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Auth;
+using EndProject.Application.DTOs.Auth.GoogleLogin;
 using EndProject.Domain.Entitys.Common;
 using EndProject.Domain.Entitys.Identity;
 using EndProject.Domain.Helpers;
 using EndProjet.Persistance.Context;
+using MediatR;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -20,16 +22,20 @@ namespace EndProject.API.Controllersş
         private readonly SignInManager<AppUser> _siginManager;
         private readonly IEmailService _emailService;
         private readonly AppDbContext _appDbContext;
+        private readonly IMediator _mediator;
 
         public AuthController(IAuthService authService,
             IEmailService emailService,
             AppDbContext appDbContext,
-            SignInManager<AppUser> signInManager)
+            SignInManager<AppUser> signInManager,
+            IMediator mediator)
         {
             _authService = authService;
             _emailService = emailService;
             _appDbContext = appDbContext;
             _siginManager = signInManager;
+            _mediator = mediator;
+
         }
 
         [HttpPost("register")]
@@ -85,6 +91,16 @@ namespace EndProject.API.Controllersş
             return Ok(response);
         }
 
+
+        [HttpPost("google-login")]
+        public async Task<IActionResult> GoogleLogin(GoogleLoginCommandRequest googleLoginCommandRequest)
+        {
+            GoogleLoginCommandResponse response = await _mediator.Send(googleLoginCommandRequest);
+            return Ok(response);
+        }
+
+
+
         [HttpPost("AdminCreate")]
         public async Task<IActionResult> AdminCreate([FromQuery] string superAdminId, [FromQuery] string appUserId)
         {
@@ -128,35 +144,6 @@ namespace EndProject.API.Controllersş
             return Ok();
         }
 
-        //[HttpGet]
-        //[AllowAnonymous]
-        //[Route("account/external-auth-callback")]
-        //public async Task<IActionResult> ExternalLoginCallback()
-        //{
-        //    ExternalLoginInfo info = await _siginManager.GetExternalLoginInfoAsync();
-        //    var result = await _authService.ExternalLogin(info);
 
-        //}
-
-
-
-
-
-
-
-
-        //[HttpPost("Forget-Password")]
-        //public async Task<IActionResult> ForgetPassword(string email)
-        //{
-        //    var user = await _appDbContext.Users.FirstOrDefaultAsync(x => x.Email == email);
-        //    if (user is null) return BadRequest("User not Found");
-
-        //    user.RefreshTokenExpration
-        //}
-
-        // private string CreateRandomToken()
-        // {
-        //     return Convert.ToHexString(RandomNumberGenerator.GetBytes(64));
-        // }
     }
 }
