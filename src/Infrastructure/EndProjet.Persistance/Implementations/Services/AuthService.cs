@@ -1,6 +1,6 @@
 ﻿using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Auth;
-using EndProject.Application.DTOs.Auth.FacebookLogin;
+using EndProject.Application.DTOs.Auth.ResetPassword;
 using EndProject.Domain.Entitys.Common;
 using EndProject.Domain.Entitys.Identity;
 using EndProject.Domain.Enums.Role;
@@ -12,9 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json.Linq;
 using System.Text;
-using System.Text.Json;
 
 namespace EndProjet.Persistance.Implementations.Services;
 
@@ -346,7 +344,29 @@ public class AuthService : IAuthService
             byte[] tokenBytes = Encoding.UTF8.GetBytes(resetToken);
             resetToken = WebEncoders.Base64UrlEncode(tokenBytes);
 
-            await _emailService.SendPasswordResetMailAsync(user.Email, user.Id, resetToken); 
+            await _emailService.SendPasswordResetMailAsync(user.Email, user.Id, resetToken);
         }
+    }
+
+    public async Task<bool> ResetPassword(ResetPassword resetPassword)
+    {
+        AppUser user = await _userManager.FindByIdAsync(resetPassword.UserId);
+        if (user != null)
+        {
+            IdentityResult identityResult = await _userManager.RemovePasswordAsync(user);
+
+            if (identityResult.Succeeded)
+            {
+                identityResult = await _userManager.AddPasswordAsync(user, resetPassword.Password);
+
+                if (identityResult.Succeeded)
+                {
+                    return true;
+                }
+                else throw new Exception("Sifre deyisdirilmede bir xetta bas verdi.");
+            }
+            else throw new Exception("Sifre deyisdirilmedi!");
+        }
+        else { throw new Exception("Sifre deyisdirilmedi!!!"); }
     }
 }

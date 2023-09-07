@@ -1,5 +1,6 @@
 ﻿using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Auth;
+using EndProject.Application.DTOs.Auth.ResetPassword;
 using EndProject.Domain.Entitys.Common;
 using EndProject.Domain.Entitys.Identity;
 using EndProject.Domain.Helpers;
@@ -100,11 +101,13 @@ namespace EndProject.API.Controllersş
         }
 
         [HttpPost("ConfiremPassword")]
-        public async Task<IActionResult> ConfiremPassword(string email)
+        public async Task<IActionResult> ConfiremPassword([FromForm]ResetPassword resetPassword)
         {
-            //await _authService.PasswordResetAsnyc(email);
-            //return Ok();
+            await _authService.ResetPassword(resetPassword);
+            return Ok();
         }
+
+
         //[HttpPost("google-login")]
         //public async Task<IActionResult> GoogleLogin(GoogleLoginCommandRequest googleLoginCommandRequest)
         //{

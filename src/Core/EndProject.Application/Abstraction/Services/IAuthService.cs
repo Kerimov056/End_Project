@@ -1,6 +1,7 @@
 ﻿using EndProject.Application.Abstraction.Services.AdminCommands;
 using EndProject.Application.Abstraction.Services.SosicalAuthentications;
 using EndProject.Application.DTOs.Auth;
+using EndProject.Application.DTOs.Auth.ResetPassword;
 using EndProject.Domain.Entitys.Identity;
 using EndProject.Domain.Helpers;
 
@@ -13,5 +14,6 @@ public interface IAuthService : IExternalAuthentications, IAdminCommands
     Task<TokenResponseDTO> LoginAdmin(LoginDTO loginDTO);
     Task<TokenResponseDTO> ValidRefleshToken(string refreshToken);
     Task PasswordResetAsnyc(string email);
-    Task ResetPassword();
+    Task<bool> ResetPassword(ResetPassword resetPassword);
+
 }
