@@ -18,6 +18,8 @@ public class CarGetDTO
     public int Year { get; set; }
     public string Description { get; set; }
     public bool isReserv { get; set; }
+    public decimal? CampaignsPrice { get; set; }
+    public double? CampaignsInterest { get; set; }
     public bool isCampaigns { get; set; }
     public DateTime? PickUpCampaigns { get; set; }
     public DateTime? ReturnCampaigns { get; set; }

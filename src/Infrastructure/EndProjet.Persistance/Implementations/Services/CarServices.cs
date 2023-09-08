@@ -76,8 +76,9 @@ public class CarServices : ICarServices
                 foreach (var item in allCar)
                 {
                     item.isCampaigns = true;
-                    item.Price = item.Price / 100;
-                    item.Price = item.Price * (decimal)IsCompany;
+                    item.CampaignsInterest = carCampaignsDTO.CampaignsInterest;
+                    item.CampaignsPrice = item.Price / 100;
+                    item.CampaignsPrice = item.CampaignsPrice * (decimal)IsCompany;
                     item.PickUpCampaigns = carCampaignsDTO.PickUpCampaigns;
                     item.ReturnCampaigns = carCampaignsDTO.ReturnCampaigns;
                 }
