@@ -70,10 +70,14 @@ public class CarReservationServices : ICarReservationServices
         }
     }
 
-    public Task ByUserEmailMessage(UserEmailMessage userEmailMessage)
-    {
-        throw new NotImplementedException();
-    }
+    //public async Task ByUserEmailMessage(UserEmailMessageDTO userEmailMessage)
+    //{
+    //    if(userEmailMessage.Email is not null && userEmailMessage.Message is not null)
+    //    {
+    //        var ToEntity = _mapper.Map<SendUserMessage>(userEmailMessage);
+    //        await _carReservationWriteRepository.AddAsync(ToEntity);
+    //    }
+    //}
 
     public async Task CreateAsync(CarReservationCreateDTO carReservationCreateDTO)
     {

@@ -13,7 +13,7 @@ public interface ICarReservationServices
     Task<List<CarReservationGetDTO>> IsResevComplatedGetAll();
     Task<List<CarReservationGetDTO>> IsResevCanceledGetAll();
     Task<List<CarReservationGetDTO>> IsResevNowGetAll();
-    Task ByUserEmailMessage(UserEmailMessage userEmailMessage);
+    //Task ByUserEmailMessage(UserEmailMessageDTO userEmailMessage);
     Task<List<CarReservationGetDTO>> YouGetAllAsync(string Id);
     Task CreateAsync(CarReservationCreateDTO carReservationCreateDTO);
     Task AllCreateAsync(AllCarReservation AllCarReservation);

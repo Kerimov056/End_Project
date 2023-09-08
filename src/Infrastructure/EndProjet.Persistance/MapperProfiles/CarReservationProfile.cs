@@ -11,5 +11,6 @@ public class CarReservationProfile:Profile
         CreateMap<CarReservation, CarReservationCreateDTO>().ReverseMap();
         CreateMap<CarReservation, CarReservationGetDTO>().ReverseMap();
         CreateMap<CarReservation, CarReservationUpdateDTO>().ReverseMap();
+        CreateMap<SendUserMessage, UserEmailMessageDTO>().ReverseMap();
     }
 }
