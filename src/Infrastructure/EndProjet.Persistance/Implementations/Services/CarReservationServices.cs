@@ -20,6 +20,7 @@ public class CarReservationServices : ICarReservationServices
     private readonly IStorageFile _uploadFile;
     private readonly IMapper _mapper;
     private readonly IBasketServices _basketServices;
+    private readonly IEmailService _emailService;
 
     public CarReservationServices(ICarReservationReadRepository carReservationReadRepository,
                                   ICarReservationWriteRepository carReservationWriteRepository,
@@ -29,7 +30,8 @@ public class CarReservationServices : ICarReservationServices
                                   IStorageFile uploadFile,
                                   ICarServices carServices,
                                   IChauffeursServices chauffeursServices,
-                                  IBasketServices basketServices)
+                                  IBasketServices basketServices,
+                                  IEmailService emailService)
     {
         _carReservationReadRepository = carReservationReadRepository;
         _carReservationWriteRepository = carReservationWriteRepository;
@@ -40,6 +42,7 @@ public class CarReservationServices : ICarReservationServices
         _carServices = carServices;
         _chauffeursServices = chauffeursServices;
         _basketServices = basketServices;
+        _emailService = emailService;
     }
 
     public async Task AllCreateAsync(AllCarReservation AllCarReservation)
