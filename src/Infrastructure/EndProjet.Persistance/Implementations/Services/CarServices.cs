@@ -7,7 +7,9 @@ using EndProject.Application.DTOs.CarImage;
 using EndProject.Application.DTOs.CarType;
 using EndProject.Application.DTOs.Reservation;
 using EndProject.Domain.Entitys;
+using EndProject.Domain.Entitys.Identity;
 using EndProjet.Persistance.Exceptions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace EndProjet.Persistance.Implementations.Services;
@@ -27,6 +29,7 @@ public class CarServices : ICarServices
     private readonly ICarTagReadRepository _carTagReadRepository;
     private readonly ICarCategoryServices _carCategoryServices;
     private readonly ICarReservationReadRepository _carReservationReadRepository;
+    private readonly UserManager<AppUser> _userManager;
 
     public CarServices(ICarReadRepository carReadRepository,
                        ICarWriteRepository carWriteRepository,
@@ -39,7 +42,8 @@ public class CarServices : ICarServices
                        ICarCategoryWriteRepository carCategoryWriteRepository,
                        ICarTagWriteRepository carTagWriteRepository,
                        ICarTagReadRepository carTagReadRepository,
-                       ICarReservationReadRepository carReservationReadRepository)
+                       ICarReservationReadRepository carReservationReadRepository,
+                       UserManager<AppUser> userManager)
     {
         _carReadRepository = carReadRepository;
         _carWriteRepository = carWriteRepository;
@@ -53,6 +57,35 @@ public class CarServices : ICarServices
         _carTagWriteRepository = carTagWriteRepository;
         _carTagReadRepository = carTagReadRepository;
         _carReservationReadRepository = carReservationReadRepository;
+        _userManager = userManager;
+    }
+
+    public async Task Campaigns(CarCampaignsDTO carCampaignsDTO)
+    {
+        var bySuperAdmin = await _userManager.FindByIdAsync(carCampaignsDTO.SuperAdminId);
+        if (bySuperAdmin is null) throw new NotFoundException("SuperAdmin Not found");
+        if (bySuperAdmin == null || !await _userManager.IsInRoleAsync(bySuperAdmin, "SuperAdmin"))
+            throw new UnauthorizedAccessException("You do not have permission to perform this action.");
+
+        var allCar = await _carReadRepository.GetAll().ToListAsync();
+        if (carCampaignsDTO.CampaignsInterest < 100)
+        {
+            var IsCompany = 100 - carCampaignsDTO.CampaignsInterest;
+            if (DateTime.Now < carCampaignsDTO.PickUpCampaigns && carCampaignsDTO.ReturnCampaigns > carCampaignsDTO.PickUpCampaigns)
+            {
+                foreach (var item in allCar)
+                {
+                    item.isCampaigns = true;
+                    item.Price = item.Price / 100;
+                    item.Price = item.Price * (decimal)IsCompany;
+                    item.PickUpCampaigns = carCampaignsDTO.PickUpCampaigns;
+                    item.ReturnCampaigns = carCampaignsDTO.ReturnCampaigns;
+                }
+                await _carWriteRepository.SavaChangeAsync();
+            }
+            else throw new Exception("Duzgun vaxt secimi deyil!");
+        }
+        else throw new Exception("Duzgun Endirim Deyil!");
     }
 
     public async Task CreateAsync(CarCreateDTO carCreateDTO)

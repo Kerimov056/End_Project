@@ -27,5 +27,5 @@ public interface ICarServices
 
     //--------------------------------
 
-    Task Campaigns();
+    Task Campaigns(CarCampaignsDTO carCampaignsDTO);
 }

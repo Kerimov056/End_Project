@@ -2,7 +2,9 @@
 
 public class CarCampaignsDTO
 {
-    public double CampaignsInterest { get; set; }
+    public bool isCampaigns { get; set; } = true;
     public DateTime PickUpCampaigns { get; set; }
     public DateTime ReturnCampaigns { get; set; }
+    public double CampaignsInterest { get; set; }
+    public string SuperAdminId { get; set; }
 }
