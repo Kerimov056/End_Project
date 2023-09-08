@@ -27,16 +27,17 @@ public class SendUserMessageServices : ISendUserMessageServices
         {
             var ToEntity = _mapper.Map<SendUserMessage>(userEmailMessage);
             await _userMessageWriteRepository.AddAsync(ToEntity);
+            await _userMessageWriteRepository.SavaChangeAsync();
 
-            string subject = "LuxeDrive Message";
-            string html = string.Empty;
+            //string subject = "LuxeDrive Message";
+            //string html = string.Empty;
 
-            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "templates", "UserEmailMessage.html");
-            html = System.IO.File.ReadAllText(filePath);
+            //string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "templates", "UserEmailMessage.html");
+            //html = System.IO.File.ReadAllText(filePath);
 
-            html = html.Replace("{{Message}}", userEmailMessage.Message);
+            //html = html.Replace("{{Message}}", userEmailMessage.Message);
 
-            _emailService.Send(userEmailMessage.Email, subject, html);
+            //_emailService.Send(userEmailMessage.Email, subject, html);
 
         }
         else throw new Exception("There is no email address or message");

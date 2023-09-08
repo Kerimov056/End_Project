@@ -17,21 +17,21 @@ public class UserMessgessController : ControllerBase
         _emailService = emailService;
     }
 
-    [HttpPost]
-    public async Task<IActionResult> ByUserEmailMessage([FromBody] UserEmailMessageDTO userEmailMessage)
+    [HttpPost("SendUserMessages")]
+    public async Task<IActionResult> ByUserEmailMessage(UserEmailMessageDTO userEmailMessage)
     {
         await _sendUserMessageServices.ByUserEmailMessage(userEmailMessage);
 
 
-        //string subject = "LuxeDrive Message";
-        //string html = string.Empty;
+        string subject = "LuxeDrive Message";
+        string html = string.Empty;
 
-        //string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "templates", "UserEmailMessage.html");
-        //html = System.IO.File.ReadAllText(filePath);
+        string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "templates", "UserEmailMessage.html");
+        html = System.IO.File.ReadAllText(filePath);
 
-        //html = html.Replace("{{Message}}", userEmailMessage.Message);
+        html = html.Replace("{{Message}}", userEmailMessage.Message);
 
-        //_emailService.Send(userEmailMessage.Email, subject, html);
+        _emailService.Send(userEmailMessage.Email, subject, html);
 
         return Ok();
     }
