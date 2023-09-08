@@ -55,6 +55,7 @@ public class AppDbContext : IdentityDbContext<AppUser>
     public DbSet<BasketProduct> BasketProducts { get; set; }
     public DbSet<Basket> Baskets { get; set; }
     public DbSet<Like> Likes { get; set; }
+    public DbSet<SendUserMessage> SendUserMessages { get; set; }
     //public DbSet<CommentLike> CommentLikes { get; set; }
 }
 

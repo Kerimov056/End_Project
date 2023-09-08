@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "TvLpI5mpL3/wRVa9V7QBEW044+/l5nqvyUZmENeKQQI=",
+  "Hash": "De7mzrQyO4AYZfRZkqkKFqF5bhInv+hdBUXmCrA2PF4=",
   "Source": "EndProject.API",
   "BasePath": "_content/EndProject.API",
   "Mode": "Default",
@@ -66,6 +66,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\templates\\newReservation.html"
+    },
+    {
+      "Identity": "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\wwwroot\\templates\\UserEmailMessage.html",
+      "SourceId": "EndProject.API",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\wwwroot\\",
+      "BasePath": "_content/EndProject.API",
+      "RelativePath": "templates/UserEmailMessage.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\templates\\UserEmailMessage.html"
     },
     {
       "Identity": "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\wwwroot\\templates\\verify.html",
