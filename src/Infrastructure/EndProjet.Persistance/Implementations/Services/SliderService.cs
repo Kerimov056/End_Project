@@ -3,6 +3,7 @@ using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Slider;
 using EndProject.Domain.Entitys;
+using EndProjet.Persistance.ExtensionsMethods;
 using Microsoft.EntityFrameworkCore;
 
 namespace EndProjet.Persistance.Implementations.Services;
@@ -24,13 +25,19 @@ public class SliderService : ISliderService
         _mapper = mapper;
     }
 
+
+    //if (sliderCreateDTO.image != null && sliderCreateDTO.image.Length > 0)
+    //{
+    //    var ImagePath = await _uploadFile.WriteFile("Upload\\Files", sliderCreateDTO.image);
+    //    DtoToEntity.Imagepath = ImagePath;
+    //}
     public async Task CreateAsync(SliderCreateDTO sliderCreateDTO)
     {
         var DtoToEntity = _mapper.Map<Slider>(sliderCreateDTO);
-        if (sliderCreateDTO.image != null && sliderCreateDTO.image.Length > 0)
+
+        if (sliderCreateDTO.image is not null)
         {
-            var ImagePath = await _uploadFile.WriteFile("Upload\\Files", sliderCreateDTO.image);
-            DtoToEntity.Imagepath = ImagePath;
+            DtoToEntity.Imagepath = await sliderCreateDTO.image.GetBytes();
         }
         await _sliderWriteRepository.AddAsync(DtoToEntity);
         await _sliderWriteRepository.SavaChangeAsync();
@@ -39,7 +46,7 @@ public class SliderService : ISliderService
     public async Task<List<SliderGetDTO>> GetAllAsync()
     {
         var silder = await _sliderReadRepository.GetAll().ToListAsync();
-        if (silder is null) throw new NullReferenceException();
+        //if (silder is null) throw new NullReferenceException();
         var EntityToDto = _mapper.Map<List<SliderGetDTO>>(silder);
         return EntityToDto;
     }
@@ -62,16 +69,17 @@ public class SliderService : ISliderService
 
     public async Task UpdateAsync(Guid id, SliderUpdateDTO sliderUptadeDTO)
     {
-        var BySlider = await _sliderReadRepository.GetByIdAsync(id);
-        if (BySlider is null) throw new NullReferenceException();
-        _mapper.Map(sliderUptadeDTO, BySlider);
-        if (sliderUptadeDTO.image != null && sliderUptadeDTO.image.Length > 0)
-        {
-            var ImagePath = await _uploadFile.WriteFile("Upload\\Files", sliderUptadeDTO.image);
-            BySlider.Imagepath = ImagePath;
-        }
-        _sliderWriteRepository.Update(BySlider);
-        await _sliderWriteRepository.SavaChangeAsync();
+        //var BySlider = await _sliderReadRepository.GetByIdAsync(id);
+        //if (BySlider is null) throw new NullReferenceException();
+        //_mapper.Map(sliderUptadeDTO, BySlider);
+        //if (sliderUptadeDTO.image != null && sliderUptadeDTO.image.Length > 0)
+        //{
+        //    var ImagePath = await _uploadFile.WriteFile("Upload\\Files", sliderUptadeDTO.image);
+        //    BySlider.Imagepath = ImagePath;
+        //}
+        //_sliderWriteRepository.Update(BySlider);
+        //await _sliderWriteRepository.SavaChangeAsync();
+        throw new Exception();
     }
 
 }

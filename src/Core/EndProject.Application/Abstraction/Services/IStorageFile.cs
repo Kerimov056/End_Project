@@ -13,4 +13,7 @@ public interface IStorageFile
     Task<bool> DeleteFileAsync(string pathOrContainerName, string fileName);
     Task<List<string>> GetFilesAsync(string pathOrContainerName);
     Task<bool> HasFile(string pathOrContainerName, string fileName);
+    string ConvertFileToBase64(string pathOrContainerName, IFormFile file);
+
+
 }

@@ -4,6 +4,6 @@ namespace EndProject.Application.Abstraction.Services.SosicalAuthentications;
 
 public interface IExternalAuthentications
 {
-    Task<TokenResponseDTO> GoogleLoginAsync(string idToken, int accessTokenLifeTime);
+    Task<TokenResponseDTO> GoogleLoginAsync(string idToken);
     Task<TokenResponseDTO> FacebookLoginAsync(string authToken, int accessTokenLifeTime);
 }

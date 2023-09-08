@@ -1,6 +1,7 @@
 ﻿using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Auth;
 using EndProject.Application.DTOs.Auth.GoogleLogin;
+using EndProject.Application.DTOs.Auth.Profil;
 using EndProject.Application.DTOs.Auth.ResetPassword;
 using EndProject.Domain.Entitys.Common;
 using EndProject.Domain.Entitys.Identity;
@@ -110,10 +111,10 @@ namespace EndProject.API.Controllersş
 
 
         [HttpPost("google-login")]
-        public async Task<IActionResult> GoogleLogin(GoogleLoginCommandRequest googleLoginCommandRequest)
+        public async Task<IActionResult> GoogleLogin(string idToken)
         {
-            await _authService.GoogleLoginAsync(googleLoginCommandRequest.IdToken,900);
-            return Ok();
+            var response = await _authService.GoogleLoginAsync(idToken);
+            return Ok(response);
         }
 
         //[HttpPost("facebook-login")]
@@ -171,5 +172,12 @@ namespace EndProject.API.Controllersş
             return Ok();
         }
 
+
+        [HttpPost("profile-image")]
+        public async Task<IActionResult> FrofileImageEdit([FromBody] ProflilImage proflilImage)
+        {
+            await _authService.PrfileImage(proflilImage);
+            return Ok();
+        }
     }
 }

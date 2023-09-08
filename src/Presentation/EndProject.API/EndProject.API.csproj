@@ -35,4 +35,8 @@
     <ProjectReference Include="..\..\Infrastructure\EndProjet.Persistance\EndProjet.Persistance.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Upload\den\" />
+  </ItemGroup>
+
 </Project>

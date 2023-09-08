@@ -210,12 +210,6 @@ D:\work2\Asp.Net API\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.
 D:\work2\Asp.Net API\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\EndProject.API.pdb
 D:\work2\Asp.Net API\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\EndProject.API.genruntimeconfig.cache
 D:\work2\Asp.Net API\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\ref\EndProject.API.dll
-D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\EndProject.API.csproj.AssemblyReference.cache
-D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\EndProject.API.GeneratedMSBuildEditorConfig.editorconfig
-D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\EndProject.API.AssemblyInfoInputs.cache
-D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\EndProject.API.AssemblyInfo.cs
-D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\EndProject.API.csproj.CoreCompileInputs.cache
-D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\EndProject.API.MvcApplicationPartsAssemblyInfo.cache
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\appsettings.Development.json
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\appsettings.json
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\EndProject.API.staticwebassets.runtime.json
@@ -233,8 +227,14 @@ D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\BouncyCast
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\FluentValidation.dll
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\FluentValidation.AspNetCore.dll
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\FluentValidation.DependencyInjectionExtensions.dll
+D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Google.Apis.dll
+D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Google.Apis.Auth.PlatformServices.dll
+D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Google.Apis.Auth.dll
+D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Google.Apis.Core.dll
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Humanizer.dll
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\MailKit.dll
+D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\MediatR.dll
+D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\MediatR.Contracts.dll
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.Google.dll
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.Internal.dll
@@ -317,6 +317,13 @@ D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\EndProjet.
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\EndProject.Application.pdb
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\EndProject.Domain.pdb
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\EndProject.Infrastructure.pdb
+D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\EndProject.API.csproj.AssemblyReference.cache
+D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\EndProject.API.GeneratedMSBuildEditorConfig.editorconfig
+D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\EndProject.API.AssemblyInfoInputs.cache
+D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\EndProject.API.AssemblyInfo.cs
+D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\EndProject.API.csproj.CoreCompileInputs.cache
+D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\EndProject.API.MvcApplicationPartsAssemblyInfo.cs
+D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\EndProject.API.MvcApplicationPartsAssemblyInfo.cache
 D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\staticwebassets\msbuild.EndProject.API.Microsoft.AspNetCore.StaticWebAssets.props
 D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\staticwebassets\msbuild.build.EndProject.API.props
 D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.EndProject.API.props
@@ -331,10 +338,3 @@ D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\refint\End
 D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\EndProject.API.pdb
 D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\EndProject.API.genruntimeconfig.cache
 D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\ref\EndProject.API.dll
-D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\EndProject.API.MvcApplicationPartsAssemblyInfo.cs
-D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Google.Apis.dll
-D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Google.Apis.Auth.PlatformServices.dll
-D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Google.Apis.Auth.dll
-D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Google.Apis.Core.dll
-D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\MediatR.dll
-D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\MediatR.Contracts.dll

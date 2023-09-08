@@ -108,4 +108,16 @@ public class StorageFile : IStorageFile
 
         return filename;
     }
+
+
+    public string ConvertFileToBase64(string pathOrContainerName, IFormFile file)
+    {
+        using (var memoryStream = new MemoryStream())
+        {
+            file.CopyTo(memoryStream);
+            byte[] bytes = memoryStream.ToArray();
+            return Convert.ToBase64String(bytes);
+        }
+    }
+
 }

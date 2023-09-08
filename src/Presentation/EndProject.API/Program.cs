@@ -60,14 +60,14 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true
     };
 });
-//.AddGoogle(options =>
+//.Services.AddAuthentication().AddGoogle(googleOptions =>
 //{
-//    options.ClientId = "http://91997614652-1q2taif2sptoou1dahqsiripc4u5e0b6.apps.googleusercontent.com";
-//    options.ClientSecret = "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";
-//    //this function is get user google profile image
-//    options.Scope.Add("profile");
-//    options.SignInScheme = Microsoft.AspNetCore.Identity.IdentityConstants.ExternalScheme;
+//    googleOptions.ClientId = builder.Configuration.GetSection("GoogleAuthSettings")
+//.GetValue<string>("http://91997614652-1q2taif2sptoou1dahqsiripc4u5e0b6.apps.googleusercontent.com");
+//    googleOptions.ClientSecret = builder.Configuration.GetSection("GoogleAuthSettings")
+//.GetValue<string>("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");
 //});
+
 
 //builder.Services.Configure<CookiePolicyOptions>(options =>
 //{

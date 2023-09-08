@@ -1,7 +1,9 @@
 ﻿using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Slider;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections;
 using System.Net;
+using System.Text;
 
 namespace EndProject.API.Controllers;
 

@@ -1,5 +1,6 @@
 ﻿using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Auth;
+using EndProject.Application.DTOs.Auth.Profil;
 using EndProject.Application.DTOs.Auth.ResetPassword;
 using EndProject.Domain.Entitys.Common;
 using EndProject.Domain.Entitys.Identity;
@@ -25,6 +26,8 @@ public class AuthService : IAuthService
     private readonly AppDbContext _context;
     private readonly IConfiguration _configuration;
     private readonly IEmailService _emailService;
+    private readonly IStorageFile _storageFile;
+
     //readonly HttpClient _httpClient;
 
 
@@ -36,7 +39,8 @@ public class AuthService : IAuthService
                        AppDbContext context,
                        //HttpClient httpClient,
                        IEmailService emailService,
-                       IConfiguration configuration
+                       IConfiguration configuration,
+                       IStorageFile storageFile
         )
     {
         _userManager = userManager;
@@ -46,6 +50,7 @@ public class AuthService : IAuthService
         _context = context;
         _configuration = configuration;
         _emailService = emailService;
+        _storageFile = storageFile;
         //_httpClient = httpClient;
     }
 
@@ -130,7 +135,7 @@ public class AuthService : IAuthService
         return byUser;
     }
 
-    async Task<TokenResponseDTO> CreateUserExternalAsync(AppUser user, string email, string name, UserLoginInfo info, int accessTokenLifeTime)
+    private async Task<TokenResponseDTO> CreateUserExternalAsync(AppUser user, string email, string name, UserLoginInfo info)
     {
         bool result = user != null;
         if (user == null)
@@ -164,7 +169,7 @@ public class AuthService : IAuthService
         throw new Exception("Invalid external authentication.");
     }
 
-    public async Task<TokenResponseDTO> GoogleLoginAsync(string idToken, int accessTokenLifeTime)
+    public async Task<TokenResponseDTO> GoogleLoginAsync(string idToken)
     {
         var settings = new GoogleJsonWebSignature.ValidationSettings()
         {
@@ -176,7 +181,7 @@ public class AuthService : IAuthService
         var info = new UserLoginInfo("GOOGLE", payload.Subject, "GOOGLE");
         AppUser user = await _userManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey);
 
-        return await CreateUserExternalAsync(user, payload.Email, payload.Name, info, accessTokenLifeTime);
+        return await CreateUserExternalAsync(user, payload.Email, payload.Name, info);
     }
 
 
@@ -368,5 +373,22 @@ public class AuthService : IAuthService
             else throw new Exception("Sifre deyisdirilmedi!");
         }
         else { throw new Exception("Sifre deyisdirilmedi!!!"); }
+    }
+
+    public async Task PrfileImage(ProflilImage proflilImage)
+    {
+        AppUser user = await _userManager.FindByEmailAsync(proflilImage.Email);
+        if (user != null)
+        {
+            if (proflilImage.ImageFile != null && proflilImage.ImageFile.Length > 0)
+            {
+                var ImagePath = await _storageFile.WriteFile("Upload\\Files", proflilImage.ImageFile);
+                user.ImagePath = ImagePath;
+                await _context.AddAsync(user);
+                await _context.SaveChangesAsync();
+
+            }
+        }
+        else throw new NotFoundException("User not Found");
     }
 }

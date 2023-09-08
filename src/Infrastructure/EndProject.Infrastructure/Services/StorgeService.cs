@@ -7,6 +7,7 @@ public class StorgeService : IStorgeService
 {
     private readonly IStorageFile _storageFile;
     public StorgeService(IStorageFile storageFile) => _storageFile = storageFile;
+
     public Task<bool> DeleteFileAsync(string pathOrContainerName, string fileName)
     => _storageFile.DeleteFileAsync(pathOrContainerName, fileName);
 
@@ -27,5 +28,8 @@ public class StorgeService : IStorgeService
 
     public Task<string> WriteFile(string pathOrContainerName, IFormFile file)
     => _storageFile.WriteFile(pathOrContainerName, file);
+
+    public string ConvertFileToBase64(string pathOrContainerName, IFormFile file)
+    => _storageFile.ConvertFileToBase64(pathOrContainerName, file);
 }
 
