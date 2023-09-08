@@ -1,5 +1,6 @@
 ﻿using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Auth;
+using EndProject.Application.DTOs.Auth.GoogleLogin;
 using EndProject.Application.DTOs.Auth.ResetPassword;
 using EndProject.Domain.Entitys.Common;
 using EndProject.Domain.Entitys.Identity;
@@ -108,12 +109,12 @@ namespace EndProject.API.Controllersş
         }
 
 
-        //[HttpPost("google-login")]
-        //public async Task<IActionResult> GoogleLogin(GoogleLoginCommandRequest googleLoginCommandRequest)
-        //{
-        //    GoogleLoginCommandResponse response = await _mediator.Send(googleLoginCommandRequest);
-        //    return Ok(response);
-        //}
+        [HttpPost("google-login")]
+        public async Task<IActionResult> GoogleLogin(GoogleLoginCommandRequest googleLoginCommandRequest)
+        {
+            await _authService.GoogleLoginAsync(googleLoginCommandRequest.IdToken,900);
+            return Ok();
+        }
 
         //[HttpPost("facebook-login")]
         //public async Task<IActionResult> FacebookLogin(FacebookLoginCommandRequest facebookLoginCommandRequest)

@@ -51,7 +51,7 @@ public class TokenHandler : ITokenHandler
         var token = new JwtSecurityTokenHandler().WriteToken(jwt);
         var refleshToken = GenerateRefreshToken();
 
-        return new TokenResponseDTO(token, ExpireDate, DateTime.UtcNow.AddMinutes(refreshTokenMinutes), refleshToken, appUser.UserName, appUser.Id);
+        return new TokenResponseDTO(token, ExpireDate, DateTime.UtcNow.AddMinutes(refreshTokenMinutes), refleshToken, appUser.UserName, appUser.Email, appUser.Id);
     }
 
     private string GenerateRefreshToken()

@@ -5,6 +5,7 @@ namespace EndProject.Domain.Entitys.Identity;
 public class AppUser:IdentityUser
 {
     public bool IsActive { get; set; }
+    //public string? ImagePath { get; set; }
     public string? FullName { get; set; }
     public DateTime RefreshTokenExpration { get; set; }
     public string? RefreshToken { get; set; }
@@ -13,7 +14,6 @@ public class AppUser:IdentityUser
     public List<CarReservation>? Reservations { get; set; }
     public List<OtherCarReservation>? OtherReservations { get; set; }
     public Basket Basket { get; set; }
-    //public List<CommentLike>? CommentLikes { get; set; }
 
 }
 

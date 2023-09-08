@@ -5,4 +5,5 @@ public record TokenResponseDTO(string token,
                                DateTime refreshTokenExpration,
                                string refreshToken,
                                string username,
+                               string email,
                                string appuserid);
