@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EndProject.Application.Abstraction.Repositories;
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.Validators.SliderValidators;
@@ -77,6 +78,8 @@ public static class ServiceRegistration
         services.AddScoped<IBasketProductWriteRepository, BasketProductWriteRepository>();
         services.AddScoped<ILikeReadRepository, LikeReadRepository>();
         services.AddScoped<ILikeWriteRepository, LikeWriteRepository>();
+        services.AddScoped<IUserMessageWriteRepository, UserMessageWriteRepository>();
+        services.AddScoped<IUserMessageReadRepository, UserMessageReadRepository>();
 
 
         //Service
@@ -97,6 +100,7 @@ public static class ServiceRegistration
         services.AddScoped<ILikeServices, LikeServices>();
         services.AddScoped<IBasketServices, BasketServices>();
         services.AddScoped<IBasketProducServices, BasketProducServices>();
+        services.AddScoped<ISendUserMessageServices, SendUserMessageServices>();
 
 
 
