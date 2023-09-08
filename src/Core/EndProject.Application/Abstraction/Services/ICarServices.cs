@@ -24,4 +24,8 @@ public interface ICarServices
     Task RemoveAsync(Guid id);
     Task<int> GetCarCountAsync();
     Task<int> GetReservCarCountAsync();
+
+    //--------------------------------
+
+    Task Campaigns();
 }

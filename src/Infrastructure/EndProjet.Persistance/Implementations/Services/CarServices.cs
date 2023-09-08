@@ -63,7 +63,9 @@ public class CarServices : ICarServices
             Model = carCreateDTO.Model,
             Price = carCreateDTO.Price,
             Description = carCreateDTO.Description,
-            Year = carCreateDTO.Year
+            Year = carCreateDTO.Year,
+            PickUpCampaigns = null,
+            ReturnCampaigns = null
         };
 
         await _carWriteRepository.AddAsync(newCar);

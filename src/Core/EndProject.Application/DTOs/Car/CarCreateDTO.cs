@@ -1,7 +1,5 @@
 ﻿using EndProject.Application.DTOs.CarType;
 using EndProject.Application.DTOs.Category;
-using EndProject.Application.DTOs.Reservation;
-using EndProject.Domain.Entitys;
 using Microsoft.AspNetCore.Http;
 
 namespace EndProject.Application.DTOs.Car;

@@ -10,6 +10,9 @@ public class Car : BaseEntity
     public int Year { get; set; }
     public string Description { get; set; }
     public bool isReserv { get; set; } = false;
+    public bool isCampaigns { get; set; } = false;
+    public DateTime? PickUpCampaigns { get; set; }
+    public DateTime? ReturnCampaigns { get; set; }
     public CarType carType { get; set; }
     public CarCategory carCategory { get; set; }
     public List<CarImage>? carImages { get; set; }
