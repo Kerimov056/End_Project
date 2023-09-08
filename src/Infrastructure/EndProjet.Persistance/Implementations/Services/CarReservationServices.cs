@@ -70,6 +70,11 @@ public class CarReservationServices : ICarReservationServices
         }
     }
 
+    public Task ByUserEmailMessage(UserEmailMessage userEmailMessage)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task CreateAsync(CarReservationCreateDTO carReservationCreateDTO)
     {
         if (carReservationCreateDTO.PickupDate < DateTime.Now) throw new Exception("Choose a Time !!!");
