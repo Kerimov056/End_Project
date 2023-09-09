@@ -1,13 +1,11 @@
 ﻿using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Auth;
-using EndProject.Application.DTOs.Auth.GoogleLogin;
 using EndProject.Application.DTOs.Auth.Profil;
 using EndProject.Application.DTOs.Auth.ResetPassword;
 using EndProject.Domain.Entitys.Common;
 using EndProject.Domain.Entitys.Identity;
 using EndProject.Domain.Helpers;
 using EndProjet.Persistance.Context;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

@@ -1,4 +1,5 @@
 ﻿using EndProject.Application.Abstraction.Services;
+using EndProject.Domain.Enums.CampaignsStatus;
 using EndProjet.Persistance.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,7 +17,7 @@ public class PicakUpCompaignsBackService : IHostedService
     public Task StartAsync(CancellationToken cancellationToken)
     {
         Console.WriteLine($"{nameof(PicakUpCompaignsBackService)}Service started....");
-        _timer = new Timer(carCompagin, null, TimeSpan.Zero, TimeSpan.FromSeconds(50));
+        _timer = new Timer(carCompagin, null, TimeSpan.Zero, TimeSpan.FromSeconds(40));
         return Task.CompletedTask;
     }
 
@@ -31,7 +32,7 @@ public class PicakUpCompaignsBackService : IHostedService
 
             var today = DateTime.Now;
             var comaignStart = await dbContext.Cars
-                               .Where(x => x.isCampaigns == true)
+                               .Where(x => x.Status == CampaignsStatus.CampaignTrue)
                                .Where(x => x.PickUpCampaigns.Value.Day == today.Day)
                                .Where(x => x.PickUpCampaigns.Value.Hour == today.Hour)
                                .Where(x => x.PickUpCampaigns.Value.Minute == today.Minute)

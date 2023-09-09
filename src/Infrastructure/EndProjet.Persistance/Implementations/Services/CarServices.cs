@@ -473,7 +473,7 @@ public class CarServices : ICarServices
     {
         var allCar = await _carReadRepository.GetAll().ToListAsync();
 
-        foreach (var item in allCar) if (item.Status == CampaignsStatus.CampaignTrue) return true;
+        foreach (var item in allCar) if (item.Status == CampaignsStatus.NowCampaign) return true;
         return false;
     }
 

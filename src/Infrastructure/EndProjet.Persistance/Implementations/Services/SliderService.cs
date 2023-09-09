@@ -3,6 +3,7 @@ using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Slider;
 using EndProject.Domain.Entitys;
+using EndProject.Domain.Entitys.Common;
 using EndProjet.Persistance.ExtensionsMethods;
 using Microsoft.EntityFrameworkCore;
 
@@ -46,8 +47,17 @@ public class SliderService : ISliderService
     public async Task<List<SliderGetDTO>> GetAllAsync()
     {
         var silder = await _sliderReadRepository.GetAll().ToListAsync();
-        //if (silder is null) throw new NullReferenceException();
+        if (silder is null) throw new NullReferenceException();
         var EntityToDto = _mapper.Map<List<SliderGetDTO>>(silder);
+        foreach (var item in EntityToDto)
+        {
+            Slider sliderTo = silder.FirstOrDefault(x => x.Id == item.Id)
+                                    ?? throw new InvalidException(ExceptionResponseMessages.NotFoundMessage);
+
+            List<string> images = new();
+            images.Add(Convert.ToBase64String(sliderTo.Imagepath));
+            item.imagePath = images[0];
+        }
         return EntityToDto;
     }
 
@@ -56,6 +66,7 @@ public class SliderService : ISliderService
         var BySlider = await _sliderReadRepository.GetByIdAsync(Id);
         if (BySlider is null) throw new NullReferenceException();
         var EntityToDto = _mapper.Map<SliderGetDTO>(BySlider);
+        EntityToDto.imagePath = Convert.ToBase64String(BySlider.Imagepath);
         return EntityToDto;
     }
 

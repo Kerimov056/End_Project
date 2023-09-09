@@ -10,5 +10,4 @@ public static class FileExtentions
         await formFile.CopyToAsync(memoryStream);
         return memoryStream.ToArray();
     }
-
 }
