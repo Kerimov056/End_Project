@@ -30,7 +30,7 @@ public class CarServices : ICarServices
     private readonly ICarCategoryServices _carCategoryServices;
     private readonly ICarReservationReadRepository _carReservationReadRepository;
     private readonly UserManager<AppUser> _userManager;
-
+    private readonly IEmailService _emailService;
     public CarServices(ICarReadRepository carReadRepository,
                        ICarWriteRepository carWriteRepository,
                        IMapper mapper,
@@ -43,7 +43,8 @@ public class CarServices : ICarServices
                        ICarTagWriteRepository carTagWriteRepository,
                        ICarTagReadRepository carTagReadRepository,
                        ICarReservationReadRepository carReservationReadRepository,
-                       UserManager<AppUser> userManager)
+                       UserManager<AppUser> userManager,
+                       IEmailService emailService)
     {
         _carReadRepository = carReadRepository;
         _carWriteRepository = carWriteRepository;
@@ -58,6 +59,7 @@ public class CarServices : ICarServices
         _carTagReadRepository = carTagReadRepository;
         _carReservationReadRepository = carReservationReadRepository;
         _userManager = userManager;
+        _emailService = emailService;
     }
 
     public async Task Campaigns(CarCampaignsDTO carCampaignsDTO)
@@ -89,16 +91,41 @@ public class CarServices : ICarServices
 
     public async Task CompaignsChangePrice()
     {
+        bool isComp = false;
+        decimal CompanginsIntrest = 0;
+        DateTime returnCompagins = DateTime.Now;
+
         var allCar = await _carReadRepository.GetAll().ToListAsync();
         foreach (var item in allCar)
         {
-            if(item.Status == CampaignsStatus.CampaignTrue)
+            item.isCampaigns = true;
+            item.Status = CampaignsStatus.NowCampaign;
+            var IsCompany = 100 - item.CampaignsInterest;
+            item.CampaignsPrice = item.Price / 100;
+            item.CampaignsPrice = item.CampaignsPrice * IsCompany;
+            //------------
+            isComp = true;
+            CompanginsIntrest = (decimal)item.CampaignsInterest;
+            returnCompagins = (DateTime)item.ReturnCampaigns;
+
+        }
+        await _carWriteRepository.SavaChangeAsync();
+        if (isComp)
+        {
+            var AllUsers = _userManager.Users.ToListAsync();
+            foreach (var user in AllUsers.Result)
             {
-                item.isCampaigns = true;
-                item.Status = CampaignsStatus.NowCampaign;
-                var IsCompany = 100 - item.CampaignsInterest;
-                item.CampaignsPrice = item.Price / 100;
-                item.CampaignsPrice = item.CampaignsPrice * (decimal)IsCompany;
+                string subject = "Campaigns";
+                string html = string.Empty;
+                html = html.Replace("{{CampaignsInterest}}", CompanginsIntrest.ToString());
+                html = html.Replace("{{ReturnCompigns}}", returnCompagins.ToString("dddd, dd MMMM yyyy"));
+
+
+                string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "templates", "Campaigns.html");
+                html = System.IO.File.ReadAllText(filePath);
+
+                _emailService.Send(user.Email, subject, html);
+
             }
         }
     }
@@ -445,7 +472,7 @@ public class CarServices : ICarServices
     public async Task<bool> IsCampaigns()
     {
         var allCar = await _carReadRepository.GetAll().ToListAsync();
-        
+
         foreach (var item in allCar) if (item.isCampaigns == true) return true;
         return false;
     }

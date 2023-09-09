@@ -11,12 +11,12 @@ public class PicakUpCompaignsBackService : IHostedService
     private Timer _timer;
 
     public PicakUpCompaignsBackService(IServiceProvider serviceProvider)
-     =>  _serviceProvider = serviceProvider;
+     => _serviceProvider = serviceProvider;
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
         Console.WriteLine($"{nameof(PicakUpCompaignsBackService)}Service started....");
-        _timer = new Timer(carCompagin, null, TimeSpan.Zero, TimeSpan.FromHours(1));
+        _timer = new Timer(carCompagin, null, TimeSpan.Zero, TimeSpan.FromSeconds(50));
         return Task.CompletedTask;
     }
 
@@ -27,17 +27,20 @@ public class PicakUpCompaignsBackService : IHostedService
             var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
             var carServices = scope.ServiceProvider.GetRequiredService<ICarServices>();
 
+            bool isComp = false;
 
             var today = DateTime.Now;
             var comaignStart = await dbContext.Cars
                                .Where(x => x.isCampaigns == true)
                                .Where(x => x.PickUpCampaigns.Value.Day == today.Day)
                                .Where(x => x.PickUpCampaigns.Value.Hour == today.Hour)
-                               .ToListAsync();
-
+                               .Where(x => x.PickUpCampaigns.Value.Minute == today.Minute)
+                               .FirstOrDefaultAsync();
+            
             Console.WriteLine("Campagns");
-            foreach (var item in comaignStart)
+            if (comaignStart is not null && isComp == false)
             {
+                isComp = true;
                 Console.WriteLine("Campagns one start");
                 await carServices.CompaignsChangePrice();
             }

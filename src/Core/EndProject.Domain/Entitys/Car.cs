@@ -13,7 +13,7 @@ public class Car : BaseEntity
     public bool isReserv { get; set; } = false;
     public bool isCampaigns { get; set; } = false;
     public decimal? CampaignsPrice { get; set; }
-    public double? CampaignsInterest { get; set; }
+    public decimal? CampaignsInterest { get; set; }
     public DateTime? PickUpCampaigns { get; set; }
     public DateTime? ReturnCampaigns { get; set; }
     public CampaignsStatus Status { get; set; }

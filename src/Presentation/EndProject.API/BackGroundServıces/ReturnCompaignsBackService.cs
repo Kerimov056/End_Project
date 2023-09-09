@@ -27,18 +27,22 @@ public class ReturnCompaignsBackService : IHostedService
             var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
             var carServices = scope.ServiceProvider.GetRequiredService<ICarServices>();
 
+            bool isComp = false;
+
             var today = DateTime.Now;
             var comaignStart = await dbContext.Cars
-                              .Where(x => x.isCampaigns == true)
-                              .Where(x => x.ReturnCampaigns.Value.Day == today.Day)
-                              .Where(x => x.ReturnCampaigns.Value.Hour == today.Hour)
-                              .ToListAsync();
+                               .Where(x => x.isCampaigns == true)
+                               .Where(x => x.ReturnCampaigns.Value.Day == today.Day)
+                               .Where(x => x.ReturnCampaigns.Value.Hour == today.Hour)
+                               .Where(x => x.ReturnCampaigns.Value.Minute == today.Minute)
+                               .FirstOrDefaultAsync();
 
             Console.WriteLine("Campagns");
-            foreach (var item in comaignStart)
+            if (comaignStart is not null && isComp == false)
             {
-                Console.WriteLine("Campagns one start");
-                await carServices.CompaignsReturn();
+                isComp = true;
+                Console.WriteLine("Campagns one Finsh");
+                await carServices.CompaignsChangePrice();
             }
         }
     }
