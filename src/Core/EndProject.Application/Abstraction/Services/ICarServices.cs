@@ -26,9 +26,11 @@ public interface ICarServices
     Task<int> GetReservCarCountAsync();
 
     //--------------------------------
+                //Compagins
 
     Task Campaigns(CarCampaignsDTO carCampaignsDTO);
     Task CompaignsChangePrice();
     Task CompaignsReturn();
     Task<bool> IsCampaigns();
+    Task StopCompaigns(string superAdminId);
 }

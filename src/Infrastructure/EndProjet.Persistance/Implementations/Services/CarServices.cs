@@ -125,7 +125,6 @@ public class CarServices : ICarServices
                 html = System.IO.File.ReadAllText(filePath);
 
                 _emailService.Send(user.Email, subject, html);
-
             }
         }
     }
@@ -137,7 +136,6 @@ public class CarServices : ICarServices
         {
             if (item.isCampaigns == true && item.Status == CampaignsStatus.NowCampaign)
             {
-                //item.Price
                 item.isCampaigns = false;
                 item.Status = CampaignsStatus.ComplatedCampaign;
                 item.CampaignsPrice = null;
@@ -512,6 +510,23 @@ public class CarServices : ICarServices
         ByCar.isReserv = true;
         _carWriteRepository.Update(ByCar);
         await _carWriteRepository.SavaChangeAsync();
+    }
+
+    public async Task StopCompaigns(string superAdminId)
+    {
+        var allCar = await _carReadRepository.GetAll().ToListAsync();
+        foreach (var item in allCar)
+        {
+            if (item.isCampaigns == true && item.Status == CampaignsStatus.NowCampaign)
+            {
+                //item.Price
+                item.isCampaigns = false;
+                item.Status = CampaignsStatus.ComplatedCampaign;
+                item.CampaignsPrice = null;
+                item.PickUpCampaigns = null;
+                item.ReturnCampaigns = null;
+            }
+        }
     }
 
     public async Task UpdateAsync(Guid id, CarUpdateDTO carUpdateDTO)
