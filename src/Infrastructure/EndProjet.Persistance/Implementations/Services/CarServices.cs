@@ -5,7 +5,6 @@ using EndProject.Application.DTOs.Car;
 using EndProject.Application.DTOs.CarComment;
 using EndProject.Application.DTOs.CarImage;
 using EndProject.Application.DTOs.CarType;
-using EndProject.Application.DTOs.Reservation;
 using EndProject.Domain.Entitys;
 using EndProject.Domain.Entitys.Identity;
 using EndProjet.Persistance.Exceptions;
@@ -409,6 +408,20 @@ public class CarServices : ICarServices
             }
         }
         return ToDto;
+    }
+
+    public async Task<bool> IsCampaigns()
+    {
+        var allCar = await _carReadRepository.GetAll().ToListAsync();
+        
+        foreach (var item in allCar)
+        {
+            if (item.isCampaigns == true)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public async Task RemoveAsync(Guid id)

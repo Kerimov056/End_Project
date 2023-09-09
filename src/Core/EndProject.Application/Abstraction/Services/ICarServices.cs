@@ -28,4 +28,6 @@ public interface ICarServices
     //--------------------------------
 
     Task Campaigns(CarCampaignsDTO carCampaignsDTO);
+
+    Task<bool> IsCampaigns();
 }

@@ -123,4 +123,11 @@ public class CarController : ControllerBase
         await _carServices.Campaigns(carCampaignsDTO);
         return StatusCode((int)HttpStatusCode.Created);
     }
+
+    [HttpGet("IsCampaigns")]
+    public async Task<IActionResult> IsCampaigns()
+    {
+        var rosponse = await _carServices.IsCampaigns();
+        return Ok(rosponse);
+    }
 }
