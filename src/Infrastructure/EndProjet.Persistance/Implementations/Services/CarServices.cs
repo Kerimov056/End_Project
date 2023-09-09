@@ -76,8 +76,6 @@ public class CarServices : ICarServices
                 {
                     item.isCampaigns = true;
                     item.CampaignsInterest = carCampaignsDTO.CampaignsInterest;
-                    item.CampaignsPrice = item.Price / 100;
-                    item.CampaignsPrice = item.CampaignsPrice * (decimal)IsCompany;
                     item.PickUpCampaigns = carCampaignsDTO.PickUpCampaigns;
                     item.ReturnCampaigns = carCampaignsDTO.ReturnCampaigns;
                 }
@@ -86,6 +84,20 @@ public class CarServices : ICarServices
             else throw new Exception("Duzgun vaxt secimi deyil!");
         }
         else throw new Exception("Duzgun Endirim Deyil!");
+    }
+
+    public async Task CompaignsChangePrice()
+    {
+        var allCar = await _carReadRepository.GetAll().ToListAsync();
+        foreach (var item in allCar)
+        {
+            if(item.isCampaigns == true)
+            {
+                var IsCompany = 100 - item.CampaignsInterest;
+                item.CampaignsPrice = item.Price / 100;
+                item.CampaignsPrice = item.CampaignsPrice * (decimal)IsCompany;
+            }
+        }
     }
 
     public async Task CreateAsync(CarCreateDTO carCreateDTO)
