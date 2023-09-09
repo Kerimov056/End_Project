@@ -20,10 +20,8 @@ public class ReservationPickupCheckService : IHostedService
     {
         Console.WriteLine($"{nameof(ReservationReturnCheckService)}Service started....");
         _timer = new Timer(carStautus, null, TimeSpan.Zero, TimeSpan.FromSeconds(50));
-        //_timer = new Timer(otherCarStautus, null, TimeSpan.Zero, TimeSpan.FromHours(1));
         return Task.CompletedTask;
     }
-    private static readonly object lockObject = new object(); // Kilidi yönetmek için bir nesne oluşturuyoruz
 
     private async void carStautus(object state)
     {
