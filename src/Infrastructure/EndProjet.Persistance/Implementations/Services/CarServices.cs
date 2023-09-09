@@ -138,11 +138,13 @@ public class CarServices : ICarServices
             {
                 item.isCampaigns = false;
                 item.Status = CampaignsStatus.ComplatedCampaign;
+                item.CampaignsInterest = null;
                 item.CampaignsPrice = null;
                 item.PickUpCampaigns = null;
                 item.ReturnCampaigns = null;
             }
         }
+        await _carWriteRepository.SavaChangeAsync();
     }
 
     public async Task CreateAsync(CarCreateDTO carCreateDTO)
@@ -471,7 +473,7 @@ public class CarServices : ICarServices
     {
         var allCar = await _carReadRepository.GetAll().ToListAsync();
 
-        foreach (var item in allCar) if (item.isCampaigns == true) return true;
+        foreach (var item in allCar) if (item.Status == CampaignsStatus.CampaignTrue) return true;
         return false;
     }
 
@@ -514,22 +516,24 @@ public class CarServices : ICarServices
 
     public async Task StopCompaigns(string superAdminId)
     {
-        var superAdmin = _userManager.FindByIdAsync(superAdminId);
-        if (superAdmin is not null)
+        var bySuperAdmin = await _userManager.FindByIdAsync(superAdminId);
+        if (bySuperAdmin is null) throw new NotFoundException("SuperAdmin Not found");
+        if (bySuperAdmin == null || !await _userManager.IsInRoleAsync(bySuperAdmin, "SuperAdmin"))
+            throw new UnauthorizedAccessException("You do not have permission to perform this action.");
+
+        if (bySuperAdmin is not null)
         {
             var allCar = await _carReadRepository.GetAll().ToListAsync();
             foreach (var item in allCar)
             {
-                if (item.isCampaigns == true && item.Status == CampaignsStatus.NowCampaign)
-                {
-                    //item.Price
-                    item.isCampaigns = false;
-                    item.Status = CampaignsStatus.ComplatedCampaign;
-                    item.CampaignsPrice = null;
-                    item.PickUpCampaigns = null;
-                    item.ReturnCampaigns = null;
-                }
+                item.isCampaigns = false;
+                item.Status = CampaignsStatus.ComplatedCampaign;
+                item.CampaignsInterest = null;
+                item.CampaignsPrice = null;
+                item.PickUpCampaigns = null;
+                item.ReturnCampaigns = null;
             }
+            await _carWriteRepository.SavaChangeAsync();
         }
         else throw new NotFoundException("SuperAdmin not found");
     }
