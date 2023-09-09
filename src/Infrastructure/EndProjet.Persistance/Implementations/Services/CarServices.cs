@@ -514,19 +514,24 @@ public class CarServices : ICarServices
 
     public async Task StopCompaigns(string superAdminId)
     {
-        var allCar = await _carReadRepository.GetAll().ToListAsync();
-        foreach (var item in allCar)
+        var superAdmin = _userManager.FindByIdAsync(superAdminId);
+        if (superAdmin is not null)
         {
-            if (item.isCampaigns == true && item.Status == CampaignsStatus.NowCampaign)
+            var allCar = await _carReadRepository.GetAll().ToListAsync();
+            foreach (var item in allCar)
             {
-                //item.Price
-                item.isCampaigns = false;
-                item.Status = CampaignsStatus.ComplatedCampaign;
-                item.CampaignsPrice = null;
-                item.PickUpCampaigns = null;
-                item.ReturnCampaigns = null;
+                if (item.isCampaigns == true && item.Status == CampaignsStatus.NowCampaign)
+                {
+                    //item.Price
+                    item.isCampaigns = false;
+                    item.Status = CampaignsStatus.ComplatedCampaign;
+                    item.CampaignsPrice = null;
+                    item.PickUpCampaigns = null;
+                    item.ReturnCampaigns = null;
+                }
             }
         }
+        else throw new NotFoundException("SuperAdmin not found");
     }
 
     public async Task UpdateAsync(Guid id, CarUpdateDTO carUpdateDTO)

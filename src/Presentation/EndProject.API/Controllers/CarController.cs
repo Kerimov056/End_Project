@@ -130,4 +130,12 @@ public class CarController : ControllerBase
         var rosponse = await _carServices.IsCampaigns();
         return Ok(rosponse);
     }
+
+
+    [HttpPost("StopCampaigns")]  
+    public async Task<IActionResult> StopCampaigns(string superAdminId)
+    {
+        await _carServices.StopCompaigns(superAdminId);
+        return Ok();
+    }
 }
