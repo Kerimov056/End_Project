@@ -4,7 +4,7 @@ namespace EndProject.Domain.Entitys;
 
 public class BlogImage:BaseEntity
 {
-    public string imagePath { get; set; }
+    public byte[] imagePath { get; set; }
     public Guid BlogId { get; set; }
     public Blog Blog { get; set; }
 }

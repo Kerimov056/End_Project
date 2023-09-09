@@ -2,8 +2,11 @@
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.BlogImage;
+using EndProject.Application.DTOs.Slider;
 using EndProject.Domain.Entitys;
+using EndProject.Domain.Entitys.Common;
 using EndProjet.Persistance.Exceptions;
+using EndProjet.Persistance.ExtensionsMethods;
 using Microsoft.EntityFrameworkCore;
 
 namespace EndProjet.Persistance.Implementations.Services;
@@ -31,12 +34,13 @@ public class BlogImageServices : IBlogImageServices
 
     public async Task CreateAsync(BlogImageCreateDTO blogImageCreateDTO)
     {
-        var ToEntity = _mapper.Map<BlogImage>(blogImageCreateDTO);
-        if (blogImageCreateDTO.imagePath != null && blogImageCreateDTO.imagePath.Length > 0)
+        BlogImage ToEntity = new()
         {
-            var ImagePath = await _storageFile.WriteFile("Upload\\Files", blogImageCreateDTO.imagePath);
-            ToEntity.imagePath = ImagePath;
-        }
+            BlogId = blogImageCreateDTO.BlogId,
+        };
+        if (blogImageCreateDTO.imagePath is not null) 
+            ToEntity.imagePath = await blogImageCreateDTO.imagePath.GetBytes();
+
         await _blogImageWriteRepository.AddAsync(ToEntity);
         await _blogImageWriteRepository.SavaChangeAsync();
     }
@@ -47,6 +51,15 @@ public class BlogImageServices : IBlogImageServices
         if (BlogImageAll is null) throw new NotFoundException("BlogImage is Null");
 
         var ToDto = _mapper.Map<List<BlogImageGetDTO>>(BlogImageAll);
+        foreach (var item in ToDto)
+        {
+            BlogImage blogImage = BlogImageAll.FirstOrDefault(x => x.Id == item.Id)
+                                    ?? throw new InvalidException(ExceptionResponseMessages.NotFoundMessage);
+
+            List<string> images = new();
+            images.Add(Convert.ToBase64String(blogImage.imagePath));
+            item.imagePath = images[0];
+        }
         return ToDto;
     }
 
@@ -61,8 +74,16 @@ public class BlogImageServices : IBlogImageServices
                             .Where(x=>x.BlogId == blogId)
                             .ToListAsync();
 
-
         var blogImageDto = _mapper.Map<List<BlogImageGetDTO>>(BlogImageAll);
+        foreach (var item in blogImageDto)
+        {
+            BlogImage blogImage = BlogImageAll.FirstOrDefault(x => x.Id == item.Id)
+                                    ?? throw new InvalidException(ExceptionResponseMessages.NotFoundMessage);
+
+            List<string> images = new();
+            images.Add(Convert.ToBase64String(blogImage.imagePath));
+            item.imagePath = images[0];
+        }
         return blogImageDto;
     }
 
@@ -70,8 +91,8 @@ public class BlogImageServices : IBlogImageServices
     {
         var ByBlogImage = await _blogImageReadRepository.GetByIdAsync(Id);
         if (ByBlogImage is null) throw new NotFoundException("BlogImage is Null");
-
         var ToDto = _mapper.Map<BlogImageGetDTO>(ByBlogImage);
+        ToDto.imagePath = Convert.ToBase64String(ByBlogImage.imagePath);
         return ToDto;
     }
 
@@ -88,8 +109,9 @@ public class BlogImageServices : IBlogImageServices
     {
         var ByBlogImage = await _blogImageReadRepository.GetByIdAsync(id);
         if (ByBlogImage is null) throw new NotFoundException("BlogImage is Null");
-
         _mapper.Map(blogImageUpdateDTO, ByBlogImage);
+
+        if (blogImageUpdateDTO.imagePath is not null) ByBlogImage.imagePath = await blogImageUpdateDTO.imagePath.GetBytes();
         _blogImageWriteRepository.Update(ByBlogImage);
         await _blogImageWriteRepository.SavaChangeAsync();
     }

@@ -8,6 +8,6 @@ public class BlogImageConfigurations : IEntityTypeConfiguration<BlogImage>
 {
     public void Configure(EntityTypeBuilder<BlogImage> builder)
     {
-        builder.Property(x => x.imagePath).IsRequired().HasMaxLength(12200);
+        //builder.Property(x => x.imagePath).IsRequired().HasMaxLength(12200);
     }
 }

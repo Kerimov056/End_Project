@@ -1,7 +1,9 @@
-﻿namespace EndProject.Application.DTOs.BlogImage;
+﻿using Microsoft.AspNetCore.Http;
+
+namespace EndProject.Application.DTOs.BlogImage;
 
 public class BlogImageUpdateDTO
 {
-    public string imagePath { get; set; }
+    public IFormFile imagePath { get; set; }
     public Guid BlogId { get; set; }
 }

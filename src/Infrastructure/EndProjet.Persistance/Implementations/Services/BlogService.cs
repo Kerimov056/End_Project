@@ -6,6 +6,7 @@ using EndProject.Application.DTOs.BlogImage;
 using EndProject.Application.DTOs.Car;
 using EndProject.Application.DTOs.CarImage;
 using EndProject.Domain.Entitys;
+using EndProject.Domain.Entitys.Common;
 using EndProjet.Persistance.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
@@ -61,8 +62,12 @@ public class BlogService : IBlogService
             .Include(x => x.BlogImages)
             .ToListAsync();
         if (allBlog is null) throw new NotFoundException("Blog is Null");
-
         var ToDto = _mapper.Map<List<BlogGetDTO>>(allBlog);
+
+        foreach (var item in ToDto)
+        {
+            item.BlogImages = await _blogImageServices.GetAllBlogIdAsync(item.Id);
+        }
         return ToDto;
     }
 
@@ -73,8 +78,11 @@ public class BlogService : IBlogService
             .Include(x => x.BlogImages)
             .FirstOrDefaultAsync(x => x.Id == Id);
         if (ByBlog is null) throw new NotFoundException("Blog is Null");
-
         var ToDto = _mapper.Map<BlogGetDTO>(ByBlog);
+        foreach (var item in ToDto.BlogImages)
+        {
+            ToDto.BlogImages = await _blogImageServices.GetAllBlogIdAsync(item.BlogId);
+        }
         return ToDto;
 
     }
@@ -85,14 +93,14 @@ public class BlogService : IBlogService
         if (ByBlog is null) throw new NotFoundException("Blog is Null");
 
         _blogWriteRepository.Remove(ByBlog);
-        await _blogWriteRepository.SavaChangeAsync();   
+        await _blogWriteRepository.SavaChangeAsync();
     }
 
     public async Task UpdateAsync(Guid id, BlogUpdateDTO blogUpdateDTO)
     {
         var ByBlog = await _blogReadRepository.GetByIdAsync(id);
         if (ByBlog is null) throw new NotFoundException("Blog is Null");
-            
+
         ByBlog.Title = blogUpdateDTO.Title;
         ByBlog.Description = blogUpdateDTO.Description;
 

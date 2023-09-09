@@ -4,6 +4,7 @@ using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.CarImage;
 using EndProject.Domain.Entitys;
 using EndProjet.Persistance.Exceptions;
+using EndProjet.Persistance.ExtensionsMethods;
 using Microsoft.EntityFrameworkCore;
 
 namespace EndProjet.Persistance.Implementations.Services;
@@ -29,10 +30,9 @@ public class CarImageServices : ICarImageServices
     public async Task CreateAsync(CarImageCreateDTO carImageCreateDTO)
     {
         var ToEntity = _mapper.Map<CarImage>(carImageCreateDTO);
-        if (carImageCreateDTO.image != null && carImageCreateDTO.image.Length > 0)
+        if(carImageCreateDTO.image is not null)
         {
-            var ImagePath = await _storageFile.WriteFile("Upload\\Files", carImageCreateDTO.image);
-            ToEntity.imagePath = ImagePath;
+            ToEntity.imagePath = await carImageCreateDTO.image.GetBytes();
         }
         await _carImageWriteRepository.AddAsync(ToEntity);
         await _carImageWriteRepository.SavaChangeAsync();

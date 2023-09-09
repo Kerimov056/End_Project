@@ -8,6 +8,6 @@ public class CarImageConfigurations : IEntityTypeConfiguration<CarImage>
 {
     public void Configure(EntityTypeBuilder<CarImage> builder)
     {
-        builder.Property(x => x.imagePath).IsRequired().HasMaxLength(12200);
+        builder.Property(x => x.imagePath).IsRequired().HasMaxLength(122200);
     }
 }
