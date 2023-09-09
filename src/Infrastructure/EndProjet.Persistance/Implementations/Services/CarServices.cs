@@ -75,7 +75,6 @@ public class CarServices : ICarServices
             {
                 foreach (var item in allCar)
                 {
-                    item.isCampaigns = true;
                     item.Status = CampaignsStatus.CampaignTrue;
                     item.CampaignsInterest = carCampaignsDTO.CampaignsInterest;
                     item.PickUpCampaigns = carCampaignsDTO.PickUpCampaigns;
@@ -93,8 +92,9 @@ public class CarServices : ICarServices
         var allCar = await _carReadRepository.GetAll().ToListAsync();
         foreach (var item in allCar)
         {
-            if(item.isCampaigns == true && item.Status == CampaignsStatus.CampaignTrue)
+            if(item.Status == CampaignsStatus.CampaignTrue)
             {
+                item.isCampaigns = true;
                 item.Status = CampaignsStatus.NowCampaign;
                 var IsCompany = 100 - item.CampaignsInterest;
                 item.CampaignsPrice = item.Price / 100;
