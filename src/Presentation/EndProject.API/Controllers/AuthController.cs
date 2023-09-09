@@ -7,7 +7,6 @@ using EndProject.Domain.Entitys.Common;
 using EndProject.Domain.Entitys.Identity;
 using EndProject.Domain.Helpers;
 using EndProjet.Persistance.Context;
-using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
@@ -25,21 +24,16 @@ namespace EndProject.API.Controllersş
         private readonly SignInManager<AppUser> _siginManager;
         private readonly IEmailService _emailService;
         private readonly AppDbContext _appDbContext;
-        //private readonly IMediator _mediator;
 
         public AuthController(IAuthService authService,
             IEmailService emailService,
             AppDbContext appDbContext,
-            SignInManager<AppUser> signInManager
-            //IMediator mediator
-            )
+            SignInManager<AppUser> signInManager)
         {
             _authService = authService;
             _emailService = emailService;
             _appDbContext = appDbContext;
             _siginManager = signInManager;
-            //_mediator = mediator;
-
         }
 
         [HttpPost("register")]
@@ -125,15 +119,13 @@ namespace EndProject.API.Controllersş
         //}
 
         [HttpPost("AdminCreate")]
-        [Authorize(AuthenticationSchemes = "SuperAdmin")]
         public async Task<IActionResult> AdminCreate([FromQuery] string superAdminId, [FromQuery] string appUserId)
         {
             await _authService.AdminCreate(superAdminId, appUserId);
             return StatusCode((int)HttpStatusCode.Created);
         }
-        
+
         [HttpPost("AdminDelete")]
-        [Authorize(AuthenticationSchemes = "SuperAdmin")]
         public async Task<IActionResult> AdminDelete([FromQuery] string superAdminId, [FromQuery] string appUserId)
         {
             await _authService.AdminDelete(superAdminId, appUserId);
@@ -141,7 +133,6 @@ namespace EndProject.API.Controllersş
         }
 
         [HttpGet("AllAdmin")]
-        [Authorize(AuthenticationSchemes = "SuperAdmin")]
         public async Task<IActionResult> AllAdminUsers([FromQuery] string? searchUser)
         {
             var adminUsers = await _authService.AllAdminUser(searchUser);
@@ -150,7 +141,6 @@ namespace EndProject.API.Controllersş
 
 
         [HttpGet("AllMember")]
-        [Authorize(AuthenticationSchemes = "SuperAdmin")]
         public async Task<IActionResult> AllMemberUsers([FromQuery] string? searchUser)
         {
             var memberUsers = await _authService.AllMemberUser(searchUser);
@@ -165,7 +155,6 @@ namespace EndProject.API.Controllersş
 
 
         [HttpDelete("RemoveUser")]
-        [Authorize(AuthenticationSchemes = "SuperAdmin")]
         public async Task<IActionResult> UserRemove([FromQuery] string superAdminId, [FromQuery] string userId)
         {
             await _authService.RemoveUser(superAdminId, userId);
