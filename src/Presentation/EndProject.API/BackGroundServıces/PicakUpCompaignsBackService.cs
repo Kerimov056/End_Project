@@ -10,16 +10,13 @@ public class PicakUpCompaignsBackService : IHostedService
     private IServiceProvider _serviceProvider;
     private Timer _timer;
 
-    public PicakUpCompaignsBackService(IServiceProvider serviceProvider, Timer timer)
-    {
-        _serviceProvider = serviceProvider;
-        _timer = timer;
-    }
+    public PicakUpCompaignsBackService(IServiceProvider serviceProvider)
+     =>  _serviceProvider = serviceProvider;
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
-        Console.WriteLine($"{nameof(ReservationReturnCheckService)}Service started....");
-        _timer = new Timer(carCompagin, null, TimeSpan.Zero, TimeSpan.FromSeconds(59));
+        Console.WriteLine($"{nameof(PicakUpCompaignsBackService)}Service started....");
+        _timer = new Timer(carCompagin, null, TimeSpan.Zero, TimeSpan.FromHours(1));
         return Task.CompletedTask;
     }
 
@@ -32,7 +29,12 @@ public class PicakUpCompaignsBackService : IHostedService
 
 
             var today = DateTime.Now;
-            var comaignStart = await dbContext.Cars.Where(x => x.isCampaigns == true).Where(x => x.PickUpCampaigns == today).ToListAsync();
+            var comaignStart = await dbContext.Cars
+                               .Where(x => x.isCampaigns == true)
+                               .Where(x => x.PickUpCampaigns.Value.Day == today.Day)
+                               .Where(x => x.PickUpCampaigns.Value.Hour == today.Hour)
+                               .ToListAsync();
+
             Console.WriteLine("Campagns");
             foreach (var item in comaignStart)
             {
@@ -45,7 +47,7 @@ public class PicakUpCompaignsBackService : IHostedService
     public Task StopAsync(CancellationToken cancellationToken)
     {
         _timer?.Change(Timeout.Infinite, 0);
-        Console.WriteLine($"{nameof(ReservationReturnCheckService)}Service stopped....");
+        Console.WriteLine($"{nameof(PicakUpCompaignsBackService)}Service stopped....");
         return Task.CompletedTask;
     }
 

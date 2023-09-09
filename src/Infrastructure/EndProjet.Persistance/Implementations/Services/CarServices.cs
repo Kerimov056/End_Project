@@ -110,6 +110,7 @@ public class CarServices : ICarServices
         {
             if (item.isCampaigns == true && item.Status == CampaignsStatus.NowCampaign)
             {
+                //item.Price
                 item.isCampaigns = false;
                 item.Status = CampaignsStatus.ComplatedCampaign;
                 item.CampaignsPrice = null;

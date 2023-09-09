@@ -81,8 +81,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHostedService<BirthDateBGServices>();
 builder.Services.AddHostedService<ReservationPickupCheckService>();
 builder.Services.AddHostedService<ReservationReturnCheckService>();
-builder.Services.AddHostedService<ReturnCompaignsBackService>();
 builder.Services.AddHostedService<PicakUpCompaignsBackService>();
+builder.Services.AddHostedService<ReturnCompaignsBackService>();
 
 builder.Services.AddSignalR();
 builder.Services.AddSingleton<IDictionary<string, UserConnection>>(opts => new Dictionary<string, UserConnection>());

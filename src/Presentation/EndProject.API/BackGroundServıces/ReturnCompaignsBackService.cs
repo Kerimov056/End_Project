@@ -10,15 +10,12 @@ public class ReturnCompaignsBackService : IHostedService
     private IServiceProvider _serviceProvider;
     private Timer _timer;
 
-    public ReturnCompaignsBackService(IServiceProvider serviceProvider, Timer timer)
-    {
-        _serviceProvider = serviceProvider;
-        _timer = timer;
-    }
+    public ReturnCompaignsBackService(IServiceProvider serviceProvider)
+     =>  _serviceProvider = serviceProvider;
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
-        Console.WriteLine($"{nameof(ReservationReturnCheckService)}Service started....");
+        Console.WriteLine($"{nameof(ReturnCompaignsBackService)}Service started....");
         _timer = new Timer(carCompagin, null, TimeSpan.Zero, TimeSpan.FromSeconds(59));
         return Task.CompletedTask;
     }
@@ -31,7 +28,12 @@ public class ReturnCompaignsBackService : IHostedService
             var carServices = scope.ServiceProvider.GetRequiredService<ICarServices>();
 
             var today = DateTime.Now;
-            var comaignStart = await dbContext.Cars.Where(x => x.isCampaigns == true).Where(x => x.PickUpCampaigns == today).ToListAsync();
+            var comaignStart = await dbContext.Cars
+                              .Where(x => x.isCampaigns == true)
+                              .Where(x => x.ReturnCampaigns.Value.Day == today.Day)
+                              .Where(x => x.ReturnCampaigns.Value.Hour == today.Hour)
+                              .ToListAsync();
+
             Console.WriteLine("Campagns");
             foreach (var item in comaignStart)
             {
@@ -44,7 +46,7 @@ public class ReturnCompaignsBackService : IHostedService
     public Task StopAsync(CancellationToken cancellationToken)
     {
         _timer?.Change(Timeout.Infinite, 0);
-        Console.WriteLine($"{nameof(ReservationReturnCheckService)}Service stopped....");
+        Console.WriteLine($"{nameof(ReturnCompaignsBackService)}Service stopped....");
         return Task.CompletedTask;
     }
 
