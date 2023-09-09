@@ -2,8 +2,11 @@
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Chauffeurs;
+using EndProject.Application.DTOs.Slider;
 using EndProject.Domain.Entitys;
+using EndProject.Domain.Entitys.Common;
 using EndProjet.Persistance.Exceptions;
+using EndProjet.Persistance.ExtensionsMethods;
 using Microsoft.EntityFrameworkCore;
 
 namespace EndProjet.Persistance.Implementations.Services;
@@ -29,10 +32,9 @@ public class ChauffeursServices : IChauffeursServices
     public async Task CreateAsync(ChauffeursCreateDTO chauffeursCreateDTO)
     {
         var newChauffeurs = _mapper.Map<Chauffeurs>(chauffeursCreateDTO);
-        if (chauffeursCreateDTO.Image != null && chauffeursCreateDTO.Image.Length > 0)
+        if (chauffeursCreateDTO.Image is not null)
         {
-            var ImagePath = await _storageFile.WriteFile("Upload\\Files", chauffeursCreateDTO.Image);
-            newChauffeurs.imagePath = ImagePath;
+            newChauffeurs.imagePath = await chauffeursCreateDTO.Image.GetBytes();
         }
         newChauffeurs.isChauffeurs = false;
         await _chauffeursWriteRepository.AddAsync(newChauffeurs);
@@ -48,6 +50,17 @@ public class ChauffeursServices : IChauffeursServices
         if (allChauffeurs is null) throw new NotFoundException("Chauffeurs is Null");
 
         var chauffeurss = _mapper.Map<List<ChauffeursGetDTO>>(allChauffeurs);
+
+
+        foreach (var item in chauffeurss)
+        {
+            Chauffeurs chauffeurs = allChauffeurs.FirstOrDefault(x => x.Id == item.Id)
+                                    ?? throw new InvalidException(ExceptionResponseMessages.NotFoundMessage);
+
+            List<string> images = new();
+            images.Add(Convert.ToBase64String(chauffeurs.imagePath));
+            item.ImagePath = images[0];
+        }
         return chauffeurss;
     }
 
@@ -55,8 +68,8 @@ public class ChauffeursServices : IChauffeursServices
     {
         var byChauffeurs = await _chauffeursReadRepository.GetByIdAsync(Id);
         if (byChauffeurs is null) throw new NotFoundException("Chauffeur is Null");
-
         var chauffeurs = _mapper.Map<ChauffeursGetDTO>(byChauffeurs);
+        chauffeurs.ImagePath = Convert.ToBase64String(byChauffeurs.imagePath);
         return chauffeurs;
     }
 
@@ -74,14 +87,11 @@ public class ChauffeursServices : IChauffeursServices
         var byChauffeurs = await _chauffeursReadRepository.GetByIdAsync(id);
         if (byChauffeurs is null) throw new NotFoundException("Chauffeur is Null");
         _mapper.Map(chauffeursUpdateDTO, byChauffeurs);
-        if (chauffeursUpdateDTO.Image != null && chauffeursUpdateDTO.Image.Length > 0)
-        {
-            var ImagePath = await _storageFile.WriteFile("Upload\\Files", chauffeursUpdateDTO.Image);
-            byChauffeurs.imagePath = ImagePath;
-        }
 
+        if (chauffeursUpdateDTO.Image is not null) byChauffeurs.imagePath = await chauffeursUpdateDTO.Image.GetBytes();
         _chauffeursWriteRepository.Update(byChauffeurs);
         await _chauffeursWriteRepository.SavaChangeAsync();
+
     }
 
     public async Task IsChauffeursTrue(Guid? cheuffeursId)
@@ -114,6 +124,15 @@ public class ChauffeursServices : IChauffeursServices
         if (allChauffeurs is null) throw new NotFoundException("Chauffeurs is Null");
 
         var chauffeurss = _mapper.Map<List<ChauffeursGetDTO>>(allChauffeurs);
+        foreach (var item in chauffeurss)
+        {
+            Chauffeurs chauffeurs = allChauffeurs.FirstOrDefault(x => x.Id == item.Id)
+                                    ?? throw new InvalidException(ExceptionResponseMessages.NotFoundMessage);
+
+            List<string> images = new();
+            images.Add(Convert.ToBase64String(chauffeurs.imagePath));
+            item.ImagePath = images[0];
+        }
         return chauffeurss;
     }
 

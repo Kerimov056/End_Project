@@ -11,6 +11,6 @@ public class ChauffeursConfigurations : IEntityTypeConfiguration<Chauffeurs>
         builder.Property(x => x.Name).IsRequired().HasMaxLength(100);
         builder.Property(x => x.Number).IsRequired().HasMaxLength(100);
         builder.Property(x => x.Price).IsRequired().HasMaxLength(5000);
-        builder.Property(x => x.imagePath).IsRequired().HasMaxLength(15000);
+        builder.Property(x => x.imagePath).IsRequired().HasMaxLength(55000);
     }
 }
