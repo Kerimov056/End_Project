@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EndProject.API.BackGroundServıces;
 
-public class CompaignsBackgroundService : IHostedService
+public class PicakUpCompaignsBackService : IHostedService
 {
 
     private IServiceProvider _serviceProvider;
     private Timer _timer;
 
-    public CompaignsBackgroundService(IServiceProvider serviceProvider, Timer timer)
+    public PicakUpCompaignsBackService(IServiceProvider serviceProvider, Timer timer)
     {
         _serviceProvider = serviceProvider;
         _timer = timer;
@@ -32,7 +32,7 @@ public class CompaignsBackgroundService : IHostedService
 
 
             var today = DateTime.Now;
-            var comaignStart = await dbContext.Cars.Where(x => x.PickUpCampaigns == today).ToListAsync();
+            var comaignStart = await dbContext.Cars.Where(x => x.isCampaigns == true).Where(x => x.PickUpCampaigns == today).ToListAsync();
             Console.WriteLine("Campagns");
             foreach (var item in comaignStart)
             {

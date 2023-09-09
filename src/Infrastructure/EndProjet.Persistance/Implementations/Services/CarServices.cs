@@ -7,6 +7,7 @@ using EndProject.Application.DTOs.CarImage;
 using EndProject.Application.DTOs.CarType;
 using EndProject.Domain.Entitys;
 using EndProject.Domain.Entitys.Identity;
+using EndProject.Domain.Enums.CampaignsStatus;
 using EndProjet.Persistance.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -75,6 +76,7 @@ public class CarServices : ICarServices
                 foreach (var item in allCar)
                 {
                     item.isCampaigns = true;
+                    item.Status = CampaignsStatus.CampaignTrue;
                     item.CampaignsInterest = carCampaignsDTO.CampaignsInterest;
                     item.PickUpCampaigns = carCampaignsDTO.PickUpCampaigns;
                     item.ReturnCampaigns = carCampaignsDTO.ReturnCampaigns;
@@ -91,11 +93,28 @@ public class CarServices : ICarServices
         var allCar = await _carReadRepository.GetAll().ToListAsync();
         foreach (var item in allCar)
         {
-            if(item.isCampaigns == true)
+            if(item.isCampaigns == true && item.Status == CampaignsStatus.CampaignTrue)
             {
+                item.Status = CampaignsStatus.NowCampaign;
                 var IsCompany = 100 - item.CampaignsInterest;
                 item.CampaignsPrice = item.Price / 100;
                 item.CampaignsPrice = item.CampaignsPrice * (decimal)IsCompany;
+            }
+        }
+    }
+
+    public async Task CompaignsReturn()
+    {
+        var allCar = await _carReadRepository.GetAll().ToListAsync();
+        foreach (var item in allCar)
+        {
+            if (item.isCampaigns == true && item.Status == CampaignsStatus.NowCampaign)
+            {
+                item.isCampaigns = false;
+                item.Status = CampaignsStatus.ComplatedCampaign;
+                item.CampaignsPrice = null;
+                item.PickUpCampaigns = null;
+                item.ReturnCampaigns = null;
             }
         }
     }
@@ -426,13 +445,7 @@ public class CarServices : ICarServices
     {
         var allCar = await _carReadRepository.GetAll().ToListAsync();
         
-        foreach (var item in allCar)
-        {
-            if (item.isCampaigns == true)
-            {
-                return true;
-            }
-        }
+        foreach (var item in allCar) if (item.isCampaigns == true) return true;
         return false;
     }
 

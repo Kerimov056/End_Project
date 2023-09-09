@@ -29,5 +29,6 @@ public interface ICarServices
 
     Task Campaigns(CarCampaignsDTO carCampaignsDTO);
     Task CompaignsChangePrice();
+    Task CompaignsReturn();
     Task<bool> IsCampaigns();
 }
