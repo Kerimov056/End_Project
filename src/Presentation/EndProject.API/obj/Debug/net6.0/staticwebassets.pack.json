@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\templates\\Cancel.html"
     },
     {
+      "Id": "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\wwwroot\\templates\\HappyBirthday.html",
+      "PackagePath": "staticwebassets\\templates\\HappyBirthday.html"
+    },
+    {
       "Id": "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\wwwroot\\templates\\UserEmailMessage.html",
       "PackagePath": "staticwebassets\\templates\\UserEmailMessage.html"
     },

@@ -1,4 +1,5 @@
-﻿using EndProject.Domain.Entitys.Identity;
+﻿using EndProject.Application.Abstraction.Services;
+using EndProject.Domain.Entitys.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,22 +28,26 @@ public class BirthDateBGServices : IHostedService
             UserManager<AppUser> scopedProcessingService =
                 scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
 
+            var emailService = scope.ServiceProvider.GetRequiredService<IEmailService>();
+
             var today = DateTime.Today;
             var usersWithBirthday = await scopedProcessingService.Users
                 .Where(u => u.BirthDate.HasValue && u.BirthDate.Value.Day == today.Day && u.BirthDate.Value.Month == today.Month)
                 .ToListAsync();
+
             foreach (var user in usersWithBirthday)
             {
-                SendBirthdayEmail(user);
+                string subject = "Happy Birthday.";
+                string html = string.Empty;
+
+                string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "templates", "HappyBirthday.html");
+                html = System.IO.File.ReadAllText(filePath);
+
+                emailService.Send(user.Email, subject, html);
             }
 
             Console.WriteLine($"DateTime is {DateTime.Now.ToLongTimeString()}");
         }
-    }
-
-    private void SendBirthdayEmail(AppUser user)
-    {
-        Console.WriteLine($"Sending birthday email to {user.Email}");
     }
 
     public Task StopAsync(CancellationToken cancellationToken)

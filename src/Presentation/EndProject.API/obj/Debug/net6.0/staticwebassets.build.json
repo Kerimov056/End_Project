@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "De7mzrQyO4AYZfRZkqkKFqF5bhInv+hdBUXmCrA2PF4=",
+  "Hash": "1ryth5M0kApRKfNisIPTkmYY5nvVobwwqMd/fyEL984=",
   "Source": "EndProject.API",
   "BasePath": "_content/EndProject.API",
   "Mode": "Default",
@@ -49,6 +49,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\templates\\confirm.html"
+    },
+    {
+      "Identity": "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\wwwroot\\templates\\HappyBirthday.html",
+      "SourceId": "EndProject.API",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\wwwroot\\",
+      "BasePath": "_content/EndProject.API",
+      "RelativePath": "templates/HappyBirthday.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\templates\\HappyBirthday.html"
     },
     {
       "Identity": "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\wwwroot\\templates\\newReservation.html",
