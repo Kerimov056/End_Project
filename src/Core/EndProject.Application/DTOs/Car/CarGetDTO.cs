@@ -6,6 +6,7 @@ using EndProject.Application.DTOs.Category;
 using EndProject.Application.DTOs.OtherCarReservation;
 using EndProject.Application.DTOs.Reservation;
 using EndProject.Domain.Entitys;
+using EndProject.Domain.Enums.CampaignsStatus;
 
 namespace EndProject.Application.DTOs.Car;
 
@@ -20,6 +21,7 @@ public class CarGetDTO
     public bool isReserv { get; set; }
     public decimal? CampaignsPrice { get; set; }
     public double? CampaignsInterest { get; set; }
+    public CampaignsStatus Status { get; set; }
     public bool isCampaigns { get; set; }
     public DateTime? PickUpCampaigns { get; set; }
     public DateTime? ReturnCampaigns { get; set; }

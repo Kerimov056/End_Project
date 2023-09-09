@@ -1,4 +1,5 @@
 ﻿using EndProject.Domain.Entitys.Common;
+using EndProject.Domain.Enums.CampaignsStatus;
 
 namespace EndProject.Domain.Entitys;
 
@@ -15,6 +16,7 @@ public class Car : BaseEntity
     public double? CampaignsInterest { get; set; }
     public DateTime? PickUpCampaigns { get; set; }
     public DateTime? ReturnCampaigns { get; set; }
+    public CampaignsStatus Status { get; set; }
     public CarType carType { get; set; }
     public CarCategory carCategory { get; set; }
     public List<CarImage>? carImages { get; set; }
