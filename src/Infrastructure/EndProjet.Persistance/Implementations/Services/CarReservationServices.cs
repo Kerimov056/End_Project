@@ -2,9 +2,12 @@
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.CarReservation;
+using EndProject.Application.DTOs.Slider;
 using EndProject.Domain.Entitys;
+using EndProject.Domain.Entitys.Common;
 using EndProject.Domain.Enums.ReservationStatus;
 using EndProjet.Persistance.Exceptions;
+using EndProjet.Persistance.ExtensionsMethods;
 using Microsoft.EntityFrameworkCore;
 
 namespace EndProjet.Persistance.Implementations.Services;
@@ -73,8 +76,8 @@ public class CarReservationServices : ICarReservationServices
         if (carReservationCreateDTO.PickupDate < DateTime.Now) throw new Exception("Choose a Time !!!");
         if (carReservationCreateDTO.ReturnDate <= carReservationCreateDTO.PickupDate) throw new Exception("Choose a Time !!! ");
 
-        //DateTime minimumReturnDate = carReservationCreateDTO.PickupDate.AddDays(1);
-        //if (carReservationCreateDTO.ReturnDate < minimumReturnDate) throw new Exception("ReturnDate must be at least 1 day after PickupDate.");
+        DateTime minimumReturnDate = carReservationCreateDTO.PickupDate.AddDays(1);
+        if (carReservationCreateDTO.ReturnDate < minimumReturnDate) throw new Exception("ReturnDate must be at least 1 day after PickupDate.");
         var newReserv = new CarReservation
         {
             FullName = carReservationCreateDTO.FullName,
@@ -90,10 +93,10 @@ public class CarReservationServices : ICarReservationServices
         };
         //var userId = "4d12fb35-a688-4270-9c51-f28d4b19e3ae";
 
-        if (carReservationCreateDTO.Image != null && carReservationCreateDTO.Image.Length > 0)
+
+        if (carReservationCreateDTO.Image is not null)
         {
-            var ImagePath = await _uploadFile.WriteFile("Upload\\Files", carReservationCreateDTO.Image);
-            newReserv.ImagePath = ImagePath;
+            newReserv.ImagePath = await carReservationCreateDTO.Image.GetBytes();
         }
         await _carReservationWriteRepository.AddAsync(newReserv);
         await _carReservationWriteRepository.SavaChangeAsync();
@@ -137,6 +140,13 @@ public class CarReservationServices : ICarReservationServices
         {
             foreach (var byCarDto in ToDto)
             {
+                CarReservation carReservation = ByReserv.FirstOrDefault(x => x.Id == byCarDto.Id)
+                                                    ?? throw new InvalidException(ExceptionResponseMessages.NotFoundMessage);
+
+                List<string> images = new();
+                images.Add(Convert.ToBase64String(carReservation.ImagePath));
+                byCarDto.ImagePath = images[0];
+
                 if (byCar.Id == byCarDto.Id)
                 {
                     byCarDto.ReservCar = await _carServices.GetByIdAsync(byCar.CarId);
@@ -156,6 +166,7 @@ public class CarReservationServices : ICarReservationServices
              .FirstOrDefaultAsync(x => x.Id == Id);
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
         var ToDto = _mapper.Map<CarReservationGetDTO>(ByReserv);
+        ToDto.ImagePath = Convert.ToBase64String(ByReserv.ImagePath);
         ToDto.ReservCar = await _carServices.GetByIdAsync(ByReserv.CarId);
         return ToDto;
     }
@@ -188,6 +199,7 @@ public class CarReservationServices : ICarReservationServices
             .FirstOrDefaultAsync();
 
         var ToDto = _mapper.Map<CarReservationGetDTO>(Reserv);
+        ToDto.ImagePath = Convert.ToBase64String(Reserv.ImagePath);
 
         return ToDto is null ? null : ToDto;
     }
@@ -208,6 +220,13 @@ public class CarReservationServices : ICarReservationServices
         {
             foreach (var byCarDto in ToDto)
             {
+                CarReservation carReservation = ByReserv.FirstOrDefault(x => x.Id == byCarDto.Id)
+                                                    ?? throw new InvalidException(ExceptionResponseMessages.NotFoundMessage);
+
+                List<string> images = new();
+                images.Add(Convert.ToBase64String(carReservation.ImagePath));
+                byCarDto.ImagePath = images[0];
+
                 if (byCar.Id == byCarDto.Id)
                 {
                     byCarDto.ReservCar = await _carServices.GetByIdAsync(byCar.CarId);
@@ -232,6 +251,13 @@ public class CarReservationServices : ICarReservationServices
         {
             foreach (var byCarDto in ToDto)
             {
+                CarReservation carReservation = ByReserv.FirstOrDefault(x => x.Id == byCarDto.Id)
+                                                    ?? throw new InvalidException(ExceptionResponseMessages.NotFoundMessage);
+
+                List<string> images = new();
+                images.Add(Convert.ToBase64String(carReservation.ImagePath));
+                byCarDto.ImagePath = images[0];
+
                 if (byCar.Id == byCarDto.Id)
                 {
                     byCarDto.ReservCar = await _carServices.GetByIdAsync(byCar.CarId);
@@ -257,6 +283,13 @@ public class CarReservationServices : ICarReservationServices
         {
             foreach (var byCarDto in ToDto)
             {
+                CarReservation carReservation = ByReserv.FirstOrDefault(x => x.Id == byCarDto.Id)
+                                                    ?? throw new InvalidException(ExceptionResponseMessages.NotFoundMessage);
+
+                List<string> images = new();
+                images.Add(Convert.ToBase64String(carReservation.ImagePath));
+                byCarDto.ImagePath = images[0];
+
                 if (byCar.Id == byCarDto.Id)
                 {
                     byCarDto.ReservCar = await _carServices.GetByIdAsync(byCar.CarId);
@@ -285,6 +318,13 @@ public class CarReservationServices : ICarReservationServices
         {
             foreach (var byCarDto in ToDto)
             {
+                CarReservation carReservation = ByReserv.FirstOrDefault(x => x.Id == byCarDto.Id)
+                                                    ?? throw new InvalidException(ExceptionResponseMessages.NotFoundMessage);
+
+                List<string> images = new();
+                images.Add(Convert.ToBase64String(carReservation.ImagePath));
+                byCarDto.ImagePath = images[0];
+
                 if (byCar.Id == byCarDto.Id)
                 {
                     byCarDto.ReservCar = await _carServices.GetByIdAsync(byCar.CarId);
@@ -312,6 +352,13 @@ public class CarReservationServices : ICarReservationServices
         {
             foreach (var byCarDto in ToDto)
             {
+                CarReservation carReservation = ByReserv.FirstOrDefault(x => x.Id == byCarDto.Id)
+                                                    ?? throw new InvalidException(ExceptionResponseMessages.NotFoundMessage);
+
+                List<string> images = new();
+                images.Add(Convert.ToBase64String(carReservation.ImagePath));
+                byCarDto.ImagePath = images[0];
+
                 if (byCar.Id == byCarDto.Id)
                 {
                     byCarDto.ReservCar = await _carServices.GetByIdAsync(byCar.CarId);
@@ -339,6 +386,13 @@ public class CarReservationServices : ICarReservationServices
         {
             foreach (var byCarDto in ToDto)
             {
+                CarReservation carReservation = ByReserv.FirstOrDefault(x => x.Id == byCarDto.Id)
+                                                    ?? throw new InvalidException(ExceptionResponseMessages.NotFoundMessage);
+
+                List<string> images = new();
+                images.Add(Convert.ToBase64String(carReservation.ImagePath));
+                byCarDto.ImagePath = images[0];
+
                 if (byCar.Id == byCarDto.Id)
                 {
                     byCarDto.ReservCar = await _carServices.GetByIdAsync(byCar.CarId);
@@ -364,6 +418,13 @@ public class CarReservationServices : ICarReservationServices
         {
             foreach (var byCarDto in ToDto)
             {
+                CarReservation carReservation = ByReserv.FirstOrDefault(x => x.Id == byCarDto.Id)
+                                                    ?? throw new InvalidException(ExceptionResponseMessages.NotFoundMessage);
+
+                List<string> images = new();
+                images.Add(Convert.ToBase64String(carReservation.ImagePath));
+                byCarDto.ImagePath = images[0];
+
                 if (byCar.Id == byCarDto.Id)
                 {
                     byCarDto.ReservCar = await _carServices.GetByIdAsync(byCar.CarId);
@@ -389,6 +450,13 @@ public class CarReservationServices : ICarReservationServices
         {
             foreach (var byCarDto in ToDto)
             {
+                CarReservation carReservation = ByReserv.FirstOrDefault(x => x.Id == byCarDto.Id)
+                                                    ?? throw new InvalidException(ExceptionResponseMessages.NotFoundMessage);
+
+                List<string> images = new();
+                images.Add(Convert.ToBase64String(carReservation.ImagePath));
+                byCarDto.ImagePath = images[0];
+
                 if (byCar.Id == byCarDto.Id)
                 {
                     byCarDto.ReservCar = await _carServices.GetByIdAsync(byCar.CarId);
@@ -460,17 +528,13 @@ public class CarReservationServices : ICarReservationServices
         var ByReserv = await _carReservationReadRepository.GetByIdAsync(id);
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
 
-        if (carReservationUpdateDTO.ImagePath != null && carReservationUpdateDTO.ImagePath.Length > 0)
-        {
-            var ImagePath = await _uploadFile.WriteFile("Upload\\Files", carReservationUpdateDTO.ImagePath);
-            ByReserv.ImagePath = ImagePath;
-        }
-
         if (carReservationUpdateDTO.PickupDate < DateTime.Now) throw new Exception("Choose a Time !!!");
         if (carReservationUpdateDTO.ReturnDate < carReservationUpdateDTO.PickupDate) throw new Exception("Choose a Time !!! ");
 
         DateTime minimumReturnDate = carReservationUpdateDTO.PickupDate.AddDays(1);
         if (carReservationUpdateDTO.ReturnDate < minimumReturnDate) throw new Exception("ReturnDate must be at least 1 day after PickupDate.");
+
+        if (carReservationUpdateDTO.ImagePath is not null) ByReserv.ImagePath = await carReservationUpdateDTO.ImagePath.GetBytes();
 
         ByReserv.FullName = carReservationUpdateDTO.FullName;
         ByReserv.PickupDate = carReservationUpdateDTO.PickupDate;

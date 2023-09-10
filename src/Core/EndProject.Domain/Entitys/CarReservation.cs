@@ -9,7 +9,7 @@ public class CarReservation:BaseEntity
     public string FullName { get; set; }
     public string Email { get; set; }
     public string Number { get; set; }
-    public string ImagePath { get; set; }
+    public byte[] ImagePath { get; set; }
     public DateTime PickupDate { get; set; }
     public DateTime ReturnDate { get; set; }
     public string Notes { get; set; }
