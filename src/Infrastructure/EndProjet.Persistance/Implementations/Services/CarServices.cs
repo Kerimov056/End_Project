@@ -89,6 +89,11 @@ public class CarServices : ICarServices
         else throw new Exception("Duzgun Endirim Deyil!");
     }
 
+    public Task CarReservNextUpdate(Guid CarId, double Latitude, double Longitude)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task CompaignsChangePrice()
     {
         bool isComp = false;
@@ -574,6 +579,11 @@ public class CarServices : ICarServices
         ByCar.isReserv = carUpdateDTO.isReserv;
         ByCar.Latitude = carUpdateDTO.Latitude;
         ByCar.Longitude = carUpdateDTO.Longitude;
+        if (ByCar.isCampaigns==true)
+        {
+            var interest = 100 - ByCar.CampaignsInterest;
+            ByCar.CampaignsPrice = (ByCar.Price * (decimal)interest) / 100;
+        }
         if (ByCar.carType is not null)
         {
             var carUpdateType = new CarTypeUpdateDTO

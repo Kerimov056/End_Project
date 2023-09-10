@@ -2,7 +2,6 @@
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.CarReservation;
-using EndProject.Application.DTOs.Slider;
 using EndProject.Domain.Entitys;
 using EndProject.Domain.Entitys.Common;
 using EndProject.Domain.Enums.ReservationStatus;

@@ -33,4 +33,9 @@ public interface ICarServices
     Task CompaignsReturn();
     Task<bool> IsCampaigns();
     Task StopCompaigns(string superAdminId);
+
+
+    //---------------------------------
+    // Car reservation sonrasi olan update
+    Task CarReservNextUpdate(Guid CarId, double Latitude, double Longitude);
 }
