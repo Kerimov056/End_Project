@@ -6,4 +6,5 @@ public record TokenResponseDTO(string token,
                                string refreshToken,
                                string username,
                                string email,
-                               string appuserid);
+                               string appuserid,
+                               byte[] ProfileImage);

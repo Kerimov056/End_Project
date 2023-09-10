@@ -1,6 +1,5 @@
 ﻿using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Auth;
-using EndProject.Application.DTOs.Auth.Profil;
 using EndProject.Application.DTOs.Auth.ResetPassword;
 using EndProject.Domain.Entitys.Common;
 using EndProject.Domain.Entitys.Identity;
@@ -8,7 +7,9 @@ using EndProject.Domain.Enums.Role;
 using EndProject.Domain.Helpers;
 using EndProjet.Persistance.Context;
 using EndProjet.Persistance.Exceptions;
+using EndProjet.Persistance.ExtensionsMethods;
 using Google.Apis.Auth;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
@@ -375,20 +376,24 @@ public class AuthService : IAuthService
         else { throw new Exception("Sifre deyisdirilmedi!!!"); }
     }
 
-    public async Task PrfileImage(ProflilImage proflilImage)
+    public async Task PrfileImage(string? Email, IFormFile ImageFile)
     {
-        AppUser user = await _userManager.FindByEmailAsync(proflilImage.Email);
+        if (Email is null)
+        {
+            Console.WriteLine("--------------------------------------------------------");
+        }
+        var user = await _userManager.FindByEmailAsync(Email);
         if (user != null)
         {
-            if (proflilImage.ImageFile != null && proflilImage.ImageFile.Length > 0)
+            if (ImageFile is not null)
             {
-                var ImagePath = await _storageFile.WriteFile("Upload\\Files", proflilImage.ImageFile);
-                user.ImagePath = ImagePath;
-                await _context.AddAsync(user);
-                await _context.SaveChangesAsync();
-
+                user.ImagePath = await ImageFile.GetBytes();
             }
+
+            await _context.SaveChangesAsync();
         }
         else throw new NotFoundException("User not Found");
     }
+
+
 }

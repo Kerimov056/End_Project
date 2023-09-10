@@ -2,6 +2,7 @@
 using EndProject.Application.DTOs.Auth;
 using EndProject.Application.DTOs.Auth.Profil;
 using EndProject.Application.DTOs.Auth.ResetPassword;
+using EndProject.Application.DTOs.Car;
 using EndProject.Domain.Entitys.Common;
 using EndProject.Domain.Entitys.Identity;
 using EndProject.Domain.Helpers;
@@ -161,10 +162,11 @@ namespace EndProject.API.Controllersş
 
 
         [HttpPost("profile-image")]
-        public async Task<IActionResult> FrofileImageEdit([FromBody] ProflilImage proflilImage)
+        public async Task<IActionResult> FrofileImageEdit([FromForm] string? Email, IFormFile ImageFile)
         {
-            await _authService.PrfileImage(proflilImage);
+            await _authService.PrfileImage(Email, ImageFile);
             return Ok();
         }
+
     }
 }

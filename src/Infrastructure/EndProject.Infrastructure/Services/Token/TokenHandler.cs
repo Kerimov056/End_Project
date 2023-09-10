@@ -1,5 +1,6 @@
 ﻿using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Auth;
+using EndProject.Domain.Entitys;
 using EndProject.Domain.Entitys.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -30,6 +31,7 @@ public class TokenHandler : ITokenHandler
             new Claim(ClaimTypes.Name,appUser.UserName)
         };
 
+
         var roles = await _userManager.GetRolesAsync(appUser);
         foreach (var role in roles)
         {
@@ -51,7 +53,10 @@ public class TokenHandler : ITokenHandler
         var token = new JwtSecurityTokenHandler().WriteToken(jwt);
         var refleshToken = GenerateRefreshToken();
 
-        return new TokenResponseDTO(token, ExpireDate, DateTime.UtcNow.AddMinutes(refreshTokenMinutes), refleshToken, appUser.UserName, appUser.Email, appUser.Id);
+
+        //string ProfileImage = Convert.ToBase64String(appUser.ImagePath);
+        return new TokenResponseDTO(token, ExpireDate, DateTime.UtcNow
+            .AddMinutes(refreshTokenMinutes), refleshToken, appUser.UserName, appUser.Email, appUser.Id, appUser.ImagePath);
     }
 
     private string GenerateRefreshToken()

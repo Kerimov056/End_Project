@@ -17,6 +17,8 @@ public class CarGetDTO
     public string Model { get; set; }
     public decimal Price { get; set; }
     public int Year { get; set; }
+    public double? Latitude { get; set; }
+    public double? Longitude { get; set; }
     public string Description { get; set; }
     public bool isReserv { get; set; }
     public decimal? CampaignsPrice { get; set; }

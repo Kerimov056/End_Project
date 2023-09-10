@@ -5,7 +5,7 @@ namespace EndProject.Domain.Entitys.Identity;
 public class AppUser:IdentityUser
 {
     public bool IsActive { get; set; }
-    public string? ImagePath { get; set; }
+    public byte[]? ImagePath { get; set; }
     public string? FullName { get; set; }
     public DateTime RefreshTokenExpration { get; set; }
     public string? RefreshToken { get; set; }
