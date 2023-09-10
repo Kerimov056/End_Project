@@ -89,9 +89,14 @@ public class CarServices : ICarServices
         else throw new Exception("Duzgun Endirim Deyil!");
     }
 
-    public Task CarReservNextUpdate(Guid CarId, double Latitude, double Longitude)
+    public async Task CarReservNextUpdate(Guid CarId, double Latitude, double Longitude)
     {
-        throw new NotImplementedException();
+        var byCar = await _carReadRepository.GetByIdAsync(CarId);
+        if (byCar is null) throw new NotFoundException("ByCar is null");
+
+        byCar.Latitude = Latitude;
+        byCar.Longitude = Longitude;
+        await _carWriteRepository.SavaChangeAsync();
     }
 
     public async Task CompaignsChangePrice()

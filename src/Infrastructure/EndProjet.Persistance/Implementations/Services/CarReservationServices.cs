@@ -75,8 +75,8 @@ public class CarReservationServices : ICarReservationServices
         if (carReservationCreateDTO.PickupDate < DateTime.Now) throw new Exception("Choose a Time !!!");
         if (carReservationCreateDTO.ReturnDate <= carReservationCreateDTO.PickupDate) throw new Exception("Choose a Time !!! ");
 
-        DateTime minimumReturnDate = carReservationCreateDTO.PickupDate.AddDays(1);
-        if (carReservationCreateDTO.ReturnDate < minimumReturnDate) throw new Exception("ReturnDate must be at least 1 day after PickupDate.");
+       // DateTime minimumReturnDate = carReservationCreateDTO.PickupDate.AddDays(1);
+       // if (carReservationCreateDTO.ReturnDate < minimumReturnDate) throw new Exception("ReturnDate must be at least 1 day after PickupDate.");
         var newReserv = new CarReservation
         {
             FullName = carReservationCreateDTO.FullName,
@@ -132,6 +132,7 @@ public class CarReservationServices : ICarReservationServices
               .GetAll()
               .Include(x => x.PickupLocation)
               .Include(x => x.ReturnLocation)
+              .OrderByDescending(x => x.CreatedDate)
               .ToListAsync();
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
         var ToDto = _mapper.Map<List<CarReservationGetDTO>>(ByReserv);
@@ -491,6 +492,9 @@ public class CarReservationServices : ICarReservationServices
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
 
         ByReserv.Status = ReservationStatus.Completed;
+        if (ByReserv.ReturnLocation is not null)
+        await _carServices.CarReservNextUpdate(ByReserv.CarId, (double)ByReserv.ReturnLocation.Latitude, (double)ByReserv.ReturnLocation.Longitude);
+        
         _carReservationWriteRepository.Update(ByReserv);
         await _carReservationWriteRepository.SavaChangeAsync();
     }
