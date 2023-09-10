@@ -80,6 +80,8 @@ public static class ServiceRegistration
         services.AddScoped<ILikeWriteRepository, LikeWriteRepository>();
         services.AddScoped<IUserMessageWriteRepository, UserMessageWriteRepository>();
         services.AddScoped<IUserMessageReadRepository, UserMessageReadRepository>();
+        services.AddScoped<ICommunicationReadRepository, CommunicationReadRepository>();
+        services.AddScoped<ICommunicationWriteRepository, CommunicationWriteRepository>();
 
 
         //Service
@@ -101,6 +103,7 @@ public static class ServiceRegistration
         services.AddScoped<IBasketServices, BasketServices>();
         services.AddScoped<IBasketProducServices, BasketProducServices>();
         services.AddScoped<ISendUserMessageServices, SendUserMessageServices>();
+        services.AddScoped<ICommunicationServices, CommunicationServices>();
 
 
 
