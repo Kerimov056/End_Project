@@ -12,5 +12,7 @@ public class CarUpdateDtoValidator : AbstractValidator<CarUpdateDTO>
         RuleFor(x => x.Price).NotNull().NotEmpty();
         RuleFor(x => x.Year).NotNull().NotEmpty();
         RuleFor(x => x.Description).NotNull().NotEmpty().MaximumLength(1000);
+        RuleFor(x => x.Latitude).NotNull().NotEmpty();
+        RuleFor(x => x.Longitude).NotNull().NotEmpty();
     }
 }
