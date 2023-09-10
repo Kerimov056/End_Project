@@ -245,6 +245,8 @@ public class CarServices : ICarServices
             var toComentDto = _mapper.Map<List<CarCommentGetDTO>>(item.Comments);
             foreach (var ByToDto in ToDto)
             {
+                ByToDto.CarImages = await _carImageServices.GetAllCarIdAsync(ByToDto.Id);
+
                 if (item.Id == ByToDto.Id)
                 {
                     ByToDto.carCommentGetDTO = toComentDto;
@@ -272,12 +274,14 @@ public class CarServices : ICarServices
 
 
         var ToDto = _mapper.Map<List<CarGetDTO>>(CarAll);
+
         foreach (var item in CarAll)
         {
 
             var toComentDto = _mapper.Map<List<CarCommentGetDTO>>(item.Comments);
             foreach (var ByToDto in ToDto)
             {
+                ByToDto.CarImages = await _carImageServices.GetAllCarIdAsync(ByToDto.Id);
                 if (item.Id == ByToDto.Id)
                 {
                     ByToDto.carCommentGetDTO = toComentDto;
@@ -327,6 +331,10 @@ public class CarServices : ICarServices
         ByCar.Reservations = null;
 
         var ToDto = _mapper.Map<CarGetDTO>(ByCar);
+        foreach (var item in ToDto.CarImages)
+        {
+            ToDto.CarImages = await _carImageServices.GetAllCarIdAsync(item.CarId);
+        }
 
         var toComentDto = _mapper.Map<List<CarCommentGetDTO>>(ByCar.Comments);
         ToDto.carCommentGetDTO = toComentDto;
@@ -386,6 +394,7 @@ public class CarServices : ICarServices
             var toComentDto = _mapper.Map<List<CarCommentGetDTO>>(item.Comments);
             foreach (var ByToDto in ToDto)
             {
+                ByToDto.CarImages = await _carImageServices.GetAllCarIdAsync(ByToDto.Id);         ///ooooooooooooooooooooooooo
                 if (item.Id == ByToDto.Id)
                 {
                     ByToDto.carCommentGetDTO = toComentDto;
@@ -459,6 +468,7 @@ public class CarServices : ICarServices
             var toComentDto = _mapper.Map<List<CarCommentGetDTO>>(item.Comments);
             foreach (var ByToDto in ToDto)
             {
+                ByToDto.CarImages = await _carImageServices.GetAllCarIdAsync(ByToDto.Id);
                 if (item.Id == ByToDto.Id)
                 {
                     ByToDto.carCommentGetDTO = toComentDto;
