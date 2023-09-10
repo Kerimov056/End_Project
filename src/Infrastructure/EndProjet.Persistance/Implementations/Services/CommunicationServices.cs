@@ -3,6 +3,7 @@ using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Communication;
 using EndProject.Domain.Entitys;
+using EndProjet.Persistance.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
 namespace EndProjet.Persistance.Implementations.Services;
@@ -36,13 +37,19 @@ public class CommunicationServices : ICommunicationServices
         return entityToDto;
     }
 
-    public Task<CommunicationGetDTO> GetByIdAsync(Guid Id)
+    public async Task<CommunicationGetDTO> GetByIdAsync(Guid Id)
     {
-        throw new NotImplementedException();
+        var byCommunication = await _CommunicationReadRepository.GetByIdAsync(Id);
+        if (byCommunication is null) throw new NotFoundException("Communication is null");
+        var byEntityToDto = _mapper.Map<CommunicationGetDTO>(byCommunication);
+        return byEntityToDto;
     }
 
-    public Task RemoveAsync(Guid id)
+    public async Task RemoveAsync(Guid Id)
     {
-        throw new NotImplementedException();
+        var byCommunication = await _CommunicationReadRepository.GetByIdAsync(Id);
+        if (byCommunication is null) throw new NotFoundException("Communication is null");
+        _CommunicationWriteRepository.Remove(byCommunication);
+        await _CommunicationWriteRepository.SavaChangeAsync();  
     }
 }
