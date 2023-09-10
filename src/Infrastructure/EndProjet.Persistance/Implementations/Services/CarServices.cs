@@ -156,6 +156,8 @@ public class CarServices : ICarServices
             Price = carCreateDTO.Price,
             Description = carCreateDTO.Description,
             Year = carCreateDTO.Year,
+            Latitude = carCreateDTO.Latitude,
+            Longitude = carCreateDTO.Longitude,
             PickUpCampaigns = null,
             ReturnCampaigns = null
         };
@@ -233,6 +235,7 @@ public class CarServices : ICarServices
             .Include(x => x.Reservations)
             .Include(x => x.OtherReservations)
             .Where(x => x.isReserv == false)
+            .OrderByDescending(x => x.CreatedDate)
             .ToListAsync();
 
         if (CarAll is null) throw new NotFoundException("Car is null");
@@ -269,6 +272,7 @@ public class CarServices : ICarServices
              .Include(x => x.carImages)
              .Include(x => x.Comments)
              .Include(x => x.OtherReservations)
+             .OrderByDescending(x => x.CreatedDate)
              .ToListAsync();
 
         if (CarAll is null) throw new NotFoundException("Car is null");
@@ -568,6 +572,8 @@ public class CarServices : ICarServices
         ByCar.Year = carUpdateDTO.Year;
         ByCar.Description = carUpdateDTO.Description;
         ByCar.isReserv = carUpdateDTO.isReserv;
+        ByCar.Latitude = carUpdateDTO.Latitude;
+        ByCar.Longitude = carUpdateDTO.Longitude;
         if (ByCar.carType is not null)
         {
             var carUpdateType = new CarTypeUpdateDTO
@@ -609,10 +615,7 @@ public class CarServices : ICarServices
 
         foreach (var item in carUpdateDTO.tags)
         {
-            var newTag = new Tag
-            {
-                tag = item
-            };
+            var newTag = new Tag  { tag = item };
             await _tagWriteRepository.AddAsync(newTag);
             await _tagWriteRepository.SavaChangeAsync();
             foreach (var tag in await _carTagReadRepository.GetAll().Where(x => x.CarId == ByCar.Id).ToListAsync())
