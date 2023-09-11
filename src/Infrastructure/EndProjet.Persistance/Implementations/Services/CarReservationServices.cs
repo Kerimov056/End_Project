@@ -1,13 +1,16 @@
 ﻿using AutoMapper;
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
+using EndProject.Application.DTOs.Car;
 using EndProject.Application.DTOs.CarReservation;
+using EndProject.Application.DTOs.Faq;
 using EndProject.Domain.Entitys;
 using EndProject.Domain.Entitys.Common;
 using EndProject.Domain.Enums.ReservationStatus;
 using EndProjet.Persistance.Exceptions;
 using EndProjet.Persistance.ExtensionsMethods;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace EndProjet.Persistance.Implementations.Services;
 
@@ -77,6 +80,7 @@ public class CarReservationServices : ICarReservationServices
 
        // DateTime minimumReturnDate = carReservationCreateDTO.PickupDate.AddDays(1);
        // if (carReservationCreateDTO.ReturnDate < minimumReturnDate) throw new Exception("ReturnDate must be at least 1 day after PickupDate.");
+        
         var newReserv = new CarReservation
         {
             FullName = carReservationCreateDTO.FullName,
@@ -103,22 +107,26 @@ public class CarReservationServices : ICarReservationServices
         if (carReservationCreateDTO.PickupLocation.Latitude is not null)
         {
 
+            double lat = Convert.ToDouble(carReservationCreateDTO.PickupLocation.Longitude, CultureInfo.InvariantCulture);
+            double lng = Convert.ToDouble(carReservationCreateDTO.PickupLocation.Longitude, CultureInfo.InvariantCulture);
             newReserv.PickupLocation = new PickupLocation
             {
                 CarReservationId = newReserv.Id,
-                Latitude = (double)carReservationCreateDTO.PickupLocation.Latitude,
-                Longitude = (double)carReservationCreateDTO.PickupLocation.Longitude
+                Latitude = lat,
+                Longitude = lng
             };
             await _pickupLocationWriteRepository.AddAsync(newReserv.PickupLocation);
         }
 
         if (carReservationCreateDTO.ReturnLocation.Latitude is not null)
         {
+            double lat = Convert.ToDouble(carReservationCreateDTO.ReturnLocation.Longitude, CultureInfo.InvariantCulture);
+            double lng = Convert.ToDouble(carReservationCreateDTO.ReturnLocation.Longitude, CultureInfo.InvariantCulture);
             newReserv.ReturnLocation = new ReturnLocation
             {
                 CarReservationId = newReserv.Id,
-                Latitude = (double)carReservationCreateDTO.ReturnLocation.Latitude,
-                Longitude = (double)carReservationCreateDTO.ReturnLocation.Longitude
+                Latitude = lat,
+                Longitude = lng
             };
             await _returnLocationWriteRepository.AddAsync(newReserv.ReturnLocation);
         }
@@ -554,32 +562,42 @@ public class CarReservationServices : ICarReservationServices
 
         if (ByReserv.PickupLocation is not null)
         {
-            ByReserv.PickupLocation.Latitude = carReservationUpdateDTO.PickupLocation.Latitude;
-            ByReserv.PickupLocation.Longitude = carReservationUpdateDTO.PickupLocation.Longitude;
+            double lat = Convert.ToDouble(carReservationUpdateDTO.PickupLocation.Longitude, CultureInfo.InvariantCulture);
+            double lng = Convert.ToDouble(carReservationUpdateDTO.PickupLocation.Longitude, CultureInfo.InvariantCulture);
+            ByReserv.PickupLocation.Latitude = lat;
+            ByReserv.PickupLocation.Longitude = lng;
         }
         else
         {
+            double lat = Convert.ToDouble(carReservationUpdateDTO.PickupLocation.Longitude, CultureInfo.InvariantCulture);
+            double lng = Convert.ToDouble(carReservationUpdateDTO.PickupLocation.Longitude, CultureInfo.InvariantCulture);
+
             ByReserv.PickupLocation = new PickupLocation
             {
                 CarReservationId = ByReserv.Id,
-                Latitude = carReservationUpdateDTO.PickupLocation.Latitude,
-                Longitude = carReservationUpdateDTO.PickupLocation.Longitude
+                Latitude = lat,
+                Longitude = lng
             };
             await _pickupLocationWriteRepository.AddAsync(ByReserv.PickupLocation);
         }
 
         if (ByReserv.ReturnLocation is not null)
         {
-            ByReserv.ReturnLocation.Latitude = carReservationUpdateDTO.ReturnLocation.Latitude;
-            ByReserv.ReturnLocation.Longitude = carReservationUpdateDTO.ReturnLocation.Longitude;
+            double lat = Convert.ToDouble(carReservationUpdateDTO.ReturnLocation.Longitude, CultureInfo.InvariantCulture);
+            double lng = Convert.ToDouble(carReservationUpdateDTO.ReturnLocation.Longitude, CultureInfo.InvariantCulture);
+            ByReserv.ReturnLocation.Latitude = lat;
+            ByReserv.ReturnLocation.Longitude = lng;
         }
         else
         {
+            double lat = Convert.ToDouble(carReservationUpdateDTO.ReturnLocation.Longitude, CultureInfo.InvariantCulture);
+            double lng = Convert.ToDouble(carReservationUpdateDTO.ReturnLocation.Longitude, CultureInfo.InvariantCulture);
+
             ByReserv.ReturnLocation = new ReturnLocation
             {
                 CarReservationId = ByReserv.Id,
-                Latitude = carReservationUpdateDTO.ReturnLocation.Latitude,
-                Longitude = carReservationUpdateDTO.ReturnLocation.Longitude
+                Latitude = lat,
+                Longitude = lng
             };
             await _returnLocationWriteRepository.AddAsync(ByReserv.ReturnLocation);
         }

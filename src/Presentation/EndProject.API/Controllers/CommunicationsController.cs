@@ -20,7 +20,7 @@ public class CommunicationsController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post(CommunicationCreateDTO communicationCreateDTO)
+    public async Task<IActionResult> Post([FromForm] CommunicationCreateDTO communicationCreateDTO)
     {
         await _communicationServices.CreateAsync(communicationCreateDTO);
         return StatusCode((int)HttpStatusCode.Created);

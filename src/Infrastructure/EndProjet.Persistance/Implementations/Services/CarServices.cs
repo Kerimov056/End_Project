@@ -5,12 +5,14 @@ using EndProject.Application.DTOs.Car;
 using EndProject.Application.DTOs.CarComment;
 using EndProject.Application.DTOs.CarImage;
 using EndProject.Application.DTOs.CarType;
+using EndProject.Application.DTOs.Faq;
 using EndProject.Domain.Entitys;
 using EndProject.Domain.Entitys.Identity;
 using EndProject.Domain.Enums.CampaignsStatus;
 using EndProjet.Persistance.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace EndProjet.Persistance.Implementations.Services;
 
@@ -96,6 +98,7 @@ public class CarServices : ICarServices
 
         byCar.Latitude = Latitude;
         byCar.Longitude = Longitude;
+        _carWriteRepository.Update(byCar);
         await _carWriteRepository.SavaChangeAsync();
     }
 
@@ -159,6 +162,8 @@ public class CarServices : ICarServices
 
     public async Task CreateAsync(CarCreateDTO carCreateDTO)
     {
+        double lat = Convert.ToDouble(carCreateDTO.Longitude, CultureInfo.InvariantCulture);
+        double lng = Convert.ToDouble(carCreateDTO.Longitude, CultureInfo.InvariantCulture);
         var newCar = new Car
         {
             Marka = carCreateDTO.Marka,
@@ -166,14 +171,16 @@ public class CarServices : ICarServices
             Price = carCreateDTO.Price,
             Description = carCreateDTO.Description,
             Year = carCreateDTO.Year,
-            Latitude = carCreateDTO.Latitude,
-            Longitude = carCreateDTO.Longitude,
+            Latitude = lat,
+            Longitude = lng,
             PickUpCampaigns = null,
             ReturnCampaigns = null
         };
 
+
         await _carWriteRepository.AddAsync(newCar);
         await _carWriteRepository.SavaChangeAsync();
+
 
         newCar.carType = new CarType
         {
@@ -582,8 +589,13 @@ public class CarServices : ICarServices
         ByCar.Year = carUpdateDTO.Year;
         ByCar.Description = carUpdateDTO.Description;
         ByCar.isReserv = carUpdateDTO.isReserv;
-        ByCar.Latitude = carUpdateDTO.Latitude;
-        ByCar.Longitude = carUpdateDTO.Longitude;
+
+
+        double lat = Convert.ToDouble(carUpdateDTO.Longitude, CultureInfo.InvariantCulture);
+        double lng = Convert.ToDouble(carUpdateDTO.Longitude, CultureInfo.InvariantCulture);
+
+        ByCar.Latitude = lat;
+        ByCar.Longitude = lng;
         if (ByCar.isCampaigns==true)
         {
             var interest = 100 - ByCar.CampaignsInterest;
