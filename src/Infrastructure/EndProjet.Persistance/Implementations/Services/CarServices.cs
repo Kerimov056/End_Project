@@ -5,7 +5,6 @@ using EndProject.Application.DTOs.Car;
 using EndProject.Application.DTOs.CarComment;
 using EndProject.Application.DTOs.CarImage;
 using EndProject.Application.DTOs.CarType;
-using EndProject.Application.DTOs.Faq;
 using EndProject.Domain.Entitys;
 using EndProject.Domain.Entitys.Identity;
 using EndProject.Domain.Enums.CampaignsStatus;
@@ -620,7 +619,7 @@ public class CarServices : ICarServices
 
         ByCar.Latitude = lat;
         ByCar.Longitude = lng;
-        if (ByCar.isCampaigns==true)
+        if (ByCar.isCampaigns == true)
         {
             var interest = 100 - ByCar.CampaignsInterest;
             ByCar.CampaignsPrice = (ByCar.Price * (decimal)interest) / 100;
@@ -666,7 +665,7 @@ public class CarServices : ICarServices
 
         foreach (var item in carUpdateDTO.tags)
         {
-            var newTag = new Tag  { tag = item };
+            var newTag = new Tag { tag = item };
             await _tagWriteRepository.AddAsync(newTag);
             await _tagWriteRepository.SavaChangeAsync();
             foreach (var tag in await _carTagReadRepository.GetAll().Where(x => x.CarId == ByCar.Id).ToListAsync())
@@ -680,27 +679,12 @@ public class CarServices : ICarServices
         {
             foreach (var item in carUpdateDTO.CarImages)
             {
-                if (ByCar.carImages is null)
+                var carImageCreateDto = new CarImageCreateDTO
                 {
-                    var carImageCreateDto = new CarImageCreateDTO
-                    {
-                        CarId = ByCar.Id,
-                        image = item
-                    };
-                    await _carImageServices.CreateAsync(carImageCreateDto);
-                }
-                else
-                {
-                    var carImageDto = new CarImageUpdateDTO
-                    {
-                        CarId = ByCar.Id,
-                        image = item
-                    };
-                    foreach (var updateImage in ByCar.carImages)
-                    {
-                        await _carImageServices.UpdateAsync(updateImage.Id, carImageDto);
-                    }
-                }
+                    CarId = ByCar.Id,
+                    image = item
+                };
+                await _carImageServices.CreateAsync(carImageCreateDto);
             }
         }
 
