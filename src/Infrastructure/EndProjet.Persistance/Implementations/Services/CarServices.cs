@@ -162,7 +162,7 @@ public class CarServices : ICarServices
 
     public async Task CreateAsync(CarCreateDTO carCreateDTO)
     {
-        double lat = Convert.ToDouble(carCreateDTO.Longitude, CultureInfo.InvariantCulture);
+        double lat = Convert.ToDouble(carCreateDTO.Latitude, CultureInfo.InvariantCulture);
         double lng = Convert.ToDouble(carCreateDTO.Longitude, CultureInfo.InvariantCulture);
         var newCar = new Car
         {
@@ -591,7 +591,7 @@ public class CarServices : ICarServices
         ByCar.isReserv = carUpdateDTO.isReserv;
 
 
-        double lat = Convert.ToDouble(carUpdateDTO.Longitude, CultureInfo.InvariantCulture);
+        double lat = Convert.ToDouble(carUpdateDTO.Latitude, CultureInfo.InvariantCulture);
         double lng = Convert.ToDouble(carUpdateDTO.Longitude, CultureInfo.InvariantCulture);
 
         ByCar.Latitude = lat;

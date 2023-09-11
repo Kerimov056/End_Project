@@ -107,7 +107,7 @@ public class CarReservationServices : ICarReservationServices
         if (carReservationCreateDTO.PickupLocation.Latitude is not null)
         {
 
-            double lat = Convert.ToDouble(carReservationCreateDTO.PickupLocation.Longitude, CultureInfo.InvariantCulture);
+            double lat = Convert.ToDouble(carReservationCreateDTO.PickupLocation.Latitude, CultureInfo.InvariantCulture);
             double lng = Convert.ToDouble(carReservationCreateDTO.PickupLocation.Longitude, CultureInfo.InvariantCulture);
             newReserv.PickupLocation = new PickupLocation
             {
@@ -120,7 +120,7 @@ public class CarReservationServices : ICarReservationServices
 
         if (carReservationCreateDTO.ReturnLocation.Latitude is not null)
         {
-            double lat = Convert.ToDouble(carReservationCreateDTO.ReturnLocation.Longitude, CultureInfo.InvariantCulture);
+            double lat = Convert.ToDouble(carReservationCreateDTO.ReturnLocation.Latitude, CultureInfo.InvariantCulture);
             double lng = Convert.ToDouble(carReservationCreateDTO.ReturnLocation.Longitude, CultureInfo.InvariantCulture);
             newReserv.ReturnLocation = new ReturnLocation
             {
@@ -562,14 +562,14 @@ public class CarReservationServices : ICarReservationServices
 
         if (ByReserv.PickupLocation is not null)
         {
-            double lat = Convert.ToDouble(carReservationUpdateDTO.PickupLocation.Longitude, CultureInfo.InvariantCulture);
+            double lat = Convert.ToDouble(carReservationUpdateDTO.PickupLocation.Latitude, CultureInfo.InvariantCulture);
             double lng = Convert.ToDouble(carReservationUpdateDTO.PickupLocation.Longitude, CultureInfo.InvariantCulture);
             ByReserv.PickupLocation.Latitude = lat;
             ByReserv.PickupLocation.Longitude = lng;
         }
         else
         {
-            double lat = Convert.ToDouble(carReservationUpdateDTO.PickupLocation.Longitude, CultureInfo.InvariantCulture);
+            double lat = Convert.ToDouble(carReservationUpdateDTO.PickupLocation.Latitude, CultureInfo.InvariantCulture);
             double lng = Convert.ToDouble(carReservationUpdateDTO.PickupLocation.Longitude, CultureInfo.InvariantCulture);
 
             ByReserv.PickupLocation = new PickupLocation
@@ -583,14 +583,15 @@ public class CarReservationServices : ICarReservationServices
 
         if (ByReserv.ReturnLocation is not null)
         {
-            double lat = Convert.ToDouble(carReservationUpdateDTO.ReturnLocation.Longitude, CultureInfo.InvariantCulture);
+            double lat = Convert.ToDouble(carReservationUpdateDTO.ReturnLocation.Latitude, CultureInfo.InvariantCulture);
             double lng = Convert.ToDouble(carReservationUpdateDTO.ReturnLocation.Longitude, CultureInfo.InvariantCulture);
+            
             ByReserv.ReturnLocation.Latitude = lat;
             ByReserv.ReturnLocation.Longitude = lng;
         }
         else
         {
-            double lat = Convert.ToDouble(carReservationUpdateDTO.ReturnLocation.Longitude, CultureInfo.InvariantCulture);
+            double lat = Convert.ToDouble(carReservationUpdateDTO.ReturnLocation.Latitude, CultureInfo.InvariantCulture);
             double lng = Convert.ToDouble(carReservationUpdateDTO.ReturnLocation.Longitude, CultureInfo.InvariantCulture);
 
             ByReserv.ReturnLocation = new ReturnLocation
