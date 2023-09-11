@@ -337,6 +337,30 @@ public class CarServices : ICarServices
         return allModel; throw new NotImplementedException();
     }
 
+    public async Task<List<CarGetDTO>> GetAllCompaignAsync()
+    {
+        var CarAll = await _carReadRepository
+            .GetAll()
+            .Include(x => x.carTags)
+            .Include(x => x.carType)
+            .Include(x => x.carCategory)
+            .Include(x => x.carImages)
+            .Include(x => x.Comments)
+            .Include(x => x.Reservations)
+            .Include(x => x.OtherReservations)
+            .Where(x => x.isReserv == false)
+            .Where(x => x.ReturnCampaigns != null)
+            .OrderByDescending(x => x.CreatedDate)
+            .ToListAsync();
+
+        if (CarAll is null) throw new NotFoundException("Car is null");
+        foreach (var item in CarAll) item.Reservations = null;
+
+
+        var ToDto = _mapper.Map<List<CarGetDTO>>(CarAll);
+        return ToDto;
+    }
+
     public async Task<CarGetDTO> GetByIdAsync(Guid Id)
     {
         var ByCar = await _carReadRepository

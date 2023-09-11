@@ -18,13 +18,21 @@ public class CarController : ControllerBase
     {
         var car = await _carServices.GetAllAsync();
         return Ok(car);
-    } 
-    
+    }
+
     [HttpGet("GetAllCar")]
-    public async Task<IActionResult> GetAllCar()
+    public async Task<IActionResult> GetAllCar(int page = 1, int pageSize = 10)
     {
-        var car = await _carServices.GetAllCarAsync();
-        return Ok(car);
+        var cars = await _carServices.GetAllCarAsync();
+        var carsPage = cars.Skip((page - 1) * pageSize).Take(pageSize);
+        return Ok(carsPage);
+    }
+    
+    [HttpGet("GetAll-CompaignAsync")]
+    public async Task<IActionResult> GetAllCompaigAsync()
+    {
+        var cars = await _carServices.GetAllCompaignAsync();
+        return Ok(cars);
     }
 
     [HttpGet("AllMarka")]

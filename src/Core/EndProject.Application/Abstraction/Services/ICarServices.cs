@@ -33,6 +33,8 @@ public interface ICarServices
     Task CompaignsReturn();
     Task<bool> IsCampaigns();
     Task StopCompaigns(string superAdminId);
+    Task<List<CarGetDTO>> GetAllCompaignAsync();
+
 
 
     //---------------------------------
