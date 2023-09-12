@@ -534,6 +534,14 @@
           "Microsoft.Extensions.Logging.Abstractions": "6.0.0"
         }
       },
+      "Microsoft.Extensions.Http/6.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "6.0.0",
+          "Microsoft.Extensions.Logging": "6.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "6.0.0",
+          "Microsoft.Extensions.Options": "6.0.0"
+        }
+      },
       "Microsoft.Extensions.Identity.Core/6.0.20": {
         "dependencies": {
           "Microsoft.AspNetCore.Cryptography.KeyDerivation": "6.0.20",
@@ -722,6 +730,53 @@
           }
         }
       },
+      "ServiceStack.Client/6.10.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Http": "6.0.0",
+          "ServiceStack.Interfaces": "6.10.0",
+          "ServiceStack.Text": "6.10.0"
+        },
+        "runtime": {
+          "lib/net6.0/ServiceStack.Client.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.10.0.0"
+          }
+        }
+      },
+      "ServiceStack.Interfaces/6.10.0": {
+        "runtime": {
+          "lib/net6.0/ServiceStack.Interfaces.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.10.0.0"
+          }
+        }
+      },
+      "ServiceStack.Stripe/6.10.0": {
+        "dependencies": {
+          "ServiceStack.Client": "6.10.0",
+          "ServiceStack.Interfaces": "6.10.0",
+          "ServiceStack.Text": "6.10.0"
+        },
+        "runtime": {
+          "lib/net6.0/Stripe.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.10.0.0"
+          }
+        }
+      },
+      "ServiceStack.Text/6.10.0": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.7.0",
+          "System.Diagnostics.DiagnosticSource": "6.0.1",
+          "System.Memory": "4.5.5"
+        },
+        "runtime": {
+          "lib/net6.0/ServiceStack.Text.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.10.0.0"
+          }
+        }
+      },
       "Stripe.net/42.5.0-beta.1": {
         "dependencies": {
           "Newtonsoft.Json": "13.0.3",
@@ -817,6 +872,7 @@
         }
       },
       "System.IO.Pipelines/6.0.0-preview.4.21253.7": {},
+      "System.Memory/4.5.5": {},
       "System.Memory.Data/1.0.2": {
         "dependencies": {
           "System.Text.Encodings.Web": "4.7.2",
@@ -1051,6 +1107,7 @@
           "Microsoft.AspNetCore.Authentication.Google": "6.0.20",
           "Microsoft.IdentityModel.Tokens": "6.20.0",
           "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": "1.18.1",
+          "ServiceStack.Stripe": "6.10.0",
           "Stripe.net": "42.5.0-beta.1",
           "System.IdentityModel.Tokens.Jwt": "6.20.0",
           "System.ServiceModel.Primitives": "6.0.0"
@@ -1431,6 +1488,13 @@
       "path": "microsoft.extensions.hosting.abstractions/2.2.0",
       "hashPath": "microsoft.extensions.hosting.abstractions.2.2.0.nupkg.sha512"
     },
+    "Microsoft.Extensions.Http/6.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-15+pa2G0bAMHbHewaQIdr/y6ag2H3yh4rd9hTXavtWDzQBkvpe2RMqFg8BxDpcQWssmjmBApGPcw93QRz6YcMg==",
+      "path": "microsoft.extensions.http/6.0.0",
+      "hashPath": "microsoft.extensions.http.6.0.0.nupkg.sha512"
+    },
     "Microsoft.Extensions.Identity.Core/6.0.20": {
       "type": "package",
       "serviceable": true,
@@ -1578,6 +1642,34 @@
       "path": "newtonsoft.json/13.0.3",
       "hashPath": "newtonsoft.json.13.0.3.nupkg.sha512"
     },
+    "ServiceStack.Client/6.10.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-NBVhvgXOGrgRPEPcVh48faowiMw/EWL1CCZwdArDjfoqhY8A1Dkb4RVsZC4/pYA3oyk0I5dFd12Fj9jwprpFTQ==",
+      "path": "servicestack.client/6.10.0",
+      "hashPath": "servicestack.client.6.10.0.nupkg.sha512"
+    },
+    "ServiceStack.Interfaces/6.10.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-5dLzkgka50hwv6U3ur11F3D7SiX0LHYbAs5Ax0hDJuJBko2OAdQ6nO+NiXCVXP68IfvxPcPTKZ+T1AyXaY6wdw==",
+      "path": "servicestack.interfaces/6.10.0",
+      "hashPath": "servicestack.interfaces.6.10.0.nupkg.sha512"
+    },
+    "ServiceStack.Stripe/6.10.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-5l9gfWQArIo5kZHvldW/vCuW5umko0kQsVa4+5jb6p2Rd7lYsxcaN9EEfr3aHquiOzf+cEqZKFi2tIzDcKdTQg==",
+      "path": "servicestack.stripe/6.10.0",
+      "hashPath": "servicestack.stripe.6.10.0.nupkg.sha512"
+    },
+    "ServiceStack.Text/6.10.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-poIfmwYEUr6C6YJRhSzvmGYcBB9nM6AbImH0QRGaGyFnwLdePRUtxYNobHqFuYDx1Mnxg6fX1ciBVtU4zTUSmg==",
+      "path": "servicestack.text/6.10.0",
+      "hashPath": "servicestack.text.6.10.0.nupkg.sha512"
+    },
     "Stripe.net/42.5.0-beta.1": {
       "type": "package",
       "serviceable": true,
@@ -1647,6 +1739,13 @@
       "sha512": "sha512-vFgm2rr53rp46mFmO+ihwVf9zOZu4sA11ULmCbmvrYEG3XR45ql1CYBSEEsntMQeZG0B/qiOOifnLTxB5G1C0A==",
       "path": "system.io.pipelines/6.0.0-preview.4.21253.7",
       "hashPath": "system.io.pipelines.6.0.0-preview.4.21253.7.nupkg.sha512"
+    },
+    "System.Memory/4.5.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-XIWiDvKPXaTveaB7HVganDlOCRoj03l+jrwNvcge/t8vhGYKvqV+dMv6G4SAX2NoNmN0wZfVPTAlFwZcZvVOUw==",
+      "path": "system.memory/4.5.5",
+      "hashPath": "system.memory.4.5.5.nupkg.sha512"
     },
     "System.Memory.Data/1.0.2": {
       "type": "package",

@@ -4,5 +4,5 @@ public record CreateChargeResource(
     string Currency,
     long Amount,
     string CustomerId,
-    string Email,
+    string ReceiptEmail,
     string Description);

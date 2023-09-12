@@ -339,3 +339,7 @@ D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\runtimes\u
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\ServiceStack.Client.dll
+D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\ServiceStack.Interfaces.dll
+D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\Stripe.dll
+D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\ServiceStack.Text.dll

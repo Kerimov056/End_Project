@@ -280,6 +280,10 @@
               "target": "Package",
               "version": "[1.18.1, )"
             },
+            "ServiceStack.Stripe": {
+              "target": "Package",
+              "version": "[6.10.0, )"
+            },
             "Stripe.net": {
               "target": "Package",
               "version": "[42.5.0-beta.1, )"
