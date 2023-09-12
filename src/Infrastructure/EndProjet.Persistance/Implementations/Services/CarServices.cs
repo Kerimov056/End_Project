@@ -495,13 +495,37 @@ public class CarServices : ICarServices
         {
             ByCar = ByCar.Where(x => x.Model.ToLower() == model.ToLower());
         }
-        if (minPrice is not null)
+        bool comagin = false;
+        foreach (var car in ByCar)
         {
-            ByCar = ByCar.Where(x => x.Price >= minPrice);
+            if (car.CampaignsPrice is not null)
+            {
+                comagin = true;
+                break;
+            }
         }
-        if (maxPrice is not null)
+        if (comagin)
         {
-            ByCar = ByCar.Where(x => x.Price <= maxPrice);
+            if (minPrice is not null)
+            {
+                ByCar = ByCar.Where(x => x.CampaignsPrice >= minPrice);
+            }
+            if (maxPrice is not null)
+            {
+                ByCar = ByCar.Where(x => x.CampaignsPrice <= maxPrice);
+            }
+        }
+        else
+        {
+
+            if (minPrice is not null)
+            {
+                ByCar = ByCar.Where(x => x.Price >= minPrice);
+            }
+            if (maxPrice is not null)
+            {
+                ByCar = ByCar.Where(x => x.Price <= maxPrice);
+            }
         }
         var query = await ByCar.ToListAsync();
 
