@@ -87,6 +87,7 @@ public class BasketServices : IBasketServices
         var basket = await _readRepository
                              .Table
                              .Include(x => x.basketProduct)
+                             .Include(x => x.AppUser)
                              .FirstOrDefaultAsync(x => x.AppUserId == AppUserId);
 
         if (basket is null) throw new NullReferenceException();
