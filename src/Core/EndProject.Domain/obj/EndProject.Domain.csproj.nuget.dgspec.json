@@ -81,6 +81,10 @@
             "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
               "target": "Package",
               "version": "[1.18.1, )"
+            },
+            "Stripe.net": {
+              "target": "Package",
+              "version": "[42.5.0-beta.1, )"
             }
           },
           "imports": [

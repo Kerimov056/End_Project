@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "wihhiFuBGXaPiw5ue8DG7bH0kMJ3yF5phP13XLXaGiQ=",
+  "Hash": "HqUx9lzIjw7rDkK2dJYAXs0+mUu/MSW3cXc8zfrB81I=",
   "Source": "EndProject.API",
   "BasePath": "_content/EndProject.API",
   "Mode": "Default",
@@ -134,23 +134,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\templates\\verify.html"
-    },
-    {
-      "Identity": "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\wwwroot\\test.jpg",
-      "SourceId": "EndProject.API",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\wwwroot\\",
-      "BasePath": "_content/EndProject.API",
-      "RelativePath": "test.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\test.jpg"
     }
   ]
 }

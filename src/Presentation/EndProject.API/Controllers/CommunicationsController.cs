@@ -34,7 +34,7 @@ public class CommunicationsController : ControllerBase
     }
 
     [HttpDelete("{id:Guid}")]
-    public async Task<IActionResult> Remove(Guid id)
+    public async Task<IActionResult> RemoveCommunication(Guid id)
     {
         await _communicationServices.RemoveAsync(id);
         return Ok();

@@ -10,6 +10,7 @@ using EndProjet.Persistance.Context;
 using EndProjet.Persistance.ExtensionsMethods;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Stripe;
 using System.Text;
 using SymmetricSecurityKey = Microsoft.IdentityModel.Tokens.SymmetricSecurityKey;
 
@@ -20,6 +21,10 @@ builder.Services.AddControllers();
 builder.Services.AddPersistenceServices();
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices();
+
+
+StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
+
 
 builder.Services.AddCors();
 builder.Services.AddCors(options =>

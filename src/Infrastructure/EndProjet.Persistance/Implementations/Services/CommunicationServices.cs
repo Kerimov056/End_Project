@@ -33,19 +33,12 @@ public class CommunicationServices : ICommunicationServices
 
     public async Task<List<CommunicationGetDTO>> GetAllAsync(string? searchUser)
     {
-        var allCommunications = await _CommunicationReadRepository.GetAll()
-            .Where(x => x.Name.ToLower().Contains(searchUser.ToLower()) || x.Email.ToLower().Contains(searchUser.ToLower()))
-            .ToListAsync();
-        //var Communications = new List<Communication>();
-        //if (!string.IsNullOrEmpty(searchUser))
-        //{
-        //    foreach (var commun in allCommunications)
-        //    {
-        //        Communication Comm = allCommunications.Where(x => x.Name.ToLower().Contains(searchUser.ToLower()) || x.Email.ToLower().Contains(searchUser.ToLower()));
-        //        Communications.Add(comm);
-        //        break;
-        //    }
-        //}
+        var allCommunications = await _CommunicationReadRepository.GetAll().ToListAsync();
+
+        if (!string.IsNullOrEmpty(searchUser))
+        {
+            allCommunications = allCommunications.Where(x => x.Name.ToLower().Contains(searchUser.ToLower()) || x.Email.ToLower().Contains(searchUser.ToLower())).ToList();
+        }
 
         var entityToDto = _mapper.Map<List<CommunicationGetDTO>>(allCommunications);
         return entityToDto;
