@@ -3,6 +3,7 @@ using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Communication;
 using EndProject.Domain.Entitys;
+using EndProject.Domain.Entitys.Identity;
 using EndProjet.Persistance.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,9 +31,22 @@ public class CommunicationServices : ICommunicationServices
         await _CommunicationWriteRepository.SavaChangeAsync();
     }
 
-    public async Task<List<CommunicationGetDTO>> GetAllAsync()
+    public async Task<List<CommunicationGetDTO>> GetAllAsync(string? searchUser)
     {
-        var allCommunications = await _CommunicationReadRepository.GetAll().ToListAsync();
+        var allCommunications = await _CommunicationReadRepository.GetAll()
+            .Where(x => x.Name.ToLower().Contains(searchUser.ToLower()) || x.Email.ToLower().Contains(searchUser.ToLower()))
+            .ToListAsync();
+        //var Communications = new List<Communication>();
+        //if (!string.IsNullOrEmpty(searchUser))
+        //{
+        //    foreach (var commun in allCommunications)
+        //    {
+        //        Communication Comm = allCommunications.Where(x => x.Name.ToLower().Contains(searchUser.ToLower()) || x.Email.ToLower().Contains(searchUser.ToLower()));
+        //        Communications.Add(comm);
+        //        break;
+        //    }
+        //}
+
         var entityToDto = _mapper.Map<List<CommunicationGetDTO>>(allCommunications);
         return entityToDto;
     }
@@ -50,6 +64,6 @@ public class CommunicationServices : ICommunicationServices
         var byCommunication = await _CommunicationReadRepository.GetByIdAsync(Id);
         if (byCommunication is null) throw new NotFoundException("Communication is null");
         _CommunicationWriteRepository.Remove(byCommunication);
-        await _CommunicationWriteRepository.SavaChangeAsync();  
+        await _CommunicationWriteRepository.SavaChangeAsync();
     }
 }

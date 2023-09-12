@@ -13,9 +13,9 @@ public class CommunicationsController : ControllerBase
     public CommunicationsController(ICommunicationServices communicationServices) => _communicationServices = communicationServices;
 
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAll([FromQuery] string? searchUser)
     {
-        var allCommunications = await _communicationServices.GetAllAsync();
+        var allCommunications = await _communicationServices.GetAllAsync(searchUser);
         return Ok(allCommunications);
     }
 
