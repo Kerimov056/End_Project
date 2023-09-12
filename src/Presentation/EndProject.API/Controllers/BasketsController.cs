@@ -37,7 +37,7 @@ public class BasketsController : ControllerBase
     [HttpDelete("ProductItem")]
     public async Task<IActionResult> DeleteBasketItemProduct([Required][FromQuery] Guid Id, [Required][FromQuery] string AppUserId)
     {
-        await _basketService.DeleteBasketItemAsync(Id);
+        await _basketService.DeleteBasketItemAsync(Id, AppUserId);
         return Ok();
     }
 

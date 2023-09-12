@@ -8,5 +8,5 @@ public interface IBasketServices
     Task<List<BasketProductListDto>> GetBasketProductsAsync(string AppUserId);
     Task DeleteBasketAsync(Guid id, string AppUserId);
     Task<int> GetBasketCountAsync(string AppUserId);
-    Task DeleteBasketItemAsync(Guid carId);
+    Task DeleteBasketItemAsync(Guid carId, string AppUserId);
 }

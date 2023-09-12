@@ -80,14 +80,14 @@ public class BasketServices : IBasketServices
         await _writeRepository.SavaChangeAsync();
     }
 
-    public async Task DeleteBasketItemAsync(Guid carId)
+    public async Task DeleteBasketItemAsync(Guid carId, string AppUserId)
     {
-        var userId = "4d12fb35-a688-4270-9c51-f28d4b19e3ae";
+        //var userId = "4d12fb35-a688-4270-9c51-f28d4b19e3ae";
 
         var basket = await _readRepository
                              .Table
                              .Include(x => x.basketProduct)
-                             .FirstOrDefaultAsync(x => x.AppUserId == userId);
+                             .FirstOrDefaultAsync(x => x.AppUserId == AppUserId);
 
         if (basket is null) throw new NullReferenceException();
 
