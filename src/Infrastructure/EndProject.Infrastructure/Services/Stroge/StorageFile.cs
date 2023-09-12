@@ -1,7 +1,7 @@
 ﻿using EndProject.Application.Abstraction.Services.Stroge;
 using Microsoft.AspNetCore.Http;
 
-namespace EndProject.Infrastructure.Services;
+namespace EndProject.Infrastructure.Services.Stroge;
 
 public class StorageFile : IStorageFile
 {
@@ -22,7 +22,7 @@ public class StorageFile : IStorageFile
     public async Task<byte[]> DownlandFile(string file)
     {
         var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Upload\\Files", file);  //Hara endirirsen oranida qoyarssan
-        return await System.IO.File.ReadAllBytesAsync(filePath);
+        return await File.ReadAllBytesAsync(filePath);
     }
 
     public async Task<List<string>> GetFilesAsync(string pathOrContainerName)
