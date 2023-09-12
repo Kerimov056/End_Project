@@ -3,7 +3,7 @@ using EndProject.Application.DTOs.Payment;
 using Microsoft.Extensions.Configuration;
 using Stripe;
 
-namespace EndProject.Infrastructure.Services.Payment;
+namespace EndProject.Infrastructure.Services.Payment.Stripe;
 
 public class StripePayment : IStripePayment
 {
@@ -27,7 +27,7 @@ public class StripePayment : IStripePayment
         var chargeOptions = new ChargeCreateOptions
         {
             Currency = resource.Currency,
-            Amount = (long)(resource.Amount * 100),
+            Amount = resource.Amount * 100,
             ReceiptEmail = resource.ReceiptEmail,
             Customer = resource.CustomerId,
             Description = resource.Description
