@@ -1,4 +1,4 @@
-﻿using EndProject.Application.Abstraction.Services;
+﻿using EndProject.Application.Abstraction.Services.Stroge;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
