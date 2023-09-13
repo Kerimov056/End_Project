@@ -396,5 +396,13 @@ public class AuthService : IAuthService
         else throw new NotFoundException("User not Found");
     }
 
+    public async Task<string> ByAdmin(string email)
+    {
+        AppUser appUser = await _userManager.FindByEmailAsync(email);
+        if (appUser is null) throw new NotFoundException("User is Null");
+        var userRoles = await _userManager.GetRolesAsync(appUser);
 
+        if (userRoles.Contains("SuperAdmin"))   return appUser.Id;
+        return "";
+    }
 }

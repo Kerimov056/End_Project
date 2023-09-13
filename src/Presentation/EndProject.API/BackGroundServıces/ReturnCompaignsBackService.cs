@@ -11,7 +11,7 @@ public class ReturnCompaignsBackService : IHostedService
     private Timer _timer;
 
     public ReturnCompaignsBackService(IServiceProvider serviceProvider)
-     =>  _serviceProvider = serviceProvider;
+     => _serviceProvider = serviceProvider;
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
@@ -32,9 +32,9 @@ public class ReturnCompaignsBackService : IHostedService
             var today = DateTime.Now;
             var comaignStart = await dbContext.Cars
                                .Where(x => x.isCampaigns == true)
-                               .Where(x => x.ReturnCampaigns.Value.Day == today.Day)
-                               .Where(x => x.ReturnCampaigns.Value.Hour == today.Hour)
-                               .Where(x => x.ReturnCampaigns.Value.Minute == today.Minute)
+                               .Where(x => x.ReturnCampaigns.HasValue && x.ReturnCampaigns.Value.Day == today.Day)
+                               .Where(x => x.ReturnCampaigns.HasValue && x.ReturnCampaigns.Value.Hour == today.Hour)
+                               .Where(x => x.ReturnCampaigns.HasValue && x.ReturnCampaigns.Value.Minute == today.Minute)
                                .FirstOrDefaultAsync();
 
             Console.WriteLine("Campagns");

@@ -1,8 +1,6 @@
 ﻿using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Auth;
-using EndProject.Application.DTOs.Auth.Profil;
 using EndProject.Application.DTOs.Auth.ResetPassword;
-using EndProject.Application.DTOs.Car;
 using EndProject.Domain.Entitys.Common;
 using EndProject.Domain.Entitys.Identity;
 using EndProject.Domain.Helpers;
@@ -145,6 +143,15 @@ namespace EndProject.API.Controllersş
             var memberUsers = await _authService.AllMemberUser(searchUser);
             return Ok(memberUsers);
         }
+
+        [HttpGet("ByAdmin")]
+        public async Task<IActionResult> GetSuperAmin([FromQuery] string? email)
+        {
+            var SuperAdmin = await _authService.ByAdmin(email);
+            return Ok(SuperAdmin);
+        }
+
+
         [HttpGet("ByUser")]
         public async Task<IActionResult> ByUser([FromQuery] string? userId)
         {
