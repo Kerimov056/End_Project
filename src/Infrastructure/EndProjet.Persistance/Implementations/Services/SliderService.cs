@@ -47,7 +47,7 @@ public class SliderService : ISliderService
         var EntityToDto = _mapper.Map<List<SliderGetDTO>>(silder);
         foreach (var item in EntityToDto)
         {
-            Slider sliderTo = silder.FirstOrDefault(x => x.Id == item.Id)
+            Slider sliderTo = silder.FirstOrDefault(x => x.Id == item.Id)   
                                     ?? throw new InvalidException(ExceptionResponseMessages.NotFoundMessage);
 
             List<string> images = new();

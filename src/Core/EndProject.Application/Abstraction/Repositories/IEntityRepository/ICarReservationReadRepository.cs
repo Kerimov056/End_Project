@@ -8,4 +8,5 @@ public interface ICarReservationReadRepository: IReadRepository<CarReservation>
     Task<int> GetReservConfirmedCountAsync();
     Task<int> GetReservCompletedCountAsync();
     Task<int> GetReservCanceledCountAsync();
+    Task<int> GetReservNowCountAsync();
 }

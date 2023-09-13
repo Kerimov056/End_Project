@@ -71,6 +71,8 @@ public class CarServices : ICarServices
             throw new UnauthorizedAccessException("You do not have permission to perform this action.");
 
         var allCar = await _carReadRepository.GetAll().ToListAsync();
+        if (carCampaignsDTO.PickUpCampaigns > carCampaignsDTO.ReturnCampaigns) throw new Exception("Time is Error");
+
         if (carCampaignsDTO.CampaignsInterest < 100)
         {
             var IsCompany = 100 - carCampaignsDTO.CampaignsInterest;
@@ -131,7 +133,6 @@ public class CarServices : ICarServices
                 string html = string.Empty;
                 html = html.Replace("{{CampaignsInterest}}", CompanginsIntrest.ToString());
                 html = html.Replace("{{ReturnCompigns}}", returnCompagins.ToString("dddd, dd MMMM yyyy"));
-
 
                 string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "templates", "Campaigns.html");
                 html = System.IO.File.ReadAllText(filePath);

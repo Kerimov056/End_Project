@@ -1,9 +1,13 @@
 ﻿using EndProject.Application.Abstraction.Services;
 using EndProject.Application.Abstraction.Services.Payment;
+using EndProject.Application.Abstraction.Services.Payment.PayPal;
+using EndProject.Application.Abstraction.Services.Payment.Stripe;
 using EndProject.Application.Abstraction.Services.Stroge;
 using EndProject.Infrastructure.Services;
 using EndProject.Infrastructure.Services.Azure;
 using EndProject.Infrastructure.Services.Email;
+using EndProject.Infrastructure.Services.Payment.PayPal;
+using EndProject.Infrastructure.Services.Payment.Stripe;
 using EndProject.Infrastructure.Services.Stroge;
 using EndProject.Infrastructure.Services.Token;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,6 +28,8 @@ public static class ServiceRegistration
 
         //Payment
         services.AddScoped<IPaymentService, PaymentService>();
+        services.AddScoped<IStripePayment, StripePayment>();
+        services.AddScoped<IPayPalPayment, PayPalPayment>();
         services.AddScoped<TokenService>();
         services.AddScoped<CustomerService>();
         services.AddScoped<ChargeService>();

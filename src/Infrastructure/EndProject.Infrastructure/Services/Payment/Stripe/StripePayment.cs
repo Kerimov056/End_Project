@@ -21,7 +21,7 @@ public class StripePayment : IStripePayment
         _chargeService = chargeService;
         StripeConfiguration.ApiKey = configuration["Stripe:ApiKey"];
     }
-
+    
     public async Task<ChargeResource> CreateCharge(CreateChargeResource resource, CancellationToken cancellationToken)
     {
         var chargeOptions = new ChargeCreateOptions

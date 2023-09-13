@@ -39,10 +39,10 @@ public class ReservationPickupCheckService : IHostedService
                                    .Where(x => x.PickupDate.Hour == today.Hour)
                                    .Where(x => x.PickupDate.Day == today.Day)
                                    .ToListAsync();
+
             Console.WriteLine("Heleki yo");
             foreach (var reserv in confirmedReservs)
             {
-
                 Console.WriteLine("-----MMMMMMMMMMMMMMMMMMMMMMM-----");
                 await reservServices.StatusNow(reserv.Id);
                 await carServices.ReservCarTrue(reserv.CarId);

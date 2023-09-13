@@ -47,7 +47,7 @@ namespace EndProjet.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Advantages");
+                    b.ToTable("Advantages", (string)null);
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.Basket", b =>
@@ -74,7 +74,7 @@ namespace EndProjet.Persistance.Migrations
                     b.HasIndex("AppUserId")
                         .IsUnique();
 
-                    b.ToTable("Baskets");
+                    b.ToTable("Baskets", (string)null);
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.BasketProduct", b =>
@@ -107,7 +107,7 @@ namespace EndProjet.Persistance.Migrations
 
                     b.HasIndex("CarId");
 
-                    b.ToTable("BasketProducts");
+                    b.ToTable("BasketProducts", (string)null);
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.Blog", b =>
@@ -135,7 +135,7 @@ namespace EndProjet.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Blogs");
+                    b.ToTable("Blogs", (string)null);
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.BlogImage", b =>
@@ -164,7 +164,7 @@ namespace EndProjet.Persistance.Migrations
 
                     b.HasIndex("BlogId");
 
-                    b.ToTable("BlogImages");
+                    b.ToTable("BlogImages", (string)null);
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.Car", b =>
@@ -229,7 +229,7 @@ namespace EndProjet.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cars");
+                    b.ToTable("Cars", (string)null);
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.CarCategory", b =>
@@ -259,7 +259,7 @@ namespace EndProjet.Persistance.Migrations
                     b.HasIndex("CarId")
                         .IsUnique();
 
-                    b.ToTable("CarCategories");
+                    b.ToTable("CarCategories", (string)null);
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.CarComment", b =>
@@ -298,7 +298,7 @@ namespace EndProjet.Persistance.Migrations
 
                     b.HasIndex("CarId");
 
-                    b.ToTable("CarComments");
+                    b.ToTable("CarComments", (string)null);
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.CarImage", b =>
@@ -327,7 +327,7 @@ namespace EndProjet.Persistance.Migrations
 
                     b.HasIndex("CarId");
 
-                    b.ToTable("CarImages");
+                    b.ToTable("CarImages", (string)null);
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.CarReservation", b =>
@@ -394,7 +394,7 @@ namespace EndProjet.Persistance.Migrations
                         .IsUnique()
                         .HasFilter("[ChauffeursId] IS NOT NULL");
 
-                    b.ToTable("CarReservations");
+                    b.ToTable("CarReservations", (string)null);
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.CarTag", b =>
@@ -424,7 +424,7 @@ namespace EndProjet.Persistance.Migrations
 
                     b.HasIndex("TagId");
 
-                    b.ToTable("CarTags");
+                    b.ToTable("CarTags", (string)null);
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.CarType", b =>
@@ -454,7 +454,7 @@ namespace EndProjet.Persistance.Migrations
                     b.HasIndex("CarId")
                         .IsUnique();
 
-                    b.ToTable("CarTypes");
+                    b.ToTable("CarTypes", (string)null);
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.Chauffeurs", b =>
@@ -492,7 +492,7 @@ namespace EndProjet.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Chauffeurs");
+                    b.ToTable("Chauffeurs", (string)null);
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.Communication", b =>
@@ -532,7 +532,7 @@ namespace EndProjet.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Communications");
+                    b.ToTable("Communications", (string)null);
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.Faq", b =>
@@ -560,7 +560,7 @@ namespace EndProjet.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Faqs");
+                    b.ToTable("Faqs", (string)null);
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.Identity.AppUser", b =>
@@ -674,7 +674,7 @@ namespace EndProjet.Persistance.Migrations
 
                     b.HasIndex("CarCommentId");
 
-                    b.ToTable("Likes");
+                    b.ToTable("Likes", (string)null);
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.Location", b =>
@@ -705,7 +705,7 @@ namespace EndProjet.Persistance.Migrations
 
                     b.HasIndex("CarReservationId");
 
-                    b.ToTable("Locations");
+                    b.ToTable("Locations", (string)null);
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.OtherCarReservation", b =>
@@ -779,7 +779,7 @@ namespace EndProjet.Persistance.Migrations
 
                     b.HasIndex("CarId");
 
-                    b.ToTable("OtherCarReservations");
+                    b.ToTable("OtherCarReservations", (string)null);
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.PickupLocation", b =>
@@ -812,7 +812,7 @@ namespace EndProjet.Persistance.Migrations
                         .IsUnique()
                         .HasFilter("[CarReservationId] IS NOT NULL");
 
-                    b.ToTable("PickupLocations");
+                    b.ToTable("PickupLocations", (string)null);
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.ReturnLocation", b =>
@@ -845,7 +845,7 @@ namespace EndProjet.Persistance.Migrations
                         .IsUnique()
                         .HasFilter("[CarReservationId] IS NOT NULL");
 
-                    b.ToTable("ReturnLocations");
+                    b.ToTable("ReturnLocations", (string)null);
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.SendUserMessage", b =>
@@ -873,7 +873,7 @@ namespace EndProjet.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SendUserMessages");
+                    b.ToTable("SendUserMessages", (string)null);
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.Slider", b =>
@@ -897,7 +897,7 @@ namespace EndProjet.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Sliders");
+                    b.ToTable("Sliders", (string)null);
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.Tag", b =>
@@ -921,7 +921,7 @@ namespace EndProjet.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tags");
+                    b.ToTable("Tags", (string)null);
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.Test", b =>
@@ -948,7 +948,7 @@ namespace EndProjet.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tests");
+                    b.ToTable("Tests", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

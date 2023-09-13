@@ -6,6 +6,7 @@ using EndProject.Application.Abstraction.Services;
 using EndProject.Domain.Helpers.AccountSetting;
 using EndProject.Infrastructure;
 using EndProject.Infrastructure.Services.Email;
+using EndProject.Infrastructure.Services.Payment.Stripe;
 using EndProjet.Persistance.Context;
 using EndProjet.Persistance.ExtensionsMethods;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -40,6 +41,10 @@ builder.Services.AddCors(options =>
 builder.Services.Configure<EmailSetting>(builder.Configuration.GetSection("EmailSettings"));
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<EmailSetting>();
+
+//Payment
+builder.Services.AddPayment<StripePayment>();
+
 
 
 builder.Services.AddScoped<AppDbContextInitializer>();
@@ -91,6 +96,8 @@ builder.Services.AddHostedService<ReturnCompaignsBackService>();
 
 builder.Services.AddSignalR();
 builder.Services.AddSingleton<IDictionary<string, UserConnection>>(opts => new Dictionary<string, UserConnection>());
+
+
 
 var app = builder.Build();
 

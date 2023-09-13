@@ -6,3 +6,4 @@ public record CreateChargeResource(
     string CustomerId,
     string ReceiptEmail,
     string Description);
+
