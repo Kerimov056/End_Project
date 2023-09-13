@@ -2,9 +2,7 @@
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.Abstraction.Services.Stroge;
-using EndProject.Application.DTOs.Car;
 using EndProject.Application.DTOs.CarReservation;
-using EndProject.Application.DTOs.Faq;
 using EndProject.Domain.Entitys;
 using EndProject.Domain.Entitys.Common;
 using EndProject.Domain.Enums.ReservationStatus;
@@ -183,6 +181,11 @@ public class CarReservationServices : ICarReservationServices
     public async Task<int> GetCanceledCountAsync()
     {
         return await _carReservationReadRepository.GetReservCanceledCountAsync();
+    }
+
+    public async Task<int> GetCanceledNowAsync()
+    {
+        return await _carReservationReadRepository.GetReservNowCountAsync();
     }
 
     public async Task<int> GetCompletedCountAsync()

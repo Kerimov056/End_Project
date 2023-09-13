@@ -58,24 +58,34 @@ public class CarReservationsController : ControllerBase
         var reserv = await _carReservationServices.GetConfirmedCountAsync();
         return Ok(reserv);
     }
+
+    [HttpGet("ReservNowCount")]
+    public async Task<IActionResult> GetReservNow()
+    {
+        var reserv = await _carReservationServices.GetCanceledNowAsync();
+        return Ok(reserv);
+    }
+
     [HttpGet("IsResevConfirmedGetAll")]
     public async Task<IActionResult> ReservGetAllConfirmed()
     {
         var Slider = await _carReservationServices.IsResevConfirmedGetAll();
         return Ok(Slider);
-    } 
+    }
+
     [HttpGet("IsResevConfirmedLocationGetAll")]
     public async Task<IActionResult> ReservGetAllConfirmedLocatıon()
     {
         var Slider = await _carReservationServices.IsResevConfirmLocationGetAll();
         return Ok(Slider);
-    }  
+    }
     [HttpGet("IsResevConfirmedPickUpGetAll")]
     public async Task<IActionResult> ReservGetAllConfirmPickUpLocation()
     {
         var Slider = await _carReservationServices.IsResevConfirmPickUpGetAll();
         return Ok(Slider);
     }
+
     [HttpGet("IsResevConfirmedReturnGetAll")]
     public async Task<IActionResult> ReservGetAllConfirmReturnLocation()
     {
