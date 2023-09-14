@@ -122,8 +122,9 @@ public class CarServices : ICarServices
             CompanginsIntrest = (decimal)item.CampaignsInterest;
             returnCompagins = (DateTime)item.ReturnCampaigns;
 
+            //_carWriteRepository.Update(item);
         }
-        await _carWriteRepository.SavaChangeAsync();
+            await _carWriteRepository.SavaChangeAsync();
         if (isComp)
         {
             var AllUsers = _userManager.Users.ToListAsync();
@@ -155,6 +156,7 @@ public class CarServices : ICarServices
                 item.CampaignsPrice = null;
                 item.PickUpCampaigns = null;
                 item.ReturnCampaigns = null;
+
             }
         }
         await _carWriteRepository.SavaChangeAsync();
