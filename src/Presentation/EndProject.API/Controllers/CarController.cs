@@ -110,9 +110,10 @@ public class CarController : ControllerBase
         await _carServices.UpdateAsync(id, carUpdateDTO);
         return Ok();
     }
+
     [HttpPut("IsReservTrue")]
-    public async Task<IActionResult> UptadeReservTrue(Guid id)
-    {
+    public async Task<IActionResult> UptadeReservTrue([FromQuery]Guid id)
+    { 
         await _carServices.ReservCarTrue(id);
         return Ok();
     }
