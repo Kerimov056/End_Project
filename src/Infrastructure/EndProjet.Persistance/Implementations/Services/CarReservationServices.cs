@@ -8,6 +8,7 @@ using EndProject.Domain.Entitys.Common;
 using EndProject.Domain.Enums.ReservationStatus;
 using EndProjet.Persistance.Exceptions;
 using EndProjet.Persistance.ExtensionsMethods;
+using EndProjet.Persistance.Implementations.Repositories.EntityRepository;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 
@@ -19,6 +20,7 @@ public class CarReservationServices : ICarReservationServices
     private readonly ICarReservationWriteRepository _carReservationWriteRepository;
     private readonly IPickupLocationWriteRepository _pickupLocationWriteRepository;
     private readonly IReturnLocationWriteRepository _returnLocationWriteRepository;
+    private readonly IChauffeursWriteRepository _chauffeursWriteRepository;
     private readonly ICarServices _carServices;
     private readonly IChauffeursServices _chauffeursServices;
     private readonly IStorageFile _uploadFile;
@@ -30,6 +32,7 @@ public class CarReservationServices : ICarReservationServices
                                   IMapper mapper,
                                   IPickupLocationWriteRepository pickupLocationWriteRepository,
                                   IReturnLocationWriteRepository returnLocationWriteRepository,
+                                  IChauffeursWriteRepository chauffeursWriteRepository,
                                   IStorageFile uploadFile,
                                   ICarServices carServices,
                                   IChauffeursServices chauffeursServices,
@@ -40,6 +43,7 @@ public class CarReservationServices : ICarReservationServices
         _mapper = mapper;
         _pickupLocationWriteRepository = pickupLocationWriteRepository;
         _returnLocationWriteRepository = returnLocationWriteRepository;
+        _chauffeursWriteRepository = chauffeursWriteRepository;
         _uploadFile = uploadFile;
         _carServices = carServices;
         _chauffeursServices = chauffeursServices;
@@ -77,9 +81,9 @@ public class CarReservationServices : ICarReservationServices
         if (carReservationCreateDTO.PickupDate < DateTime.Now) throw new Exception("Choose a Time !!!");
         if (carReservationCreateDTO.ReturnDate <= carReservationCreateDTO.PickupDate) throw new Exception("Choose a Time !!! ");
 
-       // DateTime minimumReturnDate = carReservationCreateDTO.PickupDate.AddDays(1);
-       // if (carReservationCreateDTO.ReturnDate < minimumReturnDate) throw new Exception("ReturnDate must be at least 1 day after PickupDate.");
-        
+        // DateTime minimumReturnDate = carReservationCreateDTO.PickupDate.AddDays(1);
+        // if (carReservationCreateDTO.ReturnDate < minimumReturnDate) throw new Exception("ReturnDate must be at least 1 day after PickupDate.");
+
         var newReserv = new CarReservation
         {
             FullName = carReservationCreateDTO.FullName,
@@ -484,6 +488,22 @@ public class CarReservationServices : ICarReservationServices
         var ByReserv = await _carReservationReadRepository.GetByIdAsync(id);
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
 
+        if (ByReserv.PickupLocation.CarReservationId == ByReserv.Id)
+        {
+            _pickupLocationWriteRepository.Remove(ByReserv.PickupLocation);
+            await _pickupLocationWriteRepository.SavaChangeAsync();
+        }
+        if (ByReserv.ReturnLocation.CarReservationId == ByReserv.Id)
+        {
+            _returnLocationWriteRepository.Remove(ByReserv.ReturnLocation);
+            await _returnLocationWriteRepository.SavaChangeAsync();
+        }
+        if (ByReserv.Chauffeurs is not null)
+        {
+            _chauffeursWriteRepository.Remove(ByReserv.Chauffeurs);
+            await _chauffeursWriteRepository.SavaChangeAsync();
+        }
+
         _carReservationWriteRepository.Remove(ByReserv);
         await _carReservationWriteRepository.SavaChangeAsync();
     }
@@ -505,8 +525,8 @@ public class CarReservationServices : ICarReservationServices
 
         ByReserv.Status = ReservationStatus.Completed;
         if (ByReserv.ReturnLocation is not null)
-        await _carServices.CarReservNextUpdate(ByReserv.CarId, (double)ByReserv.ReturnLocation.Latitude, (double)ByReserv.ReturnLocation.Longitude);
-        
+            await _carServices.CarReservNextUpdate(ByReserv.CarId, (double)ByReserv.ReturnLocation.Latitude, (double)ByReserv.ReturnLocation.Longitude);
+
         _carReservationWriteRepository.Update(ByReserv);
         await _carReservationWriteRepository.SavaChangeAsync();
     }
@@ -589,7 +609,7 @@ public class CarReservationServices : ICarReservationServices
         {
             double lat = Convert.ToDouble(carReservationUpdateDTO.ReturnLocation.Latitude, CultureInfo.InvariantCulture);
             double lng = Convert.ToDouble(carReservationUpdateDTO.ReturnLocation.Longitude, CultureInfo.InvariantCulture);
-            
+
             ByReserv.ReturnLocation.Latitude = lat;
             ByReserv.ReturnLocation.Longitude = lng;
         }

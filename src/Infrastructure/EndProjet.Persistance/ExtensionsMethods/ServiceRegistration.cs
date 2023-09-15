@@ -104,6 +104,7 @@ public static class ServiceRegistration
         services.AddScoped<IBasketProducServices, BasketProducServices>();
         services.AddScoped<ISendUserMessageServices, SendUserMessageServices>();
         services.AddScoped<ICommunicationServices, CommunicationServices>();
+        services.AddScoped<IPickUpServices, PickUpServices>();
 
 
 
