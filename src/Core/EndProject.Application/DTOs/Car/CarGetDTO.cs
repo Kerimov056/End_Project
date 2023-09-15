@@ -21,6 +21,7 @@ public class CarGetDTO
     public double? Longitude { get; set; }
     public string Description { get; set; }
     public bool isReserv { get; set; }
+    public string? CampaignName { get; set; }
     public decimal? CampaignsPrice { get; set; }
     public double? CampaignsInterest { get; set; }
     public CampaignsStatus Status { get; set; }

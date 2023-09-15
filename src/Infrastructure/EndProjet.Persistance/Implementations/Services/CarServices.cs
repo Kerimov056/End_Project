@@ -84,6 +84,7 @@ public class CarServices : ICarServices
                     item.CampaignsInterest = carCampaignsDTO.CampaignsInterest;
                     item.PickUpCampaigns = carCampaignsDTO.PickUpCampaigns;
                     item.ReturnCampaigns = carCampaignsDTO.ReturnCampaigns;
+                    item.CampaignName = carCampaignsDTO.CampaignName;
                 }
                 await _carWriteRepository.SavaChangeAsync();
             }
@@ -122,7 +123,6 @@ public class CarServices : ICarServices
             CompanginsIntrest = (decimal)item.CampaignsInterest;
             returnCompagins = (DateTime)item.ReturnCampaigns;
 
-            //_carWriteRepository.Update(item);
         }
             await _carWriteRepository.SavaChangeAsync();
         if (isComp)
@@ -156,7 +156,7 @@ public class CarServices : ICarServices
                 item.CampaignsPrice = null;
                 item.PickUpCampaigns = null;
                 item.ReturnCampaigns = null;
-
+                item.CampaignName = null;
             }
         }
         await _carWriteRepository.SavaChangeAsync();

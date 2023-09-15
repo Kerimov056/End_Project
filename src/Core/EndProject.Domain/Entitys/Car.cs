@@ -14,6 +14,7 @@ public class Car : BaseEntity
     public string Description { get; set; }
     public bool isReserv { get; set; } = false;
     public bool isCampaigns { get; set; } = false;
+    public string? CampaignName { get; set; }
     public decimal? CampaignsPrice { get; set; }
     public decimal? CampaignsInterest { get; set; }
     public DateTime? PickUpCampaigns { get; set; }
