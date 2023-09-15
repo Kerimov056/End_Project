@@ -16,27 +16,37 @@ public class CarReservationReadRepository : ReadRepository<CarReservation>, ICar
 
     public async Task<int> GetReservCanceledCountAsync()
     {
-        return await _appDbContext.CarReservations.Where(x => x.Status == ReservationStatus.Canceled).CountAsync();
+        return await _appDbContext.CarReservations
+            .Where(x => x.Status == ReservationStatus.Canceled)
+            .Where(x => x.IsDeleted == false).CountAsync();
     }
 
     public async Task<int> GetReservCompletedCountAsync()
     {
-        return await _appDbContext.CarReservations.Where(x => x.Status == ReservationStatus.Completed).CountAsync();
+        return await _appDbContext.CarReservations
+            .Where(x => x.Status == ReservationStatus.Completed)
+            .Where(x => x.IsDeleted == false).CountAsync();
     }
 
     public async Task<int> GetReservConfirmedCountAsync()
     {
-        return await _appDbContext.CarReservations.Where(x =>x.Status == ReservationStatus.Confirmed).CountAsync();
+        return await _appDbContext.CarReservations
+            .Where(x => x.Status == ReservationStatus.Confirmed)
+            .Where(x => x.IsDeleted == false).CountAsync();
     }
 
     public async Task<int> GetReservNowCountAsync()
     {
-        return await _appDbContext.CarReservations.Where(x => x.Status == ReservationStatus.RightNow).CountAsync();
+        return await _appDbContext.CarReservations
+            .Where(x => x.Status == ReservationStatus.RightNow)
+            .Where(x => x.IsDeleted == false).CountAsync();
 
     }
 
     public async Task<int> GetReservPeddingCountAsync()
     {
-        return await _appDbContext.CarReservations.Where(x => x.Status == ReservationStatus.Pending).CountAsync();
+        return await _appDbContext.CarReservations
+            .Where(x => x.Status == ReservationStatus.Pending)
+            .Where(x => x.IsDeleted == false).CountAsync();
     }
 }

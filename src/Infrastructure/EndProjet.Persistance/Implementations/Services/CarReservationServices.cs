@@ -144,6 +144,7 @@ public class CarReservationServices : ICarReservationServices
               .Include(x => x.PickupLocation)
               .Include(x => x.ReturnLocation)
               .OrderByDescending(x => x.CreatedDate)
+              .Where(x => x.IsDeleted == false)
               .ToListAsync();
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
         var ToDto = _mapper.Map<List<CarReservationGetDTO>>(ByReserv);
@@ -174,6 +175,7 @@ public class CarReservationServices : ICarReservationServices
              .GetAll()
              .Include(x => x.PickupLocation)
              .Include(x => x.ReturnLocation)
+             .Where(x => x.IsDeleted == false)
              .FirstOrDefaultAsync(x => x.Id == Id);
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
         var ToDto = _mapper.Map<CarReservationGetDTO>(ByReserv);
@@ -212,6 +214,7 @@ public class CarReservationServices : ICarReservationServices
         var Reserv = await _carReservationReadRepository
             .GetAll()
             .Where(x => x.CarId == CarId)
+            .Where(x => x.IsDeleted == false)
             .FirstOrDefaultAsync();
 
         var ToDto = _mapper.Map<CarReservationGetDTO>(Reserv);
@@ -229,6 +232,7 @@ public class CarReservationServices : ICarReservationServices
              .Include(x => x.PickupLocation)
              .Include(x => x.ReturnLocation)
              .Where(x => x.Status == ReservationStatus.Canceled)
+             .Where(x => x.IsDeleted == false)
              .ToListAsync();
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
         var ToDto = _mapper.Map<List<CarReservationGetDTO>>(ByReserv);
@@ -260,6 +264,7 @@ public class CarReservationServices : ICarReservationServices
              .Include(x => x.PickupLocation)
              .Include(x => x.ReturnLocation)
              .Where(x => x.Status == ReservationStatus.Completed)
+             .Where(x => x.IsDeleted == false)
              .ToListAsync();
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
         var ToDto = _mapper.Map<List<CarReservationGetDTO>>(ByReserv);
@@ -291,6 +296,7 @@ public class CarReservationServices : ICarReservationServices
              .Include(x => x.PickupLocation)
              .Include(x => x.ReturnLocation)
              .Where(x => x.Status == ReservationStatus.Confirmed)
+             .Where(x => x.IsDeleted == false)
              .ToListAsync();
 
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
@@ -326,6 +332,7 @@ public class CarReservationServices : ICarReservationServices
           .Where(x => x.Status == ReservationStatus.Confirmed)
           .Where(x => x.PickupLocation != null)
           .Where(x => x.ReturnLocation != null)
+          .Where(x => x.IsDeleted == false)
           .ToListAsync();
 
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
@@ -360,6 +367,7 @@ public class CarReservationServices : ICarReservationServices
             .Where(x => x.Status == ReservationStatus.Confirmed)
             .Where(x => x.PickupLocation != null)
             .Where(x => x.ReturnLocation == null)
+            .Where(x => x.IsDeleted == false)
             .ToListAsync();
 
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
@@ -394,6 +402,7 @@ public class CarReservationServices : ICarReservationServices
            .Where(x => x.Status == ReservationStatus.Confirmed)
            .Where(x => x.PickupLocation == null)
            .Where(x => x.ReturnLocation != null)
+           .Where(x => x.IsDeleted == false)
            .ToListAsync();
 
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
@@ -426,6 +435,7 @@ public class CarReservationServices : ICarReservationServices
             .Include(x => x.PickupLocation)
             .Include(x => x.ReturnLocation)
             .Where(x => x.Status == ReservationStatus.RightNow)
+            .Where(x => x.IsDeleted == false)
             .ToListAsync();
 
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
@@ -458,6 +468,7 @@ public class CarReservationServices : ICarReservationServices
              .Include(x => x.PickupLocation)
              .Include(x => x.ReturnLocation)
              .Where(x => x.Status == ReservationStatus.Pending)
+             .Where(x => x.IsDeleted == false)
              .ToListAsync();
 
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
@@ -485,32 +496,18 @@ public class CarReservationServices : ICarReservationServices
 
     public async Task RemoveAsync(Guid id)
     {
-        var ByReserv = await _carReservationReadRepository.GetByIdAsync(id);
+        var ByReserv = await _carReservationReadRepository
+            .GetAll().Where(x => x.IsDeleted == false).FirstOrDefaultAsync(x=>x.Id == id);
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
-
-        if (ByReserv.PickupLocation.CarReservationId == ByReserv.Id)
-        {
-            _pickupLocationWriteRepository.Remove(ByReserv.PickupLocation);
-            await _pickupLocationWriteRepository.SavaChangeAsync();
-        }
-        if (ByReserv.ReturnLocation.CarReservationId == ByReserv.Id)
-        {
-            _returnLocationWriteRepository.Remove(ByReserv.ReturnLocation);
-            await _returnLocationWriteRepository.SavaChangeAsync();
-        }
-        if (ByReserv.Chauffeurs is not null)
-        {
-            _chauffeursWriteRepository.Remove(ByReserv.Chauffeurs);
-            await _chauffeursWriteRepository.SavaChangeAsync();
-        }
-
-        _carReservationWriteRepository.Remove(ByReserv);
+        ByReserv.IsDeleted = true;
+        _carReservationWriteRepository.Update(ByReserv);
         await _carReservationWriteRepository.SavaChangeAsync();
     }
 
     public async Task StatusCanceled(Guid Id)
     {
-        var ByReserv = await _carReservationReadRepository.GetByIdAsync(Id);
+        var ByReserv = await _carReservationReadRepository
+            .GetAll().Where(x => x.IsDeleted == false).FirstOrDefaultAsync(x => x.Id == Id);
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
 
         ByReserv.Status = ReservationStatus.Canceled;
@@ -520,7 +517,8 @@ public class CarReservationServices : ICarReservationServices
 
     public async Task StatusCompleted(Guid reservId)
     {
-        var ByReserv = await _carReservationReadRepository.GetByIdAsync(reservId);
+        var ByReserv = await _carReservationReadRepository
+            .GetAll().Where(x => x.IsDeleted == false).FirstOrDefaultAsync(x => x.Id == reservId);
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
 
         ByReserv.Status = ReservationStatus.Completed;
@@ -533,7 +531,8 @@ public class CarReservationServices : ICarReservationServices
 
     public async Task StatusConfirmed(Guid Id)
     {
-        var ByReserv = await _carReservationReadRepository.GetByIdAsync(Id);
+        var ByReserv = await _carReservationReadRepository
+            .GetAll().Where(x => x.IsDeleted == false).FirstOrDefaultAsync(x => x.Id == Id);
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
 
         ByReserv.Status = ReservationStatus.Confirmed;
@@ -544,7 +543,8 @@ public class CarReservationServices : ICarReservationServices
 
     public async Task StatusNow(Guid Id)
     {
-        var ByReserv = await _carReservationReadRepository.GetByIdAsync(Id);
+        var ByReserv = await _carReservationReadRepository
+            .GetAll().Where(x => x.IsDeleted == false).FirstOrDefaultAsync(x => x.Id == Id);
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
 
         ByReserv.Status = ReservationStatus.RightNow;
@@ -641,6 +641,7 @@ public class CarReservationServices : ICarReservationServices
               .Include(x => x.PickupLocation)
               .Include(x => x.ReturnLocation)
               .Where(x => x.AppUserId == Id)
+              .Where(x => x.IsDeleted == false)
               .ToListAsync();
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
 
