@@ -132,6 +132,7 @@ public class CarReservationServices : ICarReservationServices
             };
             await _returnLocationWriteRepository.AddAsync(newReserv.ReturnLocation);
         }
+        if(newReserv.Car.isCampaigns)
 
         await _carReservationWriteRepository.SavaChangeAsync();
     }

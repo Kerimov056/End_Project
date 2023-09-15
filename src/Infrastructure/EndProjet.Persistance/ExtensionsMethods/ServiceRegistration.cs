@@ -82,6 +82,8 @@ public static class ServiceRegistration
         services.AddScoped<IUserMessageReadRepository, UserMessageReadRepository>();
         services.AddScoped<ICommunicationReadRepository, CommunicationReadRepository>();
         services.AddScoped<ICommunicationWriteRepository, CommunicationWriteRepository>();
+        services.AddScoped<ICampaignStatistikaReadRepository, CampaignStatistikaReadRepository>();
+        services.AddScoped<ICampaignStatistikaWriteRepository, CampaignStatistikaWriteRepository>();
 
 
         //Service
