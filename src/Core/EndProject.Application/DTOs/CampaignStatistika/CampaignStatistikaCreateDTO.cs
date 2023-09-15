@@ -1,12 +1,10 @@
-﻿using EndProject.Domain.Entitys.Common;
+﻿namespace EndProject.Application.DTOs.CampaignStatistika;
 
-namespace EndProject.Domain.Entitys;
-
-public class CampaignStatistika : BaseEntity
+public class CampaignStatistikaCreateDTO
 {
     public int ReservationSum { get; set; } = 0;
     public string CampaignName { get; set; }
     public DateTime StartTime { get; set; }
     public DateTime FinshTime { get; set; }
-    public List<CarReservation> Reservations { get; set; }
+    public List<Guid>? ReservationId { get; set; }
 }

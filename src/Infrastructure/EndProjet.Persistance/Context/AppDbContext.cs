@@ -57,6 +57,7 @@ public class AppDbContext : IdentityDbContext<AppUser>
     public DbSet<Like> Likes { get; set; }
     public DbSet<SendUserMessage> SendUserMessages { get; set; }
     public DbSet<Communication> Communications { get; set; }
+    public DbSet<CampaignStatistika> CampaignStatistikas { get; set; }
     //public DbSet<CommentLike> CommentLikes { get; set; }
 }
 
