@@ -247,7 +247,7 @@ public class AuthService : IAuthService
             FullName = registerDTO.Fullname,
             UserName = registerDTO.Username,
             Email = registerDTO.Email,
-            BirthDate = registerDTO.BirthDate,
+            BirthDate = DateTime.Now,
             IsActive = false
         };
 
@@ -271,7 +271,7 @@ public class AuthService : IAuthService
                 Errors = result.Errors.Select(e => e.Description).ToList()
             };
         }
-
+                                               
         return new SignUpResponse
         {
             Errors = null,
@@ -379,30 +379,23 @@ public class AuthService : IAuthService
 
     public async Task PrfileImage(string? Email, IFormFile ImageFile)
     {
-        if (Email is null)
-        {
-            Console.WriteLine("--------------------------------------------------------");
-        }
         var user = await _userManager.FindByEmailAsync(Email);
         if (user != null)
         {
-            if (ImageFile is not null)
-            {
-                user.ImagePath = await ImageFile.GetBytes();
-            }
-
+            if (ImageFile is not null) user.ImagePath = await ImageFile.GetBytes();
             await _context.SaveChangesAsync();
         }
         else throw new NotFoundException("User not Found");
     }
 
-    public async Task<bool> ByAdmin(string email)
+    public async Task<string> ByAdmin()
     {
-        AppUser appUser = await _userManager.FindByEmailAsync(email);
-        if (appUser is null) throw new NotFoundException("User is Null");
-        var userRoles = await _userManager.GetRolesAsync(appUser);
-
-        if (userRoles.Contains("SuperAdmin"))   return true;
-        return false;
+        var users = await _context.Users.ToListAsync();
+        foreach (var item in users)
+        {
+            var userRoles = await _userManager.GetRolesAsync(item);
+            if (userRoles.Contains("SuperAdmin"))  return item.Id.ToString();
+        }
+        throw new NullReferenceException();
     }
 }

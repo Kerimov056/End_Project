@@ -34,9 +34,10 @@ namespace EndProject.API.Controllersş
         }
 
         [HttpPost("register")]
-        [ProducesResponseType(statusCode: StatusCodes.Status200OK)]
+        //[ProducesResponseType(statusCode: StatusCodes.Status200OK)]
         public async Task<IActionResult> Register([FromBody] RegisterDTO registerDTO)
         {
+            Console.WriteLine("-----------------------------------------------------------------------------------------------------------" + registerDTO.BirthDate);
             ArgumentNullException.ThrowIfNull(registerDTO, ExceptionResponseMessages.ParametrNotFoundMessage);
 
             SignUpResponse response = await _authService.Register(registerDTO)
@@ -49,18 +50,20 @@ namespace EndProject.API.Controllersş
                     return BadRequest(response.Errors);
                 }
             }
+            else
+            {
+                string subject = "Register Confirmation";
+                string html = string.Empty;
+                string password = registerDTO.password;
 
-            string subject = "Register Confirmation";
-            string html = string.Empty;
-            string password = registerDTO.password;
+                string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "templates", "verify.html");
+                html = System.IO.File.ReadAllText(filePath);
 
-            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "templates", "verify.html");
-            html = System.IO.File.ReadAllText(filePath);
+                html = html.Replace("{{password}}", password);
 
-            html = html.Replace("{{password}}", password);
+                _emailService.Send(registerDTO.Email, subject, html);
 
-            _emailService.Send(registerDTO.Email, subject, html);
-
+            }
             return Ok(response);
         }
 
@@ -94,7 +97,7 @@ namespace EndProject.API.Controllersş
         }
 
         [HttpPost("ConfiremPassword")]
-        public async Task<IActionResult> ConfiremPassword([FromForm]ResetPassword resetPassword)
+        public async Task<IActionResult> ConfiremPassword([FromForm] ResetPassword resetPassword)
         {
             await _authService.ResetPassword(resetPassword);
             return Ok();
@@ -138,16 +141,16 @@ namespace EndProject.API.Controllersş
 
 
         [HttpGet("AllMember")]
-        public async Task<IActionResult> AllMemberUsers([FromQuery] string? searchUser)
+        public async Task<IActionResult> AllMemberUssers([FromQuery] string? searchUser)
         {
             var memberUsers = await _authService.AllMemberUser(searchUser);
             return Ok(memberUsers);
         }
 
         [HttpGet("ByAdmin")]
-        public async Task<IActionResult> GetSuperAmin([FromQuery] string? email)
+        public async Task<IActionResult> GetSuperAdmin()
         {
-            var SuperAdmin = await _authService.ByAdmin(email);
+            var SuperAdmin = await _authService.ByAdmin();
             return Ok(SuperAdmin);
         }
 

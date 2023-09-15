@@ -42,7 +42,7 @@ public class SliderService : ISliderService
 
     public async Task<List<SliderGetDTO>> GetAllAsync()
     {
-        var silder = await _sliderReadRepository.GetAll().ToListAsync();
+        var silder = await _sliderReadRepository.GetAll().OrderByDescending(x=>x.CreatedDate).ToListAsync();
         if (silder is null) throw new NullReferenceException();
         var EntityToDto = _mapper.Map<List<SliderGetDTO>>(silder);
         foreach (var item in EntityToDto)

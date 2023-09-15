@@ -14,6 +14,6 @@ public interface IAuthService : IExternalAuthentications, IAdminCommands
     Task<TokenResponseDTO> ValidRefleshToken(string refreshToken);
     Task PasswordResetAsnyc(string email);
     Task<bool> ResetPassword(ResetPassword resetPassword);
-    Task<bool> ByAdmin(string email);
+    Task<string> ByAdmin();
 
 }

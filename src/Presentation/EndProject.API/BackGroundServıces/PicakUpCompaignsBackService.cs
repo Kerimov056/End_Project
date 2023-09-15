@@ -33,9 +33,9 @@ public class PicakUpCompaignsBackService : IHostedService
             var today = DateTime.Now;
             var comaignStart = await dbContext.Cars
                                .Where(x => x.Status == CampaignsStatus.CampaignTrue)
-                               .Where(x => x.PickUpCampaigns.Value.Day == today.Day)
-                               .Where(x => x.PickUpCampaigns.Value.Hour == today.Hour)
-                               .Where(x => x.PickUpCampaigns.Value.Minute == today.Minute)
+                               .Where(x => x.PickUpCampaigns.HasValue && x.PickUpCampaigns.Value.Day == today.Day)
+                               .Where(x => x.PickUpCampaigns.HasValue && x.PickUpCampaigns.Value.Hour == today.Hour)
+                               .Where(x => x.PickUpCampaigns.HasValue && x.PickUpCampaigns.Value.Minute == today.Minute)
                                .FirstOrDefaultAsync();
             
             Console.WriteLine("Campagns");
