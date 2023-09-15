@@ -1,12 +1,12 @@
-﻿using EndProject.Application.DTOs.Slider;
+﻿using EndProject.Application.DTOs.CampaignStatistika;
 
 namespace EndProject.Application.Abstraction.Services;
 
 public interface ICampaignStatistikaServices
 {
-    Task<List<SliderGetDTO>> GetAllAsync();
-    Task CreateAsync(SliderCreateDTO sliderCreateDTO);
-    Task<SliderGetDTO> GetByIdAsync(Guid Id);
-    Task UpdateAsync(Guid id, SliderUpdateDTO sliderUptadeDTO);
+    Task<List<CampaignStatistikaGetDTO>> GetAllAsync();
+    Task CreateAsync(CampaignStatistikaCreateDTO campaignStatistikaCreateDTO);
+    Task<CampaignStatistikaGetDTO> GetByIdAsync(Guid Id);
+    Task UpdateAsync(Guid id);
     Task RemoveAsync(Guid id);
 }
