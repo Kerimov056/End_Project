@@ -2,7 +2,7 @@
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.CampaignStatistika;
 
-namespace EndProjet.Persistance.Implementations
+namespace EndProjet.Persistance.Implementations.Services
 {
     public class CampaignStatistikaServices : ICampaignStatistikaServices
     {

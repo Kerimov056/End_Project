@@ -3,7 +3,6 @@ using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Communication;
 using EndProject.Domain.Entitys;
-using EndProject.Domain.Entitys.Identity;
 using EndProjet.Persistance.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
