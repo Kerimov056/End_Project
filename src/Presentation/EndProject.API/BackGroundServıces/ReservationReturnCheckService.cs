@@ -36,6 +36,7 @@ public class ReservationReturnCheckService : IHostedService
 
             var today = DateTime.Now;
             var confirmedReservs =  await dbContext.CarReservations
+                                   .Where(x => x.IsDeleted == false)
                                    .Where(x => x.Status == ReservationStatus.RightNow)
                                    .Where(x => x.ReturnDate.Hour == today.Hour)
                                    .Where(x => x.ReturnDate.Day == today.Day)
