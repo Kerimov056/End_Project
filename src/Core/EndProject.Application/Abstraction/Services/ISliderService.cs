@@ -9,4 +9,7 @@ public interface ISliderService
     Task<SliderGetDTO> GetByIdAsync(Guid Id);
     Task UpdateAsync(Guid id, SliderUpdateDTO sliderUptadeDTO);
     Task RemoveAsync(Guid id);
+
+    //QRCoder
+    Task<byte[]> GetQRCOdoerSlider(Guid Id);
 }

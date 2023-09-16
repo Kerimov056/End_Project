@@ -8,6 +8,7 @@ using EndProject.Infrastructure.Services.Azure;
 using EndProject.Infrastructure.Services.Email;
 using EndProject.Infrastructure.Services.Payment.PayPal;
 using EndProject.Infrastructure.Services.Payment.Stripe;
+using EndProject.Infrastructure.Services.QRCoder;
 using EndProject.Infrastructure.Services.Stroge;
 using EndProject.Infrastructure.Services.Token;
 using Microsoft.Extensions.DependencyInjection;
