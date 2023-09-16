@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "nPhQCeVTMV6VsAEPAfS0ElCdUOQkL0AmqwWzI71POwej2zz/TJF2oYLpdyMhZjjKZZbZF1fvoc+DndqHe4SfYQ==",
+  "dgSpecHash": "h2z9vpYw5iprYPPgbveZO+GJw2GinKoWrTA6ad+TtNy7dXbk7ZoSlfcAvl5hTDtOQXkdnfgAFgFQzNsAoybhdw==",
   "success": true,
   "projectFilePath": "D:\\work2\\End_Project\\src\\Infrastructure\\EndProjet.Persistance\\EndProjet.Persistance.csproj",
   "expectedPackageFiles": [
@@ -78,6 +78,7 @@
     "C:\\Users\\Legion\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\mimekit\\4.1.0\\mimekit.4.1.0.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\Legion\\.nuget\\packages\\qrcoder\\1.4.3\\qrcoder.1.4.3.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\servicestack.client\\6.10.0\\servicestack.client.6.10.0.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\servicestack.interfaces\\6.10.0\\servicestack.interfaces.6.10.0.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\servicestack.stripe\\6.10.0\\servicestack.stripe.6.10.0.nupkg.sha512",

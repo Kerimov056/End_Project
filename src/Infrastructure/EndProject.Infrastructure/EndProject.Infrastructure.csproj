@@ -22,6 +22,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.20.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1" />
+    <PackageReference Include="QRCoder" Version="1.4.3" />
     <PackageReference Include="ServiceStack.Stripe" Version="6.10.0" />
     <PackageReference Include="Stripe.net" Version="42.5.0-beta.1" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.20.0" />

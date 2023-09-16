@@ -19,4 +19,11 @@ public class CampaignStatistikController : ControllerBase
         var Statistika = await _campaignStatistikaServices.GetAllAsync();
         return Ok(Statistika);
     }
+
+    [HttpGet("CarReservStatistika")]
+    public async Task<IActionResult> GetAll(Guid Id)
+    {
+        var Statistika = await _campaignStatistikaServices.GetByIdAsync(Id);
+        return Ok(Statistika);
+    }
 }

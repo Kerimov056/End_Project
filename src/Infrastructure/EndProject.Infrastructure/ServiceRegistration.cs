@@ -34,6 +34,8 @@ public static class ServiceRegistration
         services.AddScoped<CustomerService>();
         services.AddScoped<ChargeService>();
 
+        //QRCode
+        services.AddScoped<IQRCoderServıces, QRCoderServıces>();
     }
     //LocalStorage
     public static void AddStorageFile<T>(this IServiceCollection services) where T : Storage, IStorageFile

@@ -34,7 +34,8 @@ namespace EndProjet.Persistance.Implementations.Services
         public async Task<List<CampaignStatistikaGetDTO>> GetAllAsync()
         {
             var allCamaignStatiska = await _readRepository
-                .GetAll().OrderByDescending(x=>x.CreatedDate).ToListAsync();
+                .GetAll().OrderByDescending(x => x.CreatedDate)
+                .OrderByDescending(x => x.CreatedDate).ToListAsync();
             var toDto = _mapper.Map<List<CampaignStatistikaGetDTO>>(allCamaignStatiska);
             return toDto;
         }

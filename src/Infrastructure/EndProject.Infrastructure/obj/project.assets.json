@@ -741,6 +741,15 @@
           }
         }
       },
+      "QRCoder/1.4.3": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/QRCoder.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/QRCoder.dll": {}
+        }
+      },
       "ServiceStack.Client/6.10.0": {
         "type": "package",
         "dependencies": {
@@ -2446,6 +2455,27 @@
         "packageIcon.png"
       ]
     },
+    "QRCoder/1.4.3": {
+      "sha512": "fWuFqjm8GTlEb2GqBl3Hi8HZZeZQwBSHxvRPtPjyNbT82H0ff0JwavKRBmMaXCno1Av6McPC8aJzri0Mj2w9Jw==",
+      "type": "package",
+      "path": "qrcoder/1.4.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net35/QRCoder.dll",
+        "lib/net40/QRCoder.dll",
+        "lib/net5.0-windows7.0/QRCoder.dll",
+        "lib/net5.0/QRCoder.dll",
+        "lib/net6.0-windows7.0/QRCoder.dll",
+        "lib/net6.0/QRCoder.dll",
+        "lib/netstandard1.3/QRCoder.dll",
+        "lib/netstandard2.0/QRCoder.dll",
+        "nuget-icon.png",
+        "nuget-readme.md",
+        "qrcoder.1.4.3.nupkg.sha512",
+        "qrcoder.nuspec"
+      ]
+    },
     "ServiceStack.Client/6.10.0": {
       "sha512": "NBVhvgXOGrgRPEPcVh48faowiMw/EWL1CCZwdArDjfoqhY8A1Dkb4RVsZC4/pYA3oyk0I5dFd12Fj9jwprpFTQ==",
       "type": "package",
@@ -3318,6 +3348,7 @@
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.20",
       "Microsoft.IdentityModel.Tokens >= 6.20.0",
       "Microsoft.VisualStudio.Azure.Containers.Tools.Targets >= 1.18.1",
+      "QRCoder >= 1.4.3",
       "ServiceStack.Stripe >= 6.10.0",
       "Stripe.net >= 42.5.0-beta.1",
       "System.IdentityModel.Tokens.Jwt >= 6.20.0",
@@ -3400,6 +3431,10 @@
           "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
             "target": "Package",
             "version": "[1.18.1, )"
+          },
+          "QRCoder": {
+            "target": "Package",
+            "version": "[1.4.3, )"
           },
           "ServiceStack.Stripe": {
             "target": "Package",
