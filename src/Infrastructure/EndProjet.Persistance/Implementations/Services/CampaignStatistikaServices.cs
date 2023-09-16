@@ -1,6 +1,10 @@
-﻿using EndProject.Application.Abstraction.Repositories.IEntityRepository;
+﻿using AutoMapper;
+using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.CampaignStatistika;
+using EndProject.Domain.Entitys;
+using EndProjet.Persistance.Exceptions;
+using Microsoft.EntityFrameworkCore;
 
 namespace EndProjet.Persistance.Implementations.Services
 {
@@ -8,37 +12,60 @@ namespace EndProjet.Persistance.Implementations.Services
     {
         private readonly ICampaignStatistikaReadRepository _readRepository;
         private readonly ICampaignStatistikaWriteRepository _writeRepository;
+        private readonly IMapper _mapper;
 
         public CampaignStatistikaServices(ICampaignStatistikaReadRepository readRepository,
-                                          ICampaignStatistikaWriteRepository writeRepository)
+                                          ICampaignStatistikaWriteRepository writeRepository,
+                                          IMapper mapper)
         {
             _readRepository = readRepository;
             _writeRepository = writeRepository;
+            _mapper = mapper;
         }
 
-        public Task CreateAsync(CampaignStatistikaCreateDTO campaignStatistikaCreateDTO)
+        public async Task CreateAsync(CampaignStatistikaCreateDTO campaignStatistikaCreateDTO)
         {
-            throw new NotImplementedException();
+            var CamaignStatiska = _mapper.Map<CampaignStatistika>(campaignStatistikaCreateDTO);
+            CamaignStatiska.ReservationSum = 1;
+            await _writeRepository.AddAsync(CamaignStatiska);
+            await _writeRepository.SavaChangeAsync();
         }
 
-        public Task<List<CampaignStatistikaGetDTO>> GetAllAsync()
+        public async Task<List<CampaignStatistikaGetDTO>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var allCamaignStatiska = await _readRepository
+                .GetAll().OrderByDescending(x=>x.CreatedDate).ToListAsync();
+            var toDto = _mapper.Map<List<CampaignStatistikaGetDTO>>(allCamaignStatiska);
+            return toDto;
         }
 
-        public Task<CampaignStatistikaGetDTO> GetByIdAsync(Guid Id)
+        public async Task<CampaignStatistikaGetDTO> GetByIdAsync(Guid Id)
         {
-            throw new NotImplementedException();
+            var byCamaignStatiska = await _readRepository.GetByIdAsync(Id);
+            if (byCamaignStatiska is null) throw new NotFoundException("CamaignStatiska is null");
+
+            var toDto = _mapper.Map<CampaignStatistikaGetDTO>(byCamaignStatiska);
+            return toDto;
         }
 
-        public Task RemoveAsync(Guid id)
+        public async Task RemoveAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var byCamaignStatiska = await _readRepository.GetByIdAsync(id);
+            if (byCamaignStatiska is null) throw new NotFoundException("CamaignStatiska is null");
+
+            _writeRepository.Remove(byCamaignStatiska);
+            await _writeRepository.SavaChangeAsync();
         }
 
-        public Task UpdateAsync(Guid id)
+        public async Task UpdateAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var byCamaignStatiska = await _readRepository.GetByIdAsync(id);
+            if (byCamaignStatiska is null) throw new NotFoundException("CamaignStatiska is null");
+
+            byCamaignStatiska.ReservationSum = byCamaignStatiska.ReservationSum + 1;
+
+            _writeRepository.Update(byCamaignStatiska);
+            await _writeRepository.SavaChangeAsync();
         }
     }
 }
