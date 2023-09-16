@@ -8,5 +8,4 @@ public class CampaignStatistika : BaseEntity
     public string CampaignName { get; set; }
     public DateTime StartTime { get; set; }
     public DateTime FinshTime { get; set; }
-    public List<CarReservation> Reservations { get; set; }
 }

@@ -376,9 +376,6 @@ namespace EndProjet.Persistance.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<Guid?>("CampaignStatistikaId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("CarId")
                         .HasColumnType("uniqueidentifier");
 
@@ -426,8 +423,6 @@ namespace EndProjet.Persistance.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AppUserId");
-
-                    b.HasIndex("CampaignStatistikaId");
 
                     b.HasIndex("CarId");
 
@@ -1215,10 +1210,6 @@ namespace EndProjet.Persistance.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EndProject.Domain.Entitys.CampaignStatistika", null)
-                        .WithMany("Reservations")
-                        .HasForeignKey("CampaignStatistikaId");
-
                     b.HasOne("EndProject.Domain.Entitys.Car", "Car")
                         .WithMany("Reservations")
                         .HasForeignKey("CarId")
@@ -1392,11 +1383,6 @@ namespace EndProjet.Persistance.Migrations
             modelBuilder.Entity("EndProject.Domain.Entitys.Blog", b =>
                 {
                     b.Navigation("BlogImages");
-                });
-
-            modelBuilder.Entity("EndProject.Domain.Entitys.CampaignStatistika", b =>
-                {
-                    b.Navigation("Reservations");
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.Car", b =>

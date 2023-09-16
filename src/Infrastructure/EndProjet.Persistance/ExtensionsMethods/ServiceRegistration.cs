@@ -107,6 +107,7 @@ public static class ServiceRegistration
         services.AddScoped<ISendUserMessageServices, SendUserMessageServices>();
         services.AddScoped<ICommunicationServices, CommunicationServices>();
         services.AddScoped<IPickUpServices, PickUpServices>();
+        services.AddScoped<ICampaignStatistikaServices, CampaignStatistikaServices>();
 
 
 

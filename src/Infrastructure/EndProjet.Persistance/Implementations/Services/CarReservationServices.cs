@@ -2,6 +2,7 @@
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.Abstraction.Services.Stroge;
+using EndProject.Application.DTOs.CampaignStatistika;
 using EndProject.Application.DTOs.CarReservation;
 using EndProject.Domain.Entitys;
 using EndProject.Domain.Entitys.Common;
@@ -25,6 +26,8 @@ public class CarReservationServices : ICarReservationServices
     private readonly IStorageFile _uploadFile;
     private readonly IMapper _mapper;
     private readonly IBasketServices _basketServices;
+    private readonly ICampaignStatistikaServices _campaignStatistikaServices;
+    private readonly ICampaignStatistikaReadRepository _campaignStatistikaReadRepository;
 
     public CarReservationServices(ICarReservationReadRepository carReservationReadRepository,
                                   ICarReservationWriteRepository carReservationWriteRepository,
@@ -35,7 +38,9 @@ public class CarReservationServices : ICarReservationServices
                                   IStorageFile uploadFile,
                                   ICarServices carServices,
                                   IChauffeursServices chauffeursServices,
-                                  IBasketServices basketServices)
+                                  IBasketServices basketServices,
+                                  ICampaignStatistikaServices campaignStatistikaServices,
+                                  ICampaignStatistikaReadRepository campaignStatistikaReadRepository)
     {
         _carReservationReadRepository = carReservationReadRepository;
         _carReservationWriteRepository = carReservationWriteRepository;
@@ -47,6 +52,8 @@ public class CarReservationServices : ICarReservationServices
         _carServices = carServices;
         _chauffeursServices = chauffeursServices;
         _basketServices = basketServices;
+        _campaignStatistikaServices = campaignStatistikaServices;
+        _campaignStatistikaReadRepository = campaignStatistikaReadRepository;
     }
 
     public async Task AllCreateAsync(AllCarReservation AllCarReservation)
@@ -130,11 +137,33 @@ public class CarReservationServices : ICarReservationServices
                 Latitude = lat,
                 Longitude = lng
             };
-            await _returnLocationWriteRepository.AddAsync(newReserv.ReturnLocation);
-        }
-        if(newReserv.Car.isCampaigns)
+            await _returnLocationWriteRepository.AddAsync(newReserv.ReturnLocation); //c9b00ddc-33d8-4135-bf52-08dbb621986a   
+        }                                            //4d12fb35-a688-4270-9c51-f28d4b19e3ae
 
         await _carReservationWriteRepository.SavaChangeAsync();
+
+        var ByCar = await _carServices.GetByIdAsync(newReserv.CarId);
+
+        if(ByCar.isCampaigns == true)
+        {
+            var byStatistika = _campaignStatistikaReadRepository
+                         .GetAll().FirstOrDefault(x => x.StartTime == ByCar.PickUpCampaigns);
+            if(byStatistika is null)
+            {
+                var campaignStatistikaDTO = new CampaignStatistikaCreateDTO
+                {
+                    CampaignName = ByCar.CampaignName,
+                    ReservationSum = 1,
+                    StartTime = ByCar.PickUpCampaigns,
+                    FinshTime = ByCar.ReturnCampaigns,
+                };
+                await _campaignStatistikaServices.CreateAsync(campaignStatistikaDTO);
+            }
+            else
+            {
+                await _campaignStatistikaServices.UpdateAsync(byStatistika.Id);
+            }
+        }
     }
 
     public async Task<List<CarReservationGetDTO>> GetAllAsync()

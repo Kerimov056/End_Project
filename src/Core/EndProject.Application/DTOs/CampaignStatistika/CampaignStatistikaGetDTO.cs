@@ -9,5 +9,4 @@ public class CampaignStatistikaGetDTO
     public string NameCampaignName { get; set; }
     public DateTime StartTime { get; set; }
     public DateTime FinshTime { get; set; }
-    public List<CarReservationGetDTO>? Reservation { get; set; }
 }
