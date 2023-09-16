@@ -29,5 +29,6 @@ public interface ICarReservationServices
     Task<int> GetCompletedCountAsync();
     Task<int> GetCanceledCountAsync();
     Task<int> GetCanceledNowAsync();
+    Task<int> NotCompaignStaitsika();
 
 }

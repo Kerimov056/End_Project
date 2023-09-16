@@ -49,4 +49,14 @@ public class CarReservationReadRepository : ReadRepository<CarReservation>, ICar
             .Where(x => x.Status == ReservationStatus.Pending)
             .Where(x => x.IsDeleted == false).CountAsync();
     }
+
+    public async Task<int> NotCompaignStaitsik() //d2cb6d2a-0d22-4437-a8fa-29fdaf8b1341
+    {
+
+        var CampaignSum = await _appDbContext.CarReservations
+                         .Where(x => x.Car.isCampaigns == false)
+                         .CountAsync();
+
+        return CampaignSum;
+    }
 }

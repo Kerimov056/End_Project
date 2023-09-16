@@ -93,6 +93,13 @@ public class CarReservationsController : ControllerBase
         return Ok(Slider);
     }
 
+    [HttpGet("NotCompaignStaitsika")]
+    public async Task<IActionResult> GetReservStatistik()
+    {
+        var statistik = await _carReservationServices.NotCompaignStaitsika();
+        return Ok(statistik);
+    }
+    
     [HttpGet("ReservComplatedCount")]
     public async Task<IActionResult> GetReservComplated()
     {

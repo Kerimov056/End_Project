@@ -411,6 +411,13 @@ public class CarServices : ICarServices
         return ToDto;
     }
 
+    public async Task<CarGetDTO> GetByIdIsAsync(Guid Id)
+    {
+        var ByCar = await _carReadRepository.GetByIdAsync(Id);
+        var toDto = _mapper.Map<CarGetDTO>(ByCar);
+        return toDto;
+    }
+
     public async Task<List<CarGetDTO>> GetByNameAsync(string? car, string? model)
     {
         var ByCar = _carReadRepository

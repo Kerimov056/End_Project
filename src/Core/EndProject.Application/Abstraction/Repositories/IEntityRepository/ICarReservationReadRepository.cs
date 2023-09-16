@@ -9,4 +9,5 @@ public interface ICarReservationReadRepository: IReadRepository<CarReservation>
     Task<int> GetReservCompletedCountAsync();
     Task<int> GetReservCanceledCountAsync();
     Task<int> GetReservNowCountAsync();
+    Task<int> NotCompaignStaitsik();
 }

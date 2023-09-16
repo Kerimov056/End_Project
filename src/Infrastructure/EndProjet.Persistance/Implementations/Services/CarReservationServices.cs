@@ -140,15 +140,14 @@ public class CarReservationServices : ICarReservationServices
             await _returnLocationWriteRepository.AddAsync(newReserv.ReturnLocation); //c9b00ddc-33d8-4135-bf52-08dbb621986a   
         }                                            //4d12fb35-a688-4270-9c51-f28d4b19e3ae
 
-        await _carReservationWriteRepository.SavaChangeAsync();
 
-        var ByCar = await _carServices.GetByIdAsync(newReserv.CarId);
+        var ByCar = await _carServices.GetByIdIsAsync(newReserv.CarId);
 
-        if(ByCar.isCampaigns == true)
+        if (ByCar.isCampaigns == true)
         {
             var byStatistika = _campaignStatistikaReadRepository
-                         .GetAll().FirstOrDefault(x => x.StartTime == ByCar.PickUpCampaigns);
-            if(byStatistika is null)
+                            .GetAll().FirstOrDefault(x => x.CampaignName == ByCar.CampaignName);
+            if (byStatistika is null)
             {
                 var campaignStatistikaDTO = new CampaignStatistikaCreateDTO
                 {
@@ -164,6 +163,8 @@ public class CarReservationServices : ICarReservationServices
                 await _campaignStatistikaServices.UpdateAsync(byStatistika.Id);
             }
         }
+
+        await _carReservationWriteRepository.SavaChangeAsync();
     }
 
     public async Task<List<CarReservationGetDTO>> GetAllAsync()
@@ -522,6 +523,9 @@ public class CarReservationServices : ICarReservationServices
         }
         return ToDto;
     }
+
+    public async Task<int> NotCompaignStaitsika()
+     =>   await _carReservationReadRepository.NotCompaignStaitsik();
 
     public async Task RemoveAsync(Guid id)
     {
