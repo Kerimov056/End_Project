@@ -7,6 +7,7 @@ using EndProject.Domain.Entitys;
 using EndProject.Domain.Entitys.Common;
 using EndProjet.Persistance.ExtensionsMethods;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 namespace EndProjet.Persistance.Implementations.Services;
 
@@ -16,15 +17,18 @@ public class SliderService : ISliderService
     private readonly ISliderWriteRepository _sliderWriteRepository;
     private readonly IStorageFile _uploadFile;
     private readonly IMapper _mapper;
+    private readonly IQRCoderServıces _qrcoderServ;
     public SliderService(ISliderReadRepository sliderReadRepository,
                          ISliderWriteRepository sliderWriteRepository,
                          IMapper mapper,
-                         IStorageFile uploadFile)
+                         IStorageFile uploadFile,
+                         IQRCoderServıces qrcoderServ)
     {
         _sliderReadRepository = sliderReadRepository;
         _sliderWriteRepository = sliderWriteRepository;
         _uploadFile = uploadFile;
         _mapper = mapper;
+        _qrcoderServ = qrcoderServ;
     }
 
 
@@ -64,6 +68,19 @@ public class SliderService : ISliderService
         var EntityToDto = _mapper.Map<SliderGetDTO>(BySlider);
         EntityToDto.imagePath = Convert.ToBase64String(BySlider.Imagepath);
         return EntityToDto;
+    }
+
+    public async Task<byte[]> GetQRCOdoerSlider(Guid Id)
+    {
+        var BySlider = await _sliderReadRepository.GetByIdAsync(Id);
+        if (BySlider is null) throw new NullReferenceException();
+
+        var plaingObject = new
+        {
+            BySlider.Imagepath
+        };
+        string plainText = JsonSerializer.Serialize(plaingObject);
+        return _qrcoderServ.GenerateQRCode(plainText);
     }
 
     public async Task RemoveAsync(Guid id)

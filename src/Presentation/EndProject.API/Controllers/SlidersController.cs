@@ -21,6 +21,13 @@ public class SlidersController : ControllerBase
 
         return Ok(Slider);
     }
+    
+    [HttpGet("qrcode/{sliderId}")]
+    public async Task<IActionResult> GetQrCodeToProduct([FromRoute] Guid sliderId)
+    {
+        var data = await _sliderService.GetQRCOdoerSlider(sliderId);
+        return File(data,"image/png");
+    }
 
     [HttpPost]
     public async Task<IActionResult> Post([FromForm] SliderCreateDTO sliderCreateDTO)
