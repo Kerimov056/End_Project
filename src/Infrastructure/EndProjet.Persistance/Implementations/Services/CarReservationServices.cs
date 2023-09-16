@@ -158,10 +158,7 @@ public class CarReservationServices : ICarReservationServices
                 };
                 await _campaignStatistikaServices.CreateAsync(campaignStatistikaDTO);
             }
-            else
-            {
-                await _campaignStatistikaServices.UpdateAsync(byStatistika.Id);
-            }
+            else  await _campaignStatistikaServices.UpdateAsync(byStatistika.Id);
         }
 
         await _carReservationWriteRepository.SavaChangeAsync();
