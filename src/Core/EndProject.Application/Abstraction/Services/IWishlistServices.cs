@@ -1,12 +1,12 @@
-﻿//using EndProject.Application.DTOs.Basket;
+﻿using EndProject.Application.DTOs.Wishlist;
 
-//namespace EndProject.Application.Abstraction.Services;
+namespace EndProject.Application.Abstraction.Services;
 
-//public interface IWishlistServices
-//{
-//    Task AddBasketAsync(Guid Id, string AppUserId);
-//    Task<List<BasketProductListDto>> GetBasketProductsAsync(string AppUserId);
-//    Task DeleteBasketAsync(Guid id, string AppUserId);
-//    Task<int> GetBasketCountAsync(string AppUserId);
-//    Task DeleteBasketItemAsync(Guid carId, string AppUserId);
-//}
+public interface IWishlistServices
+{
+    Task AddWishlistAsync(Guid Id, string AppUserId);
+    Task<List<WishlistProductDto>> GetWishlistProductsAsync(string AppUserId);
+    Task DeleteBasketAsync(Guid id, string AppUserId);
+    Task<int> GetWishlistCountAsync(string AppUserId);
+    Task DeleteWishlistItemAsync(Guid carId, string AppUserId);
+}

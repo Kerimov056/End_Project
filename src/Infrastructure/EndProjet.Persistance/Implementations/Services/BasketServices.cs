@@ -3,7 +3,6 @@ using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Basket;
 using EndProject.Domain.Entitys;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace EndProjet.Persistance.Implementations.Services;
@@ -13,20 +12,17 @@ public class BasketServices : IBasketServices
     private readonly IBasketReadRepository _readRepository;
     private readonly IBasketWriteRepository _writeRepository;
     private readonly IMapper _mapper;
-    private readonly IHttpContextAccessor _contextAccessor;
     private readonly IBasketProducServices _productsServices;
     private readonly ICarServices _carServices;
 
     public BasketServices(IBasketReadRepository readRepository,
                           IBasketWriteRepository writeRepository,
-                          IHttpContextAccessor contextAccessor,
                           IMapper mapper,
                           IBasketProducServices basketProducServices,
                           ICarServices carServices)
     {
         _readRepository = readRepository;
         _writeRepository = writeRepository;
-        _contextAccessor = contextAccessor;
         _productsServices = basketProducServices;
         _mapper = mapper;
         _carServices = carServices;
