@@ -10,14 +10,20 @@ public class WishlistServices : IWishlistServices
     private readonly IWishlistProductReadRepository _wishlistReadRepository;
     private readonly IWishlistProductWriteRepository _wishlistWriteRepository;
     private readonly IMapper _mapper;
+    private readonly IWishlistProductServices _wishlistProductServices;
+    private readonly ICarServices _carServices;
 
     public WishlistServices(IWishlistProductReadRepository wishlistReadRepository,
                             IWishlistProductWriteRepository wishlistWriteRepository,
-                            IMapper mapper)
+                            IMapper mapper,
+                            IWishlistProductServices wishlistProductServices,
+                            ICarServices carServices)
     {
         _wishlistReadRepository = wishlistReadRepository;
         _wishlistWriteRepository = wishlistWriteRepository;
         _mapper = mapper;
+        _wishlistProductServices = wishlistProductServices;
+        _carServices = carServices;
     }
 
     public Task AddWishlistAsync(Guid Id, string AppUserId)
