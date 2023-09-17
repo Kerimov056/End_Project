@@ -1,5 +1,6 @@
 ﻿using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Car;
+using EndProjet.Persistance.Implementations.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -27,7 +28,15 @@ public class CarController : ControllerBase
         var carsPage = cars.Skip((page - 1) * pageSize).Take(pageSize);
         return Ok(carsPage);
     }
-    
+
+    [HttpGet("qrcode")]
+    public async Task<IActionResult> GetQrCodeById(Guid id)
+    {
+        var data = await _carServices.GetByIdQrCode(id);
+        return File(data, "image/png");
+    }
+
+
     [HttpGet("GetAll-CompaignAsync")]
     public async Task<IActionResult> GetAllCompaigAsync()
     {

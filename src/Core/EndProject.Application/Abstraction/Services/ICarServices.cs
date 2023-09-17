@@ -10,6 +10,7 @@ public interface ICarServices
     Task CreateAsync(CarCreateDTO carCreateDTO);
     Task<CarGetDTO> GetByIdAsync(Guid Id);
     Task<CarGetDTO> GetByIdIsAsync(Guid Id);
+    Task<byte[]> GetByIdQrCode(Guid Id);
     Task<List<string>> GetAllCarMarka();
     Task<List<string>> GetAllCarModel();
     Task<List<CarGetDTO>> GetByNameAsync(string? car, string? model);

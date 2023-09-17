@@ -12,6 +12,7 @@ using EndProjet.Persistance.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
+using System.Text.Json;
 
 namespace EndProjet.Persistance.Implementations.Services;
 
@@ -32,6 +33,7 @@ public class CarServices : ICarServices
     private readonly ICarReservationReadRepository _carReservationReadRepository;
     private readonly UserManager<AppUser> _userManager;
     private readonly IEmailService _emailService;
+    private readonly IQRCoderServıces _iqRCoderServ;
     public CarServices(ICarReadRepository carReadRepository,
                        ICarWriteRepository carWriteRepository,
                        IMapper mapper,
@@ -45,7 +47,8 @@ public class CarServices : ICarServices
                        ICarTagReadRepository carTagReadRepository,
                        ICarReservationReadRepository carReservationReadRepository,
                        UserManager<AppUser> userManager,
-                       IEmailService emailService)
+                       IEmailService emailService,
+                       IQRCoderServıces iqRCoderServ)
     {
         _carReadRepository = carReadRepository;
         _carWriteRepository = carWriteRepository;
@@ -61,6 +64,7 @@ public class CarServices : ICarServices
         _carReservationReadRepository = carReservationReadRepository;
         _userManager = userManager;
         _emailService = emailService;
+        _iqRCoderServ = iqRCoderServ;
     }
 
     public async Task Campaigns(CarCampaignsDTO carCampaignsDTO)
@@ -416,6 +420,39 @@ public class CarServices : ICarServices
         var ByCar = await _carReadRepository.GetByIdAsync(Id);
         var toDto = _mapper.Map<CarGetDTO>(ByCar);
         return toDto;
+    }
+
+    public async Task<byte[]> GetByIdQrCode(Guid Id)
+    {
+        var ByCar = await _carReadRepository
+           .GetAll()
+           .Include(x => x.carTags)
+           .Include(x => x.carType)
+           .Include(x => x.carCategory)
+           .Include(x => x.Comments)
+           .ThenInclude(x => x.Like)
+           .Include(x => x.carImages)
+           .Include(x => x.Reservations)
+           .OrderByDescending(x => x.CreatedDate)
+           .FirstOrDefaultAsync(x => x.Id == Id);
+
+        if (ByCar is null) throw new NotFoundException("Car is Null");
+        ByCar.Reservations = null;
+
+        var plaingObject = new
+        {
+            ByCar.Marka,
+            ByCar.Model,
+            ByCar.Price,
+            ByCar.Year,
+            ByCar.CampaignsPrice,
+            ByCar.CampaignsInterest,
+            ByCar.CampaignName,
+            ByCar.carType.type,
+            ByCar.carCategory.Category,
+        };
+        string plainText = JsonSerializer.Serialize(plaingObject);
+        return _iqRCoderServ.GenerateQRCode(plainText);
     }
 
     public async Task<List<CarGetDTO>> GetByNameAsync(string? car, string? model)
