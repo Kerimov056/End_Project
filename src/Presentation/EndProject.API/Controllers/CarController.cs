@@ -33,6 +33,16 @@ public class CarController : ControllerBase
     public async Task<IActionResult> GetQrCodeById(Guid id)
     {
         var data = await _carServices.GetByIdQrCode(id);
+        var base64String = Convert.ToBase64String(data);
+        var imgSrc = $"data:image/png;base64,{base64String}";
+        return Ok(new { ImageSrc = imgSrc });
+    }
+    
+    ///  Bu Gamil Ucundur.
+    [HttpGet("qrcodeImage")]
+    public async Task<IActionResult> GetQrCodeByIdImage(Guid id)
+    {
+        var data = await _carServices.GetByIdQrCode(id);
         return File(data, "image/png");
     }
 

@@ -10,7 +10,6 @@ public interface ICarServices
     Task CreateAsync(CarCreateDTO carCreateDTO);
     Task<CarGetDTO> GetByIdAsync(Guid Id);
     Task<CarGetDTO> GetByIdIsAsync(Guid Id);
-    Task<byte[]> GetByIdQrCode(Guid Id);
     Task<List<string>> GetAllCarMarka();
     Task<List<string>> GetAllCarModel();
     Task<List<CarGetDTO>> GetByNameAsync(string? car, string? model);
@@ -27,8 +26,11 @@ public interface ICarServices
     Task<int> GetCarCountAsync();
     Task<int> GetReservCarCountAsync();
 
+    //QRCode
+    Task<byte[]> GetByIdQrCode(Guid Id);
+
     //--------------------------------
-                //Compagins
+    //Compagins
 
     Task Campaigns(CarCampaignsDTO carCampaignsDTO);
     Task CompaignsChangePrice();
@@ -36,7 +38,6 @@ public interface ICarServices
     Task<bool> IsCampaigns();
     Task StopCompaigns(string superAdminId);
     Task<List<CarGetDTO>> GetAllCompaignAsync();
-
 
 
     //---------------------------------

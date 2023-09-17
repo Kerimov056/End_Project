@@ -343,3 +343,4 @@ D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\EndProject
 D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\EndProject.API.genruntimeconfig.cache
 D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\ref\EndProject.API.dll
 D:\work2\End_Project\src\Presentation\EndProject.API\bin\Debug\net6.0\QRCoder.dll
+D:\work2\End_Project\src\Presentation\EndProject.API\obj\Debug\net6.0\EndProject.API.MvcApplicationPartsAssemblyInfo.cs

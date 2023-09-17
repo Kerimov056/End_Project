@@ -4,6 +4,7 @@ using EndProject.Application.DTOs.CarReservation;
 using EndProject.Domain.Entitys.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Net;
 
 namespace EndProject.API.Controllers;
@@ -17,18 +18,24 @@ public class CarReservationsController : ControllerBase
     private readonly UserManager<AppUser> _userManager;
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly ICarReadRepository _carReadRepository;
+    private readonly IQRCoderServıces _qRCoderServ;
+    private readonly ICarServices _carServices;
 
     public CarReservationsController(ICarReservationServices carReservationServices,
                                      IEmailService emailService,
                                      UserManager<AppUser> userManager,
                                      RoleManager<IdentityRole> roleManager,
-                                     ICarReadRepository carReadRepository)
+                                     ICarReadRepository carReadRepository,
+                                     IQRCoderServıces qRCoderServ,
+                                     ICarServices carServices)
     {
         _carReservationServices = carReservationServices;
         _emailService = emailService;
         _userManager = userManager;
         _roleManager = roleManager;
         _carReadRepository = carReadRepository;
+        _qRCoderServ = qRCoderServ;
+        _carServices = carServices;
     }
 
     [HttpGet]
@@ -99,7 +106,7 @@ public class CarReservationsController : ControllerBase
         var statistik = await _carReservationServices.NotCompaignStaitsika();
         return Ok(statistik);
     }
-    
+
     [HttpGet("ReservComplatedCount")]
     public async Task<IActionResult> GetReservComplated()
     {
@@ -149,37 +156,20 @@ public class CarReservationsController : ControllerBase
     public async Task<IActionResult> Post([FromForm] CarReservationCreateDTO carReservationCreateDTO)
     {
         await _carReservationServices.CreateAsync(carReservationCreateDTO);
-        //string subject = "There is a new reservation";
-        //string html = string.Empty;
+        string subject = "There is a new reservation";
+        string html = string.Empty;
 
-        //string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "templates", "newReservation.html");
-        //html = System.IO.File.ReadAllText(filePath);
+        string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "templates", "newReservation.html");
+        html = System.IO.File.ReadAllText(filePath);
 
-        //var byCar = await _carReadRepository.GetByIdAsync(carReservationCreateDTO.CarId);
+        var byCar = await _carServices.GetByIdAsync(carReservationCreateDTO.CarId);
+        var QrImage = $"https://localhost:7152/api/Car/qrcodeImage?id={carReservationCreateDTO.CarId}";
 
-        //html = html.Replace("{{Email}}", carReservationCreateDTO.Email);
-        //html = html.Replace("{{Number}}", carReservationCreateDTO.Number);
-        //html = html.Replace("{{Marka}}", byCar.Marka);
-        //html = html.Replace("{{Model}}", byCar.Model);
+        html = html.Replace("{{Marka}}", byCar.Marka);
+        html = html.Replace("{{Model}}", byCar.Model);
+        html = html.Replace("{{QrCodeCar}}", QrImage);   
 
-
-        //var adminRoles = await _roleManager.Roles
-        // .Where(r => r.Name == "Admin" || r.Name == "SuperAdmin")
-        // .ToListAsync();
-
-        //var adminUsersList = new List<AppUser>();
-
-        //foreach (var role in adminRoles)
-        //{
-        //    var adminUsers = await _userManager.GetUsersInRoleAsync(role.Name);
-        //    adminUsersList.AddRange(adminUsers);
-        //}
-
-        //var adminUserEmails = adminUsersList.Select(user => user.Email).ToList();
-        //foreach (var item in adminUserEmails)
-        //{
-        //    _emailService.Send(item, subject, html);
-        //}
+        _emailService.Send(carReservationCreateDTO.Email, subject, html);
 
         return StatusCode((int)HttpStatusCode.Created);
     }
