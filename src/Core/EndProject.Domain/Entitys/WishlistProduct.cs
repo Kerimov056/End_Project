@@ -1,8 +1,8 @@
-﻿using Stripe;
+﻿using EndProject.Domain.Entitys.Common;
 
 namespace EndProject.Domain.Entitys;
 
-public class WishlistProduct
+public class WishlistProduct:BaseEntity
 {
     public int Quantity { get; set; }
     public Guid WishlistId { get; set; }
