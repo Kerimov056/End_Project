@@ -58,6 +58,8 @@ public class AppDbContext : IdentityDbContext<AppUser>
     public DbSet<SendUserMessage> SendUserMessages { get; set; }
     public DbSet<Communication> Communications { get; set; }
     public DbSet<CampaignStatistika> CampaignStatistikas { get; set; }
+    public DbSet<Wishlist> Wishlists { get; set; }
+    public DbSet<WishlistProduct> WishlistProducts { get; set; }
     //public DbSet<CommentLike> CommentLikes { get; set; }
 }
 
