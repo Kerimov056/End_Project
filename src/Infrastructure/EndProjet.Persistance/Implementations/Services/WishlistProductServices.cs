@@ -1,5 +1,6 @@
 ﻿using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
+using EndProjet.Persistance.Exceptions;
 
 namespace EndProjet.Persistance.Implementations.Services;
 
@@ -15,8 +16,12 @@ public class WishlistProductServices : IWishlistProductServices
         _wishlistProductWriteRepository = wishlistProductWriteRepository;
     }
 
-    public Task RemoveAsync(Guid id)
+    public async Task RemoveAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var byProduct = await _wishlistProductReadRepository.GetByIdAsync(id);
+        if (byProduct is null) throw new NotFoundException("Produst is Null");
+
+        _wishlistProductWriteRepository.Remove(byProduct);
+        await _wishlistProductWriteRepository.SavaChangeAsync();
     }
 }
