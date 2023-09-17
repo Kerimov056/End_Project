@@ -1,7 +1,5 @@
 ﻿using EndProject.Application.Abstraction.Services;
-using EndProject.Application.DTOs.Advantage;
 using EndProject.Application.DTOs.Faq;
-using EndProjet.Persistance.Implementations.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -35,6 +33,14 @@ public class FaqsController : ControllerBase
     {
         var BySlider = await _faqServices.GetByIdAsync(id);
         return Ok(BySlider);
+    }
+
+
+    [HttpGet("qrcode")]
+    public async Task<IActionResult> GetQrCodeById(Guid id)
+    {
+        var data = await _faqServices.GetQrCodeByIdAsync(id);
+        return File(data, "image/png");
     }
 
     [HttpDelete("{id:Guid}")]

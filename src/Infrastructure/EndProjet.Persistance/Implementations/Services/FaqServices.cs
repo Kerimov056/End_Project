@@ -5,6 +5,7 @@ using EndProject.Application.DTOs.Faq;
 using EndProject.Domain.Entitys;
 using EndProjet.Persistance.Exceptions;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 namespace EndProjet.Persistance.Implementations.Services;
 
@@ -13,14 +14,17 @@ public class FaqServices : IFaqServices
     private readonly IFaqReadRepository _faqReadRepository;
     private readonly IFaqWriteRepository _faqWriteRepository;
     private readonly IMapper _mapper;
+    private readonly IQRCoderServıces _iqRCoderServ;
 
     public FaqServices(IFaqReadRepository faqReadRepository,
                        IFaqWriteRepository faqWriteRepository,
-                       IMapper mapper)
+                       IMapper mapper,
+                       IQRCoderServıces iqRCoderServ)
     {
         _faqReadRepository = faqReadRepository;
         _faqWriteRepository = faqWriteRepository;
         _mapper = mapper;
+        _iqRCoderServ = iqRCoderServ;
     }
 
     public async Task CreateAsync(string Title, string Descrption)
@@ -57,6 +61,20 @@ public class FaqServices : IFaqServices
 
         var ToDto = _mapper.Map<FaqGetDTO>(byFaq);
         return ToDto;
+    }
+
+    public async Task<byte[]> GetQrCodeByIdAsync(Guid Id)
+    {
+        var byFaq = await _faqReadRepository.GetByIdAsync(Id);
+        if (byFaq is null) throw new NotFoundException("Faqs is Null");
+
+        var plaingObject = new
+        {
+            byFaq.Title,
+            byFaq.Descrption
+        };
+        string plainText = JsonSerializer.Serialize(plaingObject);
+        return _iqRCoderServ.GenerateQRCode(plainText);
     }
 
     public async Task RemoveAsync(Guid id)

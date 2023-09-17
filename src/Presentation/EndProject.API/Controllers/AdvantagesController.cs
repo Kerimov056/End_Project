@@ -35,6 +35,13 @@ public class AdvantagesController : ControllerBase
         return Ok(BySlider);
     }
 
+    [HttpGet("qrcode")]
+    public async Task<IActionResult> GetQrCodeById( Guid id)
+    {
+        var data = await _advantageServices.GetGRCodeByIdAsync(id);
+        return File(data, "image/png");
+    }
+
     [HttpDelete("{id:Guid}")]
     public async Task<IActionResult> Remove(Guid id)
     {

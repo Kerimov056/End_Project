@@ -5,6 +5,7 @@ using EndProject.Application.DTOs.Advantage;
 using EndProject.Domain.Entitys;
 using EndProjet.Persistance.Exceptions;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 namespace EndProjet.Persistance.Implementations.Services;
 
@@ -13,14 +14,17 @@ public class AdvantageServices : IAdvantageServices
     private readonly IAdvantageReadRepository _readRepository;
     private readonly IAdvantageWriteRepository _writeRepository;
     private readonly IMapper _mapper;
+    private readonly IQRCoderServıces _qrcoderServ;
 
     public AdvantageServices(IAdvantageReadRepository readRepository,
                              IAdvantageWriteRepository writeRepository,
-                             IMapper mapper)
+                             IMapper mapper,
+                             IQRCoderServıces qrcoderServ)
     {
         _readRepository = readRepository;
         _writeRepository = writeRepository;
         _mapper = mapper;
+        _qrcoderServ = qrcoderServ;
     }
 
     public async Task CreateAsync(AdvantageCreateDTO advantageCreateDTO)
@@ -50,6 +54,21 @@ public class AdvantageServices : IAdvantageServices
 
         var ToDto = _mapper.Map<AdvantageGetDTO>(byAdvantage);
         return ToDto;
+    }
+
+    public async Task<byte[]> GetGRCodeByIdAsync(Guid Id)
+    {
+        var byAdvantage = await _readRepository.GetByIdAsync(Id);
+        if (byAdvantage is null) throw new NotFoundException("Advantage is Null");
+
+
+        var plaingObject = new
+        {
+            byAdvantage.Title,
+            byAdvantage.Descrption
+        };
+        string plainText = JsonSerializer.Serialize(plaingObject);
+        return _qrcoderServ.GenerateQRCode(plainText);
     }
 
     public async Task RemoveAsync(Guid id)

@@ -22,8 +22,8 @@ public class SlidersController : ControllerBase
         return Ok(Slider);
     }
     
-    [HttpGet("qrcode/{sliderId}")]
-    public async Task<IActionResult> GetQrCodeToProduct([FromRoute] Guid sliderId)
+    [HttpGet("qrcode")]
+    public async Task<IActionResult> GetQrCodeToProduct(Guid sliderId)
     {
         var data = await _sliderService.GetQRCOdoerSlider(sliderId);
         return File(data,"image/png");

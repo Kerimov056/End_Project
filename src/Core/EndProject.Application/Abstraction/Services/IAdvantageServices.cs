@@ -9,4 +9,7 @@ public interface IAdvantageServices
     Task<AdvantageGetDTO> GetByIdAsync(Guid Id);
     Task UpdateAsync(Guid id, AdvantageUpdateDTO advantageUpdateDTO);
     Task RemoveAsync(Guid id);
+
+    //QRCoder
+    Task<byte[]> GetGRCodeByIdAsync(Guid Id);
 }
