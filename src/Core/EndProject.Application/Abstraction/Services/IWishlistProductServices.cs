@@ -1,6 +1,6 @@
 ﻿namespace EndProject.Application.Abstraction.Services;
 
-public interface IBasketProducServices
+public interface IWishlistProductServices
 {
     Task RemoveAsync(Guid id);
 }
