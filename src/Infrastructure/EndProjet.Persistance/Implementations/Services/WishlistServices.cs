@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
+using EndProject.Application.DTOs.Basket;
 using EndProject.Application.DTOs.Wishlist;
 using EndProject.Domain.Entitys;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Bcpg;
 
 namespace EndProjet.Persistance.Implementations.Services;
 
@@ -98,13 +100,39 @@ public class WishlistServices : IWishlistServices
         await _wishlistWriteRepository.SavaChangeAsync();
     }
 
-    public Task<int> GetWishlistCountAsync(string AppUserId)
+    public async Task<int> GetWishlistCountAsync(string AppUserId)
     {
-        throw new NotImplementedException();
+        var wishlist = await _wishlistReadRepository
+                       .Table
+                       .Include(x => x.WishlistProducts)
+                       .Include(x => x.AppUser)
+                       .FirstOrDefaultAsync(x => x.AppUserId == AppUserId);
+        if (wishlist is null) throw new NullReferenceException();
+
+        var wishlitProduct = wishlist?.WishlistProducts;
+        var uniqeProduct = wishlitProduct.GroupBy(m => m.Id)
+                                         .Select(x => x.First())
+                                         .ToList();
+
+        var uniqeProductCount = uniqeProduct?.Count() ?? 0;
+        return uniqeProductCount;
     }
 
-    public Task<List<WishlistProductDto>> GetWishlistProductsAsync(string AppUserId)
+    public async Task<List<WishlistProductDto>> GetWishlistProductsAsync(string AppUserId)
     {
-        throw new NotImplementedException();
+        var wishlist = await _wishlistReadRepository
+                       .Table
+                       .Include(x => x.WishlistProducts)
+                       .Include(x => x.AppUser)
+                       .FirstOrDefaultAsync(x => x.AppUserId == AppUserId);
+        if (wishlist is null) throw new NullReferenceException();
+
+        var wishlistProduct = _mapper.Map<List<WishlistProductDto>>(wishlist.WishlistProducts);
+        foreach (var byCar in wishlistProduct)
+        {
+            byCar.carGetDTO = await _carServices.GetByIdAsync(byCar.CarId);
+        }
+        return wishlistProduct;
+
     }
 }

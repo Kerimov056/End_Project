@@ -22,11 +22,11 @@ public class WishlistsController : ControllerBase
         return StatusCode((int)HttpStatusCode.Created);
     }
 
-    //[HttpGet]
-    //public async Task<IActionResult> GetBasketProducts([Required][FromQuery] string AppUserId)
-    //{
-    //    return Ok(await _basketService.GetBasketProductsAsync(AppUserId));
-    //}
+    [HttpGet]
+    public async Task<IActionResult> GetWishlistProducts([Required][FromQuery] string AppUserId)
+    {
+        return Ok(await _wishlistServices.GetWishlistProductsAsync(AppUserId));
+    }
 
     [HttpDelete("Delete-Wishlist-Product")]
     public async Task<IActionResult> DeleteWishlistProduct([Required][FromQuery] Guid Id, [Required][FromQuery] string AppUserId)
@@ -35,17 +35,17 @@ public class WishlistsController : ControllerBase
         return Ok();
     }
 
-    //[HttpDelete("ProductItem")]
-    //public async Task<IActionResult> DeleteBasketItemProduct([Required][FromQuery] Guid Id, [Required][FromQuery] string AppUserId)
-    //{
-    //    await _basketService.DeleteBasketItemAsync(Id, AppUserId);
-    //    return Ok();
-    //}
+    [HttpDelete("ProductItem")]
+    public async Task<IActionResult> DeleteWishlistItemProduct([Required][FromQuery] Guid Id, [Required][FromQuery] string AppUserId)
+    {
+        await _wishlistServices.DeleteWishlistItemAsync(Id, AppUserId);
+        return Ok();
+    }
 
-    //[HttpGet("Get-Basket-Count")]
-    //public async Task<IActionResult> GetBasketCount([Required][FromQuery] string AppUserId)  //baskete nece cur ferqli product oldugunu gosterir.
-    //{
-    //    var basketCount = await _basketService.GetBasketCountAsync(AppUserId);
-    //    return Ok(basketCount);
-    //}
+    [HttpGet("Get-Wishlist-Count")]
+    public async Task<IActionResult> GetWishlistCount([Required][FromQuery] string AppUserId)  
+    {
+        var basketCount = await _wishlistServices.GetWishlistCountAsync(AppUserId);
+        return Ok(basketCount);
+    }
 }
