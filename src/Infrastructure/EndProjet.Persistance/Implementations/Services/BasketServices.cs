@@ -70,7 +70,7 @@ public class BasketServices : IBasketServices
                                .Table
                                .Include(x =>x.basketProduct)
                                .FirstOrDefaultAsync(x=>x.AppUserId == UserId);
-        if (basket == null) throw new NullReferenceException();
+        if (basket is null) throw new NullReferenceException();
 
         _writeRepository.Remove(basket);
         await _writeRepository.SavaChangeAsync();

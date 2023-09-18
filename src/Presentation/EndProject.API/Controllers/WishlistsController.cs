@@ -28,12 +28,12 @@ public class WishlistsController : ControllerBase
     //    return Ok(await _basketService.GetBasketProductsAsync(AppUserId));
     //}
 
-    //[HttpDelete("Delete-Basket-Product")]
-    //public async Task<IActionResult> DeleteBasketProduct([Required][FromQuery] Guid Id, [Required][FromQuery] string AppUserId)
-    //{
-    //    await _basketService.DeleteBasketAsync(Id, AppUserId);          //Isdiyir aaa Roter'i duzelt
-    //    return Ok();
-    //}
+    [HttpDelete("Delete-Wishlist-Product")]
+    public async Task<IActionResult> DeleteWishlistProduct([Required][FromQuery] Guid Id, [Required][FromQuery] string AppUserId)
+    {
+        await _wishlistServices.DeleteWishlistAsync(Id, AppUserId);          
+        return Ok();
+    }
 
     //[HttpDelete("ProductItem")]
     //public async Task<IActionResult> DeleteBasketItemProduct([Required][FromQuery] Guid Id, [Required][FromQuery] string AppUserId)

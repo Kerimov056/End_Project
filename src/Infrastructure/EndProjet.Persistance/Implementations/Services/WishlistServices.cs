@@ -3,7 +3,6 @@ using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Wishlist;
 using EndProject.Domain.Entitys;
-using EndProjet.Persistance.Migrations;
 using Microsoft.EntityFrameworkCore;
 
 namespace EndProjet.Persistance.Implementations.Services;
@@ -45,11 +44,15 @@ public class WishlistServices : IWishlistServices
             await _wishlistWriteRepository.SavaChangeAsync();
         }
 
-        var wishlistProduct = wishlist.WishlistProducts.FirstOrDefault(x => x.CarId == Id && x.WishlistId == wishlist.Id);
-        if (wishlistProduct is not null) wishlistProduct.Quantity = 1;
+        WishlistProduct? wishlistProduct = wishlist.WishlistProducts
+                .FirstOrDefault(x => x.CarId == Id && x.WishlistId == wishlist.Id);
+        if (wishlistProduct is not null)
+        {
+            wishlistProduct.Quantity = 1;
+        }
         else
         {
-            wishlistProduct = new EndProject.Domain.Entitys.WishlistProduct
+            wishlistProduct = new WishlistProduct
             {
                 WishlistId = wishlist.Id,
                 CarId = Id,
@@ -60,14 +63,39 @@ public class WishlistServices : IWishlistServices
         await _wishlistWriteRepository.SavaChangeAsync();
     }
 
-    public Task DeleteBasketAsync(Guid id, string AppUserId)
+
+    public async Task DeleteWishlistAsync(Guid id, string AppUserId)
     {
-        throw new NotImplementedException();
+        if (AppUserId is null) throw new NullReferenceException();
+
+        var wishlist = await _wishlistReadRepository
+                               .Table
+                               .Include(x => x.WishlistProducts)
+                               .FirstOrDefaultAsync(x => x.AppUserId == AppUserId);
+        if (wishlist is null) throw new NullReferenceException();
+
+        _wishlistWriteRepository.Remove(wishlist);
+        await _wishlistWriteRepository.SavaChangeAsync();
     }
 
-    public Task DeleteWishlistItemAsync(Guid carId, string AppUserId)
+    public async Task DeleteWishlistItemAsync(Guid carId, string AppUserId)
     {
-        throw new NotImplementedException();
+
+        var wishlist = await _wishlistReadRepository
+                             .Table
+                             .Include(x => x.WishlistProducts)
+                             .Include(x => x.AppUser)
+                             .FirstOrDefaultAsync(x => x.AppUserId == AppUserId);
+
+        if (wishlist is null) throw new NullReferenceException();
+
+        var basketProduct = wishlist.WishlistProducts.FirstOrDefault(x => x.CarId == carId && x.WishlistId == wishlist.Id);
+        if (basketProduct is null) throw new NullReferenceException();
+
+        if (basketProduct.Quantity == 1)
+            await _wishlistProductServices.RemoveAsync(basketProduct.Id);
+
+        await _wishlistWriteRepository.SavaChangeAsync();
     }
 
     public Task<int> GetWishlistCountAsync(string AppUserId)
