@@ -9,6 +9,7 @@ public class CarProfile:Profile
     public CarProfile()
     {
         CreateMap<Car, CarGetDTO>().ReverseMap();
+        CreateMap<Car, GameCarGetDTO>().ReverseMap();
         CreateMap<CarCreateDTO, Car>().ReverseMap();
     }
 }

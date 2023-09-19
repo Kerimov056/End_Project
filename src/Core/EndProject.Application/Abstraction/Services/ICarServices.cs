@@ -6,7 +6,7 @@ public interface ICarServices
 {
     Task<List<CarGetDTO>> GetAllCarAsync();
     Task<List<CarGetDTO>> GetAllAsync();
-    Task<List<CarGetDTO>> GameGetTenAsync();
+    Task<List<GameCarGetDTO>> GameGetTenAsync();
     Task CreateAsync(CarCreateDTO carCreateDTO);
     Task<CarGetDTO> GetByIdAsync(Guid Id);
     Task<CarGetDTO> GetByIdIsAsync(Guid Id);

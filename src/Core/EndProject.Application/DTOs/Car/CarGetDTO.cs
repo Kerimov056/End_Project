@@ -1,11 +1,8 @@
 ﻿using EndProject.Application.DTOs.CarComment;
 using EndProject.Application.DTOs.CarImage;
-using EndProject.Application.DTOs.CarReservation;
 using EndProject.Application.DTOs.CarType;
 using EndProject.Application.DTOs.Category;
 using EndProject.Application.DTOs.OtherCarReservation;
-using EndProject.Application.DTOs.Reservation;
-using EndProject.Domain.Entitys;
 using EndProject.Domain.Enums.CampaignsStatus;
 
 namespace EndProject.Application.DTOs.Car;

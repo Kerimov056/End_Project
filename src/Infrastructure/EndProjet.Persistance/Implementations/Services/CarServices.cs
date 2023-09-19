@@ -132,7 +132,7 @@ public class CarServices : ICarServices
             returnCompagins = (DateTime)item.ReturnCampaigns;
 
         }
-            await _carWriteRepository.SavaChangeAsync();
+        await _carWriteRepository.SavaChangeAsync();
         if (isComp)
         {
             var AllUsers = _userManager.Users.ToListAsync();
@@ -254,27 +254,22 @@ public class CarServices : ICarServices
     {
         var ByCar = await _carReadRepository
            .GetAll()
-           .Include(x => x.carTags)
-           .Include(x => x.carType)
-           .Include(x => x.carCategory)
-           .Include(x => x.Comments)
-           .ThenInclude(x => x.Like)
-           .Include(x => x.carImages)
-           .OrderByDescending(x => x.CreatedDate)
            .FirstOrDefaultAsync(x => x.Id == Id);
 
         if (ByCar is null) throw new NotFoundException("Car is Null");
         ByCar.Reservations = null;
 
+        Guid newGuid = ByCar.Id;
+        string guidString = newGuid.ToString().Replace("-", "");
         var plaingObject = new
         {
-           Password = _encryptionService.Encrypt(ByCar.Id.ToString()),
+            Password = guidString,
         };
         string plainText = JsonSerializer.Serialize(plaingObject);
         return _iqRCoderServ.GenerateQRCode(plainText);
     }
 
-    public async Task<List<CarGetDTO>> GameGetTenAsync()  //.OrderBy(x => Guid.NewGuid())
+    public async Task<List<GameCarGetDTO>> GameGetTenAsync()  //.OrderBy(x => Guid.NewGuid())
     {
         var allCars = await _carReadRepository
                     .GetAll()
@@ -288,12 +283,17 @@ public class CarServices : ICarServices
         var randomCars = allCars.Take(10);
         foreach (var car in randomCars) car.Reservations = null;
 
-        var toDto = _mapper.Map<List<CarGetDTO>>(randomCars);
+        var toDto = _mapper.Map<List<GameCarGetDTO>>(randomCars);
 
         foreach (var item in allCars)
         {
-            var toComentDto = _mapper.Map<List<CarCommentGetDTO>>(item.Comments);
-            foreach (var ByToDto in toDto) ByToDto.CarImages = await _carImageServices.GetAllCarIdAsync(ByToDto.Id);
+            foreach (var ByToDto in toDto)
+            {
+                ByToDto.CarImages = await _carImageServices.GetAllCarIdAsync(ByToDto.Id);
+                var data = await GameGetByIdQrCode(ByToDto.Id);
+                var base64String = Convert.ToBase64String(data);
+                ByToDto.ImageSrc = $"data:image/png;base64,{base64String}";
+            }
         }
         return toDto;
     }
