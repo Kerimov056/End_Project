@@ -246,6 +246,30 @@ public class CarServices : ICarServices
         await _carWriteRepository.SavaChangeAsync();
     }
 
+    public async Task<List<CarGetDTO>> GameGetTenAsync()
+    {
+        var allCars = await _carReadRepository
+                    .GetAll()
+                    .Include(x => x.carType)
+                    .Include(x => x.carCategory)
+                    .Include(x => x.carImages)
+                    .Where(x => x.isReserv == false)
+                    .ToListAsync();
+
+        if (allCars is null) throw new NotFoundException("Cars are null");
+        var randomCars = allCars.OrderBy(x => Guid.NewGuid()).Take(10);
+        foreach (var car in randomCars) car.Reservations = null;
+
+        var toDto = _mapper.Map<List<CarGetDTO>>(randomCars);
+
+        foreach (var item in allCars)
+        {
+            var toComentDto = _mapper.Map<List<CarCommentGetDTO>>(item.Comments);
+            foreach (var ByToDto in toDto) ByToDto.CarImages = await _carImageServices.GetAllCarIdAsync(ByToDto.Id);
+        }
+        return toDto;
+    }
+
     public async Task<List<CarGetDTO>> GetAllAsync()
     {
         var CarAll = await _carReadRepository
@@ -256,7 +280,6 @@ public class CarServices : ICarServices
             .Include(x => x.carImages)
             .Include(x => x.Comments)
             .Include(x => x.Reservations)
-            .Include(x => x.OtherReservations)
             .Where(x => x.isReserv == false)
             .OrderByDescending(x => x.CreatedDate)
             .ToListAsync();
@@ -294,7 +317,6 @@ public class CarServices : ICarServices
              .Include(x => x.carCategory)
              .Include(x => x.carImages)
              .Include(x => x.Comments)
-             .Include(x => x.OtherReservations)
              .OrderByDescending(x => x.CreatedDate)
              .ToListAsync();
 
@@ -353,7 +375,6 @@ public class CarServices : ICarServices
             .Include(x => x.carImages)
             .Include(x => x.Comments)
             .Include(x => x.Reservations)
-            .Include(x => x.OtherReservations)
             .Where(x => x.isReserv == false)
             .Where(x => x.ReturnCampaigns != null)
             .OrderByDescending(x => x.CreatedDate)

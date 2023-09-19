@@ -28,6 +28,13 @@ public class CarController : ControllerBase
         return Ok(carsPage);
     }
 
+    [HttpGet("GameGetTenAsync")]
+    public async Task<IActionResult> GameGetCar()
+    {
+        var cars = await _carServices.GameGetTenAsync();
+        return Ok(cars);
+    }
+
     [HttpGet("qrcode")]
     public async Task<IActionResult> GetQrCodeById(Guid id)
     {

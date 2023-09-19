@@ -1,5 +1,4 @@
 ﻿using EndProject.Application.DTOs.Car;
-using EndProject.Application.DTOs.CarType;
 
 namespace EndProject.Application.Abstraction.Services;
 
