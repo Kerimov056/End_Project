@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
+using EndProject.Application.Abstraction.Services.Cryptography;
 using EndProject.Application.DTOs.Car;
 using EndProject.Application.DTOs.CarComment;
 using EndProject.Application.DTOs.CarImage;
@@ -34,6 +35,7 @@ public class CarServices : ICarServices
     private readonly UserManager<AppUser> _userManager;
     private readonly IEmailService _emailService;
     private readonly IQRCoderServıces _iqRCoderServ;
+    private readonly IEncryptionService _encryptionService;
     public CarServices(ICarReadRepository carReadRepository,
                        ICarWriteRepository carWriteRepository,
                        IMapper mapper,
@@ -48,7 +50,8 @@ public class CarServices : ICarServices
                        ICarReservationReadRepository carReservationReadRepository,
                        UserManager<AppUser> userManager,
                        IEmailService emailService,
-                       IQRCoderServıces iqRCoderServ)
+                       IQRCoderServıces iqRCoderServ,
+                       IEncryptionService encryptionService)
     {
         _carReadRepository = carReadRepository;
         _carWriteRepository = carWriteRepository;
@@ -65,6 +68,7 @@ public class CarServices : ICarServices
         _userManager = userManager;
         _emailService = emailService;
         _iqRCoderServ = iqRCoderServ;
+        _encryptionService = encryptionService;
     }
 
     public async Task Campaigns(CarCampaignsDTO carCampaignsDTO)
@@ -246,7 +250,31 @@ public class CarServices : ICarServices
         await _carWriteRepository.SavaChangeAsync();
     }
 
-    public async Task<List<CarGetDTO>> GameGetTenAsync()
+    public async Task<byte[]> GameGetByIdQrCode(Guid Id)
+    {
+        var ByCar = await _carReadRepository
+           .GetAll()
+           .Include(x => x.carTags)
+           .Include(x => x.carType)
+           .Include(x => x.carCategory)
+           .Include(x => x.Comments)
+           .ThenInclude(x => x.Like)
+           .Include(x => x.carImages)
+           .OrderByDescending(x => x.CreatedDate)
+           .FirstOrDefaultAsync(x => x.Id == Id);
+
+        if (ByCar is null) throw new NotFoundException("Car is Null");
+        ByCar.Reservations = null;
+
+        var plaingObject = new
+        {
+           Password = _encryptionService.Encrypt(ByCar.Id.ToString()),
+        };
+        string plainText = JsonSerializer.Serialize(plaingObject);
+        return _iqRCoderServ.GenerateQRCode(plainText);
+    }
+
+    public async Task<List<CarGetDTO>> GameGetTenAsync()  //.OrderBy(x => Guid.NewGuid())
     {
         var allCars = await _carReadRepository
                     .GetAll()
@@ -257,7 +285,7 @@ public class CarServices : ICarServices
                     .ToListAsync();
 
         if (allCars is null) throw new NotFoundException("Cars are null");
-        var randomCars = allCars.OrderBy(x => Guid.NewGuid()).Take(10);
+        var randomCars = allCars.Take(10);
         foreach (var car in randomCars) car.Reservations = null;
 
         var toDto = _mapper.Map<List<CarGetDTO>>(randomCars);
@@ -453,7 +481,6 @@ public class CarServices : ICarServices
            .Include(x => x.Comments)
            .ThenInclude(x => x.Like)
            .Include(x => x.carImages)
-           .Include(x => x.Reservations)
            .OrderByDescending(x => x.CreatedDate)
            .FirstOrDefaultAsync(x => x.Id == Id);
 

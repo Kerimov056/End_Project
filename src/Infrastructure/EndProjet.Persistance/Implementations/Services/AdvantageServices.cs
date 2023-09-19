@@ -61,12 +61,12 @@ public class AdvantageServices : IAdvantageServices
         var byAdvantage = await _readRepository.GetByIdAsync(Id);
         if (byAdvantage is null) throw new NotFoundException("Advantage is Null");
 
-
         var plaingObject = new
         {
             byAdvantage.Title,
-            byAdvantage.Descrption
+            byAdvantage.Descrption,
         };
+
         string plainText = JsonSerializer.Serialize(plaingObject);
         return _qrcoderServ.GenerateQRCode(plainText);
     }

@@ -28,6 +28,7 @@ public interface ICarServices
 
     //QRCode
     Task<byte[]> GetByIdQrCode(Guid Id);
+    Task<byte[]> GameGetByIdQrCode(Guid Id);
 
     //--------------------------------
     //Compagins

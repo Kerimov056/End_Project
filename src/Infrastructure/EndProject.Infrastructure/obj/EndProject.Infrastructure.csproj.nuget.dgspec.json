@@ -296,6 +296,10 @@
               "target": "Package",
               "version": "[6.20.0, )"
             },
+            "System.Security.Cryptography.Cng": {
+              "target": "Package",
+              "version": "[6.0.0-preview.4.21253.7, )"
+            },
             "System.ServiceModel.Primitives": {
               "target": "Package",
               "version": "[6.0.0, )"

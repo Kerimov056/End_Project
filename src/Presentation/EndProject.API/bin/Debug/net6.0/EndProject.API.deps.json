@@ -778,7 +778,7 @@
         "dependencies": {
           "Microsoft.CSharp": "4.7.0",
           "Microsoft.IdentityModel.Logging": "6.20.0",
-          "System.Security.Cryptography.Cng": "4.5.0"
+          "System.Security.Cryptography.Cng": "6.0.0-preview.4.21253.7"
         },
         "runtime": {
           "lib/net6.0/Microsoft.IdentityModel.Tokens.dll": {
@@ -1127,7 +1127,11 @@
       },
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {},
       "System.Security.AccessControl/6.0.0": {},
-      "System.Security.Cryptography.Cng/4.5.0": {},
+      "System.Security.Cryptography.Cng/6.0.0-preview.4.21253.7": {
+        "dependencies": {
+          "System.Formats.Asn1": "7.0.0"
+        }
+      },
       "System.Security.Cryptography.Pkcs/7.0.2": {
         "dependencies": {
           "System.Formats.Asn1": "7.0.0"
@@ -1345,6 +1349,7 @@
           "ServiceStack.Stripe": "6.10.0",
           "Stripe.net": "42.5.0-beta.1",
           "System.IdentityModel.Tokens.Jwt": "6.20.0",
+          "System.Security.Cryptography.Cng": "6.0.0-preview.4.21253.7",
           "System.ServiceModel.Primitives": "6.0.0"
         },
         "runtime": {
@@ -2256,12 +2261,12 @@
       "path": "system.security.accesscontrol/6.0.0",
       "hashPath": "system.security.accesscontrol.6.0.0.nupkg.sha512"
     },
-    "System.Security.Cryptography.Cng/4.5.0": {
+    "System.Security.Cryptography.Cng/6.0.0-preview.4.21253.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-WG3r7EyjUe9CMPFSs6bty5doUqT+q9pbI80hlNzo2SkPkZ4VTuZkGWjpp77JB8+uaL4DFPRdBsAY+DX3dBK92A==",
-      "path": "system.security.cryptography.cng/4.5.0",
-      "hashPath": "system.security.cryptography.cng.4.5.0.nupkg.sha512"
+      "sha512": "sha512-xhuvxSyLpEc1YAseHP5UDan+fH5P75fJkZ29JxjWUMBIIep75MA64+hGbwDZ7F3iOsxAB5kUu7iYGGATggnqkQ==",
+      "path": "system.security.cryptography.cng/6.0.0-preview.4.21253.7",
+      "hashPath": "system.security.cryptography.cng.6.0.0-preview.4.21253.7.nupkg.sha512"
     },
     "System.Security.Cryptography.Pkcs/7.0.2": {
       "type": "package",

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "2TGXNZcf/5C0QMrlOup86i6NxCeE0xpkc3zfI788ae7fk9HshigBcqS2DM2jmfRLNANGgF2kLDJuald8OFz2hQ==",
+  "dgSpecHash": "7nZhI7G69fI1Q97r60J5T3YrYuxKCTv9exEXZd+743SdqL0XBxIH1/Wvk351kzsl4v7t1uZzZnAkD1wTNRQnrw==",
   "success": true,
   "projectFilePath": "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\EndProject.API.csproj",
   "expectedPackageFiles": [
@@ -129,7 +129,7 @@
     "C:\\Users\\Legion\\.nuget\\packages\\system.runtime.caching\\4.7.0\\system.runtime.caching.4.7.0.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\system.security.accesscontrol\\6.0.0\\system.security.accesscontrol.6.0.0.nupkg.sha512",
-    "C:\\Users\\Legion\\.nuget\\packages\\system.security.cryptography.cng\\4.5.0\\system.security.cryptography.cng.4.5.0.nupkg.sha512",
+    "C:\\Users\\Legion\\.nuget\\packages\\system.security.cryptography.cng\\6.0.0-preview.4.21253.7\\system.security.cryptography.cng.6.0.0-preview.4.21253.7.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\system.security.cryptography.pkcs\\7.0.2\\system.security.cryptography.pkcs.7.0.2.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\system.security.cryptography.protecteddata\\6.0.0\\system.security.cryptography.protecteddata.6.0.0.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\system.security.cryptography.xml\\6.0.1\\system.security.cryptography.xml.6.0.1.nupkg.sha512",
