@@ -24,6 +24,8 @@ public interface ICarReservationServices
     Task StatusNow(Guid Id);
     Task UpdateAsync(Guid id, CarReservationUpdateDTO carReservationUpdateDTO);
     Task RemoveAsync(Guid id);
+
+    //Reservation Status
     Task<int> GetPeddingCountAsync();
     Task<int> GetConfirmedCountAsync();
     Task<int> GetCompletedCountAsync();
@@ -31,4 +33,6 @@ public interface ICarReservationServices
     Task<int> GetCanceledNowAsync();
     Task<int> NotCompaignStaitsika();
 
+    //Game 
+    Task<bool> CarFindGameUserAccess(string AppUserId);
 }

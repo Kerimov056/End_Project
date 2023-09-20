@@ -81,6 +81,11 @@ public class CarReservationServices : ICarReservationServices
         }
     }
 
+    public async Task<bool> CarFindGameUserAccess(string AppUserId)
+    {
+        var response = await _carReservationReadRepository.carFindGameAcces(AppUserId);
+        return response;
+    }
 
     public async Task CreateAsync(CarReservationCreateDTO carReservationCreateDTO)
     {
