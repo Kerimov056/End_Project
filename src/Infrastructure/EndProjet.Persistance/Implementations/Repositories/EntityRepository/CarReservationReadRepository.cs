@@ -10,8 +10,16 @@ public class CarReservationReadRepository : ReadRepository<CarReservation>, ICar
 {
     private readonly AppDbContext _appDbContext;
     public CarReservationReadRepository(AppDbContext context) : base(context)
+     =>  _appDbContext = context;
+
+    public async Task<bool> carFindGameAcces(string AppUserId)
     {
-        _appDbContext = context;
+        var byUserReservastions = await _appDbContext.CarReservations
+                    .Where(x => x.AppUserId == AppUserId)
+                    .Where(x => x.Status == ReservationStatus.Completed)
+                    .CountAsync();
+        if(byUserReservastions == 3) return true;
+        return false;
     }
 
     public async Task<int> GetReservCanceledCountAsync()
