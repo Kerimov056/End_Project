@@ -2,6 +2,7 @@
 using EndProject.Application.Abstraction.Repositories;
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
+using EndProject.Application.Abstraction.Services.Game;
 using EndProject.Application.Validators.SliderValidators;
 using EndProject.Domain.Entitys.Identity;
 using EndProjet.Persistance.Context;
@@ -116,6 +117,7 @@ public static class ServiceRegistration
         services.AddScoped<ICommunicationServices, CommunicationServices>();
         services.AddScoped<IPickUpServices, PickUpServices>();
         services.AddScoped<ICampaignStatistikaServices, CampaignStatistikaServices>();
+        services.AddScoped<IGameCarServices, GameCarServices>();
 
 
 
