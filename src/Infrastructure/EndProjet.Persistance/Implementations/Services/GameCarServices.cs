@@ -2,6 +2,8 @@
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services.Game;
 using EndProject.Application.DTOs.Game;
+using EndProject.Domain.Entitys;
+using Microsoft.EntityFrameworkCore;
 
 namespace EndProjet.Persistance.Implementations.Services;
 
@@ -20,23 +22,37 @@ public class GameCarServices : IGameCarServices
         _mapper = mapper;
     }
 
-    public Task CreateAsync(GameCarCreateDTO gameCarCreateDTO)
+    public async Task CreateAsync(GameCarCreateDTO gameCarCreateDTO)
     {
-        throw new NotImplementedException();
+        gameCarCreateDTO.Win = true;
+        var newGameProfil = _mapper.Map<GameCar>(gameCarCreateDTO);
+        newGameProfil.Win = true;
+        await _gameCarWriteRepository.AddAsync(newGameProfil);
+        await _gameCarWriteRepository.SavaChangeAsync();
     }
 
-    public Task<List<GameCarGetDTO>> GetAllAsync()
+    public async Task<List<GameCarGetDTO>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        var allGameCarProfile = await _gameCarReadRepository.GetAll().ToListAsync();
+        var toDto = _mapper.Map<List<GameCarGetDTO>>(allGameCarProfile);
+        return toDto;
     }
 
-    public Task<GameCarGetDTO> GetByIdAsync(Guid Id)
+    public async Task<GameCarGetDTO> GetByIdAsync(Guid Id)
     {
-        throw new NotImplementedException();
+        var byGameCarProfile = await _gameCarReadRepository.GetByIdAsync(Id);
+        if (byGameCarProfile is null) throw new DirectoryNotFoundException();
+
+        var toDto = _mapper.Map<GameCarGetDTO>(byGameCarProfile);
+        return toDto;
     }
 
-    public Task RemoveAsync(Guid id)
+    public async Task RemoveAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var byGameCarProfile = await _gameCarReadRepository.GetByIdAsync(id);
+        if (byGameCarProfile is null) throw new DirectoryNotFoundException();
+
+        _gameCarWriteRepository.Remove(byGameCarProfile);
+        await _gameCarWriteRepository.SavaChangeAsync();
     }
 }
