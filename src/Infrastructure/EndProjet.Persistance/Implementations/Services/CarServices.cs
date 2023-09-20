@@ -263,7 +263,7 @@ public class CarServices : ICarServices
         string guidString = newGuid.ToString().Replace("-", "");
         var plaingObject = new
         {
-            Password = guidString,
+            Password = guidString
         };
         string plainText = JsonSerializer.Serialize(plaingObject);
         return _iqRCoderServ.GenerateQRCode(plainText);

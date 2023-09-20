@@ -15,6 +15,7 @@ public class AppUser:IdentityUser
     public List<OtherCarReservation>? OtherReservations { get; set; }
     public Basket Basket { get; set; }
     public Wishlist Wishlist { get; set; }
+    public GameCar? GameCar { get; set; }
 }
 
 

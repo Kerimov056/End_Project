@@ -598,6 +598,43 @@ namespace EndProjet.Persistance.Migrations
                     b.ToTable("Faqs");
                 });
 
+            modelBuilder.Entity("EndProject.Domain.Entitys.GameCar", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid>("CarId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Win")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId")
+                        .IsUnique();
+
+                    b.ToTable("GameCars");
+                });
+
             modelBuilder.Entity("EndProject.Domain.Entitys.Identity.AppUser", b =>
                 {
                     b.Property<string>("Id")
@@ -1316,6 +1353,17 @@ namespace EndProjet.Persistance.Migrations
                     b.Navigation("Car");
                 });
 
+            modelBuilder.Entity("EndProject.Domain.Entitys.GameCar", b =>
+                {
+                    b.HasOne("EndProject.Domain.Entitys.Identity.AppUser", "AppUser")
+                        .WithOne("GameCar")
+                        .HasForeignKey("EndProject.Domain.Entitys.GameCar", "AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+                });
+
             modelBuilder.Entity("EndProject.Domain.Entitys.Like", b =>
                 {
                     b.HasOne("EndProject.Domain.Entitys.Identity.AppUser", "AppUser")
@@ -1516,6 +1564,8 @@ namespace EndProjet.Persistance.Migrations
                         .IsRequired();
 
                     b.Navigation("Comments");
+
+                    b.Navigation("GameCar");
 
                     b.Navigation("OtherReservations");
 

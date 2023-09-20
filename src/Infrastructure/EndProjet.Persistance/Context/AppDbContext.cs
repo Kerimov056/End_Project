@@ -60,6 +60,7 @@ public class AppDbContext : IdentityDbContext<AppUser>
     public DbSet<CampaignStatistika> CampaignStatistikas { get; set; }
     public DbSet<Wishlist> Wishlists { get; set; }
     public DbSet<WishlistProduct> WishlistProducts { get; set; }
+    public DbSet<GameCar> GameCars { get; set; }
     //public DbSet<CommentLike> CommentLikes { get; set; }
 }
 
