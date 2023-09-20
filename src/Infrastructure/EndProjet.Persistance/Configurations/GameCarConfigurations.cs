@@ -8,6 +8,6 @@ public class GameCarConfigurations : IEntityTypeConfiguration<GameCar>
 {
     public void Configure(EntityTypeBuilder<GameCar> builder)
     {
-        builder.Property(x => x.Password).IsRequired().HasMaxLength(40);
+        builder.Property(x => x.Password).IsRequired().HasMaxLength(60);
     }
 }
