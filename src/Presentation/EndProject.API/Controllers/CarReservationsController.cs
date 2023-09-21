@@ -254,4 +254,15 @@ public class CarReservationsController : ControllerBase
         await _carReservationServices.StatusNow(Id);
         return Ok();
     }
+
+
+    //Game
+
+    [HttpGet("CarFindGameUserAccess")]
+    public async Task<IActionResult> CarFindGameAccess(string AppUserId)
+    {
+        var response = await _carReservationServices.CarFindGameUserAccess(AppUserId);
+        return Ok(response);
+    }
+
 }
