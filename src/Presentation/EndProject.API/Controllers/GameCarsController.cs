@@ -41,4 +41,11 @@ public class GameCarsController : ControllerBase
         await _gameCarServices.RemoveAsync(id);
         return Ok();
     }
+
+    [HttpGet("ByUserGameResponse")]
+    public async Task<IActionResult> ByUser([FromQuery] string AppUserId)
+    {
+        var Users = await _gameCarServices.GameResponse(AppUserId);
+        return Ok(Users);
+    }
 }

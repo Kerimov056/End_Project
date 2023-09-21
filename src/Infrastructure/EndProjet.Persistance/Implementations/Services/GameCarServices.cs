@@ -33,11 +33,8 @@ public class GameCarServices : IGameCarServices
 
     public async Task CreateAsync(GameCarCreateDTO gameCarCreateDTO)
     {
-        var appUser = _userManager.FindByIdAsync(gameCarCreateDTO.AppUserId);
+        var appUser = await _userManager.FindByIdAsync(gameCarCreateDTO.AppUserId);
         if (appUser is null) throw new NotFoundException("Not Found User");
-
-        var byCar = await _carReadRepository.GetByIdAsync(gameCarCreateDTO.CarId);
-        if (byCar is null) throw new NotFoundException("Not Found Car");
 
         var newGameProfil = _mapper.Map<GameCar>(gameCarCreateDTO);
         newGameProfil.Win = true;
@@ -47,17 +44,20 @@ public class GameCarServices : IGameCarServices
 
     public async Task<bool> GameResponse(string AppUserId)
     {
-        var appUser = _userManager.FindByIdAsync(AppUserId);
+        var appUser = await _userManager.FindByIdAsync(AppUserId);
         if (appUser is null) throw new NotFoundException("Not Found User");
 
-        var byUserGame = await _gameCarReadRepository.GetAll().FirstOrDefaultAsync(x => x.AppUserId == AppUserId);
-        if(byUserGame is null) return false;
+        var byUserGame = await _gameCarReadRepository.GetAll()
+                    .FirstOrDefaultAsync(x => x.AppUserId == AppUserId);
 
-        Guid SPassword = byUserGame.Id;
+        if (byUserGame is null) return false;
+
+        Guid SPassword = byUserGame.CarId;
         string fakePassword = SPassword.ToString().Replace("-", "");
         if (fakePassword == byUserGame.Password) return true;
         return false;
     }
+
 
     public async Task<List<GameCarGetDTO>> GetAllAsync()
     {
