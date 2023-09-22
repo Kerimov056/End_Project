@@ -3,10 +3,7 @@ using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.Blog;
 using EndProject.Application.DTOs.BlogImage;
-using EndProject.Application.DTOs.Car;
-using EndProject.Application.DTOs.CarImage;
 using EndProject.Domain.Entitys;
-using EndProject.Domain.Entitys.Common;
 using EndProjet.Persistance.Exceptions;
 using Microsoft.EntityFrameworkCore;
 

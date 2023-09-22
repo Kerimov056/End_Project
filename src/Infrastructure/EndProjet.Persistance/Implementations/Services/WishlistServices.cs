@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
-using EndProject.Application.DTOs.Basket;
 using EndProject.Application.DTOs.Wishlist;
 using EndProject.Domain.Entitys;
 using Microsoft.EntityFrameworkCore;
-using Org.BouncyCastle.Bcpg;
 
 namespace EndProjet.Persistance.Implementations.Services;
 
