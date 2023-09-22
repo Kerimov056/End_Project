@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
-using EndProject.Application.Abstraction.Services.Stroge;
 using EndProject.Application.DTOs.Chauffeurs;
-using EndProject.Application.DTOs.Slider;
 using EndProject.Domain.Entitys;
 using EndProject.Domain.Entitys.Common;
 using EndProjet.Persistance.Exceptions;
@@ -16,18 +14,15 @@ public class ChauffeursServices : IChauffeursServices
 {
     private readonly IChauffeursReadRepository _chauffeursReadRepository;
     private readonly IChauffeursWriteRepository _chauffeursWriteRepository;
-    private readonly IStorageFile _storageFile;
     private readonly IMapper _mapper;
 
     public ChauffeursServices(IChauffeursReadRepository chauffeursReadRepository,
                               IChauffeursWriteRepository chauffeursWriteRepository,
-                              IMapper mapper,
-                              IStorageFile storageFile)
+                              IMapper mapper)
     {
         _chauffeursReadRepository = chauffeursReadRepository;
         _chauffeursWriteRepository = chauffeursWriteRepository;
         _mapper = mapper;
-        _storageFile = storageFile;
     }
 
     public async Task CreateAsync(ChauffeursCreateDTO chauffeursCreateDTO)
