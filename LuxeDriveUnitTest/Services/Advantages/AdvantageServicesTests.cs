@@ -32,7 +32,7 @@ public class AdvantageServicesTests
         );
     }
 
-    //GetAll
+    ////GetAll
     //[Fact]
     //public async Task GetAllAsync_WithValidData_ReturnsListOfAdvantageGetDTO()
     //{
