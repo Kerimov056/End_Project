@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
-using EndProject.Application.DTOs.Car;
 using EndProject.Application.DTOs.CarType;
 using EndProject.Domain.Entitys;
 using EndProjet.Persistance.Exceptions;
@@ -26,7 +25,6 @@ public class CarTypeService : ICarTypeService
 
     public async Task CreateAsync(CarTypeCreateDTO carTypeCreateDTO)
     {
-        //cfb38fcc-9a55-458b-b566-08db9f22da74
         var newCarType = _mapper.Map<CarType>(carTypeCreateDTO);
 
         await _carTypeWriteRepository.AddAsync(newCarType);
