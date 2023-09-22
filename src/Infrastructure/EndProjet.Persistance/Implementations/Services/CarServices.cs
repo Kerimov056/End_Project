@@ -30,12 +30,10 @@ public class CarServices : ICarServices
     private readonly ITagWriteRepository _tagWriteRepository;
     private readonly ICarTagWriteRepository _carTagWriteRepository;
     private readonly ICarTagReadRepository _carTagReadRepository;
-    private readonly ICarCategoryServices _carCategoryServices;
     private readonly ICarReservationReadRepository _carReservationReadRepository;
     private readonly UserManager<AppUser> _userManager;
     private readonly IEmailService _emailService;
     private readonly IQRCoderServıces _iqRCoderServ;
-    private readonly IEncryptionService _encryptionService;
     public CarServices(ICarReadRepository carReadRepository,
                        ICarWriteRepository carWriteRepository,
                        IMapper mapper,
@@ -50,8 +48,7 @@ public class CarServices : ICarServices
                        ICarReservationReadRepository carReservationReadRepository,
                        UserManager<AppUser> userManager,
                        IEmailService emailService,
-                       IQRCoderServıces iqRCoderServ,
-                       IEncryptionService encryptionService)
+                       IQRCoderServıces iqRCoderServ)
     {
         _carReadRepository = carReadRepository;
         _carWriteRepository = carWriteRepository;
@@ -68,7 +65,6 @@ public class CarServices : ICarServices
         _userManager = userManager;
         _emailService = emailService;
         _iqRCoderServ = iqRCoderServ;
-        _encryptionService = encryptionService;
     }
 
     public async Task Campaigns(CarCampaignsDTO carCampaignsDTO)
