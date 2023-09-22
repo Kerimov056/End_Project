@@ -21,6 +21,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndProject.Domain", "src\Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndProject.Application", "src\Core\EndProject.Application\EndProject.Application.csproj", "{A2984C06-B49D-4D0D-A5FC-9EF47830C333}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{1104B255-C728-49ED-AC28-3B142BF8414C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LuxeDriveUnitTest", "LuxeDriveUnitTest\LuxeDriveUnitTest.csproj", "{45BF3FEC-C3EA-42C3-9A4F-C9860CC6057F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +51,10 @@ Global
 		{A2984C06-B49D-4D0D-A5FC-9EF47830C333}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2984C06-B49D-4D0D-A5FC-9EF47830C333}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2984C06-B49D-4D0D-A5FC-9EF47830C333}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45BF3FEC-C3EA-42C3-9A4F-C9860CC6057F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45BF3FEC-C3EA-42C3-9A4F-C9860CC6057F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45BF3FEC-C3EA-42C3-9A4F-C9860CC6057F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45BF3FEC-C3EA-42C3-9A4F-C9860CC6057F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +68,7 @@ Global
 		{80204447-5375-4C4D-95FE-ED5CC8D1C7A3} = {B3D6E107-16EA-40F3-A2D1-196CA38C7A72}
 		{0070B507-F6F4-4E98-8DEC-B21F83586D01} = {F875D6E4-8D3D-4D9E-8C06-8EB7A30F4816}
 		{A2984C06-B49D-4D0D-A5FC-9EF47830C333} = {F875D6E4-8D3D-4D9E-8C06-8EB7A30F4816}
+		{45BF3FEC-C3EA-42C3-9A4F-C9860CC6057F} = {1104B255-C728-49ED-AC28-3B142BF8414C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5AD061D4-AB1F-46F7-A6DE-CC3438A6AD59}

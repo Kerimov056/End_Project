@@ -15,18 +15,15 @@ public class SliderService : ISliderService
 {
     private readonly ISliderReadRepository _sliderReadRepository;
     private readonly ISliderWriteRepository _sliderWriteRepository;
-    private readonly IStorageFile _uploadFile;
     private readonly IMapper _mapper;
     private readonly IQRCoderServıces _qrcoderServ;
     public SliderService(ISliderReadRepository sliderReadRepository,
                          ISliderWriteRepository sliderWriteRepository,
                          IMapper mapper,
-                         IStorageFile uploadFile,
                          IQRCoderServıces qrcoderServ)
     {
         _sliderReadRepository = sliderReadRepository;
         _sliderWriteRepository = sliderWriteRepository;
-        _uploadFile = uploadFile;
         _mapper = mapper;
         _qrcoderServ = qrcoderServ;
     }
