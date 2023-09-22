@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
-using EndProject.Application.DTOs.CarType;
 using EndProject.Application.DTOs.Category;
 using EndProject.Domain.Entitys;
 using EndProjet.Persistance.Exceptions;
-using EndProjet.Persistance.Implementations.Repositories.EntityRepository;
 using Microsoft.EntityFrameworkCore;
 
 namespace EndProjet.Persistance.Implementations.Services;

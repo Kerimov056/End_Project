@@ -12,7 +12,6 @@ public class LikeServices : ILikeServices
 {
     private readonly ILikeReadRepository _likeReadRepository;
     private readonly ILikeWriteRepository _likeWriteRepository;
-    private readonly ICarCommentReadRepository _carCommentReadRepository;
     private readonly ICarCommentWriteRepository _carCommentWriteRepository;
     private readonly AppDbContext _appDbContext;
     private readonly IMapper _mapper;
