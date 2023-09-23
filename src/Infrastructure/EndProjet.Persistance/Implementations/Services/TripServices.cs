@@ -53,18 +53,31 @@ public class TripServices : ITripServices
         return toDto;
     }
 
-    public Task<TripGetDTO> GetByIdAsync(Guid Id)
+    public async Task<TripGetDTO> GetByIdAsync(Guid Id)
     {
-        throw new NotImplementedException();
+        var byTrip = await _tripReadRepository.GetByIdAsync(Id);
+        if (byTrip is null) throw new NotFoundException("Trip not Found");
+
+        var toDto = _mapper.Map<TripGetDTO>(byTrip);
+        return toDto;
     }
 
-    public Task RemoveAsync(Guid id)
+    public async Task RemoveAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var byTrip = await _tripReadRepository.GetByIdAsync(id);
+        if (byTrip is null) throw new NotFoundException("Trip not Found");
+
+        _tripWriteRepository.Remove(byTrip);
+        await _tripWriteRepository.SavaChangeAsync();
     }
 
-    public Task UpdateAsync(Guid id, TripUpdateDTO tripUpdateDTO)
+    public async Task UpdateAsync(Guid id, TripUpdateDTO tripUpdateDTO)
     {
-        throw new NotImplementedException();
+        var byTrip = await _tripReadRepository.GetByIdAsync(id);
+        if (byTrip is null) throw new NotFoundException("Trip not Found");
+
+        _mapper.Map(tripUpdateDTO, byTrip);
+        _tripWriteRepository.Update(byTrip);
+        await _tripWriteRepository.SavaChangeAsync();
     }
 }
