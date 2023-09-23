@@ -16,6 +16,7 @@ public class AppUser:IdentityUser
     public Basket Basket { get; set; }
     public Wishlist Wishlist { get; set; }
     public GameCar? GameCar { get; set; }
+    public List<Trip>? Trips { get; set; }
 }
 
 
