@@ -91,6 +91,8 @@ public static class ServiceRegistration
         services.AddScoped<IWishlistProductWriteRepository, WishlistProductWriteRepository>();
         services.AddScoped<IGameCarWriteRepository, GameCarWriteRepository>();
         services.AddScoped<IGameCarReadRepository, GameCarReadRepository>();
+        services.AddScoped<ITripeReadRepository, TripeReadRepository>();
+        services.AddScoped<ITripeWriteRepository, TripeWriteRepository>();
 
 
         //Service
