@@ -1,5 +1,4 @@
 ﻿using EndProject.Application.Abstraction.Services;
-using EndProject.Application.DTOs.Advantage;
 using EndProject.Application.DTOs.Trip;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -45,7 +44,7 @@ public class TripsController : ControllerBase
     }
 
     [HttpPut("{id:Guid}")]
-    public async Task<IActionResult> Uptade(Guid id, TripUpdateDTO tripUpdateDTO)
+    public async Task<IActionResult> Uptade(Guid id, [FromForm] TripUpdateDTO tripUpdateDTO)
     {
         await _tripServices.UpdateAsync(id, tripUpdateDTO);
         return Ok();
