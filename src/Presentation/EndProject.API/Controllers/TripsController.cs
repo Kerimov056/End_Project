@@ -36,10 +36,10 @@ public class TripsController : ControllerBase
         return Ok(byTrip);
     }
 
-    [HttpDelete("{id:Guid}")]
-    public async Task<IActionResult> Remove(Guid id)
+    [HttpDelete("RemoveTrip")]
+    public async Task<IActionResult> Remove([FromForm] TripRemoveDTO tripRemoveDTO)
     {
-        await _tripServices.RemoveAsync(id);
+        await _tripServices.RemoveAsync(tripRemoveDTO);
         return Ok();
     }
 

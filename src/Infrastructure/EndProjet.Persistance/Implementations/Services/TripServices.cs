@@ -8,6 +8,7 @@ using EndProject.Domain.Entitys.Identity;
 using EndProjet.Persistance.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Authentication;
 
 namespace EndProjet.Persistance.Implementations.Services;
 
@@ -62,10 +63,13 @@ public class TripServices : ITripServices
         return toDto;
     }
 
-    public async Task RemoveAsync(Guid id)
+    public async Task RemoveAsync(TripRemoveDTO tripRemoveDTO)
     {
-        var byTrip = await _tripReadRepository.GetByIdAsync(id);
+        var byTrip = await _tripReadRepository.GetByIdAsync(tripRemoveDTO.tripId);
         if (byTrip is null) throw new NotFoundException("Trip not Found");
+
+        if (byTrip.AppUserId != tripRemoveDTO.AppUserId)
+            throw new AuthenticationException("No Access");
 
         _tripWriteRepository.Remove(byTrip);
         await _tripWriteRepository.SavaChangeAsync();
@@ -75,6 +79,9 @@ public class TripServices : ITripServices
     {
         var byTrip = await _tripReadRepository.GetByIdAsync(id);
         if (byTrip is null) throw new NotFoundException("Trip not Found");
+
+        if (byTrip.AppUserId != tripUpdateDTO.AppUserId)
+            throw new AuthenticationException("No Access");
 
         _mapper.Map(tripUpdateDTO, byTrip);
         _tripWriteRepository.Update(byTrip);

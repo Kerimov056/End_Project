@@ -8,5 +8,5 @@ public interface ITripServices
     Task CreateAsync(TripCreateDTO tripCreateDTO);
     Task<TripGetDTO> GetByIdAsync(Guid Id);
     Task UpdateAsync(Guid id, TripUpdateDTO tripUpdateDTO);
-    Task RemoveAsync(Guid id);
+    Task RemoveAsync(TripRemoveDTO tripRemoveDTO);
 }
