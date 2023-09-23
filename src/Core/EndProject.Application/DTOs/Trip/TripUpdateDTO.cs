@@ -1,6 +1,6 @@
 ﻿namespace EndProject.Application.DTOs.Trip;
 
-public class TripCreateDTO
+public class TripUpdateDTO
 {
     public string? Image { get; set; }
     public string Destination { get; set; }
