@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EndProject.Application.Abstraction.Services;
+using EndProject.Application.DTOs.Advantage;
+using EndProject.Application.DTOs.Trip;
+using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace EndProject.API.Controllers;
 
@@ -6,25 +10,45 @@ namespace EndProject.API.Controllers;
 [ApiController]
 public class TripsController : ControllerBase
 {
-    [Route("/proxy/googlemaps")]
-    [HttpGet]
-    public async Task<IActionResult> GetGoogleMapsData(string placeId)
-    {
-        using (HttpClient client = new HttpClient())
-        {
-            string apiKey = "AIzaSyCs2aJhlTdKjfTiQZ5kNP2-3QMNzPuLf7o";
-            string url = $"https://maps.googleapis.com/maps/api/place/details/json?place_id={placeId}&fields=name,photos&key={apiKey}";
-            HttpResponseMessage response = await client.GetAsync(url);
+    private readonly ITripServices _tripServices;
 
-            if (response.IsSuccessStatusCode)
-            {
-                string responseData = await response.Content.ReadAsStringAsync();
-                return Ok(responseData);
-            }
-            else
-            {
-                return StatusCode((int)response.StatusCode);
-            }
-        }
+    public TripsController(ITripServices tripServices)
+    => _tripServices = tripServices;
+
+
+    [HttpGet]
+    public async Task<IActionResult> GetAll(string AppUserId)
+    {
+        var trip = await _tripServices.GetAllAsync(AppUserId);
+        return Ok(trip);
     }
+
+    [HttpPost]
+    public async Task<IActionResult> Post([FromForm] TripCreateDTO tripCreateDTO)
+    {
+        await _tripServices.CreateAsync(tripCreateDTO);
+        return StatusCode((int)HttpStatusCode.Created);
+    }
+
+    [HttpGet("{id:Guid}")]
+    public async Task<IActionResult> GetById(Guid id)
+    {
+        var byTrip = await _tripServices.GetByIdAsync(id);
+        return Ok(byTrip);
+    }
+
+    [HttpDelete("{id:Guid}")]
+    public async Task<IActionResult> Remove(Guid id)
+    {
+        await _tripServices.RemoveAsync(id);
+        return Ok();
+    }
+
+    [HttpPut("{id:Guid}")]
+    public async Task<IActionResult> Uptade(Guid id, TripUpdateDTO tripUpdateDTO)
+    {
+        await _tripServices.UpdateAsync(id, tripUpdateDTO);
+        return Ok();
+    }
+
 }
