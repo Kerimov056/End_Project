@@ -17,7 +17,13 @@ public class GameCarsController : ControllerBase
     public async Task<IActionResult> GetAll()
     {
         var gameCarprofile = await _gameCarServices.GetAllAsync();
-
+        return Ok(gameCarprofile);
+    }
+    
+    [HttpGet("GetByGame")]
+    public async Task<IActionResult> GetAll(string AppUserId)
+    {
+        var gameCarprofile = await _gameCarServices.GetByIdAsync(AppUserId);
         return Ok(gameCarprofile);
     }
 

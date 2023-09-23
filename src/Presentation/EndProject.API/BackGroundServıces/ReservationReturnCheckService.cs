@@ -19,7 +19,7 @@ public class ReservationReturnCheckService : IHostedService
     public Task StartAsync(CancellationToken cancellationToken)
     {
         Console.WriteLine($"{nameof(ReservationReturnCheckService)}Service started....");
-        _timer = new Timer(carStautus, null, TimeSpan.Zero, TimeSpan.FromMinutes(10));
+        _timer = new Timer(carStautus, null, TimeSpan.Zero, TimeSpan.FromMinutes(1));
         //_timer = new Timer(otherCarStautus, null, TimeSpan.Zero, TimeSpan.FromHours(1));
         return Task.CompletedTask;
     }

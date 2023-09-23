@@ -75,6 +75,15 @@ public class GameCarServices : IGameCarServices
         return toDto;
     }
 
+    public async Task<GameCarGetDTO> GetByIdAsync(string AppUserId)
+    {
+        var byGameCarProfile = await _gameCarReadRepository.GetByIdAsyncExpression(x => x.AppUserId == AppUserId);
+        if (byGameCarProfile is null) throw new DirectoryNotFoundException();
+
+        var toDto = _mapper.Map<GameCarGetDTO>(byGameCarProfile);
+        return toDto;
+    }
+
     public async Task RemoveAsync(Guid id)
     {
         var byGameCarProfile = await _gameCarReadRepository.GetByIdAsync(id);
