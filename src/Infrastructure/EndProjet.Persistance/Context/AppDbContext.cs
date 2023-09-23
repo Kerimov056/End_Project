@@ -61,6 +61,7 @@ public class AppDbContext : IdentityDbContext<AppUser>
     public DbSet<Wishlist> Wishlists { get; set; }
     public DbSet<WishlistProduct> WishlistProducts { get; set; }
     public DbSet<GameCar> GameCars { get; set; }
+    public DbSet<Trip> Trips { get; set; }
     //public DbSet<CommentLike> CommentLikes { get; set; }
 }
 
