@@ -1,5 +1,4 @@
-﻿using EndProject.Application.DTOs.CarComment;
-using EndProject.Application.DTOs.TripNote;
+﻿using EndProject.Application.DTOs.TripNote;
 
 namespace EndProject.Application.Abstraction.Services;
 

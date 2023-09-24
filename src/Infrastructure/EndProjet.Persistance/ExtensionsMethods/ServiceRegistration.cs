@@ -123,6 +123,7 @@ public static class ServiceRegistration
         services.AddScoped<ICampaignStatistikaServices, CampaignStatistikaServices>();
         services.AddScoped<IGameCarServices, GameCarServices>();
         services.AddScoped<ITripServices, TripServices>();
+        services.AddScoped<ITripNoteServices, TripNoteServices>();
 
 
 

@@ -21,7 +21,7 @@ namespace EndProject.API.Controllers
             return Ok(tripNotes);
         }
 
-        [HttpPost("commentPost")]
+        [HttpPost("TripPost")]
         public async Task<IActionResult> Post([FromForm] TripNoteCreateDTO tripNoteCreateDTO)
         {
             await _tripNoteServices.CreateAsync(tripNoteCreateDTO);

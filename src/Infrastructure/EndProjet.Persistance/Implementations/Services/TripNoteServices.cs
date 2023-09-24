@@ -17,19 +17,23 @@ public class TripNoteServices : ITripNoteServices
     private readonly ITripNoteWriteRepository _tripNoteWriteRepository;
     private readonly IMapper _mapper;
     private readonly UserManager<AppUser> _userManager;
-    private readonly TripServices _tripServices;
+    //private readonly TripServices _tripServices;
+    private readonly ITripeReadRepository _tripeReadRepository;
 
     public TripNoteServices(ITripNoteReadRepository tripNoteReadRepository,
                             ITripNoteWriteRepository tripNoteWriteRepository,
                             IMapper mapper,
                             UserManager<AppUser> userManager,
-                            TripServices tripServices)
+                            ITripeReadRepository tripeReadRepository
+        //TripServices tripServices
+        )
     {
         _tripNoteReadRepository = tripNoteReadRepository;
         _tripNoteWriteRepository = tripNoteWriteRepository;
         _mapper = mapper;
         _userManager = userManager;
-        _tripServices = tripServices;
+        _tripeReadRepository = tripeReadRepository;
+        //_tripServices = tripServices;
     }
 
     public async Task CreateAsync(TripNoteCreateDTO tripNoteCreateDTO)
@@ -44,19 +48,21 @@ public class TripNoteServices : ITripNoteServices
 
     public async Task<List<TripNoteGetDTO>> GetAllAsync(Guid TripId)
     {
-        var byTrip = await _tripServices.GetByIdAsync(TripId);
-        if (byTrip is null) throw new NotFoundException("Trip is null");
+        //var byTrip = await _tripServices.GetByIdAsync(TripId);
+        //if (byTrip is null) throw new NotFoundException("Trip is null");
 
-        var allTripNote = await _tripNoteReadRepository
-                            .GetAll()
-                            .Include(x => x.Trip)
-                            .Include(x => x.AppUser)
-                            .Where(x => x.TripId == TripId)
-                            .OrderByDescending(x => x.CreatedDate)
-                            .ToListAsync();
+        //var allTripNote = await _tripNoteReadRepository
+        //                    .GetAll()
+        //                    .Include(x => x.Trip)
+        //                    .Include(x => x.AppUser)
+        //                    .Where(x => x.TripId == TripId)
+        //                    .OrderByDescending(x => x.CreatedDate)
+        //                    .ToListAsync();
 
-        var toDto = _mapper.Map<List<TripNoteGetDTO>>(allTripNote); 
-        return toDto;
+        //var toDto = _mapper.Map<List<TripNoteGetDTO>>(allTripNote); 
+        //return toDto;
+        throw new NotImplementedException();
+
     }
 
     public Task<TripNoteGetDTO> GetByIdAsync(Guid Id)
