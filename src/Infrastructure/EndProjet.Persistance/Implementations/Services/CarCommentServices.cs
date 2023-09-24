@@ -46,7 +46,7 @@ public class CarCommentServices : ICarCommentServices
                             .Where(x => x.Car.Id == CarId)
                             .OrderByDescending(x => x.CreatedDate)
                             .ToListAsync();
-        if (CarAllComment is null) throw new NotFoundException("Comment is null");
+        if (ByCar is null) throw new NotFoundException("Car is null");
 
         var ToDto = _mapper.Map<List<CarCommentGetDTO>>(CarAllComment);
         foreach (var item in ToDto)
