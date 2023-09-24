@@ -28,25 +28,25 @@ namespace EndProject.API.Controllers
             return StatusCode((int)HttpStatusCode.Created);
         }
 
-        //[HttpGet("{id:Guid}")]
-        //public async Task<IActionResult> GetById(Guid id)
-        //{
-        //    var BySlider = await _tripNoteServices.GetByIdAsync(id);
-        //    return Ok(BySlider);
-        //}
+        [HttpGet("{id:Guid}")]
+        public async Task<IActionResult> GetById(Guid id)
+        {
+            var ByTrip = await _tripNoteServices.GetByIdAsync(id);
+            return Ok(ByTrip);
+        }
 
-        //[HttpDelete("{id:Guid}")]
-        //public async Task<IActionResult> Remove(Guid id)
-        //{
-        //    await _tripNoteServices.RemoveAsync(id);
-        //    return Ok();
-        //}
+        [HttpDelete("{id:Guid}")]
+        public async Task<IActionResult> Remove(Guid id)
+        {
+            await _tripNoteServices.RemoveAsync(id);
+            return Ok();
+        }
 
-        //[HttpPut("{id:Guid}")]
-        //public async Task<IActionResult> Uptade(Guid id, [FromForm] CarCommentUpdateDTO carCommentUpdateDTO)
-        //{
-        //    await _tripNoteServices.UpdateAsync(id, carCommentUpdateDTO);
-        //    return Ok();
-        //}
+        [HttpPut("{id:Guid}")]
+        public async Task<IActionResult> Uptade(Guid id, [FromForm] TripNoteUpdateDTO tripNoteUpdateDTO)
+        {
+            await _tripNoteServices.UpdateAsync(id, tripNoteUpdateDTO);
+            return Ok();
+        }
     }
 }
