@@ -25,6 +25,7 @@ public class TripsController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Post([FromForm] TripCreateDTO tripCreateDTO)
     {
+        
         await _tripServices.CreateAsync(tripCreateDTO);
         return StatusCode((int)HttpStatusCode.Created);
     }
@@ -37,7 +38,7 @@ public class TripsController : ControllerBase
     }
 
     [HttpDelete("RemoveTrip")]
-    public async Task<IActionResult> Remove([FromForm] TripRemoveDTO tripRemoveDTO)
+    public async Task<IActionResult> Remove(TripRemoveDTO tripRemoveDTO)
     {
         await _tripServices.RemoveAsync(tripRemoveDTO);
         return Ok();

@@ -1072,6 +1072,45 @@ namespace EndProjet.Persistance.Migrations
                     b.ToTable("Trips");
                 });
 
+            modelBuilder.Entity("EndProject.Domain.Entitys.TripNote", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("TripId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("TripId");
+
+                    b.ToTable("TripNotes");
+                });
+
             modelBuilder.Entity("EndProject.Domain.Entitys.Wishlist", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1491,6 +1530,25 @@ namespace EndProjet.Persistance.Migrations
                     b.Navigation("AppUser");
                 });
 
+            modelBuilder.Entity("EndProject.Domain.Entitys.TripNote", b =>
+                {
+                    b.HasOne("EndProject.Domain.Entitys.Identity.AppUser", "AppUser")
+                        .WithMany("TripNotes")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EndProject.Domain.Entitys.Trip", "Trip")
+                        .WithMany("TripNotes")
+                        .HasForeignKey("TripId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Trip");
+                });
+
             modelBuilder.Entity("EndProject.Domain.Entitys.Wishlist", b =>
                 {
                     b.HasOne("EndProject.Domain.Entitys.Identity.AppUser", "AppUser")
@@ -1631,6 +1689,8 @@ namespace EndProjet.Persistance.Migrations
 
                     b.Navigation("Reservations");
 
+                    b.Navigation("TripNotes");
+
                     b.Navigation("Trips");
 
                     b.Navigation("Wishlist")
@@ -1640,6 +1700,11 @@ namespace EndProjet.Persistance.Migrations
             modelBuilder.Entity("EndProject.Domain.Entitys.Tag", b =>
                 {
                     b.Navigation("carTags");
+                });
+
+            modelBuilder.Entity("EndProject.Domain.Entitys.Trip", b =>
+                {
+                    b.Navigation("TripNotes");
                 });
 
             modelBuilder.Entity("EndProject.Domain.Entitys.Wishlist", b =>

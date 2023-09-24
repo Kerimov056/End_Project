@@ -14,4 +14,6 @@ public class Trip:BaseEntity
     public double? TripLongitude { get; set; }
     public string AppUserId { get; set; }
     public AppUser AppUser { get; set; }
+    public List<TripNote>? TripNotes { get; set; }
+
 }

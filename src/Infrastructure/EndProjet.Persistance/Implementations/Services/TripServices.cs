@@ -1,13 +1,15 @@
 ﻿using AutoMapper;
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
-using EndProject.Application.DTOs.Game;
+using EndProject.Application.DTOs.Car;
+using EndProject.Application.DTOs.CarReservation;
 using EndProject.Application.DTOs.Trip;
 using EndProject.Domain.Entitys;
 using EndProject.Domain.Entitys.Identity;
 using EndProjet.Persistance.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 using System.Security.Authentication;
 
 namespace EndProjet.Persistance.Implementations.Services;
@@ -36,7 +38,13 @@ public class TripServices : ITripServices
         var appUser = await _userManager.FindByIdAsync(tripCreateDTO.AppUserId);
         if (appUser is null) throw new NotFoundException("Not Found User");
 
+        //double lat = Convert.ToDouble(tripCreateDTO.TripLatitude, CultureInfo.InvariantCulture);
+        //double lng = Convert.ToDouble(tripCreateDTO.TripLongitude, CultureInfo.InvariantCulture);
+
+
         var newTrip = _mapper.Map<Trip>(tripCreateDTO);
+        //newTrip.TripLongitude = lat;
+        //newTrip.TripLatitude = lng;
         await _tripWriteRepository.AddAsync(newTrip);
         await _tripWriteRepository.SavaChangeAsync();
     }
@@ -48,6 +56,7 @@ public class TripServices : ITripServices
 
         var allTrips = await _tripReadRepository.GetAll()
                        .Where(x => x.AppUserId == AppUserId)
+                       .OrderByDescending(x => x.CreatedDate)
                        .ToListAsync();
 
         var toDto = _mapper.Map<List<TripGetDTO>>(allTrips);    

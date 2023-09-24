@@ -17,6 +17,7 @@ public class AppUser:IdentityUser
     public Wishlist Wishlist { get; set; }
     public GameCar? GameCar { get; set; }
     public List<Trip>? Trips { get; set; }
+    public List<TripNote>? TripNotes { get; set; }
 }
 
 

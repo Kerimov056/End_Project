@@ -27,6 +27,12 @@ public class AppDbContext : IdentityDbContext<AppUser>
             .WithMany(s => s.carTags)
             .HasForeignKey(us => us.TagId);
 
+        modelBuilder.Entity<TripNote>()
+            .HasOne(tn => tn.Trip)
+            .WithMany(t => t.TripNotes)
+            .HasForeignKey(tn => tn.TripId)
+            .OnDelete(DeleteBehavior.Restrict);
+
 
         base.OnModelCreating(modelBuilder);
 
@@ -62,6 +68,7 @@ public class AppDbContext : IdentityDbContext<AppUser>
     public DbSet<WishlistProduct> WishlistProducts { get; set; }
     public DbSet<GameCar> GameCars { get; set; }
     public DbSet<Trip> Trips { get; set; }
+    public DbSet<TripNote> TripNotes { get; set; }
     //public DbSet<CommentLike> CommentLikes { get; set; }
 }
 
