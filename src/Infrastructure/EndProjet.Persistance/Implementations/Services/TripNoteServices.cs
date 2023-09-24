@@ -42,7 +42,7 @@ public class TripNoteServices : ITripNoteServices
         if (appUser is null) throw new NotFoundException("Not Found User");
 
         var newTripNote = _mapper.Map<TripNote>(tripNoteCreateDTO);
-      
+
         await _tripNoteWriteRepository.AddAsync(newTripNote);
         await _tripNoteWriteRepository.SavaChangeAsync();
     }
@@ -62,22 +62,33 @@ public class TripNoteServices : ITripNoteServices
 
         var toDto = _mapper.Map<List<TripNoteGetDTO>>(allTripNote);
         return toDto;
-        throw new NotImplementedException();
-
     }
 
-    public Task<TripNoteGetDTO> GetByIdAsync(Guid Id)
+    public async Task<TripNoteGetDTO> GetByIdAsync(Guid Id)
     {
-        throw new NotImplementedException();
+        var TripNote = await _tripNoteReadRepository.GetByIdAsync(Id);
+        if (TripNote is null) throw new NotFoundException("TripNote is null");
+
+        var toDto = _mapper.Map<TripNoteGetDTO>(TripNote);
+        return toDto;
     }
 
-    public Task RemoveAsync(Guid id)
+    public async Task RemoveAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var TripNote = await _tripNoteReadRepository.GetByIdAsync(id);
+        if (TripNote is null) throw new NotFoundException("TripNote is null");
+
+        _tripNoteWriteRepository.Remove(TripNote);
+        await _tripNoteWriteRepository.SavaChangeAsync();
     }
 
-    public Task UpdateAsync(Guid id, TripNoteUpdateDTO tripNoteUpdateDTO)
+    public async Task UpdateAsync(Guid id, TripNoteUpdateDTO tripNoteUpdateDTO)
     {
-        throw new NotImplementedException();
+        var TripNote = await _tripNoteReadRepository.GetByIdAsync(id);
+        if (TripNote is null) throw new NotFoundException("TripNote is null");
+
+        _mapper.Map(tripNoteUpdateDTO, TripNote);
+        _tripNoteWriteRepository.Update(TripNote);
+        await _tripNoteWriteRepository.SavaChangeAsync();
     }
 }
