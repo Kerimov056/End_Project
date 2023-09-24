@@ -36,9 +36,9 @@ namespace EndProject.API.Controllers
         }
 
         [HttpDelete("{id:Guid}")]
-        public async Task<IActionResult> Remove(Guid id)
+        public async Task<IActionResult> Remove(Guid id, string AppUserId)
         {
-            await _tripNoteServices.RemoveAsync(id);
+            await _tripNoteServices.RemoveAsync(id, AppUserId);
             return Ok();
         }
 

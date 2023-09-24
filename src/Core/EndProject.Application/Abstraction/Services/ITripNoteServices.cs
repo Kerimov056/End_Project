@@ -8,5 +8,5 @@ public interface ITripNoteServices
     Task CreateAsync(TripNoteCreateDTO tripNoteCreateDTO);
     Task<TripNoteGetDTO> GetByIdAsync(Guid Id);
     Task UpdateAsync(Guid id, TripNoteUpdateDTO tripNoteUpdateDTO);
-    Task RemoveAsync(Guid id);
+    Task RemoveAsync(Guid id, string AppUserId);
 }

@@ -68,10 +68,12 @@ public class TripNoteServices : ITripNoteServices
         return toDto;
     }
 
-    public async Task RemoveAsync(Guid id)
+    public async Task RemoveAsync(Guid id, string AppUserId)
     {
         var TripNote = await _tripNoteReadRepository.GetByIdAsync(id);
         if (TripNote is null) throw new NotFoundException("TripNote is null");
+
+        if (TripNote.AppUserId != AppUserId) throw new Exception("No Acces");
 
         _tripNoteWriteRepository.Remove(TripNote);
         await _tripNoteWriteRepository.SavaChangeAsync();
