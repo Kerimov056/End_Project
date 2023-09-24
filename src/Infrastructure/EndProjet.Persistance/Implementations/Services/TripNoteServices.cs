@@ -17,23 +17,19 @@ public class TripNoteServices : ITripNoteServices
     private readonly ITripNoteWriteRepository _tripNoteWriteRepository;
     private readonly IMapper _mapper;
     private readonly UserManager<AppUser> _userManager;
-    //private readonly TripServices _tripServices;
     private readonly ITripeReadRepository _tripeReadRepository;
 
     public TripNoteServices(ITripNoteReadRepository tripNoteReadRepository,
                             ITripNoteWriteRepository tripNoteWriteRepository,
                             IMapper mapper,
                             UserManager<AppUser> userManager,
-                            ITripeReadRepository tripeReadRepository
-        //TripServices tripServices
-        )
+                            ITripeReadRepository tripeReadRepository)
     {
         _tripNoteReadRepository = tripNoteReadRepository;
         _tripNoteWriteRepository = tripNoteWriteRepository;
         _mapper = mapper;
         _userManager = userManager;
         _tripeReadRepository = tripeReadRepository;
-        //_tripServices = tripServices;
     }
 
     public async Task CreateAsync(TripNoteCreateDTO tripNoteCreateDTO)
@@ -57,7 +53,6 @@ public class TripNoteServices : ITripNoteServices
                                 .Include(x => x.Trip)
                                 .Include(x => x.AppUser)
                                 .Where(x => x.TripId == TripId)
-                                .OrderByDescending(x => x.CreatedDate)
                                 .ToListAsync();
 
         var toDto = _mapper.Map<List<TripNoteGetDTO>>(allTripNote);

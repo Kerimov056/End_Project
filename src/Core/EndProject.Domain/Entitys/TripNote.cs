@@ -6,6 +6,7 @@ namespace EndProject.Domain.Entitys;
 public class TripNote : BaseEntity
 {
     public string Comment { get; set; }
+    public DateTime CreateTripNote { get; set; } = DateTime.Now;
     public Guid TripId { get; set; }
     public Trip Trip { get; set; }
     public string UserName { get; set; }
