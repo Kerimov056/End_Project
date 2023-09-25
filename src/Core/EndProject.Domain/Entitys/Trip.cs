@@ -15,5 +15,5 @@ public class Trip:BaseEntity
     public string AppUserId { get; set; }
     public AppUser AppUser { get; set; }
     public List<TripNote>? TripNotes { get; set; }
-
+    public List<ShareTrip>? ShareTrips { get; set; }
 }

@@ -948,6 +948,45 @@ namespace EndProjet.Persistance.Migrations
                     b.ToTable("SendUserMessages");
                 });
 
+            modelBuilder.Entity("EndProject.Domain.Entitys.ShareTrip", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("TripId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("TripRole")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TripId");
+
+                    b.ToTable("ShareTrip");
+                });
+
             modelBuilder.Entity("EndProject.Domain.Entitys.Slider", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1522,6 +1561,17 @@ namespace EndProjet.Persistance.Migrations
                     b.Navigation("CarReservation");
                 });
 
+            modelBuilder.Entity("EndProject.Domain.Entitys.ShareTrip", b =>
+                {
+                    b.HasOne("EndProject.Domain.Entitys.Trip", "Trip")
+                        .WithMany("ShareTrips")
+                        .HasForeignKey("TripId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Trip");
+                });
+
             modelBuilder.Entity("EndProject.Domain.Entitys.Trip", b =>
                 {
                     b.HasOne("EndProject.Domain.Entitys.Identity.AppUser", "AppUser")
@@ -1707,6 +1757,8 @@ namespace EndProjet.Persistance.Migrations
 
             modelBuilder.Entity("EndProject.Domain.Entitys.Trip", b =>
                 {
+                    b.Navigation("ShareTrips");
+
                     b.Navigation("TripNotes");
                 });
 

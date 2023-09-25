@@ -42,11 +42,12 @@ namespace EndProject.API.Controllers
             return Ok();
         }
 
-        [HttpPut("{id:Guid}")]
+        [HttpPut("Edit/{id:Guid}")]
         public async Task<IActionResult> Uptade(Guid id, [FromForm] TripNoteUpdateDTO tripNoteUpdateDTO)
         {
             await _tripNoteServices.UpdateAsync(id, tripNoteUpdateDTO);
             return Ok();
         }
+    
     }
 }

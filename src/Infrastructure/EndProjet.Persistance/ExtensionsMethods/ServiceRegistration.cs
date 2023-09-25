@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using EndProject.Application.Abstraction.Repositories;
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.Abstraction.Services.Game;
@@ -95,6 +94,8 @@ public static class ServiceRegistration
         services.AddScoped<ITripeWriteRepository, TripeWriteRepository>();
         services.AddScoped<ITripNoteReadRepository, TripNoteReadRepository>();
         services.AddScoped<ITripNoteWriteRepository, TripNoteWriteRepository>();
+        services.AddScoped<IShareTripReadRepository, ShareTripReadRepository>();
+        services.AddScoped<IShareTripWriteRepository, ShareTripWriteRepository>();
 
 
         //Service
@@ -124,6 +125,7 @@ public static class ServiceRegistration
         services.AddScoped<IGameCarServices, GameCarServices>();
         services.AddScoped<ITripServices, TripServices>();
         services.AddScoped<ITripNoteServices, TripNoteServices>();
+        services.AddScoped<IShareTripServices, ShareTripServices>();
 
 
 

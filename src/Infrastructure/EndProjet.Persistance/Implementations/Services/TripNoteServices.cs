@@ -18,25 +18,34 @@ public class TripNoteServices : ITripNoteServices
     private readonly IMapper _mapper;
     private readonly UserManager<AppUser> _userManager;
     private readonly ITripeReadRepository _tripeReadRepository;
+    private readonly IShareTripServices _shareTripServices;
 
     public TripNoteServices(ITripNoteReadRepository tripNoteReadRepository,
                             ITripNoteWriteRepository tripNoteWriteRepository,
                             IMapper mapper,
                             UserManager<AppUser> userManager,
-                            ITripeReadRepository tripeReadRepository)
+                            ITripeReadRepository tripeReadRepository,
+                            IShareTripServices shareTripServices)
     {
         _tripNoteReadRepository = tripNoteReadRepository;
         _tripNoteWriteRepository = tripNoteWriteRepository;
         _mapper = mapper;
         _userManager = userManager;
         _tripeReadRepository = tripeReadRepository;
+        _shareTripServices = shareTripServices;
     }
 
     public async Task CreateAsync(TripNoteCreateDTO tripNoteCreateDTO)
     {
-        var appUser = await _userManager.FindByIdAsync(tripNoteCreateDTO.AppUserId);
-        if (appUser is null) throw new NotFoundException("Not Found User");
-
+        var myTrip = await _tripeReadRepository
+                    .GetByIdAsyncExpression(x => x.Id == tripNoteCreateDTO.TripId &&
+                     x.AppUserId == tripNoteCreateDTO.AppUserId);
+        if (myTrip is null)
+        {
+            var isAccess = await _shareTripServices.AccesTripNote(tripNoteCreateDTO.TripId, tripNoteCreateDTO.AppUserId);
+            if (isAccess == false) throw new Exception("No Access");
+        }
+        
         var newTripNote = _mapper.Map<TripNote>(tripNoteCreateDTO);
 
         await _tripNoteWriteRepository.AddAsync(newTripNote);
@@ -84,8 +93,14 @@ public class TripNoteServices : ITripNoteServices
         var TripNote = await _tripNoteReadRepository.GetByIdAsync(id);
         if (TripNote is null) throw new NotFoundException("TripNote is null");
 
+        if (TripNote.AppUserId != tripNoteUpdateDTO.AppUserId) throw new Exception("No Acces");
+        tripNoteUpdateDTO.CreateTripNote = DateTime.Now;
+
         _mapper.Map(tripNoteUpdateDTO, TripNote);
+        TripNote.CreateTripNote = DateTime.Now;
         _tripNoteWriteRepository.Update(TripNote);
         await _tripNoteWriteRepository.SavaChangeAsync();
     }
+
+
 }
