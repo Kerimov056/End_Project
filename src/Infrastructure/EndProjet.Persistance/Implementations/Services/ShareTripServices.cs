@@ -2,7 +2,6 @@
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.ShareTrip;
-using EndProject.Application.DTOs.TripNote;
 using EndProject.Domain.Entitys;
 using EndProject.Domain.Entitys.Identity;
 using EndProject.Domain.Enums.Role;
@@ -19,7 +18,6 @@ public class ShareTripServices : IShareTripServices
     private readonly IShareTripWriteRepository _writeRepository;
     private readonly UserManager<AppUser> _userManager;
     private readonly IMapper _mapper;
-    private readonly AppDbContext _appDbContext;
     private readonly IEmailService _emailService;
     private readonly ITripeReadRepository _tripeReadRepository;
 
@@ -28,8 +26,7 @@ public class ShareTripServices : IShareTripServices
                              IMapper mapper,
                              UserManager<AppUser> userManager,
                              IEmailService emailService,
-                             ITripeReadRepository tripeReadRepository,
-                             AppDbContext appDbContext)
+                             ITripeReadRepository tripeReadRepository)
     {
         _readRepository = readRepository;
         _writeRepository = writeRepository;
@@ -37,7 +34,6 @@ public class ShareTripServices : IShareTripServices
         _userManager = userManager;
         _emailService = emailService;
         _tripeReadRepository = tripeReadRepository;
-        _appDbContext = appDbContext;
     }
 
     public async Task<bool> AccesTripNote(Guid tripId, string AppUserId)
@@ -45,6 +41,7 @@ public class ShareTripServices : IShareTripServices
         var shareTrip = _readRepository.GetAll()
                         .Where(x => x.AppUserId == AppUserId)
                         .Where(x => x.TripId == tripId)
+                        .Where(x => x.TripRole == TripRole.Contributor)
                         .FirstOrDefault();
         if (shareTrip is null) return false;
         return true;
@@ -52,7 +49,6 @@ public class ShareTripServices : IShareTripServices
 
     public async Task CreateAsync(ShareTripCreateDTO shareTripCreateDTO)
     {
-
         var myTrip = await _tripeReadRepository
             .GetByIdAsyncExpression(x => x.Id == shareTripCreateDTO.TripId &&
              x.AppUserId == shareTripCreateDTO.AppUserId);
@@ -146,6 +142,18 @@ public class ShareTripServices : IShareTripServices
         return toDto;
     }
 
+    public async Task<List<ShareTripGetDTO>> GetAllContributorUser(Guid tripId)
+    {
+        var byTrip = await _tripeReadRepository.GetByIdAsync(tripId);
+        if (byTrip is null) throw new NotFoundException("Trip Not Found");
+
+        var allShereUser = await _readRepository.GetAll()
+            .Where(x => x.TripRole == TripRole.Contributor).ToListAsync();
+
+        var toDto = _mapper.Map<List<ShareTripGetDTO>>(allShereUser);
+        return toDto;
+    }
+
     public async Task<ShareTripGetDTO> GetByIdAsync(Guid Id)
     {
         var byShare = await _readRepository.GetByIdAsync(Id);
@@ -187,36 +195,3 @@ public class ShareTripServices : IShareTripServices
         //_emailService.Send(shareTripCreateDTO.Email, subject, html);
     }
 }
-
-
-/*
-    
-[
-  {
-    "email": "",
-    "id": "cad147ce-c04a-4e47-bcd8-08dbbdb1ca04",
-    "tripId": "9ca605d0-44dd-4284-47d4-08dbbc86f5d3",
-    "tripRole": 0,
-    "appUserId": "76f236e0-b6af-4ac1-984a-a4526a253ffe"
-  },
-  {
-    "email": "meimeiiemiem439@gmail.com",
-    "id": "be6ea529-f797-4536-588e-08dbbdbe6ec3",
-    "tripId": "9ca605d0-44dd-4284-47d4-08dbbc86f5d3",
-    "tripRole": 0,
-    "appUserId": "ae7368a5-6319-4627-828c-1dcbb482d102"
-  }
-
-]b9e6bbc7-b080-4405-880d-4aa8e35a5aee
-
-
-
-{
-  "email": "Ferid@gmail.com",
-  "message": "Salam0",
-  "tripId": "9ca605d0-44dd-4284-47d4-08dbbc86f5d3",
-  "tripRole": 0,
-  "appUserId": "ed1cebdd-51dd-4064-9697-9eae6d75cd08"
-}
-
- */   

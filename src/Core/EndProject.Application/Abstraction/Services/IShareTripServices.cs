@@ -5,6 +5,7 @@ namespace EndProject.Application.Abstraction.Services;
 public interface IShareTripServices
 {
     Task<List<ShareTripGetDTO>> GetAllAsync(Guid tripId);
+    Task<List<ShareTripGetDTO>> GetAllContributorUser(Guid tripId);
     Task CreateAsync(ShareTripCreateDTO shareTripCreateDTO);
     Task<ShareTripGetDTO> GetByIdAsync(Guid Id);
     Task<bool> AccesTripNote(Guid tripId, string AppUserId);
