@@ -21,6 +21,13 @@ namespace EndProject.API.Controllers
             return Ok(tripNotes);
         }
 
+        [HttpGet("MyNote")]
+        public async Task<IActionResult> GetAll(string AppUserId, Guid TripId)
+        {
+            var tripNotes = await _tripNoteServices.GetAllMyNote(AppUserId, TripId);
+            return Ok(tripNotes);
+        }
+
         [HttpPost("TripPost")]
         public async Task<IActionResult> Post([FromForm] TripNoteCreateDTO tripNoteCreateDTO)
         {

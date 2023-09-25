@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
-using EndProject.Application.DTOs.Trip;
 using EndProject.Application.DTOs.TripNote;
 using EndProject.Domain.Entitys;
 using EndProject.Domain.Entitys.Identity;
@@ -61,6 +60,21 @@ public class TripNoteServices : ITripNoteServices
                                 .GetAll()
                                 .Include(x => x.Trip)
                                 .Include(x => x.AppUser)
+                                .Where(x => x.TripId == TripId)
+                                .ToListAsync();
+
+        var toDto = _mapper.Map<List<TripNoteGetDTO>>(allTripNote);
+        return toDto;
+    }
+
+    public async Task<List<TripNoteGetDTO>> GetAllMyNote(string AppUserId, Guid TripId)
+    {
+
+        var allTripNote = await _tripNoteReadRepository
+                                .GetAll()
+                                .Include(x => x.Trip)
+                                .Include(x => x.AppUser)
+                                .Where(x => x.AppUserId == AppUserId)
                                 .Where(x => x.TripId == TripId)
                                 .ToListAsync();
 

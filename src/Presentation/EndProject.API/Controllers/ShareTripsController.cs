@@ -22,6 +22,13 @@ public class ShareTripsController : ControllerBase
         var shareTrip = await _shareTripService.GetAllAsync(tripId);
         return Ok(shareTrip);
     }
+    
+    [HttpGet("Contributors")]
+    public async Task<IActionResult> GetAllContributorsShareTrip(Guid tripId)
+    {
+        var shareTripContributors = await _shareTripService.GetAllContributorsUser(tripId);
+        return Ok(shareTripContributors);
+    }
 
     [HttpPost]
     public async Task<IActionResult> Post(ShareTripCreateDTO shareTripCreateDTO)

@@ -142,7 +142,7 @@ public class ShareTripServices : IShareTripServices
         return toDto;
     }
 
-    public async Task<List<ShareTripGetDTO>> GetAllContributorUser(Guid tripId)
+    public async Task<List<ShareTripGetDTO>> GetAllContributorsUser(Guid tripId)
     {
         var byTrip = await _tripeReadRepository.GetByIdAsync(tripId);
         if (byTrip is null) throw new NotFoundException("Trip Not Found");
