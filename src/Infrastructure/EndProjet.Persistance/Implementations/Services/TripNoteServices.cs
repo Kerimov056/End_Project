@@ -4,6 +4,7 @@ using EndProject.Application.Abstraction.Services;
 using EndProject.Application.DTOs.TripNote;
 using EndProject.Domain.Entitys;
 using EndProject.Domain.Entitys.Identity;
+using EndProject.Domain.Enums.Role;
 using EndProjet.Persistance.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -18,13 +19,15 @@ public class TripNoteServices : ITripNoteServices
     private readonly UserManager<AppUser> _userManager;
     private readonly ITripeReadRepository _tripeReadRepository;
     private readonly IShareTripServices _shareTripServices;
+    private readonly IShareTripReadRepository _shareTripReadRepository;
 
     public TripNoteServices(ITripNoteReadRepository tripNoteReadRepository,
                             ITripNoteWriteRepository tripNoteWriteRepository,
                             IMapper mapper,
                             UserManager<AppUser> userManager,
                             ITripeReadRepository tripeReadRepository,
-                            IShareTripServices shareTripServices)
+                            IShareTripServices shareTripServices,
+                            IShareTripReadRepository shareTripReadRepository)
     {
         _tripNoteReadRepository = tripNoteReadRepository;
         _tripNoteWriteRepository = tripNoteWriteRepository;
@@ -32,17 +35,23 @@ public class TripNoteServices : ITripNoteServices
         _userManager = userManager;
         _tripeReadRepository = tripeReadRepository;
         _shareTripServices = shareTripServices;
+        _shareTripReadRepository = shareTripReadRepository;
     }
 
     public async Task CreateAsync(TripNoteCreateDTO tripNoteCreateDTO)
     {
-        var myTrip = await _tripeReadRepository
-                    .GetByIdAsyncExpression(x => x.Id == tripNoteCreateDTO.TripId &&
-                     x.AppUserId == tripNoteCreateDTO.AppUserId);
-        if (myTrip is null)
+        var byTrip = await _tripeReadRepository
+           .GetByIdAsyncExpression(x => x.Id == tripNoteCreateDTO.TripId);
+        if (tripNoteCreateDTO.AppUserId != byTrip.AppUserId)
         {
-            var isAccess = await _shareTripServices.AccesTripNote(tripNoteCreateDTO.TripId, tripNoteCreateDTO.AppUserId);
-            if (isAccess == false) throw new Exception("No Access");
+            var byShareUser = await _userManager.FindByIdAsync(tripNoteCreateDTO.AppUserId);
+            if (byShareUser is null) throw new NotFoundException("User not Found");
+
+            var byContributor = await _shareTripReadRepository
+                .GetByIdAsyncExpression(x => x.Email == byShareUser.Email &&
+                                        x.TripRole == TripRole.Contributor);
+
+            if (byContributor is null) throw new Exception("No Access");
         }
         
         var newTripNote = _mapper.Map<TripNote>(tripNoteCreateDTO);
@@ -108,6 +117,7 @@ public class TripNoteServices : ITripNoteServices
                          .GetAll()
                          .Where(x => x.TripId == tripId)
                          .ToListAsync();
+        if (allTripNotes is null) return;
 
         _tripNoteWriteRepository.RemoveRange(allTripNotes);
         await _tripNoteWriteRepository.SavaChangeAsync();

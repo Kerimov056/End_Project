@@ -1,13 +1,11 @@
 ﻿using AutoMapper;
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
-using EndProject.Application.DTOs.ShareTrip;
 using EndProject.Application.DTOs.Trip;
 using EndProject.Domain.Entitys;
 using EndProject.Domain.Entitys.Identity;
 using EndProject.Domain.Enums.Role;
 using EndProjet.Persistance.Exceptions;
-using EndProjet.Persistance.Implementations.Repositories.EntityRepository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Authentication;
@@ -22,6 +20,7 @@ public class TripServices : ITripServices
     private readonly UserManager<AppUser> _userManager;
     private readonly IShareTripReadRepository _shareTripReadRepository;
     private readonly ITripNoteServices _tripNoteServices;
+    private readonly IShareTripServices _shareTripServices;
 
 
     public TripServices(ITripeReadRepository tripReadRepository,
@@ -29,7 +28,8 @@ public class TripServices : ITripServices
                         IMapper mapper,
                         UserManager<AppUser> userManager,
                         IShareTripReadRepository shareTripReadRepository,
-                        ITripNoteServices tripNoteServices)
+                        ITripNoteServices tripNoteServices,
+                        IShareTripServices shareTripServices)
     {
         _tripReadRepository = tripReadRepository;
         _tripWriteRepository = tripWriteRepository;
@@ -37,6 +37,7 @@ public class TripServices : ITripServices
         _userManager = userManager;
         _shareTripReadRepository = shareTripReadRepository;
         _tripNoteServices = tripNoteServices;
+        _shareTripServices = shareTripServices;
     }
 
     public async Task CreateAsync(TripCreateDTO tripCreateDTO)
@@ -87,6 +88,7 @@ public class TripServices : ITripServices
             throw new AuthenticationException("No Access");
 
         await _tripNoteServices.RemoveRangeAsync(tripId);
+        await _shareTripServices.RemoveRangeAsync(tripId);
 
         _tripWriteRepository.Remove(byTrip);
         await _tripWriteRepository.SavaChangeAsync();

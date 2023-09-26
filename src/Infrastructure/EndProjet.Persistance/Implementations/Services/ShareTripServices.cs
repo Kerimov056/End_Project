@@ -5,7 +5,6 @@ using EndProject.Application.DTOs.ShareTrip;
 using EndProject.Domain.Entitys;
 using EndProject.Domain.Entitys.Identity;
 using EndProject.Domain.Enums.Role;
-using EndProjet.Persistance.Context;
 using EndProjet.Persistance.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -170,6 +169,17 @@ public class ShareTripServices : IShareTripServices
         if (byShare is null) throw new NotFoundException("Not Found");
 
         _writeRepository.Remove(byShare);
+        await _writeRepository.SavaChangeAsync();
+    }
+
+    public async Task RemoveRangeAsync(Guid tripId)
+    {
+        var allShareTrip = await _readRepository.GetAll()
+                            .Where(x => x.TripId == tripId)
+                            .ToListAsync();
+        if (allShareTrip is null) return;
+
+        _writeRepository.RemoveRange(allShareTrip);
         await _writeRepository.SavaChangeAsync();
     }
 

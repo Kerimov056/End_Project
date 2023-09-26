@@ -11,4 +11,5 @@ public interface IShareTripServices
     Task<bool> AccesTripNote(Guid tripId, string AppUserId);
     Task UpdateAsync(Guid id, ShareTripUpdateDTO shareTripUpdateDTO);
     Task RemoveAsync(Guid id);
+    Task RemoveRangeAsync(Guid tripId);
 }
