@@ -18,7 +18,6 @@ public class TripNoteServices : ITripNoteServices
     private readonly IMapper _mapper;
     private readonly UserManager<AppUser> _userManager;
     private readonly ITripeReadRepository _tripeReadRepository;
-    private readonly IShareTripServices _shareTripServices;
     private readonly IShareTripReadRepository _shareTripReadRepository;
 
     public TripNoteServices(ITripNoteReadRepository tripNoteReadRepository,
@@ -26,7 +25,6 @@ public class TripNoteServices : ITripNoteServices
                             IMapper mapper,
                             UserManager<AppUser> userManager,
                             ITripeReadRepository tripeReadRepository,
-                            IShareTripServices shareTripServices,
                             IShareTripReadRepository shareTripReadRepository)
     {
         _tripNoteReadRepository = tripNoteReadRepository;
@@ -34,7 +32,6 @@ public class TripNoteServices : ITripNoteServices
         _mapper = mapper;
         _userManager = userManager;
         _tripeReadRepository = tripeReadRepository;
-        _shareTripServices = shareTripServices;
         _shareTripReadRepository = shareTripReadRepository;
     }
 
