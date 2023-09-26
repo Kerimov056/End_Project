@@ -4,7 +4,6 @@ using EndProject.Application.DTOs.CarReservation;
 using EndProject.Domain.Entitys.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Net;
 
 namespace EndProject.API.Controllers;
@@ -15,26 +14,14 @@ public class CarReservationsController : ControllerBase
 {
     private readonly ICarReservationServices _carReservationServices;
     private readonly IEmailService _emailService;
-    private readonly UserManager<AppUser> _userManager;
-    private readonly RoleManager<IdentityRole> _roleManager;
-    private readonly ICarReadRepository _carReadRepository;
-    private readonly IQRCoderServıces _qRCoderServ;
     private readonly ICarServices _carServices;
 
     public CarReservationsController(ICarReservationServices carReservationServices,
                                      IEmailService emailService,
-                                     UserManager<AppUser> userManager,
-                                     RoleManager<IdentityRole> roleManager,
-                                     ICarReadRepository carReadRepository,
-                                     IQRCoderServıces qRCoderServ,
                                      ICarServices carServices)
     {
         _carReservationServices = carReservationServices;
         _emailService = emailService;
-        _userManager = userManager;
-        _roleManager = roleManager;
-        _carReadRepository = carReadRepository;
-        _qRCoderServ = qRCoderServ;
         _carServices = carServices;
     }
 

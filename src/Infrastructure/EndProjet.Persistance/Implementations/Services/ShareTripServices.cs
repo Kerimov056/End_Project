@@ -93,38 +93,44 @@ public class ShareTripServices : IShareTripServices
 
             var ByTrip = await _tripeReadRepository.GetByIdAsync(shareTripCreateDTO.TripId);
 
-            //string subject = "There is a new reservation";
-            //string html = string.Empty;
+            string subject = "There is a new reservation";
+            string html = string.Empty;
 
-            //string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "templates", "newReservation.html");
-            //html = System.IO.File.ReadAllText(filePath);
 
-            ////var QrImage = $"https://localhost:7152/api/Car/qrcodeImage?id={carReservationCreateDTO.CarId}";
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "templates", "TripAddUser.html");
+            html = System.IO.File.ReadAllText(filePath);
 
-            //html = html.Replace("{{Marka}}", "");
-            //html = html.Replace("{{Model}}", "");
-            //html = html.Replace("{{QrCodeCar}}", "");
+            var LinkTrip = $"https://localhost:7152/api/Car/qrcodeImage?id={shareTripCreateDTO.TripId}";
+            var message = $"{shareTripCreateDTO.Message}";
 
-            //_emailService.Send(shareTripCreateDTO.Email, subject, html);
+            html = html.Replace("{{LinkTrip}}", LinkTrip);
+            html = html.Replace("{{Message}}", message);
+           
+
+            _emailService.Send(shareTripCreateDTO.Email, subject, html);
 
             return;
         }
 
 
 
-        //string subject = "There is a new reservation";
-        //string html = string.Empty;
 
-        //string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "templates", "newReservation.html");
-        //html = System.IO.File.ReadAllText(filePath);
+        string subject1 = "There is a new reservation";
+        string html1 = string.Empty;
 
-        ////var QrImage = $"https://localhost:7152/api/Car/qrcodeImage?id={carReservationCreateDTO.CarId}";
 
-        //html = html.Replace("{{Marka}}", "");
-        //html = html.Replace("{{Model}}", "");
-        //html = html.Replace("{{QrCodeCar}}", "");
+        string filePath1 = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "templates", "TripAddUser.html");
+        html1 = System.IO.File.ReadAllText(filePath1);
 
-        //_emailService.Send(shareTripCreateDTO.Email, subject, html);
+        var LinkTrip1 = $"https://localhost:7152/api/Car/qrcodeImage?id={shareTripCreateDTO.TripId}";
+        var message1 = $"{shareTripCreateDTO.Message}";
+
+
+        html1 = html1.Replace("{{LinkTrip}}", LinkTrip1);
+        html1 = html1.Replace("{{Message}}", message1);
+
+
+        _emailService.Send(shareTripCreateDTO.Email, subject1, html1);
 
 
         var newShareTrip = _mapper.Map<ShareTrip>(shareTripCreateDTO);
@@ -192,18 +198,22 @@ public class ShareTripServices : IShareTripServices
         _writeRepository.Update(byShare);
         await _writeRepository.SavaChangeAsync();
 
-        //string subject = "There is a new reservation";
-        //string html = string.Empty;
 
-        //string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "templates", "newReservation.html");
-        //html = System.IO.File.ReadAllText(filePath);
+        string subject = "There is a new reservation";
+        string html = string.Empty;
 
-        ////var QrImage = $"https://localhost:7152/api/Car/qrcodeImage?id={carReservationCreateDTO.CarId}";
 
-        //html = html.Replace("{{Marka}}", "");
-        //html = html.Replace("{{Model}}", "");
-        //html = html.Replace("{{QrCodeCar}}", "");
+        string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "templates", "TripAddUser.html");
+        html = System.IO.File.ReadAllText(filePath);
 
-        //_emailService.Send(shareTripCreateDTO.Email, subject, html);
+        var LinkTrip = $"https://localhost:7152/api/Car/qrcodeImage?id={shareTripUpdateDTO.TripId}";
+        var message1 = $"{shareTripUpdateDTO.Message}";
+
+
+        html = html.Replace("{{LinkTrip}}", LinkTrip);
+        html = html.Replace("{{Message}}", message1);
+
+
+        _emailService.Send(shareTripUpdateDTO.Email, subject, html);
     }
 }

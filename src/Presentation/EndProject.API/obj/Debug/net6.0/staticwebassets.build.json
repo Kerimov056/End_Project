@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "HqUx9lzIjw7rDkK2dJYAXs0+mUu/MSW3cXc8zfrB81I=",
+  "Hash": "Vw23/WzI9ekgksROPzTt/1sz8ZxISaMGX3Zfw5v9ibA=",
   "Source": "EndProject.API",
   "BasePath": "_content/EndProject.API",
   "Mode": "Default",
@@ -100,6 +100,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\templates\\newReservation.html"
+    },
+    {
+      "Identity": "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\wwwroot\\templates\\TripAddUser.html",
+      "SourceId": "EndProject.API",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\wwwroot\\",
+      "BasePath": "_content/EndProject.API",
+      "RelativePath": "templates/TripAddUser.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\templates\\TripAddUser.html"
     },
     {
       "Identity": "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\wwwroot\\templates\\UserEmailMessage.html",
