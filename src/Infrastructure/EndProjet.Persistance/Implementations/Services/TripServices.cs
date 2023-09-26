@@ -20,23 +20,23 @@ public class TripServices : ITripServices
     private readonly ITripeWriteRepository _tripWriteRepository;
     private readonly IMapper _mapper;
     private readonly UserManager<AppUser> _userManager;
-    private readonly IShareTripServices _shareTripServices;
     private readonly IShareTripReadRepository _shareTripReadRepository;
+    private readonly ITripNoteServices _tripNoteServices;
 
 
     public TripServices(ITripeReadRepository tripReadRepository,
                         ITripeWriteRepository tripWriteRepository,
                         IMapper mapper,
                         UserManager<AppUser> userManager,
-                        IShareTripServices shareTripServices,
-                        IShareTripReadRepository shareTripReadRepository)
+                        IShareTripReadRepository shareTripReadRepository,
+                        ITripNoteServices tripNoteServices)
     {
         _tripReadRepository = tripReadRepository;
         _tripWriteRepository = tripWriteRepository;
         _mapper = mapper;
         _userManager = userManager;
-        _shareTripServices = shareTripServices;
         _shareTripReadRepository = shareTripReadRepository;
+        _tripNoteServices = tripNoteServices;
     }
 
     public async Task CreateAsync(TripCreateDTO tripCreateDTO)
@@ -86,6 +86,8 @@ public class TripServices : ITripServices
         if (byTrip.AppUserId != AppUserId)
             throw new AuthenticationException("No Access");
 
+        await _tripNoteServices.RemoveRangeAsync(tripId);
+
         _tripWriteRepository.Remove(byTrip);
         await _tripWriteRepository.SavaChangeAsync();
     }
@@ -94,6 +96,7 @@ public class TripServices : ITripServices
     {
         var byTrip = await _tripReadRepository
            .GetByIdAsyncExpression(x => x.Id == id);
+        var AppUser = byTrip.AppUserId;
         if (tripUpdateDTO.AppUserId != byTrip.AppUserId)
         {
             var byShareUser = await _userManager.FindByIdAsync(tripUpdateDTO.AppUserId);
@@ -107,6 +110,7 @@ public class TripServices : ITripServices
         }
 
         _mapper.Map(tripUpdateDTO, byTrip);
+        byTrip.AppUserId = AppUser;
         _tripWriteRepository.Update(byTrip);
         await _tripWriteRepository.SavaChangeAsync();
 

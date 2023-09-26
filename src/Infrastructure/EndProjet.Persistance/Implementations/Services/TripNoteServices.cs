@@ -102,6 +102,17 @@ public class TripNoteServices : ITripNoteServices
         await _tripNoteWriteRepository.SavaChangeAsync();
     }
 
+    public async Task RemoveRangeAsync(Guid tripId)
+    {
+        var allTripNotes = await _tripNoteReadRepository
+                         .GetAll()
+                         .Where(x => x.TripId == tripId)
+                         .ToListAsync();
+
+        _tripNoteWriteRepository.RemoveRange(allTripNotes);
+        await _tripNoteWriteRepository.SavaChangeAsync();
+    }
+
     public async Task UpdateAsync(Guid id, TripNoteUpdateDTO tripNoteUpdateDTO)
     {
         var TripNote = await _tripNoteReadRepository.GetByIdAsync(id);
