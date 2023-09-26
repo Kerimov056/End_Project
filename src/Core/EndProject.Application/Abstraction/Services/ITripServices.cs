@@ -9,4 +9,7 @@ public interface ITripServices
     Task<TripGetDTO> GetByIdAsync(Guid Id);
     Task UpdateAsync(Guid id, TripUpdateDTO tripUpdateDTO);
     Task RemoveAsync(Guid tripId, string AppUserId);
+
+    //MyTripCountAsync
+    Task<int> MyTripCountAsync(string AppUserId);
 }

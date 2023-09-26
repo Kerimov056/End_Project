@@ -79,6 +79,15 @@ public class TripServices : ITripServices
         return toDto;
     }
 
+    public async Task<int> MyTripCountAsync(string AppUserId)
+    {
+        var byUser = await _userManager.FindByIdAsync(AppUserId);
+        if (byUser is null) throw new NotFoundException("User Not Found");
+
+        var byTripCount = await _tripReadRepository.MyTripCount(AppUserId);
+        return byTripCount;
+    }
+
     public async Task RemoveAsync(Guid tripId, string AppUserId)
     {
         var byTrip = await _tripReadRepository.GetByIdAsync(tripId);

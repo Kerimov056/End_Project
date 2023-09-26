@@ -37,6 +37,13 @@ public class TripsController : ControllerBase
         return Ok(byTrip);
     }
 
+    [HttpGet("myTripCount")]
+    public async Task<IActionResult> GetById(string AppUserId)
+    {
+        var byTripCount = await _tripServices.MyTripCountAsync(AppUserId);
+        return Ok(byTripCount);
+    }
+
     [HttpDelete("RemoveTrip")]
     public async Task<IActionResult> Remove(Guid tripId, string AppUserId)
     {
