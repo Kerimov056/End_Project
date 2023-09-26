@@ -31,7 +31,7 @@ public class ShareTripsController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post(ShareTripCreateDTO shareTripCreateDTO)
+    public async Task<IActionResult> Post([FromForm]ShareTripCreateDTO shareTripCreateDTO)
     {
         await _shareTripService.CreateAsync(shareTripCreateDTO);
         return StatusCode((int)HttpStatusCode.Created);

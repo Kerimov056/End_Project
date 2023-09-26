@@ -38,13 +38,13 @@ public class TripsController : ControllerBase
     }
 
     [HttpDelete("RemoveTrip")]
-    public async Task<IActionResult> Remove(TripRemoveDTO tripRemoveDTO)
+    public async Task<IActionResult> Remove(Guid tripId, string AppUserId)
     {
-        await _tripServices.RemoveAsync(tripRemoveDTO);
+        await _tripServices.RemoveAsync(tripId, AppUserId);
         return Ok();
     }
 
-    [HttpPut("{id:Guid}")]
+    [HttpPut("Update/{id:Guid}")]
     public async Task<IActionResult> Uptade(Guid id, [FromForm] TripUpdateDTO tripUpdateDTO)
     {
         await _tripServices.UpdateAsync(id, tripUpdateDTO);

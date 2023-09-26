@@ -72,12 +72,12 @@ public class TripServices : ITripServices
         return toDto;
     }
 
-    public async Task RemoveAsync(TripRemoveDTO tripRemoveDTO)
+    public async Task RemoveAsync(Guid tripId, string AppUserId)
     {
-        var byTrip = await _tripReadRepository.GetByIdAsync(tripRemoveDTO.tripId);
+        var byTrip = await _tripReadRepository.GetByIdAsync(tripId);
         if (byTrip is null) throw new NotFoundException("Trip not Found");
 
-        if (byTrip.AppUserId != tripRemoveDTO.AppUserId)
+        if (byTrip.AppUserId != AppUserId)
             throw new AuthenticationException("No Access");
 
         _tripWriteRepository.Remove(byTrip);
