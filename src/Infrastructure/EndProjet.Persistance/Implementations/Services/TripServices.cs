@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
-using EndProject.Application.DTOs.Car;
-using EndProject.Application.DTOs.CarReservation;
+using EndProject.Application.DTOs.ShareTrip;
 using EndProject.Application.DTOs.Trip;
 using EndProject.Domain.Entitys;
 using EndProject.Domain.Entitys.Identity;
+using EndProject.Domain.Enums.Role;
 using EndProjet.Persistance.Exceptions;
+using EndProjet.Persistance.Implementations.Repositories.EntityRepository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Globalization;
 using System.Security.Authentication;
 
 namespace EndProjet.Persistance.Implementations.Services;
@@ -20,17 +20,23 @@ public class TripServices : ITripServices
     private readonly ITripeWriteRepository _tripWriteRepository;
     private readonly IMapper _mapper;
     private readonly UserManager<AppUser> _userManager;
+    private readonly IShareTripServices _shareTripServices;
+    private readonly IShareTripReadRepository _shareTripReadRepository;
 
 
     public TripServices(ITripeReadRepository tripReadRepository,
                         ITripeWriteRepository tripWriteRepository,
                         IMapper mapper,
-                        UserManager<AppUser> userManager)
+                        UserManager<AppUser> userManager,
+                        IShareTripServices shareTripServices,
+                        IShareTripReadRepository shareTripReadRepository)
     {
         _tripReadRepository = tripReadRepository;
         _tripWriteRepository = tripWriteRepository;
         _mapper = mapper;
         _userManager = userManager;
+        _shareTripServices = shareTripServices;
+        _shareTripReadRepository = shareTripReadRepository;
     }
 
     public async Task CreateAsync(TripCreateDTO tripCreateDTO)
@@ -59,7 +65,7 @@ public class TripServices : ITripServices
                        .OrderByDescending(x => x.CreatedDate)
                        .ToListAsync();
 
-        var toDto = _mapper.Map<List<TripGetDTO>>(allTrips);    
+        var toDto = _mapper.Map<List<TripGetDTO>>(allTrips);
         return toDto;
     }
 
@@ -86,14 +92,23 @@ public class TripServices : ITripServices
 
     public async Task UpdateAsync(Guid id, TripUpdateDTO tripUpdateDTO)
     {
-        var byTrip = await _tripReadRepository.GetByIdAsync(id);
-        if (byTrip is null) throw new NotFoundException("Trip not Found");
+        var byTrip = await _tripReadRepository
+           .GetByIdAsyncExpression(x => x.Id == id);
+        if (tripUpdateDTO.AppUserId != byTrip.AppUserId)
+        {
+            var byShareUser = await _userManager.FindByIdAsync(tripUpdateDTO.AppUserId);
+            if (byShareUser is null) throw new NotFoundException("User not Found");
 
-        if (byTrip.AppUserId != tripUpdateDTO.AppUserId)
-            throw new AuthenticationException("No Access");
+            var byContributor = await _shareTripReadRepository
+                .GetByIdAsyncExpression(x => x.Email == byShareUser.Email &&
+                                        x.TripRole == TripRole.Contributor);
+
+            if (byContributor is null) throw new Exception("No Access");
+        }
 
         _mapper.Map(tripUpdateDTO, byTrip);
         _tripWriteRepository.Update(byTrip);
         await _tripWriteRepository.SavaChangeAsync();
+
     }
 }

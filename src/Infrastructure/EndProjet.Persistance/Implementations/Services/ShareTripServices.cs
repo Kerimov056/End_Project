@@ -64,7 +64,9 @@ public class ShareTripServices : IShareTripServices
             if (byContributor is null) throw new Exception("No Access");
         }
 
-        var shareTrip = await _readRepository.GetByIdAsyncExpression(x => x.Email == shareTripCreateDTO.Email);
+        var shareTrip = await _readRepository
+        .GetByIdAsyncExpression(x => x.Email == shareTripCreateDTO.Email &&
+                                x.TripId == shareTripCreateDTO.TripId);
         if (shareTrip is not null)
         {
             var byGuestShare = await _userManager.FindByEmailAsync(shareTrip.Email);
