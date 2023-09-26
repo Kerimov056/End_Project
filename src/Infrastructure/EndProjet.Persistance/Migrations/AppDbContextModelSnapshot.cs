@@ -968,7 +968,6 @@ namespace EndProjet.Persistance.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Message")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("ModifiedDate")

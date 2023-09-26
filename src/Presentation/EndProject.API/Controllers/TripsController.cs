@@ -24,8 +24,7 @@ public class TripsController : ControllerBase
 
     [HttpPost]
     public async Task<IActionResult> Post([FromForm] TripCreateDTO tripCreateDTO)
-    {
-        
+    { 
         await _tripServices.CreateAsync(tripCreateDTO);
         return StatusCode((int)HttpStatusCode.Created);
     }

@@ -143,7 +143,8 @@ public class ShareTripServices : IShareTripServices
         var byTrip = await _tripeReadRepository.GetByIdAsync(tripId);
         if (byTrip is null) throw new NotFoundException("Trip Not Found");
 
-        var allShereUser = await _readRepository.GetAll().ToListAsync();
+        var allShereUser = await _readRepository.GetAll()
+            .Where(x => x.TripId == tripId).ToListAsync();
         var toDto = _mapper.Map<List<ShareTripGetDTO>>(allShereUser);
 
         return toDto;
@@ -194,10 +195,10 @@ public class ShareTripServices : IShareTripServices
         var byShare = await _readRepository.GetByIdAsync(id);
         if (byShare is null) throw new NotFoundException("Not Found");
 
+        //shareTripUpdateDTO.Message="-";
         _mapper.Map(shareTripUpdateDTO, byShare);
         _writeRepository.Update(byShare);
         await _writeRepository.SavaChangeAsync();
-
 
         string subject = "There is a new reservation";
         string html = string.Empty;
@@ -207,11 +208,9 @@ public class ShareTripServices : IShareTripServices
         html = System.IO.File.ReadAllText(filePath);
 
         var LinkTrip = $"https://localhost:7152/api/Car/qrcodeImage?id={shareTripUpdateDTO.TripId}";
-        var message1 = $"{shareTripUpdateDTO.Message}";
 
 
         html = html.Replace("{{LinkTrip}}", LinkTrip);
-        html = html.Replace("{{Message}}", message1);
 
 
         _emailService.Send(shareTripUpdateDTO.Email, subject, html);

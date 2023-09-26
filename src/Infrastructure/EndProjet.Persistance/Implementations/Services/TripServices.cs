@@ -8,6 +8,7 @@ using EndProject.Domain.Enums.Role;
 using EndProjet.Persistance.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using ServiceStack;
 using System.Security.Authentication;
 
 namespace EndProjet.Persistance.Implementations.Services;
@@ -48,12 +49,29 @@ public class TripServices : ITripServices
         //double lat = Convert.ToDouble(tripCreateDTO.TripLatitude, CultureInfo.InvariantCulture);
         //double lng = Convert.ToDouble(tripCreateDTO.TripLongitude, CultureInfo.InvariantCulture);
 
-
         var newTrip = _mapper.Map<Trip>(tripCreateDTO);
-        //newTrip.TripLongitude = lat;
-        //newTrip.TripLatitude = lng;
+        var latUpdate = FormatLatValue((double)newTrip.TripLatitude);
+        var lngUpdate = FormatLatValue((double)newTrip.TripLongitude);
+
+        newTrip.TripLatitude = latUpdate;
+        newTrip.TripLongitude = lngUpdate;
         await _tripWriteRepository.AddAsync(newTrip);
         await _tripWriteRepository.SavaChangeAsync();
+    }
+
+    private double FormatLatValue(double latValue)
+    {
+        string result = latValue.ToString();
+
+        if (result.Length >= 3)
+        {
+            result = result.Insert(2, ",");
+        }
+        if (result.Length == 2)
+        {
+            result = result.Insert(1, ",");
+        }
+        return result.ToDouble();
     }
 
     public async Task<List<TripGetDTO>> GetAllAsync(string AppUserId)
@@ -94,7 +112,7 @@ public class TripServices : ITripServices
         if (byTrip is null) throw new NotFoundException("Trip not Found");
 
         if (byTrip.AppUserId != AppUserId)
-            throw new AuthenticationException("No Access");
+            throw new Exception("No Access");
 
         await _tripNoteServices.RemoveRangeAsync(tripId);
         await _shareTripServices.RemoveRangeAsync(tripId);
