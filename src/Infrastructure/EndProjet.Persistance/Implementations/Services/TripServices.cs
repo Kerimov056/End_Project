@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
-using EndProject.Application.DTOs.CarReservation;
+using EndProject.Application.DTOs.Car;
 using EndProject.Application.DTOs.Trip;
 using EndProject.Domain.Entitys;
 using EndProject.Domain.Entitys.Identity;
@@ -10,7 +10,6 @@ using EndProjet.Persistance.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ServiceStack;
-using System.Security.Authentication;
 
 namespace EndProjet.Persistance.Implementations.Services;
 
@@ -23,7 +22,7 @@ public class TripServices : ITripServices
     private readonly IShareTripReadRepository _shareTripReadRepository;
     private readonly ITripNoteServices _tripNoteServices;
     private readonly IShareTripServices _shareTripServices;
-
+    private readonly ICarReservationReadRepository _carReservationReadRepository;
 
     public TripServices(ITripeReadRepository tripReadRepository,
                         ITripeWriteRepository tripWriteRepository,
@@ -31,7 +30,8 @@ public class TripServices : ITripServices
                         UserManager<AppUser> userManager,
                         IShareTripReadRepository shareTripReadRepository,
                         ITripNoteServices tripNoteServices,
-                        IShareTripServices shareTripServices)
+                        IShareTripServices shareTripServices,
+                        ICarReservationReadRepository carReservationReadRepository)
     {
         _tripReadRepository = tripReadRepository;
         _tripWriteRepository = tripWriteRepository;
@@ -40,6 +40,7 @@ public class TripServices : ITripServices
         _shareTripReadRepository = shareTripReadRepository;
         _tripNoteServices = tripNoteServices;
         _shareTripServices = shareTripServices;
+        _carReservationReadRepository = carReservationReadRepository;
     }
 
     public async Task CreateAsync(TripCreateDTO tripCreateDTO)
@@ -138,6 +139,23 @@ public class TripServices : ITripServices
         byTrip.AppUserId = AppUser;
         _tripWriteRepository.Update(byTrip);
         await _tripWriteRepository.SavaChangeAsync();
+    }
 
+    public async Task<CarGetDTO> GetTripByIdAsync(Guid TripId)
+    {
+        var byTrip = await _tripReadRepository.GetByIdAsync(TripId);
+        if (byTrip is null) throw new NotFoundException("Trip Not Found");
+
+        //byTrip.StartDate
+        //byTrip.EndDate
+
+        var byCar = await _carReservationReadRepository
+                            .GetByIdAsyncExpression(x => x.AppUserId == byTrip.AppUserId &&
+                            x.PickupDate == DateTime.Now);
+
+        //byCar.PickupDate
+        //byCar.ReturnDate
+
+        throw new Exception();
     }
 }

@@ -1,4 +1,5 @@
-﻿using EndProject.Application.DTOs.Trip;
+﻿using EndProject.Application.DTOs.Car;
+using EndProject.Application.DTOs.Trip;
 
 namespace EndProject.Application.Abstraction.Services;
 
@@ -12,4 +13,7 @@ public interface ITripServices
 
     //MyTripCountAsync
     Task<int> MyTripCountAsync(string AppUserId);
+
+    //TripCar
+    Task<CarGetDTO> GetTripByIdAsync(Guid TripId);
 }
