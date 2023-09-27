@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
+using EndProject.Application.DTOs.CarReservation;
 using EndProject.Application.DTOs.Trip;
 using EndProject.Domain.Entitys;
 using EndProject.Domain.Entitys.Identity;
@@ -43,11 +44,13 @@ public class TripServices : ITripServices
 
     public async Task CreateAsync(TripCreateDTO tripCreateDTO)
     {
+
+        if (tripCreateDTO.StartDate < DateTime.Now) throw new Exception("Choose a Time !!!");
+        if (tripCreateDTO.EndDate <= tripCreateDTO.StartDate) throw new Exception("Choose a Time !!! ");
+
+
         var appUser = await _userManager.FindByIdAsync(tripCreateDTO.AppUserId);
         if (appUser is null) throw new NotFoundException("Not Found User");
-
-        //double lat = Convert.ToDouble(tripCreateDTO.TripLatitude, CultureInfo.InvariantCulture);
-        //double lng = Convert.ToDouble(tripCreateDTO.TripLongitude, CultureInfo.InvariantCulture);
 
         var newTrip = _mapper.Map<Trip>(tripCreateDTO);
         var latUpdate = FormatLatValue((double)newTrip.TripLatitude);
@@ -62,15 +65,8 @@ public class TripServices : ITripServices
     private double FormatLatValue(double latValue)
     {
         string result = latValue.ToString();
-
-        if (result.Length >= 3)
-        {
-            result = result.Insert(2, ",");
-        }
-        if (result.Length == 2)
-        {
-            result = result.Insert(1, ",");
-        }
+        if (result.Length >= 3)  result = result.Insert(2, ",");
+        if (result.Length == 2)  result = result.Insert(1, ",");
         return result.ToDouble();
     }
 

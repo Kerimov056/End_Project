@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
+using EndProject.Application.DTOs.CarReservation;
 using EndProject.Application.DTOs.ShareTrip;
 using EndProject.Domain.Entitys;
 using EndProject.Domain.Entitys.Identity;
@@ -100,12 +101,12 @@ public class ShareTripServices : IShareTripServices
             string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "templates", "TripAddUser.html");
             html = System.IO.File.ReadAllText(filePath);
 
-            var LinkTrip = $"https://localhost:7152/api/Car/qrcodeImage?id={shareTripCreateDTO.TripId}";
+            var LinkTrip = $"http://localhost:3000/ByTrip/{shareTripCreateDTO.TripId}";
             var message = $"{shareTripCreateDTO.Message}";
 
             html = html.Replace("{{LinkTrip}}", LinkTrip);
             html = html.Replace("{{Message}}", message);
-           
+
 
             _emailService.Send(shareTripCreateDTO.Email, subject, html);
 
@@ -122,7 +123,7 @@ public class ShareTripServices : IShareTripServices
         string filePath1 = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "templates", "TripAddUser.html");
         html1 = System.IO.File.ReadAllText(filePath1);
 
-        var LinkTrip1 = $"https://localhost:7152/api/Car/qrcodeImage?id={shareTripCreateDTO.TripId}";
+        var LinkTrip1 = $"http://localhost:3000/ByTrip/{shareTripCreateDTO.TripId}";
         var message1 = $"{shareTripCreateDTO.Message}";
 
 
@@ -195,7 +196,6 @@ public class ShareTripServices : IShareTripServices
         var byShare = await _readRepository.GetByIdAsync(id);
         if (byShare is null) throw new NotFoundException("Not Found");
 
-        //shareTripUpdateDTO.Message="-";
         _mapper.Map(shareTripUpdateDTO, byShare);
         _writeRepository.Update(byShare);
         await _writeRepository.SavaChangeAsync();
@@ -207,7 +207,7 @@ public class ShareTripServices : IShareTripServices
         string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "templates", "TripAddUser.html");
         html = System.IO.File.ReadAllText(filePath);
 
-        var LinkTrip = $"https://localhost:7152/api/Car/qrcodeImage?id={shareTripUpdateDTO.TripId}";
+        var LinkTrip = $"http://localhost:3000/ByTrip/{shareTripUpdateDTO.TripId}";
 
 
         html = html.Replace("{{LinkTrip}}", LinkTrip);
