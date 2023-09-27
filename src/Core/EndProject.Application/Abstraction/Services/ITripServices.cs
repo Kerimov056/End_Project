@@ -15,5 +15,5 @@ public interface ITripServices
     Task<int> MyTripCountAsync(string AppUserId);
 
     //TripCar
-    Task<CarGetDTO> GetTripByIdAsync(Guid TripId);
+    Task<CarGetDTO> GetTripCarByIdAsync(Guid TripId);
 }

@@ -35,6 +35,12 @@ public class TripsController : ControllerBase
         var byTrip = await _tripServices.GetByIdAsync(id);
         return Ok(byTrip);
     }
+    [HttpGet("GetTripCarByIdAsync")]
+    public async Task<IActionResult> GetTripCarById(Guid TripId)
+    {
+        var byTripCar = await _tripServices.GetTripCarByIdAsync(TripId);
+        return Ok(byTripCar);
+    }
 
     [HttpGet("myTripCount")]
     public async Task<IActionResult> GetById(string AppUserId)

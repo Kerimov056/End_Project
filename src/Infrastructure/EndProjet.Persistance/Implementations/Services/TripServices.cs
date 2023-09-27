@@ -23,6 +23,7 @@ public class TripServices : ITripServices
     private readonly ITripNoteServices _tripNoteServices;
     private readonly IShareTripServices _shareTripServices;
     private readonly ICarReservationReadRepository _carReservationReadRepository;
+    private readonly ICarServices _carServices;
 
     public TripServices(ITripeReadRepository tripReadRepository,
                         ITripeWriteRepository tripWriteRepository,
@@ -31,7 +32,8 @@ public class TripServices : ITripServices
                         IShareTripReadRepository shareTripReadRepository,
                         ITripNoteServices tripNoteServices,
                         IShareTripServices shareTripServices,
-                        ICarReservationReadRepository carReservationReadRepository)
+                        ICarReservationReadRepository carReservationReadRepository,
+                        ICarServices carServices)
     {
         _tripReadRepository = tripReadRepository;
         _tripWriteRepository = tripWriteRepository;
@@ -41,6 +43,7 @@ public class TripServices : ITripServices
         _tripNoteServices = tripNoteServices;
         _shareTripServices = shareTripServices;
         _carReservationReadRepository = carReservationReadRepository;
+        _carServices = carServices;
     }
 
     public async Task CreateAsync(TripCreateDTO tripCreateDTO)
@@ -66,8 +69,8 @@ public class TripServices : ITripServices
     private double FormatLatValue(double latValue)
     {
         string result = latValue.ToString();
-        if (result.Length >= 3)  result = result.Insert(2, ",");
-        if (result.Length == 2)  result = result.Insert(1, ",");
+        if (result.Length >= 3) result = result.Insert(2, ",");
+        if (result.Length == 2) result = result.Insert(1, ",");
         return result.ToDouble();
     }
 
@@ -141,21 +144,16 @@ public class TripServices : ITripServices
         await _tripWriteRepository.SavaChangeAsync();
     }
 
-    public async Task<CarGetDTO> GetTripByIdAsync(Guid TripId)
+    public async Task<CarGetDTO> GetTripCarByIdAsync(Guid TripId)
     {
         var byTrip = await _tripReadRepository.GetByIdAsync(TripId);
         if (byTrip is null) throw new NotFoundException("Trip Not Found");
 
-        //byTrip.StartDate
-        //byTrip.EndDate
+        var byReservation = await _carReservationReadRepository
+                                .GetByIdAsyncExpression(x => x.AppUserId == byTrip.AppUserId &&
+                                x.PickupDate >= byTrip.StartDate && x.ReturnDate <= byTrip.EndDate);
 
-        var byCar = await _carReservationReadRepository
-                            .GetByIdAsyncExpression(x => x.AppUserId == byTrip.AppUserId &&
-                            x.PickupDate == DateTime.Now);
-
-        //byCar.PickupDate
-        //byCar.ReturnDate
-
-        throw new Exception();
+        var byCar = await _carServices.GetByIdAsync(byReservation.CarId);
+        return byCar;
     }
 }
