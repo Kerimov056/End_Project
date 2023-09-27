@@ -86,13 +86,45 @@ public class CarReservationServices : ICarReservationServices
         return response;
     }
 
+    public async Task<List<DateTime>> ConformPickUpDate(Guid CarId)
+    {
+        var carReservationConform = await _carReservationReadRepository.GetAll()
+                                    .Where(x => x.Status == ReservationStatus.Confirmed)
+                                    .Where(x => x.CarId == CarId)
+                                    .ToListAsync();
+
+        var listDate = new List<DateTime>();
+        foreach (var item in carReservationConform)
+        {
+            listDate.Add(item.PickupDate);
+        }
+
+        return listDate;
+    }
+
+    public async Task<List<DateTime>> ConformReturnDate(Guid CarId)
+    {
+        var carReservationConform = await _carReservationReadRepository.GetAll()
+                                          .Where(x => x.Status == ReservationStatus.Confirmed)
+                                          .Where(x => x.CarId == CarId)
+                                          .ToListAsync();
+
+        var listDate = new List<DateTime>();
+        foreach (var item in carReservationConform)
+        {
+            listDate.Add(item.ReturnDate);
+        }
+
+        return listDate;
+    }
+
     public async Task CreateAsync(CarReservationCreateDTO carReservationCreateDTO)
     {
         if (carReservationCreateDTO.PickupDate < DateTime.Now) throw new Exception("Choose a Time !!!");
         if (carReservationCreateDTO.ReturnDate <= carReservationCreateDTO.PickupDate) throw new Exception("Choose a Time !!! ");
 
-         DateTime minimumReturnDate = carReservationCreateDTO.PickupDate.AddDays(1);
-         if (carReservationCreateDTO.ReturnDate < minimumReturnDate) throw new Exception("ReturnDate must be at least 1 day after PickupDate.");
+        DateTime minimumReturnDate = carReservationCreateDTO.PickupDate.AddDays(1);
+        if (carReservationCreateDTO.ReturnDate < minimumReturnDate) throw new Exception("ReturnDate must be at least 1 day after PickupDate.");
 
         var newReserv = new CarReservation
         {
@@ -162,7 +194,7 @@ public class CarReservationServices : ICarReservationServices
                 };
                 await _campaignStatistikaServices.CreateAsync(campaignStatistikaDTO);
             }
-            else  await _campaignStatistikaServices.UpdateAsync(byStatistika.Id);
+            else await _campaignStatistikaServices.UpdateAsync(byStatistika.Id);
         }
 
         await _carReservationWriteRepository.SavaChangeAsync();
@@ -526,12 +558,12 @@ public class CarReservationServices : ICarReservationServices
     }
 
     public async Task<int> NotCompaignStaitsika()
-     =>   await _carReservationReadRepository.NotCompaignStaitsik();
+     => await _carReservationReadRepository.NotCompaignStaitsik();
 
     public async Task RemoveAsync(Guid id)
     {
         var ByReserv = await _carReservationReadRepository
-            .GetAll().Where(x => x.IsDeleted == false).FirstOrDefaultAsync(x=>x.Id == id);
+            .GetAll().Where(x => x.IsDeleted == false).FirstOrDefaultAsync(x => x.Id == id);
         if (ByReserv is null) throw new NotFoundException("Reservation is Null");
         ByReserv.IsDeleted = true;
         _carReservationWriteRepository.Update(ByReserv);

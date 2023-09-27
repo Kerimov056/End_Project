@@ -35,4 +35,8 @@ public interface ICarReservationServices
 
     //Game 
     Task<bool> CarFindGameUserAccess(string AppUserId);
+
+    //Confirem Reservation PickUp and Return Date 
+    Task<List<DateTime>> ConformPickUpDate(Guid CarId);
+    Task<List<DateTime>> ConformReturnDate(Guid CarId);
 }

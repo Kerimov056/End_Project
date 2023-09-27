@@ -252,4 +252,20 @@ public class CarReservationsController : ControllerBase
         return Ok(response);
     }
 
+
+    //Confirem Reservation PickUp and Return Date 
+
+    [HttpGet("ConformPickUpDate")]
+    public async Task<IActionResult> GetAllConformPickDate(Guid CarId)
+    {
+        var result = await _carReservationServices.ConformPickUpDate(CarId);
+        return Ok(result);
+    }   
+    
+    [HttpGet("ConformReturnDate")]
+    public async Task<IActionResult> GetAllConformReturnDate(Guid CarId)
+    {
+        var result = await _carReservationServices.ConformReturnDate(CarId);
+        return Ok(result);
+    }
 }

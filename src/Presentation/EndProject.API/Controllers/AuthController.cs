@@ -37,7 +37,6 @@ namespace EndProject.API.Controllersş
         //[ProducesResponseType(statusCode: StatusCodes.Status200OK)]
         public async Task<IActionResult> Register([FromBody] RegisterDTO registerDTO)
         {
-            Console.WriteLine("-----------------------------------------------------------------------------------------------------------" + registerDTO.BirthDate);
             ArgumentNullException.ThrowIfNull(registerDTO, ExceptionResponseMessages.ParametrNotFoundMessage);
 
             SignUpResponse response = await _authService.Register(registerDTO)

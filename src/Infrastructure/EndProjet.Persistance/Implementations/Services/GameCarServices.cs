@@ -66,6 +66,13 @@ public class GameCarServices : IGameCarServices
         return toDto;
     }
 
+    public async Task<bool> GetByIdAcces(string AppUserId)
+    {
+        var byGameCarProfile = await _gameCarReadRepository.GetByIdAsyncExpression(x => x.AppUserId == AppUserId);
+        if (byGameCarProfile is null) return false;
+        return true;
+    }
+
     public async Task<GameCarGetDTO> GetByIdAsync(Guid Id)
     {
         var byGameCarProfile = await _gameCarReadRepository.GetByIdAsync(Id);

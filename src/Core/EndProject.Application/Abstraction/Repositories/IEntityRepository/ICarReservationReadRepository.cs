@@ -11,4 +11,5 @@ public interface ICarReservationReadRepository: IReadRepository<CarReservation>
     Task<int> GetReservNowCountAsync();
     Task<int> NotCompaignStaitsik();
     Task<bool> carFindGameAcces(string AppUserId);
+
 }
