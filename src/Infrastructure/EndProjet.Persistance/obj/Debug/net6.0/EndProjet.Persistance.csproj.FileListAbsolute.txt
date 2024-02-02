@@ -61,3 +61,4 @@ D:\work2\End_Project\src\Infrastructure\EndProjet.Persistance\obj\Debug\net6.0\r
 D:\work2\End_Project\src\Infrastructure\EndProjet.Persistance\obj\Debug\net6.0\EndProjet.Persistance.pdb
 D:\work2\End_Project\src\Infrastructure\EndProjet.Persistance\obj\Debug\net6.0\EndProjet.Persistance.genruntimeconfig.cache
 D:\work2\End_Project\src\Infrastructure\EndProjet.Persistance\obj\Debug\net6.0\ref\EndProjet.Persistance.dll
+D:\work2\End_Project\src\Infrastructure\EndProjet.Persistance\obj\Debug\net6.0\EndProjet.Persistance.sourcelink.json

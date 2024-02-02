@@ -69,6 +69,7 @@ public class AppDbContext : IdentityDbContext<AppUser>
     public DbSet<GameCar> GameCars { get; set; }
     public DbSet<Trip> Trips { get; set; }
     public DbSet<TripNote> TripNotes { get; set; }
+    public DbSet<Person> Persons { get; set; }
     //public DbSet<CommentLike> CommentLikes { get; set; }
 }
 

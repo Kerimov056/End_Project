@@ -196,3 +196,4 @@ D:\work2\End_Project\LuxeDriveUnitTest\obj\Debug\net6.0\refint\LuxeDriveUnitTest
 D:\work2\End_Project\LuxeDriveUnitTest\obj\Debug\net6.0\LuxeDriveUnitTest.pdb
 D:\work2\End_Project\LuxeDriveUnitTest\obj\Debug\net6.0\LuxeDriveUnitTest.genruntimeconfig.cache
 D:\work2\End_Project\LuxeDriveUnitTest\obj\Debug\net6.0\ref\LuxeDriveUnitTest.dll
+D:\work2\End_Project\LuxeDriveUnitTest\obj\Debug\net6.0\LuxeDriveUnitTest.sourcelink.json

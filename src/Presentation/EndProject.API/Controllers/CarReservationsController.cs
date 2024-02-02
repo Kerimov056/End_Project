@@ -143,20 +143,20 @@ public class CarReservationsController : ControllerBase
     public async Task<IActionResult> Post([FromForm] CarReservationCreateDTO carReservationCreateDTO)
     {
         await _carReservationServices.CreateAsync(carReservationCreateDTO);
-        string subject = "There is a new reservation";
-        string html = string.Empty;
+        //string subject = "There is a new reservation";
+        //string html = string.Empty;
 
-        string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "templates", "newReservation.html");
-        html = System.IO.File.ReadAllText(filePath);
+        //string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "templates", "newReservation.html");
+        //html = System.IO.File.ReadAllText(filePath);
 
-        var byCar = await _carServices.GetByIdAsync(carReservationCreateDTO.CarId);
-        var QrImage = $"https://localhost:7152/api/Car/qrcodeImage?id={carReservationCreateDTO.CarId}";
+        //var byCar = await _carServices.GetByIdAsync(carReservationCreateDTO.CarId);
+        //var QrImage = $"https://localhost:7152/api/Car/qrcodeImage?id={carReservationCreateDTO.CarId}";
 
-        html = html.Replace("{{Marka}}", byCar.Marka);
-        html = html.Replace("{{Model}}", byCar.Model);
-        html = html.Replace("{{QrCodeCar}}", QrImage);   
+        //html = html.Replace("{{Marka}}", byCar.Marka);
+        //html = html.Replace("{{Model}}", byCar.Model);
+        //html = html.Replace("{{QrCodeCar}}", QrImage);   
 
-        _emailService.Send(carReservationCreateDTO.Email, subject, html);
+        //_emailService.Send(carReservationCreateDTO.Email, subject, html);
 
         return StatusCode((int)HttpStatusCode.Created);
     }

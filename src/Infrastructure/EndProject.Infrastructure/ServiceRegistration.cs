@@ -7,7 +7,6 @@ using EndProject.Application.Abstraction.Services.Stroge;
 using EndProject.Infrastructure.Services;
 using EndProject.Infrastructure.Services.Azure;
 using EndProject.Infrastructure.Services.Cryptography;
-using EndProject.Infrastructure.Services.Email;
 using EndProject.Infrastructure.Services.Payment.PayPal;
 using EndProject.Infrastructure.Services.Payment.Stripe;
 using EndProject.Infrastructure.Services.QRCoder;

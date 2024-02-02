@@ -55,3 +55,4 @@ D:\work2\End_Project\src\Infrastructure\EndProject.Infrastructure\obj\Debug\net6
 D:\work2\End_Project\src\Infrastructure\EndProject.Infrastructure\obj\Debug\net6.0\EndProject.Infrastructure.pdb
 D:\work2\End_Project\src\Infrastructure\EndProject.Infrastructure\obj\Debug\net6.0\EndProject.Infrastructure.genruntimeconfig.cache
 D:\work2\End_Project\src\Infrastructure\EndProject.Infrastructure\obj\Debug\net6.0\ref\EndProject.Infrastructure.dll
+D:\work2\End_Project\src\Infrastructure\EndProject.Infrastructure\obj\Debug\net6.0\EndProject.Infrastructure.sourcelink.json

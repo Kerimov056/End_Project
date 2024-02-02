@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "hkLZBEcxHl91pPr70pqDLDoAUEii2QTxcppuShUI8HIp/LNju1svYzFzLQpE4EBXYyjLrmHP0Skk32yk1WecKw==",
+  "dgSpecHash": "fzJZATphfvI5zuSgv3JD+JVCFf1L8bNTkzPziKX274T7SRsmg5PZ8sFBFOqeZZ2HFDoO+SXWUV8+cR0c5vpa1g==",
   "success": true,
   "projectFilePath": "D:\\work2\\End_Project\\src\\Infrastructure\\EndProject.Infrastructure\\EndProject.Infrastructure.csproj",
   "expectedPackageFiles": [
@@ -82,5 +82,26 @@
     "C:\\Users\\Legion\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
     "C:\\Users\\Legion\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1902",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'System.IdentityModel.Tokens.Jwt' 6.20.0 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-59j7-ghrg-fj52",
+      "libraryId": "System.IdentityModel.Tokens.Jwt",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1902",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'System.IdentityModel.Tokens.Jwt' 6.20.0 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-8g9c-28fc-mcx2",
+      "libraryId": "System.IdentityModel.Tokens.Jwt",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
 }

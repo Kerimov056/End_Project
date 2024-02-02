@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using EndProject.Application.Abstraction.Repositories.IEntityRepository;
 using EndProject.Application.Abstraction.Services;
-using EndProject.Application.Abstraction.Services.Stroge;
 using EndProject.Application.DTOs.Slider;
 using EndProject.Domain.Entitys;
 using EndProject.Domain.Entitys.Common;

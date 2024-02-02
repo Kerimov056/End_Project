@@ -20,8 +20,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddPersistenceServices();
-builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices();
+builder.Services.AddApplicationServices();
 
 
 StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
@@ -70,25 +70,11 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true
     };
 });
-//.Services.AddAuthentication().AddGoogle(googleOptions =>
-//{
-//    googleOptions.ClientId = builder.Configuration.GetSection("GoogleAuthSettings")
-//.GetValue<string>("http://91997614652-1q2taif2sptoou1dahqsiripc4u5e0b6.apps.googleusercontent.com");
-//    googleOptions.ClientSecret = builder.Configuration.GetSection("GoogleAuthSettings")
-//.GetValue<string>("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");
-//});
-
-
-//builder.Services.Configure<CookiePolicyOptions>(options =>
-//{
-//    options.CheckConsentNeeded = context => true;
-//    options.MinimumSameSitePolicy = SameSiteMode.Unspecified;
-//});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddHostedService<BirthDateBGServices>();
+//builder.Services.AddHostedService<BirthDateBGServices>();
 builder.Services.AddHostedService<ReservationPickupCheckService>();
 builder.Services.AddHostedService<ReservationReturnCheckService>();
 builder.Services.AddHostedService<PicakUpCompaignsBackService>();
@@ -106,7 +92,7 @@ using (var scope = app.Services.CreateScope())
     var instance = scope.ServiceProvider.GetRequiredService<AppDbContextInitializer>();
     await instance.InitializeAsync();
     await instance.RoleSeedAsync();
-    await instance.UserSeedAsync();
+    await instance.UserSeedAsync(); 
 }
 
 if (app.Environment.IsDevelopment())
@@ -125,21 +111,6 @@ app.UseCors(cors => cors
             .SetIsOriginAllowed(x => true)
             .AllowCredentials());
 
-//app.UseHttpsRedirection();
-//app.UseRouting(); 
-
-//app.UseHsts();
-
-//app.Use((context, next) =>
-//{
-//    context.Request.Host = new HostString("api.domain.com");
-//    context.Request.PathBase = new PathString("/identity"); //if you need this
-//    context.Request.Scheme = "https";
-//    return next();
-//});
-
-//WebSocket---------
-
 app.UseWebSockets();
 var webSocketOptions = new WebSocketOptions
 {
@@ -147,9 +118,6 @@ var webSocketOptions = new WebSocketOptions
 };
 
 app.UseWebSockets(webSocketOptions);
-
-
-
 
 
 //WebSocket---------

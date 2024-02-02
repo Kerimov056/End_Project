@@ -24,9 +24,9 @@ public class AuthService : IAuthService
     private readonly UserManager<AppUser> _userManager;
     private readonly SignInManager<AppUser> _siginManager;
     private readonly RoleManager<IdentityRole> _roleManager;
-    private readonly ITokenHandler _tokenHandler;
     private readonly AppDbContext _context;
     private readonly IConfiguration _configuration;
+    private readonly ITokenHandler _tokenHandler;
     private readonly IEmailService _emailService;
     private readonly IStorageFile _storageFile;
 

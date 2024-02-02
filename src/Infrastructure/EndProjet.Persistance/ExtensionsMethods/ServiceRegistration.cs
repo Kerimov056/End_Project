@@ -149,11 +149,6 @@ public static class ServiceRegistration
         //Mapper
         services.AddAutoMapper(typeof(SliderProfile).Assembly);
 
-        //services.AddSingleton(provider => new MapperConfiguration(cfg =>
-        //{
-        //    cfg.AddProfile(new SliderProfile(provider.GetService<IHttpContextAccessor>()));
-        //}).CreateMapper());
-
 
         //Validator
         services.AddFluentValidationAutoValidation();
