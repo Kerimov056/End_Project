@@ -41,3 +41,17 @@ D:\work2\End_Project\src\Core\EndProject.Domain\obj\Debug\net6.0\EndProject.Doma
 D:\work2\End_Project\src\Core\EndProject.Domain\obj\Debug\net6.0\EndProject.Domain.genruntimeconfig.cache
 D:\work2\End_Project\src\Core\EndProject.Domain\obj\Debug\net6.0\ref\EndProject.Domain.dll
 D:\work2\End_Project\src\Core\EndProject.Domain\obj\Debug\net6.0\EndProject.Domain.sourcelink.json
+C:\Users\enelry\Desktop\End_Project\src\Core\EndProject.Domain\bin\Debug\net6.0\EndProject.Domain.deps.json
+C:\Users\enelry\Desktop\End_Project\src\Core\EndProject.Domain\bin\Debug\net6.0\EndProject.Domain.runtimeconfig.json
+C:\Users\enelry\Desktop\End_Project\src\Core\EndProject.Domain\bin\Debug\net6.0\EndProject.Domain.dll
+C:\Users\enelry\Desktop\End_Project\src\Core\EndProject.Domain\bin\Debug\net6.0\EndProject.Domain.pdb
+C:\Users\enelry\Desktop\End_Project\src\Core\EndProject.Domain\obj\Debug\net6.0\EndProject.Domain.csproj.AssemblyReference.cache
+C:\Users\enelry\Desktop\End_Project\src\Core\EndProject.Domain\obj\Debug\net6.0\EndProject.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\enelry\Desktop\End_Project\src\Core\EndProject.Domain\obj\Debug\net6.0\EndProject.Domain.AssemblyInfoInputs.cache
+C:\Users\enelry\Desktop\End_Project\src\Core\EndProject.Domain\obj\Debug\net6.0\EndProject.Domain.AssemblyInfo.cs
+C:\Users\enelry\Desktop\End_Project\src\Core\EndProject.Domain\obj\Debug\net6.0\EndProject.Domain.csproj.CoreCompileInputs.cache
+C:\Users\enelry\Desktop\End_Project\src\Core\EndProject.Domain\obj\Debug\net6.0\EndProject.Domain.dll
+C:\Users\enelry\Desktop\End_Project\src\Core\EndProject.Domain\obj\Debug\net6.0\refint\EndProject.Domain.dll
+C:\Users\enelry\Desktop\End_Project\src\Core\EndProject.Domain\obj\Debug\net6.0\EndProject.Domain.pdb
+C:\Users\enelry\Desktop\End_Project\src\Core\EndProject.Domain\obj\Debug\net6.0\EndProject.Domain.genruntimeconfig.cache
+C:\Users\enelry\Desktop\End_Project\src\Core\EndProject.Domain\obj\Debug\net6.0\ref\EndProject.Domain.dll

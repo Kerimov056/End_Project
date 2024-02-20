@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\EndProject.API.csproj": {}
+    "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Presentation\\EndProject.API\\EndProject.API.csproj": {}
   },
   "projects": {
-    "D:\\work2\\End_Project\\src\\Core\\EndProject.Application\\EndProject.Application.csproj": {
+    "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Core\\EndProject.Application\\EndProject.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\work2\\End_Project\\src\\Core\\EndProject.Application\\EndProject.Application.csproj",
+        "projectUniqueName": "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Core\\EndProject.Application\\EndProject.Application.csproj",
         "projectName": "EndProject.Application",
-        "projectPath": "D:\\work2\\End_Project\\src\\Core\\EndProject.Application\\EndProject.Application.csproj",
-        "packagesPath": "C:\\Users\\Legion\\.nuget\\packages\\",
-        "outputPath": "D:\\work2\\End_Project\\src\\Core\\EndProject.Application\\obj\\",
+        "projectPath": "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Core\\EndProject.Application\\EndProject.Application.csproj",
+        "packagesPath": "C:\\Users\\enelry\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Core\\EndProject.Application\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Legion\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\enelry\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -28,8 +32,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\work2\\End_Project\\src\\Core\\EndProject.Domain\\EndProject.Domain.csproj": {
-                "projectPath": "D:\\work2\\End_Project\\src\\Core\\EndProject.Domain\\EndProject.Domain.csproj"
+              "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Core\\EndProject.Domain\\EndProject.Domain.csproj": {
+                "projectPath": "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Core\\EndProject.Domain\\EndProject.Domain.csproj"
               }
             }
           }
@@ -99,21 +103,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\work2\\End_Project\\src\\Core\\EndProject.Domain\\EndProject.Domain.csproj": {
+    "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Core\\EndProject.Domain\\EndProject.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\work2\\End_Project\\src\\Core\\EndProject.Domain\\EndProject.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Core\\EndProject.Domain\\EndProject.Domain.csproj",
         "projectName": "EndProject.Domain",
-        "projectPath": "D:\\work2\\End_Project\\src\\Core\\EndProject.Domain\\EndProject.Domain.csproj",
-        "packagesPath": "C:\\Users\\Legion\\.nuget\\packages\\",
-        "outputPath": "D:\\work2\\End_Project\\src\\Core\\EndProject.Domain\\obj\\",
+        "projectPath": "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Core\\EndProject.Domain\\EndProject.Domain.csproj",
+        "packagesPath": "C:\\Users\\enelry\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Core\\EndProject.Domain\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Legion\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\enelry\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -202,21 +210,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\work2\\End_Project\\src\\Infrastructure\\EndProject.Infrastructure\\EndProject.Infrastructure.csproj": {
+    "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Infrastructure\\EndProject.Infrastructure\\EndProject.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\work2\\End_Project\\src\\Infrastructure\\EndProject.Infrastructure\\EndProject.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Infrastructure\\EndProject.Infrastructure\\EndProject.Infrastructure.csproj",
         "projectName": "EndProject.Infrastructure",
-        "projectPath": "D:\\work2\\End_Project\\src\\Infrastructure\\EndProject.Infrastructure\\EndProject.Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\Legion\\.nuget\\packages\\",
-        "outputPath": "D:\\work2\\End_Project\\src\\Infrastructure\\EndProject.Infrastructure\\obj\\",
+        "projectPath": "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Infrastructure\\EndProject.Infrastructure\\EndProject.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\enelry\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Infrastructure\\EndProject.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Legion\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\enelry\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -230,8 +242,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\work2\\End_Project\\src\\Core\\EndProject.Application\\EndProject.Application.csproj": {
-                "projectPath": "D:\\work2\\End_Project\\src\\Core\\EndProject.Application\\EndProject.Application.csproj"
+              "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Core\\EndProject.Application\\EndProject.Application.csproj": {
+                "projectPath": "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Core\\EndProject.Application\\EndProject.Application.csproj"
               }
             }
           }
@@ -321,21 +333,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\work2\\End_Project\\src\\Infrastructure\\EndProjet.Persistance\\EndProjet.Persistance.csproj": {
+    "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Infrastructure\\EndProjet.Persistance\\EndProjet.Persistance.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\work2\\End_Project\\src\\Infrastructure\\EndProjet.Persistance\\EndProjet.Persistance.csproj",
+        "projectUniqueName": "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Infrastructure\\EndProjet.Persistance\\EndProjet.Persistance.csproj",
         "projectName": "EndProjet.Persistance",
-        "projectPath": "D:\\work2\\End_Project\\src\\Infrastructure\\EndProjet.Persistance\\EndProjet.Persistance.csproj",
-        "packagesPath": "C:\\Users\\Legion\\.nuget\\packages\\",
-        "outputPath": "D:\\work2\\End_Project\\src\\Infrastructure\\EndProjet.Persistance\\obj\\",
+        "projectPath": "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Infrastructure\\EndProjet.Persistance\\EndProjet.Persistance.csproj",
+        "packagesPath": "C:\\Users\\enelry\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Infrastructure\\EndProjet.Persistance\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Legion\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\enelry\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -349,11 +365,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\work2\\End_Project\\src\\Core\\EndProject.Application\\EndProject.Application.csproj": {
-                "projectPath": "D:\\work2\\End_Project\\src\\Core\\EndProject.Application\\EndProject.Application.csproj"
+              "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Core\\EndProject.Application\\EndProject.Application.csproj": {
+                "projectPath": "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Core\\EndProject.Application\\EndProject.Application.csproj"
               },
-              "D:\\work2\\End_Project\\src\\Infrastructure\\EndProject.Infrastructure\\EndProject.Infrastructure.csproj": {
-                "projectPath": "D:\\work2\\End_Project\\src\\Infrastructure\\EndProject.Infrastructure\\EndProject.Infrastructure.csproj"
+              "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Infrastructure\\EndProject.Infrastructure\\EndProject.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Infrastructure\\EndProject.Infrastructure\\EndProject.Infrastructure.csproj"
               }
             }
           }
@@ -443,21 +459,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\EndProject.API.csproj": {
+    "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Presentation\\EndProject.API\\EndProject.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\EndProject.API.csproj",
+        "projectUniqueName": "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Presentation\\EndProject.API\\EndProject.API.csproj",
         "projectName": "EndProject.API",
-        "projectPath": "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\EndProject.API.csproj",
-        "packagesPath": "C:\\Users\\Legion\\.nuget\\packages\\",
-        "outputPath": "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\obj\\",
+        "projectPath": "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Presentation\\EndProject.API\\EndProject.API.csproj",
+        "packagesPath": "C:\\Users\\enelry\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Presentation\\EndProject.API\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Legion\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\enelry\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -465,14 +485,15 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\sdk\\7.0.302\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\work2\\End_Project\\src\\Infrastructure\\EndProjet.Persistance\\EndProjet.Persistance.csproj": {
-                "projectPath": "D:\\work2\\End_Project\\src\\Infrastructure\\EndProjet.Persistance\\EndProjet.Persistance.csproj"
+              "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Infrastructure\\EndProjet.Persistance\\EndProjet.Persistance.csproj": {
+                "projectPath": "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Infrastructure\\EndProjet.Persistance\\EndProjet.Persistance.csproj"
               }
             }
           }
@@ -557,7 +578,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     }

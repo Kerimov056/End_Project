@@ -6068,19 +6068,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Legion\\.nuget\\packages\\": {}
+    "C:\\Users\\enelry\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\EndProject.API.csproj",
+      "projectUniqueName": "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Presentation\\EndProject.API\\EndProject.API.csproj",
       "projectName": "EndProject.API",
-      "projectPath": "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\EndProject.API.csproj",
-      "packagesPath": "C:\\Users\\Legion\\.nuget\\packages\\",
-      "outputPath": "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\obj\\",
+      "projectPath": "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Presentation\\EndProject.API\\EndProject.API.csproj",
+      "packagesPath": "C:\\Users\\enelry\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Presentation\\EndProject.API\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Legion\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\enelry\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6088,14 +6093,15 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\sdk\\7.0.302\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\work2\\End_Project\\src\\Infrastructure\\EndProjet.Persistance\\EndProjet.Persistance.csproj": {
-              "projectPath": "D:\\work2\\End_Project\\src\\Infrastructure\\EndProjet.Persistance\\EndProjet.Persistance.csproj"
+            "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Infrastructure\\EndProjet.Persistance\\EndProjet.Persistance.csproj": {
+              "projectPath": "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Infrastructure\\EndProjet.Persistance\\EndProjet.Persistance.csproj"
             }
           }
         }
@@ -6180,7 +6186,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
       }
     }
   }

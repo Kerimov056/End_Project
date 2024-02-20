@@ -1,35 +1,35 @@
 {
   "Files": [
     {
-      "Id": "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\wwwroot\\templates\\Campaigns.html",
+      "Id": "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Presentation\\EndProject.API\\wwwroot\\templates\\Campaigns.html",
       "PackagePath": "staticwebassets\\templates\\Campaigns.html"
     },
     {
-      "Id": "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\wwwroot\\templates\\Cancel.html",
+      "Id": "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Presentation\\EndProject.API\\wwwroot\\templates\\Cancel.html",
       "PackagePath": "staticwebassets\\templates\\Cancel.html"
     },
     {
-      "Id": "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\wwwroot\\templates\\HappyBirthday.html",
+      "Id": "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Presentation\\EndProject.API\\wwwroot\\templates\\HappyBirthday.html",
       "PackagePath": "staticwebassets\\templates\\HappyBirthday.html"
     },
     {
-      "Id": "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\wwwroot\\templates\\TripAddUser.html",
+      "Id": "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Presentation\\EndProject.API\\wwwroot\\templates\\TripAddUser.html",
       "PackagePath": "staticwebassets\\templates\\TripAddUser.html"
     },
     {
-      "Id": "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\wwwroot\\templates\\UserEmailMessage.html",
+      "Id": "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Presentation\\EndProject.API\\wwwroot\\templates\\UserEmailMessage.html",
       "PackagePath": "staticwebassets\\templates\\UserEmailMessage.html"
     },
     {
-      "Id": "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\wwwroot\\templates\\confirm.html",
+      "Id": "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Presentation\\EndProject.API\\wwwroot\\templates\\confirm.html",
       "PackagePath": "staticwebassets\\templates\\confirm.html"
     },
     {
-      "Id": "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\wwwroot\\templates\\newReservation.html",
+      "Id": "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Presentation\\EndProject.API\\wwwroot\\templates\\newReservation.html",
       "PackagePath": "staticwebassets\\templates\\newReservation.html"
     },
     {
-      "Id": "D:\\work2\\End_Project\\src\\Presentation\\EndProject.API\\wwwroot\\templates\\verify.html",
+      "Id": "C:\\Users\\enelry\\Desktop\\End_Project\\src\\Presentation\\EndProject.API\\wwwroot\\templates\\verify.html",
       "PackagePath": "staticwebassets\\templates\\verify.html"
     },
     {
